@@ -74,15 +74,15 @@
 
         /* Navigation */
         .navbar {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95); /* Slightly less transparent to prevent content bleed */
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             position: fixed;
             width: 100%;
             top: 0;
-            z-index: 100;
+            z-index: 1000; /* Increased Z-index to ensure it sits on top */
             border-bottom: 1px solid rgba(0,0,0,0.05);
-            height: 70px;
+            height: 80px; /* Taller nav to fit bigger logo */
             display: flex;
             align-items: center;
         }
@@ -94,40 +94,42 @@
             width: 100%;
         }
 
-        /* LOGO HYBRID STYLING (Icon + Text) */
+        /* LOGO STYLING (Bigger Size) */
         .logo-wrapper {
             display: flex;
             align-items: center;
-            gap: 12px; /* Space between CR Icon and Text */
+            gap: 15px; 
             text-decoration: none;
+            height: 100%;
         }
 
-        /* The Image Icon (CR) */
+        /* The Image Icon (CR) - INCREASED SIZE */
         .logo-icon {
-            height: 42px; /* Nice substantial size */
+            height: 55px; /* Increased from 42px */
             width: auto;
             object-fit: contain;
+            display: block; /* Fixes image rendering quirks */
         }
 
         /* The HTML Text */
         .logo-text-span {
             font-family: var(--font-stack);
-            font-size: 1.5rem; /* Large and legible */
+            font-size: 1.7rem; /* Increased from 1.5rem to match icon */
             color: var(--text-main);
-            letter-spacing: -0.03em; /* Tight "Apple" tracking */
+            letter-spacing: -0.03em;
             line-height: 1;
         }
 
         .logo-text-span strong {
-            font-weight: 700; /* Bold "Carolina" */
+            font-weight: 700;
         }
         
         .logo-text-span span {
-            font-weight: 400; /* Regular "Redesign" */
+            font-weight: 400;
         }
 
         .brand-dot {
-            color: var(--accent); /* Blue Period */
+            color: var(--accent);
             font-weight: 700;
         }
 
@@ -140,7 +142,7 @@
 
         .nav-links a {
             color: var(--text-light);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 500;
         }
 
@@ -151,9 +153,9 @@
         .btn-nav {
             background-color: var(--text-main);
             color: white !important;
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-size: 0.8rem !important;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.85rem !important;
         }
 
         .btn-nav:hover {
@@ -163,12 +165,13 @@
 
         /* Hero Section */
         .hero {
-            height: 90vh;
+            min-height: 90vh; /* Changed from height to min-height to prevent cutoff */
             display: flex;
             align-items: center;
             text-align: center;
             background-color: var(--bg-color);
-            padding-top: 60px;
+            padding-top: 100px; /* Extra padding for taller nav */
+            padding-bottom: 50px;
         }
 
         .hero-content {
@@ -236,6 +239,10 @@
             padding: 100px 0;
             background-color: var(--bg-secondary);
             text-align: center;
+            /* Ensure this section is visible */
+            display: block; 
+            position: relative;
+            z-index: 10;
         }
 
         .section-title {
@@ -285,6 +292,9 @@
         /* Services Section */
         .services {
             padding: 100px 0;
+            background-color: white;
+            position: relative;
+            z-index: 10;
         }
 
         .service-row {
@@ -339,6 +349,8 @@
             padding: 100px 0 50px 0;
             text-align: center;
             background-color: var(--bg-secondary);
+            position: relative;
+            z-index: 10;
         }
 
         .contact-form {
@@ -398,11 +410,11 @@
                 margin-bottom: 60px;
             }
             
-            .hero { height: auto; padding: 150px 0 100px 0; }
+            .hero { min-height: 80vh; padding: 150px 0 100px 0; }
             
             /* Mobile Logo Adjustments */
-            .logo-icon { height: 35px; }
-            .logo-text-span { font-size: 1.2rem; }
+            .logo-icon { height: 40px; }
+            .logo-text-span { font-size: 1.3rem; }
         }
     </style>
 </head>
@@ -411,7 +423,7 @@
     <nav class="navbar">
         <div class="container nav-flex">
             <a href="#" class="logo-wrapper">
-                <img src="cr-logo.png" alt="CR Icon" class="logo-icon">
+                <img src="cr-logo.png" alt="Carolina Redesign Logo" class="logo-icon">
                 
                 <div class="logo-text-span">
                     <strong>Carolina</strong><span>Redesign</span><span class="brand-dot">.</span>
