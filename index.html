@@ -39,6 +39,7 @@
             color: var(--text-main);
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
         /* Typography Utilities */
@@ -72,7 +73,7 @@
             padding: 0 20px;
         }
 
-        /* Navigation */
+        /* --- NAVIGATION --- */
         .navbar {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
@@ -82,7 +83,7 @@
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid rgba(0,0,0,0.05);
-            height: 90px; /* Taller height for bigger logo */
+            height: 90px;
             display: flex;
             align-items: center;
         }
@@ -94,45 +95,36 @@
             width: 100%;
         }
 
-        /* LOGO WRAPPER */
+        /* Logo Wrapper */
         .logo-wrapper {
             display: flex;
             align-items: center;
             gap: 16px; 
             text-decoration: none;
             height: 100%;
+            z-index: 1001; /* Keeps logo above mobile menu */
         }
 
-        /* The Image Icon (Points to your file) */
         .logo-icon {
-            height: 55px; /* Increased size (approx 20% bigger) */
+            height: 55px;
             width: auto;
             object-fit: contain;
             display: block;
         }
 
-        /* The HTML Text */
         .logo-text-span {
             font-family: var(--font-stack);
-            font-size: 1.7rem; /* Increased size to match icon */
+            font-size: 1.7rem;
             color: var(--text-main);
             letter-spacing: -0.03em;
             line-height: 1;
         }
 
-        .logo-text-span strong {
-            font-weight: 700;
-        }
-        
-        .logo-text-span span {
-            font-weight: 400;
-        }
+        .logo-text-span strong { font-weight: 700; }
+        .logo-text-span span { font-weight: 400; }
+        .brand-dot { color: var(--accent); font-weight: 700; }
 
-        .brand-dot {
-            color: var(--accent);
-            font-weight: 700;
-        }
-
+        /* Desktop Nav Links */
         .nav-links {
             list-style: none;
             display: flex;
@@ -150,12 +142,14 @@
             color: var(--accent);
         }
 
+        /* The Button */
         .btn-nav {
             background-color: var(--text-main);
             color: white !important;
             padding: 10px 22px;
             border-radius: 25px;
             font-size: 0.9rem !important;
+            white-space: nowrap; /* Prevents button from squishing */
         }
 
         .btn-nav:hover {
@@ -163,14 +157,33 @@
             transform: scale(1.02);
         }
 
-        /* Hero Section */
+        /* Hamburger Icon (Hidden on Desktop) */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+            background: none;
+            border: none;
+            padding: 10px;
+        }
+
+        .bar {
+            width: 25px;
+            height: 2px;
+            background-color: var(--text-main);
+            transition: all 0.3s ease;
+        }
+
+        /* --- HERO SECTION --- */
         .hero {
             min-height: 90vh;
             display: flex;
             align-items: center;
             text-align: center;
             background-color: var(--bg-color);
-            padding-top: 120px; /* Adjusted padding for taller nav */
+            padding-top: 120px;
             padding-bottom: 80px;
         }
 
@@ -202,6 +215,7 @@
             cursor: pointer;
             font-size: 1rem;
             transition: background-color 0.3s ease;
+            white-space: nowrap;
         }
 
         .btn-primary:hover {
@@ -213,9 +227,7 @@
             font-weight: 500;
         }
 
-        .link-secondary:hover {
-            text-decoration: underline;
-        }
+        .link-secondary:hover { text-decoration: underline; }
 
         /* Animations */
         .fade-in {
@@ -223,18 +235,14 @@
             transform: translateY(20px);
             animation: fadeInUp 0.8s forwards;
         }
-
         .delay-1 { animation-delay: 0.2s; }
         .delay-2 { animation-delay: 0.4s; }
 
         @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Performance Section */
+        /* --- SECTIONS --- */
         .performance {
             padding: 100px 0;
             background-color: var(--bg-secondary);
@@ -260,15 +268,13 @@
             gap: 40px;
         }
 
-        .score-card {
-            padding: 20px;
-        }
+        .score-card { padding: 20px; }
 
         .circle {
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            border: 4px solid #0cce6b; /* Green for success */
+            border: 4px solid #0cce6b;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -286,7 +292,6 @@
             color: var(--text-main);
         }
 
-        /* Services Section */
         .services {
             padding: 100px 0;
             background: white;
@@ -299,21 +304,11 @@
             margin-bottom: 100px;
         }
 
-        .service-row.reverse {
-            flex-direction: row-reverse;
-        }
+        .service-row.reverse { flex-direction: row-reverse; }
 
-        .service-text {
-            flex: 1;
-        }
-
-        .service-text h2 {
-            margin-bottom: 20px;
-        }
-
-        .service-visual {
-            flex: 1;
-        }
+        .service-text { flex: 1; }
+        .service-text h2 { margin-bottom: 20px; }
+        .service-visual { flex: 1; }
 
         .visual-box {
             background-color: var(--bg-secondary);
@@ -364,9 +359,7 @@
             width: 100%;
         }
 
-        input:focus {
-            border-color: var(--accent);
-        }
+        input:focus { border-color: var(--accent); }
 
         footer {
             margin-top: 80px;
@@ -376,24 +369,59 @@
             color: var(--text-light);
         }
         
-        /* Footer Brand Styling */
-        .brand-name-footer {
-            font-weight: 700;
-            color: var(--text-main);
-        }
-        .brand-name-footer span {
-            font-weight: 400;
-        }
+        .brand-name-footer { font-weight: 700; color: var(--text-main); }
+        .brand-name-footer span { font-weight: 400; }
 
-        /* Mobile Responsive */
+        /* --- MOBILE RESPONSIVE (THE FIX) --- */
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
             h2 { font-size: 2rem; }
             
             .container { padding: 0 25px; }
+            
+            /* Show Hamburger */
+            .menu-toggle { display: flex; }
 
-            .nav-links li:not(:last-child) {
-                display: none; 
+            /* Mobile Menu Styling */
+            .nav-links {
+                position: fixed;
+                top: 90px; /* Below the navbar */
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 40px 20px;
+                border-bottom: 1px solid rgba(0,0,0,0.05);
+                transform: translateY(-150%); /* Hidden by default */
+                transition: transform 0.3s ease-in-out;
+                z-index: 999;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            }
+
+            /* When Menu is Active */
+            .nav-links.active {
+                transform: translateY(0); /* Slide down */
+            }
+
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+
+            /* Make links bigger on mobile for tapping */
+            .nav-links a {
+                display: block;
+                font-size: 1.2rem;
+                padding: 15px 0;
+            }
+
+            /* Mobile "Start Project" Button - Full Width */
+            .btn-nav {
+                width: 100%;
+                display: block;
+                margin-top: 10px;
+                padding: 15px 0;
+                border-radius: 12px; /* Slight adjustment for block style */
             }
             
             .service-row, .service-row.reverse {
@@ -417,15 +445,21 @@
         <div class="container nav-flex">
             <a href="#" class="logo-wrapper">
                 <img src="cr-logo.png" alt="Carolina Redesign Logo" class="logo-icon">
-                
                 <div class="logo-text-span">
                     <strong>Carolina</strong><span>Redesign</span><span class="brand-dot">.</span>
                 </div>
             </a>
-            <ul class="nav-links">
-                <li><a href="#philosophy">Philosophy</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#contact" class="btn-nav">Start Project</a></li>
+
+            <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </button>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#philosophy" onclick="toggleMenu()">Philosophy</a></li>
+                <li><a href="#services" onclick="toggleMenu()">Services</a></li>
+                <li><a href="#contact" class="btn-nav" onclick="toggleMenu()">Start Project</a></li>
             </ul>
         </div>
     </nav>
@@ -445,7 +479,6 @@
         <div class="container">
             <h2 class="section-title">Performance is our design language.</h2>
             <p class="section-desc">We don't just build pretty sites. We build sites that rank.</p>
-            
             <div class="score-grid">
                 <div class="score-card">
                     <div class="circle">100</div>
@@ -510,6 +543,15 @@
             <p>&copy; 2024 <span class="brand-name-footer">Carolina<span>Redesign</span><span class="brand-dot">.</span></span> Crafted in the Carolinas.</p>
         </footer>
     </section>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMenu);
+    </script>
 
 </body>
 </html>
