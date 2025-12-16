@@ -71,7 +71,7 @@
 
         /* Navigation */
         .navbar {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             position: fixed;
@@ -79,7 +79,7 @@
             top: 0;
             z-index: 100;
             border-bottom: 1px solid rgba(0,0,0,0.05);
-            height: 60px;
+            height: 70px; /* Slightly taller to accommodate logo */
             display: flex;
             align-items: center;
         }
@@ -91,11 +91,24 @@
             width: 100%;
         }
 
-        .logo {
-            font-weight: 600;
+        /* The Logo Styling */
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             color: var(--text-main);
+            font-weight: 600;
             font-size: 1.1rem;
         }
+
+        .logo-svg {
+            height: 32px;
+            width: auto;
+        }
+
+        /* Logo letters interaction */
+        .cr-letter { fill: var(--text-main); }
+        .cr-arrow { fill: var(--accent); }
 
         .nav-links {
             list-style: none;
@@ -107,6 +120,7 @@
         .nav-links a {
             color: var(--text-light);
             font-size: 0.9rem;
+            font-weight: 500;
         }
 
         .nav-links a:hover {
@@ -116,7 +130,7 @@
         .btn-nav {
             background-color: var(--text-main);
             color: white !important;
-            padding: 6px 14px;
+            padding: 8px 18px;
             border-radius: 20px;
             font-size: 0.8rem !important;
         }
@@ -133,7 +147,7 @@
             align-items: center;
             text-align: center;
             background-color: var(--bg-color);
-            padding-top: 60px; /* Offset for fixed nav */
+            padding-top: 60px;
         }
 
         .hero-content {
@@ -285,6 +299,19 @@
             color: var(--text-light);
             font-weight: 500;
             border: 1px solid #eee;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Subtle arrow decoration for visuals */
+        .visual-box::after {
+            content: "→";
+            font-size: 4rem;
+            color: rgba(0,0,0,0.05);
+            position: absolute;
+            bottom: -10px;
+            right: 20px;
+            transform: rotate(-45deg);
         }
 
         /* Contact Section */
@@ -332,7 +359,7 @@
             .container { padding: 0 25px; }
 
             .nav-links li:not(:last-child) {
-                display: none; /* Hides menu links on mobile for simplicity */
+                display: none; 
             }
             
             .service-row, .service-row.reverse {
@@ -350,7 +377,14 @@
 
     <nav class="navbar">
         <div class="container nav-flex">
-            <a href="#" class="logo">Carolina Redesign</a>
+            <a href="#" class="logo-wrapper">
+                <svg class="logo-svg" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg" aria-label="Carolina Redesign Logo">
+                    <path class="cr-letter" d="M 30,10 A 15,15 0 1,0 30,40" fill="none" stroke="#1d1d1f" stroke-width="8" stroke-linecap="round" />
+                    <path class="cr-arrow" d="M 25,25 L 55,25 L 45,18 M 55,25 L 45,32" fill="none" stroke="#0071e3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="cr-letter" d="M 65,15 V 35 M 65,15 A 8,8 0 0,1 75,25 L 85,35 M 65,25 H 75" fill="none" stroke="#1d1d1f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>Carolina Redesign</span>
+            </a>
             <ul class="nav-links">
                 <li><a href="#philosophy">Philosophy</a></li>
                 <li><a href="#services">Services</a></li>
