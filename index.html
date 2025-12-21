@@ -312,29 +312,52 @@
         .service-text h2 { margin-bottom: 20px; }
         .service-visual { flex: 1; }
 
-        .visual-box {
-            background-color: var(--bg-secondary);
-            height: 300px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-light);
-            font-weight: 500;
-            border: 1px solid #eee;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .visual-box::after {
-            content: "→";
-            font-size: 4rem;
-            color: rgba(0,0,0,0.05);
-            position: absolute;
-            bottom: -10px;
-            right: 20px;
-            transform: rotate(-45deg);
-        }
+        /* --- OPTION 1: MIXED STYLE --- */
+.visual-box {
+    height: 300px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600; 
+    position: relative;
+    overflow: hidden;
+    font-size: 1.2rem;
+}
+
+/* Box 1: Blue Background / White Text */
+.service-row:not(.reverse) .visual-box {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+}
+/* White Arrow for Blue Box */
+.service-row:not(.reverse) .visual-box::after {
+    content: "→";
+    font-size: 4rem;
+    color: rgba(255,255,255, 0.2);
+    position: absolute;
+    bottom: -10px;
+    right: 20px;
+    transform: rotate(-45deg);
+}
+
+/* Box 2: White Background / Blue Text */
+.service-row.reverse .visual-box {
+    background-color: white;
+    color: var(--accent);
+    border: 2px solid var(--accent); 
+}
+/* Blue Arrow for White Box */
+.service-row.reverse .visual-box::after {
+    content: "→";
+    font-size: 4rem;
+    color: rgba(0, 113, 227, 0.1); 
+    position: absolute;
+    bottom: -10px;
+    right: 20px;
+    transform: rotate(-45deg);
+}
 
         /* Contact Section */
         .contact {
