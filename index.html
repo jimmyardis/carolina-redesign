@@ -39,7 +39,7 @@
             color: var(--text-main);
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-x: hidden;
         }
 
         /* Typography Utilities */
@@ -102,7 +102,7 @@
             gap: 16px; 
             text-decoration: none;
             height: 100%;
-            z-index: 1001; /* Keeps logo above mobile menu */
+            z-index: 1001; 
         }
 
         .logo-icon {
@@ -122,9 +122,12 @@
 
         .logo-text-span strong { font-weight: 700; }
         .logo-text-span span { font-weight: 400; }
-        .brand-dot {color: var(--accent);
-    font-weight: 700;
-    font-size: 1.4em; /* 1.4x bigger than the text next to it */ }
+        
+        /* The main logo dot */
+        .brand-dot { 
+            color: var(--accent); 
+            font-weight: 700; 
+        }
 
         /* Desktop Nav Links */
         .nav-links {
@@ -144,22 +147,24 @@
             color: var(--accent);
         }
 
-        /* The Button */
+        /* THE NAV BUTTON (Updated to Blue) */
         .btn-nav {
-            background-color: var(--text-main);
+            background-color: var(--accent); /* CHANGED TO BLUE */
             color: white !important;
             padding: 10px 22px;
             border-radius: 25px;
             font-size: 0.9rem !important;
-            white-space: nowrap; /* Prevents button from squishing */
+            white-space: nowrap; 
+            transition: all 0.3s ease;
         }
 
         .btn-nav:hover {
-            background-color: #333;
+            background-color: var(--accent-hover); /* Darker blue on hover */
             transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3); /* Subtle blue glow */
         }
 
-        /* Hamburger Icon (Hidden on Desktop) */
+        /* Hamburger Icon */
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -249,7 +254,7 @@
             padding: 100px 0;
             background-color: var(--bg-secondary);
             text-align: center;
-            display: block; /* Ensures visibility */
+            display: block; 
         }
 
         .section-title {
@@ -312,33 +317,32 @@
         .service-text h2 { margin-bottom: 20px; }
         .service-visual { flex: 1; }
 
-     /* --- OPTION 2: ALL BLUE --- */
-.visual-box {
-    background-color: var(--accent); /* Carolina Blue Background */
-    height: 300px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white; /* White Text */
-    font-weight: 600;
-    border: none;
-    position: relative;
-    overflow: hidden;
-    font-size: 1.2rem;
-    box-shadow: 0 10px 30px rgba(0, 113, 227, 0.15); /* Soft blue glow */
-}
+        /* VISUAL BOXES: OPTION 2 (ALL BLUE) */
+        .visual-box {
+            background-color: var(--accent); /* Carolina Blue */
+            height: 300px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white; /* White Text */
+            font-weight: 600;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            font-size: 1.2rem;
+            box-shadow: 0 10px 30px rgba(0, 113, 227, 0.15); /* Soft blue glow */
+        }
 
-/* Semi-transparent white arrow decoration */
-.visual-box::after {
-    content: "→";
-    font-size: 4rem;
-    color: rgba(255,255,255, 0.2);
-    position: absolute;
-    bottom: -10px;
-    right: 20px;
-    transform: rotate(-45deg);
-}
+        .visual-box::after {
+            content: "→";
+            font-size: 4rem;
+            color: rgba(255,255,255, 0.2);
+            position: absolute;
+            bottom: -10px;
+            right: 20px;
+            transform: rotate(-45deg);
+        }
 
         /* Contact Section */
         .contact {
@@ -378,56 +382,48 @@
         .brand-name-footer { font-weight: 700; color: var(--text-main); }
         .brand-name-footer span { font-weight: 400; }
 
-        /* --- MOBILE RESPONSIVE (THE FIX) --- */
+        /* --- MOBILE RESPONSIVE --- */
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
             h2 { font-size: 2rem; }
             
             .container { padding: 0 25px; }
             
-            /* Show Hamburger */
             .menu-toggle { display: flex; }
 
-            /* Mobile Menu Styling */
             .nav-links {
                 position: fixed;
-                top: 90px; /* Below the navbar */
+                top: 90px;
                 left: 0;
                 width: 100%;
                 background-color: white;
                 flex-direction: column;
                 padding: 40px 20px;
                 border-bottom: 1px solid rgba(0,0,0,0.05);
-                transform: translateY(-150%); /* Hidden by default */
+                transform: translateY(-150%);
                 transition: transform 0.3s ease-in-out;
                 z-index: 999;
                 box-shadow: 0 10px 20px rgba(0,0,0,0.05);
             }
 
-            /* When Menu is Active */
             .nav-links.active {
-                transform: translateY(0); /* Slide down */
+                transform: translateY(0);
             }
 
-            .nav-links li {
-                width: 100%;
-                text-align: center;
-            }
+            .nav-links li { width: 100%; text-align: center; }
 
-            /* Make links bigger on mobile for tapping */
             .nav-links a {
                 display: block;
                 font-size: 1.2rem;
                 padding: 15px 0;
             }
 
-            /* Mobile "Start Project" Button - Full Width */
             .btn-nav {
                 width: 100%;
                 display: block;
                 margin-top: 10px;
                 padding: 15px 0;
-                border-radius: 12px; /* Slight adjustment for block style */
+                border-radius: 12px;
             }
             
             .service-row, .service-row.reverse {
@@ -439,7 +435,6 @@
             
             .hero { min-height: 80vh; padding: 150px 0 100px 0; }
             
-            /* Mobile Logo Adjustments */
             .logo-icon { height: 40px; }
             .logo-text-span { font-size: 1.3rem; }
         }
@@ -472,7 +467,8 @@
 
     <section class="hero">
         <div class="container hero-content">
-            <h1 class="fade-in">Your digital presence.<br>Reimagined<span class="brand-dot" style="font-size: 0.86em;">.</span></h1>
+            <h1 class="fade-in">Your digital presence.<br>Reimagined<span class="brand-dot" style="font-size: 0.6em; vertical-align: 0.15em;">.</span></h1>
+            
             <p class="subhead fade-in delay-1">We turn outdated websites into high-performance experiences. Sleek, fast, and optimized for the modern web.</p>
             <div class="cta-wrapper fade-in delay-2">
                 <a href="#contact" class="btn-primary">Request an Audit</a>
@@ -533,7 +529,7 @@
             </div>
         </div>
     </section>
-        
+
     <section class="contact" id="contact">
         <div class="container">
             <h2>Ready for the upgrade?</h2>
@@ -555,7 +551,6 @@
             const navLinks = document.getElementById('nav-links');
             navLinks.classList.toggle('active');
         }
-
         document.getElementById('mobile-menu-btn').addEventListener('click', toggleMenu);
     </script>
 
