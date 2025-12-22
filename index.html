@@ -544,8 +544,16 @@
             <form class="contact-form" action="https://formspree.io/f/xjgbaddv" method="POST">
                 
                 <input type="text" name="name" placeholder="Name" aria-label="Name" required>
+                
                 <input type="email" name="email" placeholder="Email Address" aria-label="Email" required>
-                <input type="url" name="website" placeholder="Current Website URL (Optional)" aria-label="Website URL">
+                
+                <textarea 
+                    name="message" 
+                    placeholder="Tell me about your project... (Current website URL, goals, timeline, etc.)" 
+                    aria-label="Message" 
+                    rows="4"
+                    style="padding: 15px; border-radius: 12px; border: 1px solid #d2d2d7; background: white; font-size: 1rem; width: 100%; outline: none; font-family: inherit; resize: vertical;"
+                ></textarea>
                 
                 <button type="submit" class="btn-primary">Submit Inquiry</button>
             </form>
