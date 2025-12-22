@@ -147,9 +147,9 @@
             color: var(--accent);
         }
 
-        /* THE NAV BUTTON (Updated to Blue) */
+        /* THE NAV BUTTON (Blue Mode) */
         .btn-nav {
-            background-color: var(--accent); /* CHANGED TO BLUE */
+            background-color: var(--accent);
             color: white !important;
             padding: 10px 22px;
             border-radius: 25px;
@@ -159,9 +159,9 @@
         }
 
         .btn-nav:hover {
-            background-color: var(--accent-hover); /* Darker blue on hover */
+            background-color: var(--accent-hover);
             transform: scale(1.02);
-            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3); /* Subtle blue glow */
+            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
         }
 
         /* Hamburger Icon */
@@ -317,7 +317,7 @@
         .service-text h2 { margin-bottom: 20px; }
         .service-visual { flex: 1; }
 
-        /* VISUAL BOXES: OPTION 2 (ALL BLUE) */
+        /* VISUAL BOXES: ALL BLUE */
         .visual-box {
             background-color: var(--accent); /* Carolina Blue */
             height: 300px;
@@ -534,10 +534,19 @@
         <div class="container">
             <h2>Ready for the upgrade?</h2>
             <p>Let's discuss how we can bring your site into the modern era.</p>
-            <form class="contact-form">
-                <input type="text" placeholder="Name" aria-label="Name" required>
-                <input type="email" placeholder="Email Address" aria-label="Email" required>
-                <input type="url" placeholder="Current Website URL (Optional)" aria-label="Website URL">
+            
+            <div style="margin: 20px 0;">
+                <a href="tel:+18033027674" style="font-size: 1.2rem; font-weight: 600; color: var(--accent); text-decoration: none;">
+                    📞 (803) 302-7674
+                </a>
+            </div>
+
+            <form class="contact-form" action="https://formspree.io/f/xjgbaddv" method="POST">
+                
+                <input type="text" name="name" placeholder="Name" aria-label="Name" required>
+                <input type="email" name="email" placeholder="Email Address" aria-label="Email" required>
+                <input type="url" name="website" placeholder="Current Website URL (Optional)" aria-label="Website URL">
+                
                 <button type="submit" class="btn-primary">Submit Inquiry</button>
             </form>
         </div>
