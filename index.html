@@ -3,438 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CarolinaRedesign. - Modern, high-performance website redesigns. We build fast, accessible, and SEO-optimized sites.">
-    <title>CarolinaRedesign. | Modern Web Solutions</title>
+    <meta name="description" content="CarolinaRedesign. - We build intelligent websites and AI automation systems for small businesses.">
+    <title>CarolinaRedesign. | AI Automation & Web</title>
     
     <link rel="icon" type="image/png" href="cr-logo.png">
     <link rel="apple-touch-icon" href="cr-logo.png">
     
     <style>
-        /* --- CSS STYLES START HERE --- */
-        
-        /* Reset & Variables */
+        /* --- CSS STYLES (Unchanged from "Blue Mode") --- */
         :root {
             --bg-color: #ffffff;
             --bg-secondary: #f5f5f7;
             --text-main: #1d1d1f;
             --text-light: #86868b;
-            --accent: #0071e3; /* "Carolina" Blue */
+            --accent: #0071e3; 
             --accent-hover: #0077ed;
             --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-stack); background-color: var(--bg-color); color: var(--text-main); line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        
+        /* Typography */
+        h1 { font-size: 3.5rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 1rem; }
+        h2 { font-size: 2.5rem; font-weight: 600; letter-spacing: -0.01em; }
+        p { font-size: 1.1rem; color: var(--text-light); }
+        a { text-decoration: none; transition: all 0.3s ease; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-stack);
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-        }
-
-        /* Typography Utilities */
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-        }
-
-        h2 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-        }
-
-        p {
-            font-size: 1.1rem;
-            color: var(--text-light);
-        }
-
-        a {
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* --- NAVIGATION --- */
-        .navbar {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            height: 90px;
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-
-        /* Logo Wrapper */
-        .logo-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 16px; 
-            text-decoration: none;
-            height: 100%;
-            z-index: 1001; 
-        }
-
-        .logo-icon {
-            height: 55px;
-            width: auto;
-            object-fit: contain;
-            display: block;
-        }
-
-        .logo-text-span {
-            font-family: var(--font-stack);
-            font-size: 1.7rem;
-            color: var(--text-main);
-            letter-spacing: -0.03em;
-            line-height: 1;
-        }
-
+        /* Nav */
+        .navbar { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); height: 90px; display: flex; align-items: center; }
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .logo-wrapper { display: flex; align-items: center; gap: 16px; text-decoration: none; height: 100%; z-index: 1001; }
+        .logo-icon { height: 55px; width: auto; object-fit: contain; display: block; }
+        .logo-text-span { font-family: var(--font-stack); font-size: 1.7rem; color: var(--text-main); letter-spacing: -0.03em; line-height: 1; }
         .logo-text-span strong { font-weight: 700; }
         .logo-text-span span { font-weight: 400; }
+        .brand-dot { color: var(--accent); font-weight: 700; }
+        .nav-links { list-style: none; display: flex; gap: 30px; align-items: center; }
+        .nav-links a { color: var(--text-light); font-size: 0.95rem; font-weight: 500; }
+        .nav-links a:hover { color: var(--accent); }
+        .btn-nav { background-color: var(--accent); color: white !important; padding: 10px 22px; border-radius: 25px; font-size: 0.9rem !important; white-space: nowrap; transition: all 0.3s ease; }
+        .btn-nav:hover { background-color: var(--accent-hover); transform: scale(1.02); box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3); }
         
-        /* The main logo dot */
-        .brand-dot { 
-            color: var(--accent); 
-            font-weight: 700; 
-        }
+        /* Mobile Menu */
+        .menu-toggle { display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1001; background: none; border: none; padding: 10px; }
+        .bar { width: 25px; height: 2px; background-color: var(--text-main); transition: all 0.3s ease; }
 
-        /* Desktop Nav Links */
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--text-light);
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        /* THE NAV BUTTON (Blue Mode) */
-        .btn-nav {
-            background-color: var(--accent);
-            color: white !important;
-            padding: 10px 22px;
-            border-radius: 25px;
-            font-size: 0.9rem !important;
-            white-space: nowrap; 
-            transition: all 0.3s ease;
-        }
-
-        .btn-nav:hover {
-            background-color: var(--accent-hover);
-            transform: scale(1.02);
-            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
-        }
-
-        /* Hamburger Icon */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 6px;
-            cursor: pointer;
-            z-index: 1001;
-            background: none;
-            border: none;
-            padding: 10px;
-        }
-
-        .bar {
-            width: 25px;
-            height: 2px;
-            background-color: var(--text-main);
-            transition: all 0.3s ease;
-        }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            background-color: var(--bg-color);
-            padding-top: 120px;
-            padding-bottom: 80px;
-        }
-
-        .hero-content {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .subhead {
-            font-size: 1.4rem;
-            margin-bottom: 2.5rem;
-            font-weight: 400;
-        }
-
-        .cta-wrapper {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .btn-primary {
-            background-color: var(--accent);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-weight: 500;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s ease;
-            white-space: nowrap;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--accent-hover);
-        }
-
-        .link-secondary {
-            color: var(--accent);
-            font-weight: 500;
-        }
-
+        /* Hero */
+        .hero { min-height: 90vh; display: flex; align-items: center; text-align: center; background-color: var(--bg-color); padding-top: 120px; padding-bottom: 80px; }
+        .hero-content { max-width: 800px; margin: 0 auto; } /* Widened for new text */
+        .subhead { font-size: 1.4rem; margin-bottom: 2.5rem; font-weight: 400; }
+        .cta-wrapper { display: flex; gap: 20px; justify-content: center; align-items: center; }
+        .btn-primary { background-color: var(--accent); color: white; padding: 12px 24px; border-radius: 30px; font-weight: 500; border: none; cursor: pointer; font-size: 1rem; transition: background-color 0.3s ease; white-space: nowrap; }
+        .btn-primary:hover { background-color: var(--accent-hover); }
+        .link-secondary { color: var(--accent); font-weight: 500; }
         .link-secondary:hover { text-decoration: underline; }
-
+        
         /* Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s forwards;
-        }
+        .fade-in { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s forwards; }
         .delay-1 { animation-delay: 0.2s; }
         .delay-2 { animation-delay: 0.4s; }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- SECTIONS --- */
-        .performance {
-            padding: 100px 0;
-            background-color: var(--bg-secondary);
-            text-align: center;
-            display: block; 
-        }
-
-        .section-title {
-            margin-bottom: 10px;
-            color: var(--text-main);
-        }
-
-        .section-desc {
-            margin-bottom: 60px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .score-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-        }
-
+        /* Performance Section */
+        .performance { padding: 100px 0; background-color: var(--bg-secondary); text-align: center; display: block; }
+        .section-title { margin-bottom: 10px; color: var(--text-main); }
+        .section-desc { margin-bottom: 60px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .score-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
         .score-card { padding: 20px; }
+        .circle { width: 100px; height: 100px; border-radius: 50%; border: 4px solid #0cce6b; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; font-size: 2rem; font-weight: 700; color: #0cce6b; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .score-card h3 { font-size: 1.2rem; margin-bottom: 5px; color: var(--text-main); }
 
-        .circle {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 4px solid #0cce6b;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px auto;
-            font-size: 2rem;
-            font-weight: 700;
-            color: #0cce6b;
-            background: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-
-        .score-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-            color: var(--text-main);
-        }
-
-        .services {
-            padding: 100px 0;
-            background: white;
-        }
-
-        .service-row {
-            display: flex;
-            align-items: center;
-            gap: 80px;
-            margin-bottom: 100px;
-        }
-
+        /* Services */
+        .services { padding: 100px 0; background: white; }
+        .service-row { display: flex; align-items: center; gap: 80px; margin-bottom: 100px; }
         .service-row.reverse { flex-direction: row-reverse; }
-
         .service-text { flex: 1; }
         .service-text h2 { margin-bottom: 20px; }
         .service-visual { flex: 1; }
-
-        /* VISUAL BOXES: ALL BLUE */
-        .visual-box {
-            background-color: var(--accent); /* Carolina Blue */
-            height: 300px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white; /* White Text */
-            font-weight: 600;
-            border: none;
-            position: relative;
-            overflow: hidden;
-            font-size: 1.2rem;
-            box-shadow: 0 10px 30px rgba(0, 113, 227, 0.15); /* Soft blue glow */
-        }
-
-        .visual-box::after {
-            content: "→";
-            font-size: 4rem;
-            color: rgba(255,255,255, 0.2);
-            position: absolute;
-            bottom: -10px;
-            right: 20px;
-            transform: rotate(-45deg);
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 100px 0 50px 0;
-            text-align: center;
-            background-color: var(--bg-secondary);
-        }
-
-        .contact-form {
-            max-width: 400px;
-            margin: 40px auto;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        input {
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid #d2d2d7;
-            background: white;
-            font-size: 1rem;
-            outline: none;
-            width: 100%;
-        }
-
-        input:focus { border-color: var(--accent); }
-
-        footer {
-            margin-top: 80px;
-            border-top: 1px solid #d2d2d7;
-            padding-top: 30px;
-            font-size: 0.8rem;
-            color: var(--text-light);
-        }
         
+        /* Blue Boxes */
+        .visual-box { background-color: var(--accent); height: 300px; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; border: none; position: relative; overflow: hidden; font-size: 1.2rem; box-shadow: 0 10px 30px rgba(0, 113, 227, 0.15); }
+        .visual-box::after { content: "→"; font-size: 4rem; color: rgba(255,255,255, 0.2); position: absolute; bottom: -10px; right: 20px; transform: rotate(-45deg); }
+
+        /* Contact */
+        .contact { padding: 100px 0 50px 0; text-align: center; background-color: var(--bg-secondary); }
+        .contact-form { max-width: 400px; margin: 40px auto; display: flex; flex-direction: column; gap: 15px; }
+        input { padding: 15px; border-radius: 12px; border: 1px solid #d2d2d7; background: white; font-size: 1rem; outline: none; width: 100%; }
+        input:focus { border-color: var(--accent); }
+        footer { margin-top: 80px; border-top: 1px solid #d2d2d7; padding-top: 30px; font-size: 0.8rem; color: var(--text-light); }
         .brand-name-footer { font-weight: 700; color: var(--text-main); }
         .brand-name-footer span { font-weight: 400; }
 
-        /* --- MOBILE RESPONSIVE --- */
+        /* Mobile */
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
             h2 { font-size: 2rem; }
-            
             .container { padding: 0 25px; }
-            
             .menu-toggle { display: flex; }
-
-            .nav-links {
-                position: fixed;
-                top: 90px;
-                left: 0;
-                width: 100%;
-                background-color: white;
-                flex-direction: column;
-                padding: 40px 20px;
-                border-bottom: 1px solid rgba(0,0,0,0.05);
-                transform: translateY(-150%);
-                transition: transform 0.3s ease-in-out;
-                z-index: 999;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            }
-
-            .nav-links.active {
-                transform: translateY(0);
-            }
-
+            .nav-links { position: fixed; top: 90px; left: 0; width: 100%; background-color: white; flex-direction: column; padding: 40px 20px; border-bottom: 1px solid rgba(0,0,0,0.05); transform: translateY(-150%); transition: transform 0.3s ease-in-out; z-index: 999; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+            .nav-links.active { transform: translateY(0); }
             .nav-links li { width: 100%; text-align: center; }
-
-            .nav-links a {
-                display: block;
-                font-size: 1.2rem;
-                padding: 15px 0;
-            }
-
-            .btn-nav {
-                width: 100%;
-                display: block;
-                margin-top: 10px;
-                padding: 15px 0;
-                border-radius: 12px;
-            }
-            
-            .service-row, .service-row.reverse {
-                flex-direction: column;
-                text-align: center;
-                gap: 40px;
-                margin-bottom: 60px;
-            }
-            
+            .nav-links a { display: block; font-size: 1.2rem; padding: 15px 0; }
+            .btn-nav { width: 100%; display: block; margin-top: 10px; padding: 15px 0; border-radius: 12px; }
+            .service-row, .service-row.reverse { flex-direction: column; text-align: center; gap: 40px; margin-bottom: 60px; }
             .hero { min-height: 80vh; padding: 150px 0 100px 0; }
-            
             .logo-icon { height: 40px; }
             .logo-text-span { font-size: 1.3rem; }
         }
@@ -450,16 +124,14 @@
                     <strong>Carolina</strong><span>Redesign</span><span class="brand-dot">.</span>
                 </div>
             </a>
-
             <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Menu">
                 <div class="bar"></div>
                 <div class="bar"></div>
                 <div class="bar"></div>
             </button>
-
             <ul class="nav-links" id="nav-links">
-                <li><a href="#philosophy" onclick="toggleMenu()">Philosophy</a></li>
-                <li><a href="#services" onclick="toggleMenu()">Services</a></li>
+                <li><a href="#solutions" onclick="toggleMenu()">Solutions</a></li>
+                <li><a href="#services" onclick="toggleMenu()">Our Process</a></li>
                 <li><a href="#contact" class="btn-nav" onclick="toggleMenu()">Start Project</a></li>
             </ul>
         </div>
@@ -467,41 +139,41 @@
 
     <section class="hero">
         <div class="container hero-content">
-            <h1 class="fade-in">Your digital presence.<br>Reimagined<span class="brand-dot" style="font-size: 0.6em; vertical-align: 0.15em;">.</span></h1>
+            <h1 class="fade-in">Your website should be<br>your best employee<span class="brand-dot" style="font-size: 0.6em; vertical-align: 0.15em;">.</span></h1>
             
-            <p class="subhead fade-in delay-1">We turn static websites into intelligent growth engines. High-performance design, seamlessly integrated with AI and automation.</p>
+            <p class="subhead fade-in delay-1">Stop losing leads to voicemail. We build <strong>High-Performance Websites</strong> equipped with <strong>AI Agents</strong> that answer calls, book jobs, and close deals 24/7.</p>
             
             <div class="cta-wrapper fade-in delay-2">
-                <a href="#contact" class="btn-primary">Request an Audit</a>
-                <a href="#services" class="link-secondary">Learn more ></a>
+                <a href="#contact" class="btn-primary">Automate My Growth</a>
+                <a href="#services" class="link-secondary">See how it works ></a>
             </div>
         </div>
     </section>
 
-    <section class="performance" id="philosophy">
+    <section class="performance" id="solutions">
         <div class="container">
-            <h2 class="section-title">Performance is our design language.</h2>
-            <p class="section-desc">We don't just build pretty sites. We build sites that rank.</p>
+            <h2 class="section-title">The "Intelligent Site" Standard.</h2>
+            <p class="section-desc">You can't put a Ferrari engine in a rusted car. We build the infrastructure first.</p>
             <div class="score-grid">
                 <div class="score-card">
                     <div class="circle">100</div>
-                    <h3>Performance</h3>
-                    <p>Blazing fast load times.</p>
+                    <h3>Speed</h3>
+                    <p>Instant load times.</p>
                 </div>
                 <div class="score-card">
-                    <div class="circle">100</div>
-                    <h3>Accessibility</h3>
-                    <p>Inclusive for all users.</p>
+                    <div class="circle">24/7</div>
+                    <h3>Availability</h3>
+                    <p>AI never sleeps.</p>
                 </div>
                 <div class="score-card">
-                    <div class="circle">100</div>
-                    <h3>Best Practices</h3>
-                    <p>Standard-compliant code.</p>
+                    <div class="circle">0%</div>
+                    <h3>Missed Calls</h3>
+                    <p>Every lead captured.</p>
                 </div>
                 <div class="score-card">
-                    <div class="circle">100</div>
-                    <h3>SEO</h3>
-                    <p>Optimized for discovery.</p>
+                    <div class="circle">SEO</div>
+                    <h3>Ranking</h3>
+                    <p>Dominate local search.</p>
                 </div>
             </div>
         </div>
@@ -512,31 +184,34 @@
             
             <div class="service-row">
                 <div class="service-text">
-                    <h2>The Redesign<span class="brand-dot" style="font-size: 0.7em;">.</span></h2>
-                    <p>You have a business, but your website is stuck in the past. We strip away the clutter and engineer a design that amplifies your unique brand identity—turning casual visitors into committed clients.</p>
+                    <h2>The Foundation<span class="brand-dot" style="font-size: 0.7em;">.</span></h2>
+                    <p><strong>(High-Performance Web Design)</strong><br>
+                    Before we automate, we optimize. We replace your outdated site with a sleek, custom-coded platform designed to convert traffic into leads. No bloat, just performance.</p>
                 </div>
                 <div class="service-visual">
-                    <div class="visual-box">Visual Hierarchy</div>
+                    <div class="visual-box">Conversion Design</div>
                 </div>
             </div>
 
             <div class="service-row reverse">
                 <div class="service-text">
-                    <h2>The New Build<span class="brand-dot" style="font-size: 0.7em;">.</span></h2>
-                    <p>Starting from scratch? We build foundations that scale. Mobile-first architecture ensures your business looks flawless on an iPhone, an iPad, or a 27-inch display.</p>
+                    <h2>The Workforce<span class="brand-dot" style="font-size: 0.7em;">.</span></h2>
+                    <p><strong>(AI Voice Receptionists)</strong><br>
+                    Never miss a money call again. We integrate AI Voice Agents that answer the phone, answer questions, and book appointments instantly. It sounds human, but it works for pennies.</p>
                 </div>
                 <div class="service-visual">
-                    <div class="visual-box">Mobile Optimization</div>
+                    <div class="visual-box">24/7 AI Agent</div>
                 </div>
             </div>
 
             <div class="service-row">
                 <div class="service-text">
-                    <h2>The Automation<span class="brand-dot" style="font-size: 0.7em;">.</span></h2>
-                    <p>A website shouldn't just sit there; it should work for you. We integrate AI workflows that capture leads, automate scheduling, and nurture clients while you sleep. Turn your digital presence into a 24/7 employee.</p>
+                    <h2>The Engine<span class="brand-dot" style="font-size: 0.7em;">.</span></h2>
+                    <p><strong>(Workflow Automation)</strong><br>
+                    Eliminate the busy work. From "Missed Call Text-Back" to automated Google Review requests, we build the invisible systems that run your business on autopilot.</p>
                 </div>
                 <div class="service-visual">
-                    <div class="visual-box">Workflow & AI</div>
+                    <div class="visual-box">Auto-Pilot Ops</div>
                 </div>
             </div>
 
@@ -545,8 +220,8 @@
 
     <section class="contact" id="contact">
         <div class="container">
-            <h2>Ready for the upgrade?</h2>
-            <p>Let's discuss how we can bring your site into the modern era.</p>
+            <h2>Ready to automate?</h2>
+            <p>Tell us about your business bottlenecks.</p>
             
             <div style="margin: 20px 0;">
                 <a href="tel:+18033027674" style="font-size: 1.2rem; font-weight: 600; color: var(--accent); text-decoration: none;">
@@ -555,23 +230,20 @@
             </div>
 
             <form class="contact-form" action="https://formspree.io/f/xjgbaddv" method="POST">
-                
                 <input type="text" name="name" placeholder="Name" aria-label="Name" required>
                 <input type="email" name="email" placeholder="Email Address" aria-label="Email" required>
-                
                 <textarea 
                     name="message" 
-                    placeholder="Tell me about your project... (Current website URL, goals, timeline, etc.)" 
+                    placeholder="Tell me about your business... (Are you missing calls? Need a new site? Want to automate scheduling?)" 
                     aria-label="Message" 
                     rows="4"
                     style="padding: 15px; border-radius: 12px; border: 1px solid #d2d2d7; background: white; font-size: 1rem; width: 100%; outline: none; font-family: inherit; resize: vertical;"
                 ></textarea>
-                
-                <button type="submit" class="btn-primary">Submit Inquiry</button>
+                <button type="submit" class="btn-primary">Get My Automation Plan</button>
             </form>
         </div>
         <footer>
-            <p>&copy; 2024 <span class="brand-name-footer">Carolina<span>Redesign</span><span class="brand-dot">.</span></span> Crafted in the Carolinas.</p>
+            <p>&copy; 2024 <span class="brand-name-footer">Carolina<span>Redesign</span><span class="brand-dot">.</span></span> Intelligent Systems.</p>
         </footer>
     </section>
 
