@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon" href="cr-logo.png">
     
     <style>
-        /* --- CSS STYLES (Unchanged from "Blue Mode") --- */
+        /* --- CSS STYLES --- */
         :root {
             --bg-color: #ffffff;
             --bg-secondary: #f5f5f7;
@@ -52,7 +52,7 @@
 
         /* Hero */
         .hero { min-height: 90vh; display: flex; align-items: center; text-align: center; background-color: var(--bg-color); padding-top: 120px; padding-bottom: 80px; }
-        .hero-content { max-width: 800px; margin: 0 auto; } /* Widened for new text */
+        .hero-content { max-width: 800px; margin: 0 auto; }
         .subhead { font-size: 1.4rem; margin-bottom: 2.5rem; font-weight: 400; }
         .cta-wrapper { display: flex; gap: 20px; justify-content: center; align-items: center; }
         .btn-primary { background-color: var(--accent); color: white; padding: 12px 24px; border-radius: 30px; font-weight: 500; border: none; cursor: pointer; font-size: 1rem; transition: background-color 0.3s ease; white-space: nowrap; }
@@ -87,8 +87,19 @@
         .visual-box { background-color: var(--accent); height: 300px; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; border: none; position: relative; overflow: hidden; font-size: 1.2rem; box-shadow: 0 10px 30px rgba(0, 113, 227, 0.15); }
         .visual-box::after { content: "→"; font-size: 4rem; color: rgba(255,255,255, 0.2); position: absolute; bottom: -10px; right: 20px; transform: rotate(-45deg); }
 
+        /* Industries / Demos Section (NEW) */
+        .industries { padding: 100px 0; background-color: var(--bg-secondary); }
+        .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+        .demo-card { background: white; padding: 40px; border-radius: 20px; transition: transform 0.3s ease; border: 1px solid rgba(0,0,0,0.05); text-align: left; }
+        .demo-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+        .demo-tag { display: inline-block; background: #e3f2fd; color: var(--accent); padding: 5px 12px; border-radius: 15px; font-size: 0.8rem; font-weight: 600; margin-bottom: 15px; }
+        .demo-card h3 { font-size: 1.5rem; margin-bottom: 10px; font-weight: 600; }
+        .demo-link { display: inline-flex; align-items: center; margin-top: 20px; font-weight: 600; color: var(--accent); font-size: 0.95rem; }
+        .demo-link::after { content: "→"; margin-left: 8px; transition: margin-left 0.2s; }
+        .demo-link:hover::after { margin-left: 12px; }
+
         /* Contact */
-        .contact { padding: 100px 0 50px 0; text-align: center; background-color: var(--bg-secondary); }
+        .contact { padding: 100px 0 50px 0; text-align: center; background-color: white; } /* Changed to white for contrast */
         .contact-form { max-width: 400px; margin: 40px auto; display: flex; flex-direction: column; gap: 15px; }
         input { padding: 15px; border-radius: 12px; border: 1px solid #d2d2d7; background: white; font-size: 1rem; outline: none; width: 100%; }
         input:focus { border-color: var(--accent); }
@@ -131,43 +142,10 @@
   "description": "CarolinaRedesign builds intelligent growth engines. We combine high-performance web design with AI automation, voice agents, and workflow optimization for local businesses.",
   "openingHoursSpecification": {
     "@type": "OpeningHoursSpecification",
-    "dayOfWeek": [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday"
-    ],
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
     "opens": "09:00",
     "closes": "17:00"
-  },
-  "sameAs": [
-    "https://www.linkedin.com/company/carolinaredesign" 
-    /* Add your other social links here later */
-  ],
-  "makesOffer": [
-    {
-      "@type": "Offer",
-      "itemOffered": {
-        "@type": "Service",
-        "name": "AI Voice Receptionist Integration"
-      }
-    },
-    {
-      "@type": "Offer",
-      "itemOffered": {
-        "@type": "Service",
-        "name": "Custom Website Development"
-      }
-    },
-    {
-      "@type": "Offer",
-      "itemOffered": {
-        "@type": "Service",
-        "name": "Lead Capture Automation"
-      }
-    }
-  ]
+  }
 }
 </script>
 </head>
@@ -188,8 +166,8 @@
             </button>
             <ul class="nav-links" id="nav-links">
                 <li><a href="#solutions" onclick="toggleMenu()">Solutions</a></li>
-                <li><a href="#services" onclick="toggleMenu()">Our Process</a></li>
-                <li><a href="#contact" class="btn-nav" onclick="toggleMenu()">Start Project</a></li>
+                <li><a href="#services" onclick="toggleMenu()">Process</a></li>
+                <li><a href="#industries" onclick="toggleMenu()">Demos</a></li> <li><a href="#contact" class="btn-nav" onclick="toggleMenu()">Start Project</a></li>
             </ul>
         </div>
     </nav>
@@ -202,8 +180,7 @@
             
             <div class="cta-wrapper fade-in delay-2">
                 <a href="#contact" class="btn-primary">Automate My Growth</a>
-                <a href="#services" class="link-secondary">See how it works ></a>
-            </div>
+                <a href="#industries" class="link-secondary">Try a live demo ></a> </div>
         </div>
     </section>
 
@@ -275,6 +252,34 @@
         </div>
     </section>
 
+    <section class="industries" id="industries">
+        <div class="container">
+            <h2 class="section-title">Specialized AI Solutions.</h2>
+            <p class="section-desc">See how we custom-train agents for specific industries. Try a live demo below.</p>
+            
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <span class="demo-tag">Legal</span>
+                    <h3>Personal Injury Intake</h3>
+                    <p>An empathetic AI agent that qualifies leads, gathers accident details, and schedules consultations instantly.</p>
+                    <a href="/legal" class="demo-link">Try Legal Bot</a> </div>
+
+                <div class="demo-card">
+                    <span class="demo-tag">Healthcare</span>
+                    <h3>Clinical Concierge</h3>
+                    <p>HIPAA-compliant triage that handles appointment booking, prescription refills, and general inquiries.</p>
+                    <a href="/medical" class="demo-link">Try Medical Bot</a> </div>
+
+                <div class="demo-card">
+                    <span class="demo-tag">Custom</span>
+                    <h3>Your Business</h3>
+                    <p>Have a unique workflow? We build custom agents trained on your specific SOPs and knowledge base.</p>
+                    <a href="#contact" class="demo-link">Get a Custom Audit</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="contact" id="contact">
         <div class="container">
             <h2>Ready to automate?</h2>
@@ -300,7 +305,9 @@
             </form>
         </div>
         <footer>
-            <p>&copy; 2024 <span class="brand-name-footer">Carolina<span>Redesign</span><span class="brand-dot">.</span></span> Intelligent Systems.</p>
+            <div class="container">
+                <p>&copy; 2026 <span class="brand-name-footer">Carolina<span>Redesign</span><span class="brand-dot">.</span></span> Intelligent Systems.</p>
+            </div>
         </footer>
     </section>
 
@@ -312,5 +319,5 @@
         document.getElementById('mobile-menu-btn').addEventListener('click', toggleMenu);
     </script>
 
-</body>
+    </body>
 </html>
