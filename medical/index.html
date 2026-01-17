@@ -187,7 +187,7 @@
         </div>
     </section>
 
-    <footer class="py-16 px-6 md:px-12 border-t border-gray-100 bg-gray-50 text-center">
+  <footer class="py-16 px-6 md:px-12 border-t border-gray-100 bg-gray-50 text-center">
         <div class="max-w-2xl mx-auto">
             <h2 class="text-3xl font-bold mb-4">Modernize your practice.</h2>
             <p class="text-brand-gray mb-8">We are accepting 3 partner practices for our Q1 Pilot Program.</p>
@@ -202,16 +202,24 @@
             </div>
         </div>
     </footer>
+    <div id="med-bot-root"></div>
 
-<footer class="...">...</footer>
+    <link rel="stylesheet" href="http://localhost:3000/widget/frontend.css">
 
-   <link rel="stylesheet" href="http://localhost:3000/widget/frontend.css">
+    <script src="http://localhost:3000/widget.js"></script>
 
-   <script src="http://localhost:3000/widget.js"></script>
-   <script>
-     // Initialize the bot
-     // (Check if your widget needs a specific init command here)
-   </script>
+    <script>
+        window.onload = function() {
+            if (window.MedBot) {
+                window.MedBot.init({
+                    apiUrl: 'http://localhost:3000',
+                    containerId: 'med-bot-root'
+                });
+            } else {
+                console.error("MedBot failed to load. Is the backend running?");
+            }
+        };
+    </script>
 
 </body>
 </html>
