@@ -229,14 +229,18 @@
 
 <!-- Widget Loader Script -->
 <script src="http://localhost:8000/widget/widget.js"></script>
-```
-
----
-
-## **How to Use It:**
-
-### **1. For Testing RIGHT NOW:**
-Open your browser and go to:
-```
-http://localhost:8000/widget/example.html          
+</footer>
+    
+    <!-- InjuryIntake AI Widget -->
+    <script>
+      window.PIWidgetConfig = {
+        apiUrl: 'http://localhost:8000',
+        primaryColor: '#2563eb',
+        headerTitle: 'Free Case Review',
+        headerSubtitle: 'Tell us about your injury'
+      };
+    </script>
+    <script src="http://localhost:8000/widget/widget.js"></script>
+    
+</body>
 </html>
