@@ -204,15 +204,16 @@
     </footer>
     <div id="med-bot-root"></div>
 
-    <link rel="stylesheet" href="http://localhost:3000/widget/frontend.css">
+   <link rel="stylesheet" href="https://ag-med-bot-backend.onrender.com/widget/frontend.css">
 
-    <script src="http://localhost:3000/widget.js"></script>
+    <script src="https://ag-med-bot-backend.onrender.com/widget.js"></script>
 
     <script>
         window.onload = function() {
             if (window.MedBot) {
                 window.MedBot.init({
-                    apiUrl: 'http://localhost:3000',
+                    // 3. The API URL (Just the main link here)
+                    apiUrl: 'https://ag-med-bot-backend.onrender.com',
                     containerId: 'med-bot-root'
                 });
             } else {
