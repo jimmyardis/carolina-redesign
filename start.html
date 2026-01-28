@@ -333,6 +333,21 @@
             }
         };
     </script>
+<div id="med-bot-root"></div>
 
+    <link rel="stylesheet" href="https://ag-med-bot-backend.onrender.com/widget/frontend.css">
+
+    <script src="https://ag-med-bot-backend.onrender.com/widget.js"></script>
+
+    <script>
+        window.onload = function() {
+            if (window.MedBot) {
+                window.MedBot.init({
+                    apiUrl: 'https://ag-med-bot-backend.onrender.com', // <--- Paste Render Link Here
+                    containerId: 'med-bot-root'
+                });
+            }
+        };
+    </script>
 </body>
 </html>
