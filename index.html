@@ -83,11 +83,11 @@
         .service-text h2 { margin-bottom: 20px; }
         .service-visual { flex: 1; }
         
-        /* Blue Boxes */
+        /* Visual Boxes */
         .visual-box { background-color: var(--accent); height: 300px; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; border: none; position: relative; overflow: hidden; font-size: 1.2rem; box-shadow: 0 10px 30px rgba(0, 113, 227, 0.15); }
         .visual-box::after { content: "→"; font-size: 4rem; color: rgba(255,255,255, 0.2); position: absolute; bottom: -10px; right: 20px; transform: rotate(-45deg); }
 
-        /* Industries / Demos Section (NEW) */
+        /* Industries / Demos Section */
         .industries { padding: 100px 0; background-color: var(--bg-secondary); }
         .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
         .demo-card { background: white; padding: 40px; border-radius: 20px; transition: transform 0.3s ease; border: 1px solid rgba(0,0,0,0.05); text-align: left; }
@@ -98,8 +98,24 @@
         .demo-link::after { content: "→"; margin-left: 8px; transition: margin-left 0.2s; }
         .demo-link:hover::after { margin-left: 12px; }
 
+        /* About Section */
+        .about { padding: 100px 0; background-color: white; }
+        .about-flex { display: flex; align-items: center; gap: 60px; }
+        .about-text { flex: 1.2; }
+        .about-visual { flex: 0.8; }
+        .map-container { 
+            width: 100%; 
+            height: 350px; 
+            border-radius: 20px; 
+            overflow: hidden; 
+            border: 1px solid rgba(0,0,0,0.05);
+            filter: grayscale(100%) contrast(1.1); 
+            transition: all 0.5s ease;
+        }
+        .map-container:hover { filter: grayscale(0%); }
+
         /* Contact */
-        .contact { padding: 100px 0 50px 0; text-align: center; background-color: white; } /* Changed to white for contrast */
+        .contact { padding: 100px 0 50px 0; text-align: center; background-color: white; }
         .contact-form { max-width: 400px; margin: 40px auto; display: flex; flex-direction: column; gap: 15px; }
         input { padding: 15px; border-radius: 12px; border: 1px solid #d2d2d7; background: white; font-size: 1rem; outline: none; width: 100%; }
         input:focus { border-color: var(--accent); }
@@ -122,6 +138,8 @@
             .hero { min-height: 80vh; padding: 150px 0 100px 0; }
             .logo-icon { height: 40px; }
             .logo-text-span { font-size: 1.3rem; }
+            .about-flex { flex-direction: column; text-align: center; gap: 40px; }
+            .map-container { height: 250px; }
         }
     </style>
 <script type="application/ld+json">
@@ -167,7 +185,9 @@
             <ul class="nav-links" id="nav-links">
                 <li><a href="#solutions" onclick="toggleMenu()">Solutions</a></li>
                 <li><a href="#services" onclick="toggleMenu()">Process</a></li>
-                <li><a href="#industries" onclick="toggleMenu()">Demos</a></li> <li><a href="#contact" class="btn-nav" onclick="toggleMenu()">Start Project</a></li>
+                <li><a href="#industries" onclick="toggleMenu()">Demos</a></li>
+                <li><a href="#about" onclick="toggleMenu()">About</a></li>
+                <li><a href="#contact" class="btn-nav" onclick="toggleMenu()">Start Project</a></li>
             </ul>
         </div>
     </nav>
@@ -271,10 +291,33 @@
                     <a href="/medical" class="demo-link">Try Medical Bot</a> </div>
 
                 <div class="demo-card">
-                    <span class="demo-tag">Custom</span>
-                    <h3>Your Business</h3>
-                    <p>Have a unique workflow? We build custom agents trained on your specific SOPs and knowledge base.</p>
-                    <a href="#contact" class="demo-link">Get a Custom Audit</a>
+                    <span class="demo-tag">Strategic</span>
+                    <h3>Special Projects</h3>
+                    <p>From statewide political data analysis to specialized organizational workflows for large-scale ministries and firms.</p>
+                    <a href="/special" class="demo-link">View Special Projects</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="container about-flex">
+            <div class="about-text">
+                <span class="demo-tag" style="background: #f5f5f7; color: var(--text-main);">The Founder</span>
+                <h2 style="margin-top: 10px;">National Expertise. <br>South Carolina Roots<span class="brand-dot">.</span></h2>
+                <p style="margin-top: 20px;">
+                    Led by <strong>Jimmy Ardis</strong>, CarolinaRedesign is the culmination of a career spent solving complex spatial and structural problems. Originally from <strong>Sumter, SC</strong>, Jimmy has spent decades navigating <strong>GIS analysis, strategic planning, and regulatory compliance</strong> for federal, state, and local government clients across the nation.
+                </p>
+                <p style="margin-top: 15px;">
+                    Today, he applies that high-level rigor to AI automation. Based in <strong>Chapin</strong>, we serve businesses and organizations <strong>statewide across South Carolina</strong>, transforming modern bottlenecks into streamlined, intelligent growth engines.
+                </p>
+            </div>
+            <div class="about-visual">
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52845.54581232812!2d-81.39169649723555!3d34.124707314227034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f8d975344421b1%3A0x6331a61c55490f20!2sChapin%2C%20SC!5e0!3m2!1sen!2sus!4v1712165000000!5m2!1sen!2sus" 
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                    </iframe>
                 </div>
             </div>
         </div>
@@ -319,5 +362,5 @@
         document.getElementById('mobile-menu-btn').addEventListener('click', toggleMenu);
     </script>
 
-    </body>
+</body>
 </html>
