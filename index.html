@@ -103,14 +103,22 @@
         .about-flex { display: flex; align-items: center; gap: 60px; }
         .about-text { flex: 1.2; }
         .about-visual { flex: 0.8; }
-        .map-container { width: 100%; height: 350px; border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,0,0,0.05); filter: grayscale(100%); transition: all 0.5s ease; }
+        .map-container { 
+            width: 100%; 
+            height: 350px; 
+            border-radius: 20px; 
+            overflow: hidden; 
+            border: 1px solid rgba(0,0,0,0.05);
+            filter: grayscale(100%) contrast(1.1); 
+            transition: all 0.5s ease;
+        }
         .map-container:hover { filter: grayscale(0%); }
 
         /* Contact */
         .contact { padding: 100px 0 50px 0; text-align: center; background-color: white; }
         .contact-form { max-width: 400px; margin: 40px auto; display: flex; flex-direction: column; gap: 15px; }
-        input, textarea { padding: 15px; border-radius: 12px; border: 1px solid #d2d2d7; background: white; font-size: 1rem; outline: none; width: 100%; font-family: inherit; }
-        input:focus, textarea:focus { border-color: var(--accent); }
+        input { padding: 15px; border-radius: 12px; border: 1px solid #d2d2d7; background: white; font-size: 1rem; outline: none; width: 100%; }
+        input:focus { border-color: var(--accent); }
         footer { margin-top: 80px; border-top: 1px solid #d2d2d7; padding-top: 30px; font-size: 0.8rem; color: var(--text-light); }
         .brand-name-footer { font-weight: 700; color: var(--text-main); }
         .brand-name-footer span { font-weight: 400; }
@@ -130,10 +138,34 @@
             .hero { min-height: 80vh; padding: 150px 0 100px 0; }
             .logo-icon { height: 40px; }
             .logo-text-span { font-size: 1.3rem; }
-            .about-flex { flex-direction: column; text-align: center; }
+            .about-flex { flex-direction: column; text-align: center; gap: 40px; }
             .map-container { height: 250px; }
         }
     </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "CarolinaRedesign",
+  "image": "https://carolinaredesign.com/cr-logo.png",
+  "@id": "https://carolinaredesign.com",
+  "url": "https://carolinaredesign.com",
+  "telephone": "+18033027674",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "SC",
+    "addressCountry": "US"
+  },
+  "description": "CarolinaRedesign builds intelligent growth engines. We combine high-performance web design with AI automation, voice agents, and workflow optimization for local businesses.",
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "09:00",
+    "closes": "17:00"
+  }
+}
+</script>
 </head>
 <body>
 
@@ -163,7 +195,9 @@
     <section class="hero">
         <div class="container hero-content">
             <h1 class="fade-in">Your website should be<br>your best employee<span class="brand-dot" style="font-size: 0.6em; vertical-align: 0.15em;">.</span></h1>
+            
             <p class="subhead fade-in delay-1">Stop losing leads to voicemail. We build <strong>High-Performance Websites</strong> equipped with <strong>AI Agents</strong> that answer calls, book jobs, and close deals 24/7.</p>
+            
             <div class="cta-wrapper fade-in delay-2">
                 <a href="#contact" class="btn-primary">Automate My Growth</a>
                 <a href="#industries" class="link-secondary">Try a live demo ></a> </div>
@@ -201,6 +235,7 @@
 
     <section class="services" id="services">
         <div class="container">
+            
             <div class="service-row">
                 <div class="service-text">
                     <h2>The Foundation<span class="brand-dot" style="font-size: 0.7em;">.</span></h2>
@@ -233,6 +268,7 @@
                     <div class="visual-box">Auto-Pilot Ops</div>
                 </div>
             </div>
+
         </div>
     </section>
 
@@ -240,23 +276,24 @@
         <div class="container">
             <h2 class="section-title">Specialized AI Solutions.</h2>
             <p class="section-desc">See how we custom-train agents for specific industries. Try a live demo below.</p>
+            
             <div class="demo-grid">
                 <div class="demo-card">
                     <span class="demo-tag">Legal</span>
-                    <h3>Legal Intake</h3>
-                    <p>Qualify leads and schedule accident details instantly.</p>
+                    <h3>Personal Injury Intake</h3>
+                    <p>An empathetic AI agent that qualifies leads, gathers accident details, and schedules consultations instantly.</p>
                     <a href="/legal" class="demo-link">Try Legal Bot</a> </div>
 
                 <div class="demo-card">
                     <span class="demo-tag">Healthcare</span>
                     <h3>Clinical Concierge</h3>
-                    <p>HIPAA-compliant triage that handles appointment booking and general inquiries.</p>
+                    <p>HIPAA-compliant triage that handles appointment booking, prescription refills, and general inquiries.</p>
                     <a href="/medical" class="demo-link">Try Medical Bot</a> </div>
 
                 <div class="demo-card">
                     <span class="demo-tag">Strategic</span>
                     <h3>Special Projects</h3>
-                    <p>Statewide voting data, ministry intelligence, and custom business automation.</p>
+                    <p>From statewide political data analysis to specialized organizational workflows for large-scale ministries and firms.</p>
                     <a href="/special" class="demo-link">View Special Projects</a>
                 </div>
             </div>
@@ -267,17 +304,20 @@
         <div class="container about-flex">
             <div class="about-text">
                 <span class="demo-tag" style="background: #f5f5f7; color: var(--text-main);">The Founder</span>
-                <h2 style="margin-top: 10px;">Strategic Expertise. <br>Practical Development<span class="brand-dot">.</span></h2>
+                <h2 style="margin-top: 10px;">National Expertise. <br>South Carolina Roots<span class="brand-dot">.</span></h2>
                 <p style="margin-top: 20px;">
-                    With a background in government consulting, urban planning, and technology entrepreneurship, <strong>Jimmy Ardis</strong> brings a rare combination of domain expertise and hands-on AI development experience. 
+                    Led by <strong>Jimmy Ardis</strong>, CarolinaRedesign is the culmination of a career spent solving complex spatial and structural problems. Originally from <strong>Sumter, SC</strong>, Jimmy has spent decades navigating <strong>GIS analysis, strategic planning, and regulatory compliance</strong> for federal, state, and local government clients across the nation.
                 </p>
                 <p style="margin-top: 15px;">
-                    He has built and deployed AI systems for legal intake, workforce development, state government budgeting, and cybersecurity compliance. Jimmy co-founded the <strong>South Carolina Artificial Intelligence Observatory (SCAIO)</strong> to track how artificial intelligence is reshaping South Carolina's economy. His work sits at the intersection of practical automation and strategic business impact.
+                    Today, he applies that high-level rigor to AI automation. Based in <strong>Chapin</strong>, we serve businesses and organizations <strong>statewide across South Carolina</strong>, transforming modern bottlenecks into streamlined, intelligent growth engines.
                 </p>
             </div>
             <div class="about-visual">
                 <div class="map-container">
-                    <iframe src="http://googleusercontent.com/maps.google.com/3" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52845.54581232812!2d-81.39169649723555!3d34.124707314227034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f8d975344421b1%3A0x6331a61c55490f20!2sChapin%2C%20SC!5e0!3m2!1sen!2sus!4v1712165000000!5m2!1sen!2sus" 
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                    </iframe>
                 </div>
             </div>
         </div>
@@ -287,13 +327,23 @@
         <div class="container">
             <h2>Ready to automate?</h2>
             <p>Tell us about your business bottlenecks.</p>
+            
             <div style="margin: 20px 0;">
-                <a href="tel:+18033027674" style="font-size: 1.2rem; font-weight: 600; color: var(--accent); text-decoration: none;">📞 (803) 302-7674</a>
+                <a href="tel:+18033027674" style="font-size: 1.2rem; font-weight: 600; color: var(--accent); text-decoration: none;">
+                    📞 (803) 302-7674
+                </a>
             </div>
+
             <form class="contact-form" action="https://formspree.io/f/xjgbaddv" method="POST">
-                <input type="text" name="name" placeholder="Name" required>
-                <input type="email" name="email" placeholder="Email Address" required>
-                <textarea name="message" placeholder="Tell me about your business bottlenecks..." rows="4"></textarea>
+                <input type="text" name="name" placeholder="Name" aria-label="Name" required>
+                <input type="email" name="email" placeholder="Email Address" aria-label="Email" required>
+                <textarea 
+                    name="message" 
+                    placeholder="Tell me about your business... (Are you missing calls? Need a new site? Want to automate scheduling?)" 
+                    aria-label="Message" 
+                    rows="4"
+                    style="padding: 15px; border-radius: 12px; border: 1px solid #d2d2d7; background: white; font-size: 1rem; width: 100%; outline: none; font-family: inherit; resize: vertical;"
+                ></textarea>
                 <button type="submit" class="btn-primary">Get My Automation Plan</button>
             </form>
         </div>
