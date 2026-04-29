@@ -24,7 +24,6 @@
         html { scroll-behavior: smooth; }
         body { font-family: var(--font-stack); background-color: var(--bg-color); color: var(--text-main); line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
         
-        /* Typography */
         h1 { font-size: 3.5rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 1rem; }
         h2 { font-size: 2.5rem; font-weight: 600; letter-spacing: -0.01em; }
         p { font-size: 1.1rem; color: var(--text-light); }
@@ -38,134 +37,56 @@
         .logo-icon { height: 55px; width: auto; object-fit: contain; display: block; }
         .logo-text-span { font-family: var(--font-stack); font-size: 1.7rem; color: var(--text-main); letter-spacing: -0.03em; line-height: 1; }
         .logo-text-span strong { font-weight: 700; }
-        .logo-text-span span { font-weight: 400; }
         .brand-dot { color: var(--accent); font-weight: 700; }
         .nav-links { list-style: none; display: flex; gap: 30px; align-items: center; }
         .nav-links a { color: var(--text-light); font-size: 0.95rem; font-weight: 500; }
         .nav-links a:hover { color: var(--accent); }
-        .btn-nav { background-color: var(--accent); color: white !important; padding: 10px 22px; border-radius: 25px; font-size: 0.9rem !important; white-space: nowrap; transition: all 0.3s ease; }
-        .btn-nav:hover { background-color: var(--accent-hover); transform: scale(1.02); box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3); }
+        .btn-nav { background-color: var(--accent); color: white !important; padding: 10px 22px; border-radius: 25px; font-size: 0.9rem !important; transition: all 0.3s ease; }
         
         /* Mobile Menu */
         .menu-toggle { display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1001; background: none; border: none; padding: 10px; }
         .bar { width: 25px; height: 2px; background-color: var(--text-main); transition: all 0.3s ease; }
 
-        /* Hero */
-        .hero { min-height: 90vh; display: flex; align-items: center; text-align: center; background-color: var(--bg-color); padding-top: 120px; padding-bottom: 80px; }
+        /* Sections */
+        .hero { min-height: 90vh; display: flex; align-items: center; text-align: center; padding-top: 120px; padding-bottom: 80px; }
         .hero-content { max-width: 800px; margin: 0 auto; }
         .subhead { font-size: 1.4rem; margin-bottom: 2.5rem; font-weight: 400; }
-        .cta-wrapper { display: flex; gap: 20px; justify-content: center; align-items: center; }
-        .btn-primary { background-color: var(--accent); color: white; padding: 12px 24px; border-radius: 30px; font-weight: 500; border: none; cursor: pointer; font-size: 1rem; transition: background-color 0.3s ease; white-space: nowrap; }
+        .btn-primary { background-color: var(--accent); color: white; padding: 12px 24px; border-radius: 30px; font-weight: 500; border: none; cursor: pointer; font-size: 1rem; transition: background-color 0.3s ease; }
         .btn-primary:hover { background-color: var(--accent-hover); }
-        .link-secondary { color: var(--accent); font-weight: 500; }
-        .link-secondary:hover { text-decoration: underline; }
-        
-        /* Animations */
-        .fade-in { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s forwards; }
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-        /* Performance Section */
-        .performance { padding: 100px 0; background-color: var(--bg-secondary); text-align: center; display: block; }
-        .section-title { margin-bottom: 10px; color: var(--text-main); }
-        .section-desc { margin-bottom: 60px; max-width: 600px; margin-left: auto; margin-right: auto; }
-        .score-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
-        .score-card { padding: 20px; }
-        .circle { width: 100px; height: 100px; border-radius: 50%; border: 4px solid #0cce6b; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; font-size: 2rem; font-weight: 700; color: #0cce6b; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .score-card h3 { font-size: 1.2rem; margin-bottom: 5px; color: var(--text-main); }
+        .performance { padding: 100px 0; background-color: var(--bg-secondary); text-align: center; }
+        .score-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-top: 40px; }
+        .circle { width: 100px; height: 100px; border-radius: 50%; border: 4px solid #0cce6b; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; font-size: 2rem; font-weight: 700; color: #0cce6b; background: white; }
 
-        /* Services */
-        .services { padding: 100px 0; background: white; }
+        .services { padding: 100px 0; }
         .service-row { display: flex; align-items: center; gap: 80px; margin-bottom: 100px; }
         .service-row.reverse { flex-direction: row-reverse; }
-        .service-text { flex: 1; }
-        .service-text h2 { margin-bottom: 20px; }
         .service-visual { flex: 1; }
-        
-        /* Visual Boxes */
-        .visual-box { background-color: var(--accent); height: 300px; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; border: none; position: relative; overflow: hidden; font-size: 1.2rem; box-shadow: 0 10px 30px rgba(0, 113, 227, 0.15); }
-        .visual-box::after { content: "→"; font-size: 4rem; color: rgba(255,255,255, 0.2); position: absolute; bottom: -10px; right: 20px; transform: rotate(-45deg); }
+        .visual-box { background-color: var(--accent); height: 300px; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 1.2rem; }
 
-        /* Industries / Demos Section */
         .industries { padding: 100px 0; background-color: var(--bg-secondary); }
         .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
-        .demo-card { background: white; padding: 40px; border-radius: 20px; transition: transform 0.3s ease; border: 1px solid rgba(0,0,0,0.05); text-align: left; }
-        .demo-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+        .demo-card { background: white; padding: 40px; border-radius: 20px; border: 1px solid rgba(0,0,0,0.05); }
         .demo-tag { display: inline-block; background: #e3f2fd; color: var(--accent); padding: 5px 12px; border-radius: 15px; font-size: 0.8rem; font-weight: 600; margin-bottom: 15px; }
-        .demo-card h3 { font-size: 1.5rem; margin-bottom: 10px; font-weight: 600; }
-        .demo-link { display: inline-flex; align-items: center; margin-top: 20px; font-weight: 600; color: var(--accent); font-size: 0.95rem; }
-        .demo-link::after { content: "→"; margin-left: 8px; transition: margin-left 0.2s; }
-        .demo-link:hover::after { margin-left: 12px; }
 
         /* About Section */
         .about { padding: 100px 0; background-color: white; }
         .about-flex { display: flex; align-items: center; gap: 60px; }
         .about-text { flex: 1.2; }
         .about-visual { flex: 0.8; }
-        .map-container { 
-            width: 100%; 
-            height: 350px; 
-            border-radius: 20px; 
-            overflow: hidden; 
-            border: 1px solid rgba(0,0,0,0.05);
-            filter: grayscale(100%) contrast(1.1); 
-            transition: all 0.5s ease;
-        }
+        .map-container { width: 100%; height: 350px; border-radius: 20px; overflow: hidden; border: 1px solid rgba(0,0,0,0.05); filter: grayscale(100%); transition: all 0.5s ease; }
         .map-container:hover { filter: grayscale(0%); }
 
-        /* Contact */
-        .contact { padding: 100px 0 50px 0; text-align: center; background-color: white; }
+        .contact { padding: 100px 0 50px 0; text-align: center; }
         .contact-form { max-width: 400px; margin: 40px auto; display: flex; flex-direction: column; gap: 15px; }
-        input { padding: 15px; border-radius: 12px; border: 1px solid #d2d2d7; background: white; font-size: 1rem; outline: none; width: 100%; }
-        input:focus { border-color: var(--accent); }
-        footer { margin-top: 80px; border-top: 1px solid #d2d2d7; padding-top: 30px; font-size: 0.8rem; color: var(--text-light); }
-        .brand-name-footer { font-weight: 700; color: var(--text-main); }
-        .brand-name-footer span { font-weight: 400; }
+        input, textarea { padding: 15px; border-radius: 12px; border: 1px solid #d2d2d7; width: 100%; font-family: inherit; }
 
-        /* Mobile */
         @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            h2 { font-size: 2rem; }
-            .container { padding: 0 25px; }
-            .menu-toggle { display: flex; }
-            .nav-links { position: fixed; top: 90px; left: 0; width: 100%; background-color: white; flex-direction: column; padding: 40px 20px; border-bottom: 1px solid rgba(0,0,0,0.05); transform: translateY(-150%); transition: transform 0.3s ease-in-out; z-index: 999; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-            .nav-links.active { transform: translateY(0); }
-            .nav-links li { width: 100%; text-align: center; }
-            .nav-links a { display: block; font-size: 1.2rem; padding: 15px 0; }
-            .btn-nav { width: 100%; display: block; margin-top: 10px; padding: 15px 0; border-radius: 12px; }
-            .service-row, .service-row.reverse { flex-direction: column; text-align: center; gap: 40px; margin-bottom: 60px; }
-            .hero { min-height: 80vh; padding: 150px 0 100px 0; }
-            .logo-icon { height: 40px; }
-            .logo-text-span { font-size: 1.3rem; }
-            .about-flex { flex-direction: column; text-align: center; gap: 40px; }
-            .map-container { height: 250px; }
+            .about-flex { flex-direction: column; text-align: center; }
+            .service-row, .service-row.reverse { flex-direction: column; text-align: center; }
+            .nav-links { display: none; }
         }
     </style>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "CarolinaRedesign",
-  "image": "https://carolinaredesign.com/cr-logo.png",
-  "@id": "https://carolinaredesign.com",
-  "url": "https://carolinaredesign.com",
-  "telephone": "+18033027674",
-  "priceRange": "$$",
-  "address": {
-    "@type": "PostalAddress",
-    "addressRegion": "SC",
-    "addressCountry": "US"
-  },
-  "description": "CarolinaRedesign builds intelligent growth engines. We combine high-performance web design with AI automation, voice agents, and workflow optimization for local businesses.",
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    "opens": "09:00",
-    "closes": "17:00"
-  }
-}
-</script>
 </head>
 <body>
 
@@ -173,128 +94,46 @@
         <div class="container nav-flex">
             <a href="#" class="logo-wrapper">
                 <img src="cr-logo.png" alt="Carolina Redesign Logo" class="logo-icon">
-                <div class="logo-text-span">
-                    <strong>Carolina</strong><span>Redesign</span><span class="brand-dot">.</span>
-                </div>
+                <div class="logo-text-span"><strong>Carolina</strong>Redesign<span class="brand-dot">.</span></div>
             </a>
-            <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Menu">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </button>
-            <ul class="nav-links" id="nav-links">
-                <li><a href="#solutions" onclick="toggleMenu()">Solutions</a></li>
-                <li><a href="#services" onclick="toggleMenu()">Process</a></li>
-                <li><a href="#industries" onclick="toggleMenu()">Demos</a></li>
-                <li><a href="#about" onclick="toggleMenu()">About</a></li>
-                <li><a href="#contact" class="btn-nav" onclick="toggleMenu()">Start Project</a></li>
+            <ul class="nav-links">
+                <li><a href="#solutions">Solutions</a></li>
+                <li><a href="#services">Process</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact" class="btn-nav">Start Project</a></li>
             </ul>
         </div>
     </nav>
 
     <section class="hero">
-        <div class="container hero-content">
-            <h1 class="fade-in">Your website should be<br>your best employee<span class="brand-dot" style="font-size: 0.6em; vertical-align: 0.15em;">.</span></h1>
-            
-            <p class="subhead fade-in delay-1">Stop losing leads to voicemail. We build <strong>High-Performance Websites</strong> equipped with <strong>AI Agents</strong> that answer calls, book jobs, and close deals 24/7.</p>
-            
-            <div class="cta-wrapper fade-in delay-2">
-                <a href="#contact" class="btn-primary">Automate My Growth</a>
-                <a href="#industries" class="link-secondary">Try a live demo ></a> </div>
-        </div>
-    </section>
-
-    <section class="performance" id="solutions">
         <div class="container">
-            <h2 class="section-title">The "Intelligent Site" Standard.</h2>
-            <p class="section-desc">You can't put a Ferrari engine in a rusted car. We build the infrastructure first.</p>
-            <div class="score-grid">
-                <div class="score-card">
-                    <div class="circle">100</div>
-                    <h3>Speed</h3>
-                    <p>Instant load times.</p>
-                </div>
-                <div class="score-card">
-                    <div class="circle">24/7</div>
-                    <h3>Availability</h3>
-                    <p>AI never sleeps.</p>
-                </div>
-                <div class="score-card">
-                    <div class="circle">0%</div>
-                    <h3>Missed Calls</h3>
-                    <p>Every lead captured.</p>
-                </div>
-                <div class="score-card">
-                    <div class="circle">SEO</div>
-                    <h3>Ranking</h3>
-                    <p>Dominate local search.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="services" id="services">
-        <div class="container">
-            
-            <div class="service-row">
-                <div class="service-text">
-                    <h2>The Foundation<span class="brand-dot" style="font-size: 0.7em;">.</span></h2>
-                    <p><strong>(High-Performance Web Design)</strong><br>
-                    Before we automate, we optimize. We replace your outdated site with a sleek, custom-coded platform designed to convert traffic into leads. No bloat, just performance.</p>
-                </div>
-                <div class="service-visual">
-                    <div class="visual-box">Conversion Design</div>
-                </div>
-            </div>
-
-            <div class="service-row reverse">
-                <div class="service-text">
-                    <h2>The Workforce<span class="brand-dot" style="font-size: 0.7em;">.</span></h2>
-                    <p><strong>(AI Voice Receptionists)</strong><br>
-                    Never miss a money call again. We integrate AI Voice Agents that answer the phone, answer questions, and book appointments instantly. It sounds human, but it works for pennies.</p>
-                </div>
-                <div class="service-visual">
-                    <div class="visual-box">24/7 AI Agent</div>
-                </div>
-            </div>
-
-            <div class="service-row">
-                <div class="service-text">
-                    <h2>The Engine<span class="brand-dot" style="font-size: 0.7em;">.</span></h2>
-                    <p><strong>(Workflow Automation)</strong><br>
-                    Eliminate the busy work. From "Missed Call Text-Back" to automated Google Review requests, we build the invisible systems that run your business on autopilot.</p>
-                </div>
-                <div class="service-visual">
-                    <div class="visual-box">Auto-Pilot Ops</div>
-                </div>
-            </div>
-
+            <h1>Your website should be<br>your best employee<span class="brand-dot">.</span></h1>
+            <p class="subhead">Stop losing leads to voicemail. We build high-performance websites equipped with AI Agents that answer calls and book jobs 24/7.</p>
+            <a href="#contact" class="btn-primary">Automate My Growth</a>
         </div>
     </section>
 
     <section class="industries" id="industries">
         <div class="container">
-            <h2 class="section-title">Specialized AI Solutions.</h2>
-            <p class="section-desc">See how we custom-train agents for specific industries. Try a live demo below.</p>
-            
+            <h2>Specialized AI Solutions.</h2>
             <div class="demo-grid">
                 <div class="demo-card">
                     <span class="demo-tag">Legal</span>
-                    <h3>Personal Injury Intake</h3>
-                    <p>An empathetic AI agent that qualifies leads, gathers accident details, and schedules consultations instantly.</p>
-                    <a href="/legal" class="demo-link">Try Legal Bot</a> </div>
-
+                    <h3>Legal Intake</h3>
+                    <p>Qualify leads and schedule accident details instantly.</p>
+                    <a href="/legal" style="color: var(--accent); font-weight: 600;">Try Legal Bot →</a>
+                </div>
                 <div class="demo-card">
-                    <span class="demo-tag">Healthcare</span>
-                    <h3>Clinical Concierge</h3>
-                    <p>HIPAA-compliant triage that handles appointment booking, prescription refills, and general inquiries.</p>
-                    <a href="/medical" class="demo-link">Try Medical Bot</a> </div>
-
+                    <span class="demo-tag">Government</span>
+                    <h3>Public Service AI</h3>
+                    <p>Budgeting and compliance workflows for the public sector.</p>
+                    <a href="/gov" style="color: var(--accent); font-weight: 600;">Explore Solutions →</a>
+                </div>
                 <div class="demo-card">
                     <span class="demo-tag">Strategic</span>
                     <h3>Special Projects</h3>
-                    <p>From statewide political data analysis to specialized organizational workflows for large-scale ministries and firms.</p>
-                    <a href="/special" class="demo-link">View Special Projects</a>
+                    <p>Statewide voting data, ministry intelligence, and custom business automation.</p>
+                    <a href="/special" style="color: var(--accent); font-weight: 600;">View Special Projects →</a>
                 </div>
             </div>
         </div>
@@ -304,20 +143,17 @@
         <div class="container about-flex">
             <div class="about-text">
                 <span class="demo-tag" style="background: #f5f5f7; color: var(--text-main);">The Founder</span>
-                <h2 style="margin-top: 10px;">National Expertise. <br>South Carolina Roots<span class="brand-dot">.</span></h2>
+                <h2 style="margin-top: 10px;">Strategic Expertise. <br>Practical Development<span class="brand-dot">.</span></h2>
                 <p style="margin-top: 20px;">
-                    Led by <strong>Jimmy Ardis</strong>, CarolinaRedesign is the culmination of a career spent solving complex spatial and structural problems. Originally from <strong>Sumter, SC</strong>, Jimmy has spent decades navigating <strong>GIS analysis, strategic planning, and regulatory compliance</strong> for federal, state, and local government clients across the nation.
+                    With a background in government consulting, urban planning, and technology entrepreneurship, <strong>Jimmy Ardis</strong> brings a rare combination of domain expertise and hands-on AI development experience. 
                 </p>
                 <p style="margin-top: 15px;">
-                    Today, he applies that high-level rigor to AI automation. Based in <strong>Chapin</strong>, we serve businesses and organizations <strong>statewide across South Carolina</strong>, transforming modern bottlenecks into streamlined, intelligent growth engines.
+                    He has built and deployed AI systems for legal intake, workforce development, state government budgeting, and cybersecurity compliance. Jimmy co-founded the <strong>South Carolina Artificial Intelligence Observatory (SCAIO)</strong> to track how artificial intelligence is reshaping South Carolina's economy. His work sits at the intersection of practical automation and strategic business impact.
                 </p>
             </div>
             <div class="about-visual">
                 <div class="map-container">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52845.54581232812!2d-81.39169649723555!3d34.124707314227034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f8d975344421b1%3A0x6331a61c55490f20!2sChapin%2C%20SC!5e0!3m2!1sen!2sus!4v1712165000000!5m2!1sen!2sus" 
-                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
-                    </iframe>
+                    <iframe src="http://googleusercontent.com/maps.google.com/3" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
         </div>
@@ -326,41 +162,14 @@
     <section class="contact" id="contact">
         <div class="container">
             <h2>Ready to automate?</h2>
-            <p>Tell us about your business bottlenecks.</p>
-            
-            <div style="margin: 20px 0;">
-                <a href="tel:+18033027674" style="font-size: 1.2rem; font-weight: 600; color: var(--accent); text-decoration: none;">
-                    📞 (803) 302-7674
-                </a>
-            </div>
-
             <form class="contact-form" action="https://formspree.io/f/xjgbaddv" method="POST">
-                <input type="text" name="name" placeholder="Name" aria-label="Name" required>
-                <input type="email" name="email" placeholder="Email Address" aria-label="Email" required>
-                <textarea 
-                    name="message" 
-                    placeholder="Tell me about your business... (Are you missing calls? Need a new site? Want to automate scheduling?)" 
-                    aria-label="Message" 
-                    rows="4"
-                    style="padding: 15px; border-radius: 12px; border: 1px solid #d2d2d7; background: white; font-size: 1rem; width: 100%; outline: none; font-family: inherit; resize: vertical;"
-                ></textarea>
-                <button type="submit" class="btn-primary">Get My Automation Plan</button>
+                <input type="text" name="name" placeholder="Name" required>
+                <input type="email" name="email" placeholder="Email Address" required>
+                <textarea name="message" placeholder="Tell me about your business bottlenecks..." rows="4"></textarea>
+                <button type="submit" class="btn-primary" style="width: 100%;">Get My Automation Plan</button>
             </form>
         </div>
-        <footer>
-            <div class="container">
-                <p>&copy; 2026 <span class="brand-name-footer">Carolina<span>Redesign</span><span class="brand-dot">.</span></span> Intelligent Systems.</p>
-            </div>
-        </footer>
     </section>
-
-    <script>
-        function toggleMenu() {
-            const navLinks = document.getElementById('nav-links');
-            navLinks.classList.toggle('active');
-        }
-        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMenu);
-    </script>
 
 </body>
 </html>
