@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Strategic intelligence, diagnostic briefings, and custom AI for organizations facing questions their existing systems can't answer.">
+<title>Strategy — Carolina Redesign</title>
+<link rel="icon" type="image/png" href="/cr-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root { --paper: #faf7f1; --paper-2: #f4efe5; --paper-3: #ede6d3; --ink: #1a1f2e; --ink-2: #3a4358; --ink-3: #6b7280; --rule: #d9d2c2; --rule-light: #e8e2d3; --gold: #9a7d3c; --gold-soft: #b89a5e; --navy: #1f2d4a; --accent: #6b3f2a; --green: #4a6a4f; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); line-height: 1.65; font-size: 17px; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+  .container-narrow { max-width: 880px; margin: 0 auto; padding: 0 32px; }
+  a { color: inherit; text-decoration: none; transition: all 0.2s; }
+
+  .nav { position: sticky; top: 0; background: rgba(250, 247, 241, 0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--rule); z-index: 100; }
+  .nav-inner { max-width: 1080px; margin: 0 auto; padding: 18px 32px; display: flex; justify-content: space-between; align-items: center; gap: 32px; }
+  .brand { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--ink); }
+  .brand .dot { color: var(--gold); }
+  .nav-links { display: flex; gap: 32px; align-items: center; list-style: none; font-size: 14px; color: var(--ink-2); }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links .active { color: var(--accent); border-bottom: 1px solid var(--gold); padding-bottom: 2px; }
+  .nav-links .cta { background: var(--ink); color: var(--paper); padding: 9px 20px; border-radius: 2px; font-weight: 500; }
+  .nav-links .cta:hover { background: var(--accent); }
+  .menu-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 8px; }
+  .menu-toggle .bar { width: 22px; height: 1.5px; background: var(--ink); }
+  @media (max-width: 768px) { .nav-links { display: none; position: fixed; top: 64px; left: 0; right: 0; background: var(--paper); border-bottom: 1px solid var(--rule); padding: 24px 32px; flex-direction: column; gap: 18px; align-items: flex-start; } .nav-links.active-menu { display: flex; } .menu-toggle { display: flex; } }
+
+  .hero { padding: 96px 0 80px; border-bottom: 1px solid var(--rule); }
+  .eyebrow { font-size: 11.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 28px; }
+  .crumb { font-size: 12.5px; color: var(--ink-3); margin-bottom: 28px; }
+  .crumb a { border-bottom: 1px solid var(--rule); color: var(--ink-2); padding-bottom: 1px; }
+  .crumb a:hover { color: var(--accent); border-color: var(--accent); }
+  h1 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(40px, 5.5vw, 68px); line-height: 1.1; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 28px; max-width: 880px; }
+  h1 em { font-style: italic; color: var(--accent); }
+  .deck { font-family: 'Cormorant Garamond', serif; font-size: clamp(20px, 2.3vw, 26px); line-height: 1.45; color: var(--ink-2); font-weight: 400; max-width: 720px; font-style: italic; }
+
+  section { padding: 80px 0; border-bottom: 1px solid var(--rule); }
+  section.tinted { background: var(--paper-2); }
+  .section-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 16px; display: block; }
+  h2 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(32px, 4vw, 44px); line-height: 1.15; color: var(--ink); margin-bottom: 24px; letter-spacing: -0.005em; max-width: 720px; }
+  h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 24px; line-height: 1.3; color: var(--ink); margin-bottom: 12px; }
+  h4 { font-weight: 600; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 16px; }
+  p { color: var(--ink-2); margin-bottom: 18px; max-width: 680px; }
+  p.lead { font-family: 'Cormorant Garamond', serif; font-size: 24px; line-height: 1.5; color: var(--ink); max-width: 720px; margin-bottom: 32px; }
+  strong { color: var(--ink); font-weight: 600; }
+
+  .pullquote { border-left: 3px solid var(--gold); padding: 8px 0 8px 28px; margin: 36px 0; font-family: 'Cormorant Garamond', serif; font-size: 26px; line-height: 1.4; color: var(--ink); font-style: italic; max-width: 720px; }
+
+  .approach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px; margin-top: 40px; }
+  .approach { border-left: 2px solid var(--gold); padding: 4px 0 4px 20px; }
+  .approach-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 10px; }
+  .approach h3 { font-size: 22px; margin-bottom: 10px; }
+  .approach p { font-size: 14.5px; }
+
+  .case-grid { display: grid; grid-template-columns: 1fr; gap: 1px; background: var(--rule-light); border: 1px solid var(--rule-light); margin: 36px 0; }
+  .case { background: var(--paper); padding: 40px 36px; display: grid; grid-template-columns: 100px 1fr auto; gap: 36px; align-items: start; }
+  .case-num { font-family: 'Cormorant Garamond', serif; font-size: 60px; color: var(--gold); line-height: 1; font-weight: 500; }
+  .case-body h3 { font-size: 26px; margin-bottom: 10px; }
+  .case-body .case-kicker { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); margin-bottom: 12px; font-weight: 600; }
+  .case-body p { font-size: 14.5px; margin-bottom: 12px; }
+  .case-meta { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-3); line-height: 1.9; min-width: 130px; text-align: right; }
+  .case-meta strong { display: block; color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 14px; text-transform: none; letter-spacing: 0; font-weight: 600; }
+  @media (max-width: 720px) { .case { grid-template-columns: 1fr; gap: 16px; } .case-num { font-size: 40px; } .case-meta { text-align: left; } }
+
+  .cta-section { background: var(--ink); color: var(--paper); padding: 80px 0; border: none; }
+  .cta-section .section-num { color: var(--gold-soft); }
+  .cta-section h2 { color: var(--paper); }
+  .cta-section p { color: rgba(250, 247, 241, 0.78); }
+  .cta-section .btn { background: var(--paper); color: var(--ink); padding: 14px 28px; font-size: 14.5px; font-weight: 500; border-radius: 2px; display: inline-block; margin-top: 16px; }
+  .cta-section .btn:hover { background: var(--gold-soft); color: var(--paper); }
+
+  footer { padding: 36px 0; background: var(--paper); border-top: 1px solid var(--rule); }
+  .footer-inner { max-width: 1080px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--ink-3); }
+  .footer-inner .brand { font-size: 16px; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="brand">Carolina Redesign<span class="dot">.</span></a>
+    <button class="menu-toggle" id="menuBtn" aria-label="Menu"><div class="bar"></div><div class="bar"></div><div class="bar"></div></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/strategy/" class="active">Strategy</a></li>
+      <li><a href="/operations/">Operations</a></li>
+      <li><a href="/agents/">Agents</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#contact" class="cta">Start a Conversation</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <div class="crumb"><a href="/">Carolina Redesign</a> &nbsp;/&nbsp; Strategy</div>
+    <div class="eyebrow">Pillar 01 — Strategic Intelligence</div>
+    <h1>The work that earns the right to do everything else: <em>asking the right question first</em>.</h1>
+    <p class="deck">Diagnostic briefings, market analysis, and custom AI built around questions leadership already wants answered — using only data the organization already owns.</p>
+  </div>
+</header>
+
+<section>
+  <div class="container">
+    <span class="section-num">01 — THESIS</span>
+    <h2>The most expensive number in any growing organization is the one nobody can see.</h2>
+    <p class="lead">Most consulting engagements end with a deck. Ours end with a working answer — built on real data, delivered as a tool the organization uses every week after we leave.</p>
+    <p>Strategic intelligence is the practice of taking a question leadership has been carrying — about margin, about customers, about offerings, about pipeline — and turning it into a permanent answer. Not a slide. Not a spreadsheet. A system.</p>
+    <div class="pullquote">
+      "We sell outcomes, not hours. Every engagement is scoped to a deliverable the client can describe in a single sentence."
+    </div>
+    <p>This practice exists because we kept seeing the same pattern: organizations growing past the point where their original tools made sense, with leadership unable to get answers fast enough to act on them. The cost was never line-itemed anywhere — but it was always there, in deferred decisions, in opportunities missed, in the slow drag of operating with partial information.</p>
+  </div>
+</section>
+
+<section class="tinted">
+  <div class="container">
+    <span class="section-num">02 — WHAT WE BUILD</span>
+    <h2>Three kinds of strategic work, all delivered the same way.</h2>
+    <div class="approach-grid">
+      <div class="approach">
+        <div class="approach-num">01 / DIAGNOSTIC BRIEFINGS</div>
+        <h3>Operational diagnostics</h3>
+        <p>A consultancy-grade brief examining where an organization's existing systems are obscuring the questions leadership most needs to answer. Mapped pain points, prioritized opportunities, recommended starting wedge. Designed to be read in one sitting.</p>
+      </div>
+      <div class="approach">
+        <div class="approach-num">02 / MARKET ANALYSIS</div>
+        <h3>Custom market analysis</h3>
+        <p>Sector-specific intelligence that goes beyond what a generalist consultancy can produce — built with AI tooling that reads the entire public surface of a market and surfaces what matters. Delivered as both written report and interactive workspace.</p>
+      </div>
+      <div class="approach">
+        <div class="approach-num">03 / CUSTOM AI</div>
+        <h3>Bespoke AI tooling</h3>
+        <p>When the question requires a tool that doesn't exist yet, we build it. Budgeting suites, semantic search across institutional knowledge, donor analytics, decision support — narrow-purpose AI sized to a single organizational question.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <span class="section-num">03 — SELECTED ENGAGEMENTS</span>
+    <h2>What strategic intelligence looks like in practice.</h2>
+    <p>A representative sample. Many engagements are confidential by design — strategic work answers questions organizations would rather not advertise they were asking.</p>
+
+    <div class="case-grid">
+      <div class="case">
+        <div class="case-num">01</div>
+        <div class="case-body">
+          <div class="case-kicker">CUSTOM AI · STATE GOVERNMENT</div>
+          <h3>Palmetto Zero-Based Budgeting Suite</h3>
+          <p>Following a conversation with a South Carolina legislator about the operational complexity of implementing zero-based budgeting at state scale, we designed and delivered a custom AI-driven analysis suite in a single sprint. The work demonstrated, in concrete terms, what good tooling for this kind of fiscal work could look like.</p>
+          <p>The suite was built as a marketing artifact — a working demonstration of capability rather than a paid engagement. It drew unsolicited attention from across state government.</p>
+        </div>
+        <div class="case-meta">
+          <strong>One sprint</strong>
+          Custom AI · 2026<br>
+          Unsolicited build
+        </div>
+      </div>
+      <div class="case">
+        <div class="case-num">02</div>
+        <div class="case-body">
+          <div class="case-kicker">DIAGNOSTIC BRIEFING · FAITH-BASED ORGANIZATION</div>
+          <h3>Ministry Operations Diagnostic</h3>
+          <p>A consultancy-grade diagnostic brief examining the operational visibility gaps inside a fifty-year-old teaching ministry stewarding roughly fifty million dollars annually. The brief mapped catalog margin opacity across thousands of SKUs, identified donor-cohort visibility gaps, and proposed a single, narrow first-step engagement.</p>
+          <p>Delivered as a designed editorial document — written to be read by leadership, not pitched to procurement.</p>
+        </div>
+        <div class="case-meta">
+          <strong>By request</strong>
+          Confidential · 2026<br>
+          Reformed ministry
+        </div>
+      </div>
+      <div class="case">
+        <div class="case-num">03</div>
+        <div class="case-body">
+          <div class="case-kicker">CUSTOM AI · CYBERSECURITY</div>
+          <h3>Clinical Cybersecurity Research Framework</h3>
+          <p>A research collaboration developing therapeutic-framework-inspired metacognitive prompting as a defense against social-engineering jailbreaks of large language models. Co-authored with a clinical cybersecurity research group. Includes a systematic review of 222 studies and an experimental framework being deployed across multiple foundation models.</p>
+        </div>
+        <div class="case-meta">
+          <strong>Ongoing</strong>
+          AI Safety Research<br>
+          Multi-author
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tinted">
+  <div class="container">
+    <span class="section-num">04 — METHODOLOGY</span>
+    <h2>How strategic engagements unfold.</h2>
+    <div class="approach-grid">
+      <div class="approach">
+        <div class="approach-num">PHASE 01 — DAYS 1–10</div>
+        <h3>The Question</h3>
+        <p>A structured listening exercise. We sit with the people who actually maintain the systems and own the question. We deliver a written framing of what's being asked, what's not yet known, and what would be required to answer it. Fixed scope, fixed price.</p>
+      </div>
+      <div class="approach">
+        <div class="approach-num">PHASE 02 — WEEKS 2–6</div>
+        <h3>The Build</h3>
+        <p>We construct the diagnostic, the analysis, or the tool. We integrate with what exists; we replace only what truly needs replacing. Weekly demos. Documented handoff. Staff training included.</p>
+      </div>
+      <div class="approach">
+        <div class="approach-num">PHASE 03 — OPTIONAL</div>
+        <h3>The Continuation</h3>
+        <p>If the diagnostic surfaces additional questions worth pursuing, we scope a follow-on engagement. Most strategic clients eventually move into a retainer relationship — but never as a condition of the initial work.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <span class="section-num">— BEGIN A CONVERSATION</span>
+    <h2>If you've been carrying a question your existing systems can't answer, we'd like to hear it.</h2>
+    <p>Strategic engagements begin with a fifteen-minute conversation. No deck, no pitch, no obligation. We'll tell you within that call whether we're the right partner for what you're trying to do.</p>
+    <a href="/#contact" class="btn">Start a Conversation</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <span class="brand">Carolina Redesign<span class="dot" style="color: var(--gold);">.</span></span>
+    <span>&copy; 2026 · An AI Transformation Studio · Chapin, SC</span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('menuBtn').addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('active-menu');
+  });
+</script>
+
+</body>
+</html>

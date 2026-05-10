@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="A diagnostic brief on operational modernization at Ligonier Ministries, prepared by Carolina Redesign.">
+<title>A Diagnostic Brief — Operational Modernization at Ligonier Ministries</title>
+
+<link rel="icon" type="image/png" href="/cr-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<style>
+  :root {
+    --paper: #faf7f1; --paper-2: #f4efe5; --ink: #1a1f2e; --ink-2: #3a4358; --ink-3: #6b7280;
+    --rule: #d9d2c2; --rule-light: #e8e2d3; --gold: #9a7d3c; --gold-soft: #b89a5e;
+    --navy: #1f2d4a; --navy-soft: #3d5078; --accent: #6b3f2a; --green: #4a6a4f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); line-height: 1.65; font-size: 17px; font-weight: 400; -webkit-font-smoothing: antialiased; }
+  .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .container { max-width: 880px; margin: 0 auto; padding: 0 32px; }
+  .container-wide { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+
+  /* Top metadata strip */
+  .topbar { border-bottom: 1px solid var(--rule); background: var(--paper); padding: 14px 0; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); }
+  .topbar-inner { max-width: 1080px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .topbar .mark { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 16px; letter-spacing: 0.02em; text-transform: none; color: var(--ink); }
+  .topbar .mark .dot { color: var(--gold); }
+  .topbar .mark a { color: inherit; text-decoration: none; }
+  .topbar .meta { font-size: 11px; color: var(--ink-3); }
+  .topbar .back { text-transform: none; letter-spacing: 0; font-size: 12.5px; color: var(--ink-2); text-decoration: none; border-bottom: 1px solid var(--rule); padding-bottom: 1px; }
+  .topbar .back:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* Hero */
+  .hero { padding: 80px 0 72px; border-bottom: 1px solid var(--rule); background: var(--paper); }
+  .eyebrow { font-size: 11.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 28px; }
+  .hero h1 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(40px, 5.5vw, 68px); line-height: 1.1; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 28px; max-width: 850px; }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero .deck { font-family: 'Cormorant Garamond', serif; font-size: clamp(20px, 2.3vw, 26px); line-height: 1.45; color: var(--ink-2); font-weight: 400; max-width: 720px; font-style: italic; }
+  .byline { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 32px 48px; font-size: 13px; color: var(--ink-2); }
+  .byline-item .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-3); margin-bottom: 4px; display: block; }
+  .byline-item .value { color: var(--ink); font-weight: 500; }
+
+  /* Section base */
+  section { padding: 80px 0; border-bottom: 1px solid var(--rule); }
+  section.tinted { background: var(--paper-2); }
+  .section-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 16px; display: block; }
+  h2 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(32px, 4vw, 44px); line-height: 1.15; color: var(--ink); margin-bottom: 24px; letter-spacing: -0.005em; max-width: 720px; }
+  h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 24px; line-height: 1.3; color: var(--ink); margin-bottom: 12px; }
+  h4 { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 16px; }
+  p { margin-bottom: 18px; max-width: 680px; color: var(--ink-2); }
+  p.lead { font-family: 'Cormorant Garamond', serif; font-size: 24px; line-height: 1.5; color: var(--ink); max-width: 720px; margin-bottom: 32px; font-weight: 400; }
+  strong { color: var(--ink); font-weight: 600; }
+  .pullquote { border-left: 3px solid var(--gold); padding: 8px 0 8px 28px; margin: 36px 0; font-family: 'Cormorant Garamond', serif; font-size: 26px; line-height: 1.4; color: var(--ink); font-style: italic; max-width: 720px; }
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px; background: var(--rule-light); border: 1px solid var(--rule-light); margin: 36px 0 12px; }
+  .stat { background: var(--paper); padding: 28px 24px; }
+  .stat .num { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 38px; line-height: 1; color: var(--ink); margin-bottom: 8px; }
+  .stat .num .small { font-size: 18px; color: var(--ink-2); margin-left: 2px; }
+  .stat .lbl { font-size: 12.5px; color: var(--ink-3); line-height: 1.4; }
+  .source-note { font-size: 12px; color: var(--ink-3); margin-top: 16px; font-style: italic; }
+  .chart-wrap { background: var(--paper); border: 1px solid var(--rule-light); padding: 32px; margin: 36px 0; }
+  .chart-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--ink); margin-bottom: 4px; }
+  .chart-sub { font-size: 13px; color: var(--ink-3); margin-bottom: 20px; }
+  .chart-canvas { height: 360px; width: 100%; }
+  .catalog-tree { background: var(--paper); border: 1px solid var(--rule-light); padding: 36px 32px; margin: 32px 0; overflow-x: auto; }
+  .tree-row { display: flex; align-items: center; margin-bottom: 14px; font-size: 14px; }
+  .tree-row:last-child { margin-bottom: 0; }
+  .tree-label { min-width: 220px; color: var(--ink); font-weight: 500; }
+  .tree-bar-wrap { flex: 1; display: flex; align-items: center; gap: 12px; }
+  .tree-bar { height: 24px; background: linear-gradient(90deg, var(--gold-soft), var(--gold)); border-radius: 1px; }
+  .tree-count { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--ink-2); white-space: nowrap; }
+  .pain-table { width: 100%; border-collapse: collapse; margin: 32px 0; background: var(--paper); border: 1px solid var(--rule-light); }
+  .pain-table th { text-align: left; padding: 18px 20px; background: var(--paper-2); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); font-weight: 600; border-bottom: 1px solid var(--rule); }
+  .pain-table td { padding: 22px 20px; border-bottom: 1px solid var(--rule-light); vertical-align: top; font-size: 14.5px; color: var(--ink-2); }
+  .pain-table tr:last-child td { border-bottom: none; }
+  .pain-table td:first-child { font-family: 'Cormorant Garamond', serif; font-size: 19px; color: var(--ink); font-weight: 500; width: 28%; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 2px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+  .badge-h { background: rgba(154, 125, 60, 0.15); color: var(--gold); }
+  .badge-m { background: rgba(74, 106, 79, 0.12); color: var(--green); }
+  .badge-l { background: rgba(107, 114, 128, 0.12); color: var(--ink-3); }
+  .opp-grid { display: grid; grid-template-columns: 1fr; gap: 1px; background: var(--rule-light); border: 1px solid var(--rule-light); margin: 32px 0; }
+  .opp { background: var(--paper); padding: 36px 32px; display: grid; grid-template-columns: 64px 1fr auto; gap: 28px; align-items: start; }
+  .opp-num { font-family: 'Cormorant Garamond', serif; font-size: 56px; color: var(--gold); line-height: 1; font-weight: 500; }
+  .opp-body h3 { margin-bottom: 8px; font-size: 22px; }
+  .opp-body .opp-deck { font-size: 13.5px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 14px; font-weight: 600; }
+  .opp-body p { font-size: 14.5px; margin-bottom: 12px; }
+  .opp-meta { text-align: right; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-3); line-height: 1.8; min-width: 110px; }
+  .opp-meta strong { display: block; color: var(--ink); font-size: 14px; text-transform: none; letter-spacing: 0; font-family: 'Cormorant Garamond', serif; font-weight: 600; }
+  @media (max-width: 720px) { .opp { grid-template-columns: 1fr; gap: 12px; } .opp-num { font-size: 36px; } .opp-meta { text-align: left; } }
+  .wedge { background: var(--ink); color: var(--paper); padding: 64px 0; border: none; }
+  .wedge .section-num { color: var(--gold-soft); }
+  .wedge h2 { color: var(--paper); max-width: 760px; }
+  .wedge p { color: rgba(250, 247, 241, 0.78); max-width: 720px; }
+  .wedge .lead { color: var(--paper); }
+  .wedge h4 { color: var(--gold-soft); }
+  .wedge .step-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; margin-top: 40px; }
+  .wedge .step .step-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold-soft); letter-spacing: 0.15em; margin-bottom: 12px; }
+  .wedge .step h3 { color: var(--paper); font-size: 20px; margin-bottom: 8px; }
+  .wedge .step p { font-size: 14px; line-height: 1.6; }
+  .method-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin: 36px 0; }
+  .method { border-left: 2px solid var(--gold); padding: 4px 0 4px 20px; }
+  .method-phase { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 8px; }
+  .method h3 { font-size: 20px; margin-bottom: 8px; }
+  .method p { font-size: 14px; }
+  .colophon { padding: 80px 0 60px; background: var(--paper-2); border: none; }
+  .colophon-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; align-items: start; }
+  @media (max-width: 720px) { .colophon-grid { grid-template-columns: 1fr; gap: 24px; } }
+  .colophon h4 { margin-bottom: 16px; }
+  .colophon p { font-size: 14.5px; max-width: 560px; }
+  .credentials { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--rule); font-size: 13px; color: var(--ink-3); line-height: 1.8; }
+  .credentials strong { color: var(--ink); }
+  footer { padding: 32px 0; background: var(--paper); border-top: 1px solid var(--rule); font-size: 12px; color: var(--ink-3); text-align: center; }
+  footer a { color: var(--ink-2); text-decoration: none; border-bottom: 1px solid var(--rule); }
+  .dropcap::first-letter { font-family: 'Cormorant Garamond', serif; font-size: 64px; line-height: 0.85; float: left; padding: 4px 10px 0 0; color: var(--accent); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <span class="mark"><a href="/">Carolina Redesign<span class="dot">.</span></a> &nbsp;·&nbsp; <span style="color: var(--ink-3);">Briefings</span></span>
+    <span class="meta">Confidential — For Discussion Only · May 2026</span>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="container">
+    <div class="eyebrow">A Diagnostic Brief</div>
+    <h1>Where the spreadsheets end, the questions begin: a candid look at <em>operational visibility</em> at Ligonier Ministries.</h1>
+    <p class="deck">A modest proposal — that a fifty-five-year-old ministry stewarding fifty million dollars annually deserves the same operational clarity it brings to its theology.</p>
+    <div class="byline">
+      <div class="byline-item">
+        <span class="label">Prepared by</span>
+        <span class="value">Carolina Redesign — Jimmy Ardis, Founder</span>
+      </div>
+      <div class="byline-item">
+        <span class="label">Prepared for</span>
+        <span class="value">Ligonier Ministries leadership</span>
+      </div>
+      <div class="byline-item">
+        <span class="label">Posture</span>
+        <span class="value">Diagnostic — not proposal</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="container">
+    <span class="section-num">01 — THESIS</span>
+    <h2>The most expensive number in any growing ministry is the one nobody can see.</h2>
+    <p class="lead dropcap">For more than five decades, Ligonier has built one of the most theologically serious teaching ministries in the English-speaking world — a publishing house, a broadcaster, a college, a conference circuit, an internet radio network, and a global translation engine, all under one roof. The fruit is visible everywhere: a hundred million people reached each year, a Reformation Study Bible in pew and home, faithful teaching streaming twenty-four hours a day.</p>
+    <p>Beneath that fruit, however, lies an operational reality common to every fast-growing ministry of this scale: <strong>the systems that built the work are no longer the systems that can scale it cleanly.</strong> Spreadsheets, email threads, and tribal knowledge — heroic stewards of decades past — quietly become the bottleneck that obscures the answers leadership most needs to make.</p>
+    <div class="pullquote">
+      There is a particular kind of operational reality common to mature ministries at this scale: organizations that collect enormous amounts of sales and engagement data across hundreds of distinct offerings — and find it difficult, or impossible, to determine the marginal profitability of any single one of them.
+    </div>
+    <p>This brief is an attempt to take that reality seriously — to look at the public surface of Ligonier's operations, name where the visibility gaps almost certainly live, and propose a single, narrow first step that could repay itself many times over.</p>
+    <p>It is not a sales pitch. It contains no pricing. It assumes that any partner worth working with should first earn the right to be in the room.</p>
+  </div>
+</section>
+
+<section class="tinted">
+  <div class="container-wide">
+    <span class="section-num">02 — MINISTRY AT A GLANCE</span>
+    <h2>The shape of the enterprise.</h2>
+    <p>A ministry of this breadth is not, in any practical sense, one organization. It is a federation of editorial, broadcasting, retail, educational, and outreach operations — each with its own rhythms, its own data, and its own legacy systems.</p>
+    <div class="stat-grid">
+      <div class="stat"><div class="num">1971</div><div class="lbl">Founded by Dr. R.C. Sproul in Ligonier Valley, Pennsylvania</div></div>
+      <div class="stat"><div class="num">~$50M</div><div class="lbl">FY2025 cash receipts (year ended June 30, 2025)</div></div>
+      <div class="stat"><div class="num">100M<span class="small">+</span></div><div class="lbl">People reached annually across regions and languages</div></div>
+      <div class="stat"><div class="num">$64.5M</div><div class="lbl">Total assets, FY2025 audited statements</div></div>
+      <div class="stat"><div class="num">~150</div><div class="lbl">Estimated full-time staff across the consolidated entities</div></div>
+      <div class="stat"><div class="num">8<span class="small"> properties</span></div><div class="lbl">Distinct digital surfaces (.org, store, learn, connect, refnet, tabletalk, RBC, app)</div></div>
+      <div class="stat"><div class="num">200<span class="small">+</span></div><div class="lbl">Radio station partnerships (paid + free terrestrial)</div></div>
+      <div class="stat"><div class="num">3<span class="small"> entities</span></div><div class="lbl">Reformation Bible College + Ligonier UK + Ligonier Canada</div></div>
+    </div>
+    <p class="source-note">Sources: Ligonier audited consolidated financial statements (FY2025); Ligonier.org/about; ProPublica Nonprofit Explorer (EIN 25-1298611); Charity Navigator profile.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <span class="section-num">03 — REVENUE PICTURE</span>
+    <h2>Where the dollars come from — and what they hide.</h2>
+    <p>The audited FY2025 statements tell a clear top-line story: roughly <strong>seventy-eight percent of Ligonier's operating cash arrives as donor contributions</strong>, with the balance flowing through three commercial-style streams — media sales, tuition and conferences, and other revenue. Each stream behaves like a different business.</p>
+
+    <div class="chart-wrap">
+      <div class="chart-title">FY2025 Operating Cash Receipts, by Stream</div>
+      <div class="chart-sub">Source: Ligonier audited consolidated statements of cash flows, year ended June 30, 2025.</div>
+      <div id="chartRevenue" class="chart-canvas"></div>
+    </div>
+
+    <p>What the top line does not show is the operational complexity behind each stream. Contributions are eight figures across an unknown distribution of recurring versus one-time donors, restricted versus unrestricted, regional and digital and print — each with different acquisition costs and lifetime values. Media sales aggregate <strong>thousands of distinct SKUs</strong> across formats, languages, bindings, and bundles. Tuition and conferences blend a residential college, a national event, regional events, and study tours, each with its own venue economics and registration funnel.</p>
+    <p>This is not a complaint. This is what a flourishing fifty-year-old ministry looks like. It is also, almost by definition, a ministry where <strong>three or four of the most important questions leadership could ask are answered today by stitching together spreadsheets, exports, and somebody's institutional memory.</strong></p>
+  </div>
+</section>
+
+<section class="tinted">
+  <div class="container">
+    <span class="section-num">04 — THE CATALOG REALITY</span>
+    <h2>One teaching series. Eight to twelve SKUs. Hundreds of series.</h2>
+    <p>The diagnostic question — many offerings, opaque marginal profitability — becomes concrete the moment one walks through the public store. A single representative teaching series typically expands into several distinct stock-keeping units, each with its own production cost, royalty share, fulfillment economics, and price-volume curve.</p>
+    <div class="catalog-tree">
+      <h4 style="margin-bottom: 28px;">Illustrative SKU explosion — one representative teaching series</h4>
+      <div class="tree-row"><div class="tree-label">DVD set (physical)</div><div class="tree-bar-wrap"><div class="tree-bar" style="width: 18%;"></div><div class="tree-count">manufacturing + shipping</div></div></div>
+      <div class="tree-row"><div class="tree-label">USB set (physical)</div><div class="tree-bar-wrap"><div class="tree-bar" style="width: 16%;"></div><div class="tree-count">manufacturing + shipping</div></div></div>
+      <div class="tree-row"><div class="tree-label">Digital download (audio + video)</div><div class="tree-bar-wrap"><div class="tree-bar" style="width: 8%;"></div><div class="tree-count">near-zero marginal</div></div></div>
+      <div class="tree-row"><div class="tree-label">Paperback study guide</div><div class="tree-bar-wrap"><div class="tree-bar" style="width: 22%;"></div><div class="tree-count">print + author share</div></div></div>
+      <div class="tree-row"><div class="tree-label">Digital study guide (PDF)</div><div class="tree-bar-wrap"><div class="tree-bar" style="width: 6%;"></div><div class="tree-count">near-zero marginal</div></div></div>
+      <div class="tree-row"><div class="tree-label">Bundles (DVD + study guide, etc.)</div><div class="tree-bar-wrap"><div class="tree-bar" style="width: 28%;"></div><div class="tree-count">cross-allocation required</div></div></div>
+      <div class="tree-row"><div class="tree-label">Individual messages (per-episode download)</div><div class="tree-bar-wrap"><div class="tree-bar" style="width: 14%;"></div><div class="tree-count">platform-dependent</div></div></div>
+      <div class="tree-row"><div class="tree-label">Translated editions (where applicable)</div><div class="tree-bar-wrap"><div class="tree-bar" style="width: 32%;"></div><div class="tree-count">licensed + translated</div></div></div>
+    </div>
+    <p>Multiply that by <em>hundreds</em> of teaching series, layered with thousands of books, multiple Reformation Study Bible editions and bindings, Tabletalk subscription tiers, children's curriculum sets, music, and a separate Canadian storefront — and the catalog easily reaches several thousand active SKUs.</p>
+    <p><strong>The honest question, then, is not whether Ligonier knows what it sold last quarter. It is whether anyone in the building can answer, in under a day, which fifty SKUs subsidize the other thousand — and whether that subsidy is intentional, or accidental.</strong></p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <span class="section-num">05 — OPERATIONAL PAIN MAP</span>
+    <h2>Where the spreadsheets almost certainly live.</h2>
+    <p>From the public surface alone, it is possible to identify operational domains where heroic spreadsheet work is the most likely status quo. The list below is a reasoned hypothesis, not a finding — confirmation would require an actual conversation. The intent is to demonstrate that the surface area of opportunity is large enough that any first engagement should choose its battle carefully.</p>
+    <table class="pain-table">
+      <thead><tr><th>Domain</th><th>Likely Reality</th><th>Visibility Gap</th><th>Stakes</th></tr></thead>
+      <tbody>
+        <tr><td>Catalog Margin</td><td>Per-SKU cost, royalties, and bundle allocation tracked across multiple workbooks; merged for board reports.</td><td>Marginal profitability per offering — across a multi-thousand-SKU catalog.</td><td><span class="badge badge-h">High</span></td></tr>
+        <tr><td>Donor Cohorts</td><td>Donor data lives in Raiser's Edge or similar; cohort and LTV analysis exported to Excel ad hoc.</td><td>Which acquisition channels produce ten-year donors versus one-and-done.</td><td><span class="badge badge-h">High</span></td></tr>
+        <tr><td>Conference Economics</td><td>Per-event P&amp;Ls assembled after the fact; venue, AV, catering, travel reconciled by hand.</td><td>True contribution margin per event format (national vs. regional vs. study tour).</td><td><span class="badge badge-h">High</span></td></tr>
+        <tr><td>Translation Pipeline</td><td>Spreadsheet tracker per language; status updates by email; partner distributors tracked separately.</td><td>Time-to-publish, cost per translated minute, distribution reach by language.</td><td><span class="badge badge-m">Medium</span></td></tr>
+        <tr><td>Course Engagement</td><td>Ligonier Connect and RBC enrollment data sit in two systems; combined retention view is manual.</td><td>Which courses convert browsers to subscribers to ongoing students.</td><td><span class="badge badge-m">Medium</span></td></tr>
+        <tr><td>Inventory &amp; Fulfillment</td><td>$2.5M of physical inventory across books, Bibles, study guides; reorder thresholds informally tracked.</td><td>Carrying cost vs. stockout risk by SKU; bundle dependency on out-of-stock components.</td><td><span class="badge badge-m">Medium</span></td></tr>
+        <tr><td>Editorial Calendar</td><td>Daily devotional + monthly Tabletalk + weekly podcast + ongoing teaching series scheduled across teams via shared calendars and chat.</td><td>Topic overlap; cross-channel reuse; lead time vs. publication actuals.</td><td><span class="badge badge-l">Lower</span></td></tr>
+        <tr><td>Radio Partnership Mgmt</td><td>Two hundred station partnerships tracked in workbooks; renewal and attribution informal.</td><td>Marginal value per station partnership; donor lift from broadcast geography.</td><td><span class="badge badge-l">Lower</span></td></tr>
+      </tbody>
+    </table>
+    <p class="source-note">Stakes ranking reflects expected dollar impact of better visibility, not difficulty of implementation. The two are often inversely correlated.</p>
+  </div>
+</section>
+
+<section class="tinted">
+  <div class="container">
+    <span class="section-num">06 — PRIORITIZED OPPORTUNITIES</span>
+    <h2>Where to begin — ranked by impact, ease, and visibility.</h2>
+    <p>Not every problem deserves the first engagement. The strongest first project is one that (a) answers a question leadership has already asked itself, (b) can be delivered quickly enough to build trust, and (c) produces a durable artifact the team uses every week long after the engagement ends.</p>
+    <div class="opp-grid">
+      <div class="opp">
+        <div class="opp-num">01</div>
+        <div class="opp-body">
+          <div class="opp-deck">Recommended Wedge</div>
+          <h3>Per-Offering Margin Visibility</h3>
+          <p>A consolidated, always-current view of marginal profitability across the active SKU catalog — formats, bindings, bundles, and translations rolled up to series, author, and category. Built on top of existing systems (Shopify, accounting, royalty trackers) rather than replacing them.</p>
+          <p>Answers the central diagnostic question. Visible value within weeks. Becomes the spine on which the next two projects build.</p>
+        </div>
+        <div class="opp-meta"><strong>4–6 weeks</strong>to first dashboard<br>High impact<br>Low disruption</div>
+      </div>
+      <div class="opp">
+        <div class="opp-num">02</div>
+        <div class="opp-body">
+          <div class="opp-deck">Natural Follow-On</div>
+          <h3>Donor Cohort &amp; Channel Lift Analytics</h3>
+          <p>Acquisition-channel-to-lifetime-value tracing across the donor base — the question every fundraising shop wants answered but rarely has time to formalize. Pairs naturally with the margin work because it shares the same data plumbing.</p>
+        </div>
+        <div class="opp-meta"><strong>6–10 weeks</strong>following first dashboard<br>High impact<br>Medium disruption</div>
+      </div>
+      <div class="opp">
+        <div class="opp-num">03</div>
+        <div class="opp-body">
+          <div class="opp-deck">Visible Quick Win</div>
+          <h3>Conference Contribution-Margin Tooling</h3>
+          <p>A repeatable per-event P&amp;L workspace that captures venue, AV, catering, travel, registrations, and attributable donor lift. Builds the muscle for evaluating regional vs. national vs. study-tour formats on the same scorecard.</p>
+        </div>
+        <div class="opp-meta"><strong>3–5 weeks</strong>per event template<br>Medium impact<br>Highly visible</div>
+      </div>
+      <div class="opp">
+        <div class="opp-num">04</div>
+        <div class="opp-body">
+          <div class="opp-deck">Stewardship Compounder</div>
+          <h3>Translation Pipeline Tracker</h3>
+          <p>A single source of truth for every teaching series being translated — by language, partner, status, and projected publish date. Replaces the most-emailed spreadsheet at any global ministry with a system the whole team can read at a glance.</p>
+        </div>
+        <div class="opp-meta"><strong>4–6 weeks</strong><br>Medium impact<br>Builds trust globally</div>
+      </div>
+      <div class="opp">
+        <div class="opp-num">05</div>
+        <div class="opp-body">
+          <div class="opp-deck">Strategic, Longer-Horizon</div>
+          <h3>Unified Editorial &amp; Distribution Calendar</h3>
+          <p>Tabletalk + daily devotional + podcast + teaching-series cadence on one canvas, with topic overlap detection and cross-channel reuse surfacing. Most useful once the margin and donor work has earned the right.</p>
+        </div>
+        <div class="opp-meta"><strong>8–12 weeks</strong><br>Strategic impact<br>Cross-team coordination</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wedge">
+  <div class="container">
+    <span class="section-num">07 — RECOMMENDED STARTING POINT</span>
+    <h2>The single, narrow first step.</h2>
+    <p class="lead">A six-week diagnostic build that answers the central question — <em>which of our offerings actually carry the others</em> — using only data Ligonier already owns, delivered as a dashboard the finance team can open every Monday morning.</p>
+    <div class="step-grid">
+      <div class="step"><div class="step-num">PHASE 01 · WEEK 1</div><h3>Listen &amp; Map</h3><p>Two days on-site or remote. We sit beside the people who actually maintain the spreadsheets — finance, fulfillment, the store team, the donor team. We map every workbook, every export, every "Friday afternoon ritual." We deliver a one-page operational map by end of week.</p></div>
+      <div class="step"><div class="step-num">PHASE 02 · WEEKS 2–4</div><h3>Build the Spine</h3><p>We connect existing systems — Shopify, accounting, royalty trackers, donor platform — into a single read-only data model. No replacements. No migrations. No risk to anything currently running. The team's spreadsheets keep working while we work behind them.</p></div>
+      <div class="step"><div class="step-num">PHASE 03 · WEEKS 5–6</div><h3>Deliver the Dashboard</h3><p>Per-SKU margin, rolled up to series, author, category, and channel. Identifies the offerings that quietly subsidize the catalog and the ones that quietly drain it. Delivered with documentation, training, and a thirty-day support tail.</p></div>
+    </div>
+    <p style="margin-top: 48px; font-size: 14.5px;">The result is not a software product. It is an answer Ligonier leadership can use immediately — to inform pricing, bundling, future series investment, and stewardship of donor dollars. If, after seeing the dashboard, the team chooses to walk away, they keep it. The work is theirs.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <span class="section-num">08 — METHODOLOGY</span>
+    <h2>How we work, in plain terms.</h2>
+    <p>Carolina Redesign operates on a three-phase model designed for organizations that cannot tolerate operational disruption — which is to say, every organization that has been doing meaningful work for fifty years.</p>
+    <div class="method-grid">
+      <div class="method"><div class="method-phase">PHASE 01</div><h3>The Audit</h3><p>A structured listening exercise. We shadow the team — not the org chart — and deliver a written scope of work. Fixed scope, fixed timeline, fixed price. No build begins until the audit is read and approved.</p></div>
+      <div class="method"><div class="method-phase">PHASE 02</div><h3>The Build</h3><p>Custom development against the approved scope. We integrate with what exists; we replace only what truly needs replacing. Weekly demos. Documented handoff. Staff training included.</p></div>
+      <div class="method"><div class="method-phase">PHASE 03</div><h3>The Retainer</h3><p>Optional, never required. A monthly retainer for ongoing tweaks, new features, and the occasional Tuesday-morning emergency. Think of it as a fractional CTO, not a vendor relationship.</p></div>
+    </div>
+    <p>We sell outcomes, not hours. Every engagement is scoped to a deliverable the client can describe in a single sentence — and every engagement ends with that deliverable in the client's hands, regardless of whether they keep us on retainer.</p>
+  </div>
+</section>
+
+<section class="colophon">
+  <div class="container-wide">
+    <div class="colophon-grid">
+      <div><h4>About Carolina Redesign</h4></div>
+      <div>
+        <p><strong>Carolina Redesign</strong> is an AI transformation studio operating across three practices — Strategic Intelligence, Operational Systems, and Web &amp; Agents. Founded by Jimmy Ardis, a strategic technologist with a background spanning government consulting, urban planning, and applied artificial intelligence.</p>
+        <p>Recent work includes a zero-based budgeting suite developed for South Carolina state legislators, AI-driven legal intake systems, workforce-development data tooling, cybersecurity compliance automation, and operational diagnostics for faith-based organizations. Mr. Ardis is co-founder of the South Carolina Artificial Intelligence Observatory (SCAIO), a public-interest research initiative tracking how artificial intelligence is reshaping his state's economy.</p>
+        <div class="credentials">
+          <strong>Headquarters:</strong> Chapin, South Carolina<br>
+          <strong>Web:</strong> <a href="/" style="color: var(--ink-2); border-bottom: 1px solid var(--rule);">carolinaredesign.com</a><br>
+          <strong>Ministries practice:</strong> <a href="/ministries/" style="color: var(--ink-2); border-bottom: 1px solid var(--rule);">carolinaredesign.com/ministries</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container-wide">
+    <p>This brief is offered as a starting point for conversation, not as a proposal. Any factual error is the author's alone, and corrections are welcomed.</p>
+  </div>
+</footer>
+
+<script>
+  const rev = echarts.init(document.getElementById('chartRevenue'));
+  rev.setOption({
+    grid: { left: 16, right: 24, top: 60, bottom: 60, containLabel: true },
+    tooltip: {
+      trigger: 'axis', axisPointer: { type: 'shadow' },
+      backgroundColor: '#1a1f2e', borderColor: '#1a1f2e',
+      textStyle: { color: '#faf7f1', fontFamily: 'Inter' },
+      formatter: function(params) {
+        let total = params.reduce((s, p) => s + p.value, 0);
+        let html = '<div style="font-family: Cormorant Garamond, serif; font-size: 16px; margin-bottom: 8px; font-weight: 600;">FY2025 Cash Receipts</div>';
+        params.forEach(p => { const pct = ((p.value / total) * 100).toFixed(1); html += `<div style="margin: 4px 0;"><span style="display:inline-block;width:8px;height:8px;background:${p.color};margin-right:8px;"></span>${p.seriesName}: $${p.value.toFixed(1)}M (${pct}%)</div>`; });
+        html += `<div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(250,247,241,0.2); font-weight: 600;">Total: $${total.toFixed(1)}M</div>`;
+        return html;
+      }
+    },
+    legend: { data: ['Donor Contributions', 'Media Sales', 'Tuition & Conferences', 'Other Revenue'], top: 0, left: 0, icon: 'rect', itemWidth: 12, itemHeight: 12, textStyle: { color: '#3a4358', fontFamily: 'Inter', fontSize: 13 } },
+    xAxis: { type: 'value', axisLabel: { formatter: '${value}M', color: '#6b7280', fontFamily: 'JetBrains Mono', fontSize: 11 }, axisLine: { lineStyle: { color: '#d9d2c2' } }, splitLine: { lineStyle: { color: '#e8e2d3', type: 'dashed' } } },
+    yAxis: { type: 'category', data: ['FY2025'], axisLine: { show: false }, axisTick: { show: false }, axisLabel: { color: '#1a1f2e', fontFamily: 'Cormorant Garamond', fontSize: 16, fontWeight: 500 } },
+    series: [
+      { name: 'Donor Contributions', type: 'bar', stack: 'total', data: [38.7], itemStyle: { color: '#1f2d4a' }, label: { show: true, formatter: '$38.7M', color: '#faf7f1', fontFamily: 'Inter', fontWeight: 600 } },
+      { name: 'Media Sales', type: 'bar', stack: 'total', data: [5.6], itemStyle: { color: '#9a7d3c' }, label: { show: true, formatter: '$5.6M', color: '#faf7f1', fontFamily: 'Inter', fontWeight: 600 } },
+      { name: 'Tuition & Conferences', type: 'bar', stack: 'total', data: [3.9], itemStyle: { color: '#6b3f2a' }, label: { show: true, formatter: '$3.9M', color: '#faf7f1', fontFamily: 'Inter', fontWeight: 600 } },
+      { name: 'Other Revenue', type: 'bar', stack: 'total', data: [1.6], itemStyle: { color: '#4a6a4f' }, label: { show: true, formatter: '$1.6M', color: '#faf7f1', fontFamily: 'Inter', fontWeight: 600 } }
+    ]
+  });
+  window.addEventListener('resize', () => rev.resize());
+</script>
+
+</body>
+</html>
