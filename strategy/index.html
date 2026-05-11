@@ -1,245 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Strategic intelligence, diagnostic briefings, and custom AI for organizations facing questions their existing systems can't answer.">
-<title>Strategy — Carolina Redesign</title>
-<link rel="icon" type="image/png" href="/cr-logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Strategic intelligence, diagnostic briefings, and custom AI for organizations facing questions their existing systems can't answer.">
+    <title>Strategy | CarolinaRedesign.</title>
+    <link rel="icon" type="image/png" href="/cr-logo.png">
 
-<style>
-  :root { --paper: #faf7f1; --paper-2: #f4efe5; --paper-3: #ede6d3; --ink: #1a1f2e; --ink-2: #3a4358; --ink-3: #6b7280; --rule: #d9d2c2; --rule-light: #e8e2d3; --gold: #9a7d3c; --gold-soft: #b89a5e; --navy: #1f2d4a; --accent: #6b3f2a; --green: #4a6a4f; }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); line-height: 1.65; font-size: 17px; -webkit-font-smoothing: antialiased; }
-  .container { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
-  .container-narrow { max-width: 880px; margin: 0 auto; padding: 0 32px; }
-  a { color: inherit; text-decoration: none; transition: all 0.2s; }
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --bg-secondary: #f5f5f7;
+            --text-main: #1d1d1f;
+            --text-light: #86868b;
+            --accent: #0071e3;
+            --accent-hover: #0077ed;
+            --accent-soft: rgba(0, 113, 227, 0.1);
+            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-stack); background: var(--bg-color); color: var(--text-main); line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        h1 { font-size: 3.5rem; font-weight: 600; letter-spacing: -0.025em; line-height: 1.08; margin-bottom: 1rem; }
+        h2 { font-size: 2.4rem; font-weight: 600; letter-spacing: -0.01em; line-height: 1.15; }
+        h3 { font-size: 1.4rem; font-weight: 600; }
+        p { font-size: 1.1rem; color: var(--text-light); }
+        a { text-decoration: none; transition: all 0.3s ease; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-  .nav { position: sticky; top: 0; background: rgba(250, 247, 241, 0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--rule); z-index: 100; }
-  .nav-inner { max-width: 1080px; margin: 0 auto; padding: 18px 32px; display: flex; justify-content: space-between; align-items: center; gap: 32px; }
-  .brand { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--ink); }
-  .brand .dot { color: var(--gold); }
-  .nav-links { display: flex; gap: 32px; align-items: center; list-style: none; font-size: 14px; color: var(--ink-2); }
-  .nav-links a:hover { color: var(--accent); }
-  .nav-links .active { color: var(--accent); border-bottom: 1px solid var(--gold); padding-bottom: 2px; }
-  .nav-links .cta { background: var(--ink); color: var(--paper); padding: 9px 20px; border-radius: 2px; font-weight: 500; }
-  .nav-links .cta:hover { background: var(--accent); }
-  .menu-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 8px; }
-  .menu-toggle .bar { width: 22px; height: 1.5px; background: var(--ink); }
-  @media (max-width: 768px) { .nav-links { display: none; position: fixed; top: 64px; left: 0; right: 0; background: var(--paper); border-bottom: 1px solid var(--rule); padding: 24px 32px; flex-direction: column; gap: 18px; align-items: flex-start; } .nav-links.active-menu { display: flex; } .menu-toggle { display: flex; } }
+        .navbar { background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); height: 78px; display: flex; align-items: center; }
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .logo-wrapper { display: flex; align-items: center; gap: 14px; text-decoration: none; z-index: 1001; }
+        .logo-icon { height: 50px; width: auto; }
+        .logo-text-span { font-size: 1.55rem; color: var(--text-main); letter-spacing: -0.03em; line-height: 1; }
+        .logo-text-span strong { font-weight: 700; } .logo-text-span span { font-weight: 400; }
+        .brand-dot { color: var(--accent); font-weight: 700; }
+        .nav-links { list-style: none; display: flex; gap: 32px; align-items: center; }
+        .nav-links a { color: var(--text-light); font-size: 0.94rem; font-weight: 500; }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links .current { color: var(--accent); }
+        .btn-nav { background: var(--accent); color: white !important; padding: 10px 22px; border-radius: 25px; font-size: 0.9rem !important; }
+        .btn-nav:hover { background: var(--accent-hover); }
+        .menu-toggle { display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1001; background: none; border: none; padding: 10px; }
+        .bar { width: 25px; height: 2px; background: var(--text-main); }
 
-  .hero { padding: 96px 0 80px; border-bottom: 1px solid var(--rule); }
-  .eyebrow { font-size: 11.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 28px; }
-  .crumb { font-size: 12.5px; color: var(--ink-3); margin-bottom: 28px; }
-  .crumb a { border-bottom: 1px solid var(--rule); color: var(--ink-2); padding-bottom: 1px; }
-  .crumb a:hover { color: var(--accent); border-color: var(--accent); }
-  h1 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(40px, 5.5vw, 68px); line-height: 1.1; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 28px; max-width: 880px; }
-  h1 em { font-style: italic; color: var(--accent); }
-  .deck { font-family: 'Cormorant Garamond', serif; font-size: clamp(20px, 2.3vw, 26px); line-height: 1.45; color: var(--ink-2); font-weight: 400; max-width: 720px; font-style: italic; }
+        .crumb { font-size: 0.85rem; color: var(--text-light); margin-bottom: 20px; }
+        .crumb a { color: var(--text-light); border-bottom: 1px solid rgba(0,0,0,0.1); }
+        .crumb a:hover { color: var(--accent); }
 
-  section { padding: 80px 0; border-bottom: 1px solid var(--rule); }
-  section.tinted { background: var(--paper-2); }
-  .section-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 16px; display: block; }
-  h2 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(32px, 4vw, 44px); line-height: 1.15; color: var(--ink); margin-bottom: 24px; letter-spacing: -0.005em; max-width: 720px; }
-  h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 24px; line-height: 1.3; color: var(--ink); margin-bottom: 12px; }
-  h4 { font-weight: 600; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 16px; }
-  p { color: var(--ink-2); margin-bottom: 18px; max-width: 680px; }
-  p.lead { font-family: 'Cormorant Garamond', serif; font-size: 24px; line-height: 1.5; color: var(--ink); max-width: 720px; margin-bottom: 32px; }
-  strong { color: var(--ink); font-weight: 600; }
+        .hero { padding: 130px 0 80px; background: linear-gradient(180deg, var(--bg-color), var(--bg-secondary)); text-align: center; }
+        .eyebrow { display: inline-block; background: var(--accent-soft); color: var(--accent); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 14px; border-radius: 20px; margin-bottom: 28px; }
+        .hero h1 { max-width: 850px; margin: 0 auto 1rem; }
+        .subhead { font-size: 1.3rem; margin: 22px auto 36px; max-width: 700px; color: var(--text-light); font-weight: 400; line-height: 1.5; }
+        .subhead strong { color: var(--text-main); font-weight: 600; }
 
-  .pullquote { border-left: 3px solid var(--gold); padding: 8px 0 8px 28px; margin: 36px 0; font-family: 'Cormorant Garamond', serif; font-size: 26px; line-height: 1.4; color: var(--ink); font-style: italic; max-width: 720px; }
+        section { padding: 100px 0; }
+        section.tinted { background: var(--bg-secondary); }
+        .section-eyebrow { display: block; font-size: 0.78rem; color: var(--accent); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; text-align: center; }
+        .section-title { text-align: center; margin-bottom: 14px; }
+        .section-desc { text-align: center; margin: 0 auto 60px; max-width: 700px; }
 
-  .approach-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px; margin-top: 40px; }
-  .approach { border-left: 2px solid var(--gold); padding: 4px 0 4px 20px; }
-  .approach-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 10px; }
-  .approach h3 { font-size: 22px; margin-bottom: 10px; }
-  .approach p { font-size: 14.5px; }
+        .lead { font-size: 1.45rem; max-width: 760px; margin: 0 auto 30px; color: var(--text-main); line-height: 1.45; font-weight: 400; text-align: center; }
 
-  .case-grid { display: grid; grid-template-columns: 1fr; gap: 1px; background: var(--rule-light); border: 1px solid var(--rule-light); margin: 36px 0; }
-  .case { background: var(--paper); padding: 40px 36px; display: grid; grid-template-columns: 100px 1fr auto; gap: 36px; align-items: start; }
-  .case-num { font-family: 'Cormorant Garamond', serif; font-size: 60px; color: var(--gold); line-height: 1; font-weight: 500; }
-  .case-body h3 { font-size: 26px; margin-bottom: 10px; }
-  .case-body .case-kicker { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); margin-bottom: 12px; font-weight: 600; }
-  .case-body p { font-size: 14.5px; margin-bottom: 12px; }
-  .case-meta { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-3); line-height: 1.9; min-width: 130px; text-align: right; }
-  .case-meta strong { display: block; color: var(--ink); font-family: 'Cormorant Garamond', serif; font-size: 14px; text-transform: none; letter-spacing: 0; font-weight: 600; }
-  @media (max-width: 720px) { .case { grid-template-columns: 1fr; gap: 16px; } .case-num { font-size: 40px; } .case-meta { text-align: left; } }
+        /* What we build cards */
+        .build-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .build-card { background: white; border: 1px solid rgba(0,0,0,0.08); border-radius: 22px; padding: 36px 32px; transition: all 0.3s ease; }
+        .build-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); border-color: rgba(0, 113, 227, 0.15); }
+        .build-num { color: var(--accent); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; margin-bottom: 18px; }
+        .build-card h3 { font-size: 1.4rem; margin-bottom: 12px; }
+        .build-card p { font-size: 1rem; line-height: 1.55; }
+        @media (max-width: 768px) { .build-grid { grid-template-columns: 1fr; } }
 
-  .cta-section { background: var(--ink); color: var(--paper); padding: 80px 0; border: none; }
-  .cta-section .section-num { color: var(--gold-soft); }
-  .cta-section h2 { color: var(--paper); }
-  .cta-section p { color: rgba(250, 247, 241, 0.78); }
-  .cta-section .btn { background: var(--paper); color: var(--ink); padding: 14px 28px; font-size: 14.5px; font-weight: 500; border-radius: 2px; display: inline-block; margin-top: 16px; }
-  .cta-section .btn:hover { background: var(--gold-soft); color: var(--paper); }
+        /* Cases */
+        .case-list { display: flex; flex-direction: column; gap: 24px; }
+        .case-row { display: grid; grid-template-columns: 80px 1fr 200px; gap: 32px; align-items: start; padding: 36px 32px; background: white; border-radius: 20px; border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; }
+        .case-row:hover { box-shadow: 0 18px 40px rgba(0,0,0,0.06); }
+        .case-num { font-size: 2.6rem; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; line-height: 1; }
+        .case-body h3 { font-size: 1.4rem; margin-bottom: 8px; }
+        .case-body .kicker { font-size: 0.78rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-bottom: 12px; }
+        .case-body p { font-size: 1rem; line-height: 1.5; margin-bottom: 8px; }
+        .case-meta { text-align: right; font-size: 0.85rem; color: var(--text-light); line-height: 1.7; }
+        .case-meta strong { display: block; color: var(--text-main); font-weight: 600; }
+        @media (max-width: 768px) {
+            .case-row { grid-template-columns: 1fr; gap: 14px; }
+            .case-meta { text-align: left; }
+        }
 
-  footer { padding: 36px 0; background: var(--paper); border-top: 1px solid var(--rule); }
-  .footer-inner { max-width: 1080px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--ink-3); }
-  .footer-inner .brand { font-size: 16px; }
-</style>
+        /* Methodology */
+        .method-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+        @media (max-width: 768px) { .method-grid { grid-template-columns: 1fr; } }
+        .method { padding: 32px; background: white; border-radius: 20px; border: 1px solid rgba(0,0,0,0.05); border-left: 3px solid var(--accent); }
+        .method-phase { color: var(--accent); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.08em; margin-bottom: 12px; }
+        .method h3 { font-size: 1.3rem; margin-bottom: 10px; }
+        .method p { font-size: 0.97rem; line-height: 1.55; }
+
+        /* CTA */
+        .cta-box { background: var(--text-main); color: white; padding: 80px 50px; border-radius: 28px; text-align: center; margin-top: 30px; }
+        .cta-box h2 { color: white; margin-bottom: 16px; }
+        .cta-box p { color: rgba(255,255,255,0.75); max-width: 580px; margin: 0 auto 36px; font-size: 1.15rem; }
+        .cta-box .btn-primary { background: white; color: var(--text-main); padding: 14px 30px; border-radius: 30px; font-weight: 500; font-size: 1rem; display: inline-block; }
+        .cta-box .btn-primary:hover { background: var(--accent); color: white; }
+
+        .pullquote { border-left: 3px solid var(--accent); padding: 8px 0 8px 28px; margin: 36px auto; font-size: 1.6rem; line-height: 1.4; color: var(--text-main); font-style: italic; max-width: 760px; font-weight: 400; }
+
+        footer { padding: 36px 0; background: var(--bg-color); border-top: 1px solid rgba(0,0,0,0.08); }
+        .footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 0.82rem; color: var(--text-light); }
+        .brand-name-footer { font-weight: 700; color: var(--text-main); }
+        .brand-name-footer span { font-weight: 400; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.4rem; }
+            h2 { font-size: 1.85rem; }
+            .menu-toggle { display: flex; }
+            .nav-links { position: fixed; top: 78px; left: 0; width: 100%; background: white; flex-direction: column; padding: 36px 24px; transform: translateY(-150%); transition: transform 0.3s; z-index: 999; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+            .nav-links.active { transform: translateY(0); }
+            .nav-links li { width: 100%; text-align: center; }
+            .nav-links a { display: block; font-size: 1.15rem; padding: 14px 0; }
+            .btn-nav { width: 100%; display: block; padding: 14px 0; border-radius: 12px; }
+            .logo-icon { height: 38px; }
+            .logo-text-span { font-size: 1.25rem; }
+            .cta-box { padding: 60px 28px; }
+        }
+    </style>
 </head>
 <body>
 
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="/" class="brand">Carolina Redesign<span class="dot">.</span></a>
-    <button class="menu-toggle" id="menuBtn" aria-label="Menu"><div class="bar"></div><div class="bar"></div><div class="bar"></div></button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="/strategy/" class="active">Strategy</a></li>
-      <li><a href="/operations/">Operations</a></li>
-      <li><a href="/agents/">Agents</a></li>
-      <li><a href="/#about">About</a></li>
-      <li><a href="/#contact" class="cta">Start a Conversation</a></li>
-    </ul>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="container">
-    <div class="crumb"><a href="/">Carolina Redesign</a> &nbsp;/&nbsp; Strategy</div>
-    <div class="eyebrow">Pillar 01 — Strategic Intelligence</div>
-    <h1>The work that earns the right to do everything else: <em>asking the right question first</em>.</h1>
-    <p class="deck">Diagnostic briefings, market analysis, and custom AI built around questions leadership already wants answered — using only data the organization already owns.</p>
-  </div>
-</header>
-
-<section>
-  <div class="container">
-    <span class="section-num">01 — THESIS</span>
-    <h2>The most expensive number in any growing organization is the one nobody can see.</h2>
-    <p class="lead">Most consulting engagements end with a deck. Ours end with a working answer — built on real data, delivered as a tool the organization uses every week after we leave.</p>
-    <p>Strategic intelligence is the practice of taking a question leadership has been carrying — about margin, about customers, about offerings, about pipeline — and turning it into a permanent answer. Not a slide. Not a spreadsheet. A system.</p>
-    <div class="pullquote">
-      "We sell outcomes, not hours. Every engagement is scoped to a deliverable the client can describe in a single sentence."
-    </div>
-    <p>This practice exists because we kept seeing the same pattern: organizations growing past the point where their original tools made sense, with leadership unable to get answers fast enough to act on them. The cost was never line-itemed anywhere — but it was always there, in deferred decisions, in opportunities missed, in the slow drag of operating with partial information.</p>
-  </div>
-</section>
-
-<section class="tinted">
-  <div class="container">
-    <span class="section-num">02 — WHAT WE BUILD</span>
-    <h2>Three kinds of strategic work, all delivered the same way.</h2>
-    <div class="approach-grid">
-      <div class="approach">
-        <div class="approach-num">01 / DIAGNOSTIC BRIEFINGS</div>
-        <h3>Operational diagnostics</h3>
-        <p>A consultancy-grade brief examining where an organization's existing systems are obscuring the questions leadership most needs to answer. Mapped pain points, prioritized opportunities, recommended starting wedge. Designed to be read in one sitting.</p>
-      </div>
-      <div class="approach">
-        <div class="approach-num">02 / MARKET ANALYSIS</div>
-        <h3>Custom market analysis</h3>
-        <p>Sector-specific intelligence that goes beyond what a generalist consultancy can produce — built with AI tooling that reads the entire public surface of a market and surfaces what matters. Delivered as both written report and interactive workspace.</p>
-      </div>
-      <div class="approach">
-        <div class="approach-num">03 / CUSTOM AI</div>
-        <h3>Bespoke AI tooling</h3>
-        <p>When the question requires a tool that doesn't exist yet, we build it. Budgeting suites, semantic search across institutional knowledge, donor analytics, decision support — narrow-purpose AI sized to a single organizational question.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="container">
-    <span class="section-num">03 — SELECTED ENGAGEMENTS</span>
-    <h2>What strategic intelligence looks like in practice.</h2>
-    <p>A representative sample. Many engagements are confidential by design — strategic work answers questions organizations would rather not advertise they were asking.</p>
-
-    <div class="case-grid">
-      <div class="case">
-        <div class="case-num">01</div>
-        <div class="case-body">
-          <div class="case-kicker">CUSTOM AI · STATE GOVERNMENT</div>
-          <h3>Palmetto Zero-Based Budgeting Suite</h3>
-          <p>Following a conversation with a South Carolina legislator about the operational complexity of implementing zero-based budgeting at state scale, we designed and delivered a custom AI-driven analysis suite in a single sprint. The work demonstrated, in concrete terms, what good tooling for this kind of fiscal work could look like.</p>
-          <p>The suite was built as a marketing artifact — a working demonstration of capability rather than a paid engagement. It drew unsolicited attention from across state government.</p>
+    <nav class="navbar">
+        <div class="container nav-flex">
+            <a href="/" class="logo-wrapper">
+                <img src="/cr-logo.png" alt="Carolina Redesign Logo" class="logo-icon">
+                <div class="logo-text-span"><strong>Carolina</strong><span>Redesign</span><span class="brand-dot">.</span></div>
+            </a>
+            <button class="menu-toggle" id="menuBtn" aria-label="Toggle Menu"><div class="bar"></div><div class="bar"></div><div class="bar"></div></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/strategy/" class="current">Strategy</a></li>
+                <li><a href="/operations/">Operations</a></li>
+                <li><a href="/agents/">Agents</a></li>
+                <li><a href="/websites/">Websites</a></li>
+                <li><a href="/#about">About</a></li>
+                <li><a href="/#contact" class="btn-nav">Start a Conversation</a></li>
+            </ul>
         </div>
-        <div class="case-meta">
-          <strong>One sprint</strong>
-          Custom AI · 2026<br>
-          Unsolicited build
-        </div>
-      </div>
-      <div class="case">
-        <div class="case-num">02</div>
-        <div class="case-body">
-          <div class="case-kicker">DIAGNOSTIC BRIEFING · FAITH-BASED ORGANIZATION</div>
-          <h3>Ministry Operations Diagnostic</h3>
-          <p>A consultancy-grade diagnostic brief examining the operational visibility gaps inside a fifty-year-old teaching ministry stewarding roughly fifty million dollars annually. The brief mapped catalog margin opacity across thousands of SKUs, identified donor-cohort visibility gaps, and proposed a single, narrow first-step engagement.</p>
-          <p>Delivered as a designed editorial document — written to be read by leadership, not pitched to procurement.</p>
-        </div>
-        <div class="case-meta">
-          <strong>By request</strong>
-          Confidential · 2026<br>
-          Reformed ministry
-        </div>
-      </div>
-      <div class="case">
-        <div class="case-num">03</div>
-        <div class="case-body">
-          <div class="case-kicker">CUSTOM AI · CYBERSECURITY</div>
-          <h3>Clinical Cybersecurity Research Framework</h3>
-          <p>A research collaboration developing therapeutic-framework-inspired metacognitive prompting as a defense against social-engineering jailbreaks of large language models. Co-authored with a clinical cybersecurity research group. Includes a systematic review of 222 studies and an experimental framework being deployed across multiple foundation models.</p>
-        </div>
-        <div class="case-meta">
-          <strong>Ongoing</strong>
-          AI Safety Research<br>
-          Multi-author
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </nav>
 
-<section class="tinted">
-  <div class="container">
-    <span class="section-num">04 — METHODOLOGY</span>
-    <h2>How strategic engagements unfold.</h2>
-    <div class="approach-grid">
-      <div class="approach">
-        <div class="approach-num">PHASE 01 — DAYS 1–10</div>
-        <h3>The Question</h3>
-        <p>A structured listening exercise. We sit with the people who actually maintain the systems and own the question. We deliver a written framing of what's being asked, what's not yet known, and what would be required to answer it. Fixed scope, fixed price.</p>
-      </div>
-      <div class="approach">
-        <div class="approach-num">PHASE 02 — WEEKS 2–6</div>
-        <h3>The Build</h3>
-        <p>We construct the diagnostic, the analysis, or the tool. We integrate with what exists; we replace only what truly needs replacing. Weekly demos. Documented handoff. Staff training included.</p>
-      </div>
-      <div class="approach">
-        <div class="approach-num">PHASE 03 — OPTIONAL</div>
-        <h3>The Continuation</h3>
-        <p>If the diagnostic surfaces additional questions worth pursuing, we scope a follow-on engagement. Most strategic clients eventually move into a retainer relationship — but never as a condition of the initial work.</p>
-      </div>
-    </div>
-  </div>
-</section>
+    <section class="hero">
+        <div class="container">
+            <div class="crumb" style="text-align: left;"><a href="/">Carolina Redesign</a> &nbsp;/&nbsp; Strategy</div>
+            <span class="eyebrow">Strategic Intelligence · Practice 01</span>
+            <h1>The work that earns the right<br>to do everything else<span class="brand-dot" style="font-size: 0.6em; vertical-align: 0.15em;">.</span></h1>
+            <p class="subhead">Diagnostic briefings, market analysis, and <strong>custom AI</strong> built around the questions leadership already wants answered — using only data the organization already owns.</p>
+        </div>
+    </section>
 
-<section class="cta-section">
-  <div class="container">
-    <span class="section-num">— BEGIN A CONVERSATION</span>
-    <h2>If you've been carrying a question your existing systems can't answer, we'd like to hear it.</h2>
-    <p>Strategic engagements begin with a fifteen-minute conversation. No deck, no pitch, no obligation. We'll tell you within that call whether we're the right partner for what you're trying to do.</p>
-    <a href="/#contact" class="btn">Start a Conversation</a>
-  </div>
-</section>
+    <section>
+        <div class="container">
+            <span class="section-eyebrow">Thesis</span>
+            <h2 class="section-title">The most expensive number in any growing organization is the one nobody can see.</h2>
+            <p class="lead">Most consulting engagements end with a deck. Ours end with a working answer — built on real data, delivered as a tool the organization uses every week after we leave.</p>
+            <div class="pullquote">
+                "We sell outcomes, not hours. Every engagement is scoped to a deliverable the client can describe in a single sentence."
+            </div>
+            <p style="text-align: center; max-width: 760px; margin: 0 auto;">Strategic intelligence is the practice of taking a question leadership has been carrying — about margin, about customers, about offerings, about pipeline — and turning it into a permanent answer. Not a slide. Not a spreadsheet. <strong style="color: var(--text-main);">A system.</strong></p>
+        </div>
+    </section>
 
-<footer>
-  <div class="footer-inner">
-    <span class="brand">Carolina Redesign<span class="dot" style="color: var(--gold);">.</span></span>
-    <span>&copy; 2026 · An AI Transformation Studio · Chapin, SC</span>
-  </div>
-</footer>
+    <section class="tinted">
+        <div class="container">
+            <span class="section-eyebrow">What We Build</span>
+            <h2 class="section-title">Three kinds of strategic work.</h2>
+            <p class="section-desc">All delivered the same way — fixed scope, fixed price, working answer.</p>
+            <div class="build-grid">
+                <div class="build-card">
+                    <div class="build-num">01 / DIAGNOSTIC</div>
+                    <h3>Operational Diagnostics</h3>
+                    <p>A consultancy-grade brief examining where an organization's existing systems are obscuring the questions leadership most needs to answer. Mapped pain points, prioritized opportunities, recommended starting wedge. Designed to be read in one sitting.</p>
+                </div>
+                <div class="build-card">
+                    <div class="build-num">02 / ANALYSIS</div>
+                    <h3>Market Analysis</h3>
+                    <p>Sector-specific intelligence that goes beyond what a generalist consultancy can produce — built with AI tooling that reads the entire public surface of a market and surfaces what matters. Delivered as both written report and interactive workspace.</p>
+                </div>
+                <div class="build-card">
+                    <div class="build-num">03 / CUSTOM AI</div>
+                    <h3>Bespoke AI Tooling</h3>
+                    <p>When the question requires a tool that doesn't exist yet, we build it. Budgeting suites, semantic search across institutional knowledge, donor analytics, decision support — narrow-purpose AI sized to a single organizational question.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<script>
-  document.getElementById('menuBtn').addEventListener('click', () => {
-    document.getElementById('navLinks').classList.toggle('active-menu');
-  });
-</script>
+    <section>
+        <div class="container">
+            <span class="section-eyebrow">Selected Engagements</span>
+            <h2 class="section-title">What strategic intelligence looks like.</h2>
+            <p class="section-desc">A representative sample. Many engagements are confidential by design — strategic work answers questions organizations would rather not advertise they were asking.</p>
+
+            <div class="case-list">
+                <div class="case-row">
+                    <div class="case-num">01</div>
+                    <div class="case-body">
+                        <div class="kicker">CUSTOM AI · STATE GOVERNMENT</div>
+                        <h3>Palmetto Zero-Based Budgeting Suite</h3>
+                        <p>Following a conversation with a South Carolina legislator about the operational complexity of implementing zero-based budgeting at state scale, we designed and delivered a custom AI-driven analysis suite in a single sprint. The work demonstrated, in concrete terms, what good tooling for this kind of fiscal work could look like.</p>
+                        <p>The suite was built as a marketing artifact — a working demonstration of capability rather than a paid engagement. It drew unsolicited attention from across state government.</p>
+                    </div>
+                    <div class="case-meta">
+                        <strong>One sprint</strong>
+                        Custom AI · 2026<br>
+                        Unsolicited build
+                    </div>
+                </div>
+
+                <div class="case-row">
+                    <div class="case-num">02</div>
+                    <div class="case-body">
+                        <div class="kicker">DIAGNOSTIC · FAITH-BASED ORG</div>
+                        <h3>Ministry Operations Diagnostic</h3>
+                        <p>A consultancy-grade diagnostic brief examining the operational visibility gaps inside a fifty-year-old teaching ministry stewarding roughly fifty million dollars annually. The brief mapped catalog margin opacity across thousands of SKUs, identified donor-cohort visibility gaps, and proposed a single, narrow first-step engagement.</p>
+                        <p>Delivered as a designed editorial document — written to be read by leadership, not pitched to procurement.</p>
+                    </div>
+                    <div class="case-meta">
+                        <strong>By request</strong>
+                        Confidential · 2026<br>
+                        Reformed ministry
+                    </div>
+                </div>
+
+                <div class="case-row">
+                    <div class="case-num">03</div>
+                    <div class="case-body">
+                        <div class="kicker">CUSTOM AI · CYBERSECURITY</div>
+                        <h3>Clinical Cybersecurity Research Framework</h3>
+                        <p>A research collaboration developing therapeutic-framework-inspired metacognitive prompting as a defense against social-engineering jailbreaks of large language models. Co-authored with a clinical cybersecurity research group. Includes a systematic review of 222 studies and an experimental framework being deployed across multiple foundation models.</p>
+                    </div>
+                    <div class="case-meta">
+                        <strong>Ongoing</strong>
+                        AI Safety Research<br>
+                        Multi-author
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tinted">
+        <div class="container">
+            <span class="section-eyebrow">Methodology</span>
+            <h2 class="section-title">How strategic engagements unfold.</h2>
+            <p class="section-desc">Three phases. Fixed scope. Outcomes, not hours.</p>
+            <div class="method-grid">
+                <div class="method">
+                    <div class="method-phase">PHASE 01 · DAYS 1–10</div>
+                    <h3>The Question</h3>
+                    <p>A structured listening exercise. We sit with the people who actually maintain the systems and own the question. We deliver a written framing of what's being asked, what's not yet known, and what would be required to answer it.</p>
+                </div>
+                <div class="method">
+                    <div class="method-phase">PHASE 02 · WEEKS 2–6</div>
+                    <h3>The Build</h3>
+                    <p>We construct the diagnostic, the analysis, or the tool. We integrate with what exists; we replace only what truly needs replacing. Weekly demos. Documented handoff. Staff training included.</p>
+                </div>
+                <div class="method">
+                    <div class="method-phase">PHASE 03 · OPTIONAL</div>
+                    <h3>The Continuation</h3>
+                    <p>If the diagnostic surfaces additional questions worth pursuing, we scope a follow-on engagement. Most strategic clients eventually move into a retainer relationship — but never as a condition of the initial work.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="cta-box">
+                <h2>If you've been carrying a question your existing systems can't answer, we'd like to hear it.</h2>
+                <p>Strategic engagements begin with a fifteen-minute conversation. No deck, no pitch, no obligation. We'll tell you within that call whether we're the right partner for what you're trying to do.</p>
+                <a href="/#contact" class="btn-primary">Start a Conversation</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-inner">
+            <span class="brand-name-footer">Carolina<span>Redesign</span><span class="brand-dot">.</span></span>
+            <span>&copy; 2026 · An AI Transformation Studio · Chapin, SC</span>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('menuBtn').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('active'));
+    </script>
 
 </body>
 </html>

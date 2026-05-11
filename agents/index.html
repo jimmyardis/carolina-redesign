@@ -1,250 +1,410 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="High-performance websites with AI voice receptionists, intake bots, and workflow automation. The infrastructure most organizations should have already.">
-<title>Web &amp; Agents — Carolina Redesign</title>
-<link rel="icon" type="image/png" href="/cr-logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI agents that answer the phone, qualify leads, book appointments, and handle intake — custom-trained for legal, medical, and specialized industries.">
+    <title>AI Agents | CarolinaRedesign.</title>
 
-<style>
-  :root { --paper: #faf7f1; --paper-2: #f4efe5; --paper-3: #ede6d3; --ink: #1a1f2e; --ink-2: #3a4358; --ink-3: #6b7280; --rule: #d9d2c2; --rule-light: #e8e2d3; --gold: #9a7d3c; --gold-soft: #b89a5e; --navy: #1f2d4a; --accent: #6b3f2a; --green: #4a6a4f; }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--ink); line-height: 1.65; font-size: 17px; -webkit-font-smoothing: antialiased; }
-  .container { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
-  a { color: inherit; text-decoration: none; transition: all 0.2s; }
+    <link rel="icon" type="image/png" href="/cr-logo.png">
+    <link rel="apple-touch-icon" href="/cr-logo.png">
 
-  .nav { position: sticky; top: 0; background: rgba(250, 247, 241, 0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--rule); z-index: 100; }
-  .nav-inner { max-width: 1080px; margin: 0 auto; padding: 18px 32px; display: flex; justify-content: space-between; align-items: center; gap: 32px; }
-  .brand { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--ink); }
-  .brand .dot { color: var(--gold); }
-  .nav-links { display: flex; gap: 32px; align-items: center; list-style: none; font-size: 14px; color: var(--ink-2); }
-  .nav-links a:hover { color: var(--accent); }
-  .nav-links .active { color: var(--accent); border-bottom: 1px solid var(--gold); padding-bottom: 2px; }
-  .nav-links .cta { background: var(--ink); color: var(--paper); padding: 9px 20px; border-radius: 2px; font-weight: 500; }
-  .nav-links .cta:hover { background: var(--accent); }
-  .menu-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 8px; }
-  .menu-toggle .bar { width: 22px; height: 1.5px; background: var(--ink); }
-  @media (max-width: 768px) { .nav-links { display: none; position: fixed; top: 64px; left: 0; right: 0; background: var(--paper); border-bottom: 1px solid var(--rule); padding: 24px 32px; flex-direction: column; gap: 18px; align-items: flex-start; } .nav-links.active-menu { display: flex; } .menu-toggle { display: flex; } }
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --bg-secondary: #f5f5f7;
+            --text-main: #1d1d1f;
+            --text-light: #86868b;
+            --accent: #0071e3;
+            --accent-hover: #0077ed;
+            --accent-soft: rgba(0, 113, 227, 0.1);
+            --success: #28c840;
+            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-stack); background-color: var(--bg-color); color: var(--text-main); line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        h1 { font-size: 3.5rem; font-weight: 600; letter-spacing: -0.025em; line-height: 1.08; margin-bottom: 1rem; }
+        h2 { font-size: 2.4rem; font-weight: 600; letter-spacing: -0.01em; line-height: 1.15; }
+        h3 { font-size: 1.4rem; font-weight: 600; }
+        p { font-size: 1.1rem; color: var(--text-light); line-height: 1.55; }
+        a { text-decoration: none; transition: all 0.3s ease; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-  .hero { padding: 96px 0 80px; border-bottom: 1px solid var(--rule); }
-  .eyebrow { font-size: 11.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 28px; }
-  .crumb { font-size: 12.5px; color: var(--ink-3); margin-bottom: 28px; }
-  .crumb a { border-bottom: 1px solid var(--rule); color: var(--ink-2); padding-bottom: 1px; }
-  .crumb a:hover { color: var(--accent); border-color: var(--accent); }
-  h1 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(40px, 5.5vw, 68px); line-height: 1.1; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 28px; max-width: 880px; }
-  h1 em { font-style: italic; color: var(--accent); }
-  .deck { font-family: 'Cormorant Garamond', serif; font-size: clamp(20px, 2.3vw, 26px); line-height: 1.45; color: var(--ink-2); max-width: 720px; font-style: italic; }
+        .navbar { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); height: 78px; display: flex; align-items: center; }
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .logo-wrapper { display: flex; align-items: center; gap: 14px; text-decoration: none; z-index: 1001; }
+        .logo-icon { height: 50px; width: auto; object-fit: contain; }
+        .logo-text-span { font-size: 1.55rem; color: var(--text-main); letter-spacing: -0.03em; line-height: 1; }
+        .logo-text-span strong { font-weight: 700; } .logo-text-span span { font-weight: 400; }
+        .brand-dot { color: var(--accent); font-weight: 700; }
+        .nav-links { list-style: none; display: flex; gap: 32px; align-items: center; }
+        .nav-links a { color: var(--text-light); font-size: 0.94rem; font-weight: 500; }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links .current { color: var(--accent); }
+        .btn-nav { background-color: var(--accent); color: white !important; padding: 10px 22px; border-radius: 25px; font-size: 0.9rem !important; white-space: nowrap; }
+        .btn-nav:hover { background-color: var(--accent-hover); transform: scale(1.02); box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3); }
+        .menu-toggle { display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1001; background: none; border: none; padding: 10px; }
+        .bar { width: 25px; height: 2px; background-color: var(--text-main); }
 
-  section { padding: 80px 0; border-bottom: 1px solid var(--rule); }
-  section.tinted { background: var(--paper-2); }
-  .section-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 16px; display: block; }
-  h2 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(32px, 4vw, 44px); line-height: 1.15; color: var(--ink); margin-bottom: 24px; letter-spacing: -0.005em; max-width: 720px; }
-  h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 24px; line-height: 1.3; color: var(--ink); margin-bottom: 12px; }
-  h4 { font-weight: 600; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 16px; }
-  p { color: var(--ink-2); margin-bottom: 18px; max-width: 680px; }
-  p.lead { font-family: 'Cormorant Garamond', serif; font-size: 24px; line-height: 1.5; color: var(--ink); max-width: 720px; margin-bottom: 32px; }
-  strong { color: var(--ink); font-weight: 600; }
+        .crumb { font-size: 0.85rem; color: var(--text-light); margin-bottom: 20px; }
+        .crumb a { color: var(--text-light); border-bottom: 1px solid rgba(0,0,0,0.1); }
+        .crumb a:hover { color: var(--accent); border-color: var(--accent); }
 
-  .score-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px; background: var(--rule-light); border: 1px solid var(--rule-light); margin: 36px 0; }
-  .score { background: var(--paper); padding: 32px 24px; text-align: center; }
-  .score .num { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 42px; line-height: 1; color: var(--accent); margin-bottom: 12px; }
-  .score h3 { font-size: 17px; margin-bottom: 6px; }
-  .score p { font-size: 13px; color: var(--ink-3); margin: 0; }
+        /* Hero */
+        .hero {
+            min-height: 88vh;
+            display: flex;
+            align-items: center;
+            padding: 130px 0 80px;
+            background: linear-gradient(180deg, var(--bg-color) 0%, var(--bg-secondary) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-flex { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center; }
+        @media (max-width: 900px) { .hero-flex { grid-template-columns: 1fr; gap: 50px; text-align: center; } }
+        .eyebrow {
+            display: inline-block;
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 28px;
+        }
+        .subhead { font-size: 1.3rem; margin: 22px 0 36px; max-width: 540px; font-weight: 400; color: var(--text-light); line-height: 1.5; }
+        @media (max-width: 900px) { .subhead { margin-left: auto; margin-right: auto; } }
+        .subhead strong { color: var(--text-main); font-weight: 600; }
+        .cta-wrapper { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+        @media (max-width: 900px) { .cta-wrapper { justify-content: center; } }
+        .btn-primary { background-color: var(--accent); color: white; padding: 14px 28px; border-radius: 30px; font-weight: 500; border: none; cursor: pointer; font-size: 1rem; transition: all 0.3s ease; white-space: nowrap; }
+        .btn-primary:hover { background-color: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0, 113, 227, 0.25); }
+        .link-secondary { color: var(--accent); font-weight: 500; }
+        .link-secondary:hover { text-decoration: underline; }
 
-  .service-row { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; margin-bottom: 72px; }
-  .service-row.reverse { direction: rtl; }
-  .service-row.reverse > * { direction: ltr; }
-  .service-row:last-child { margin-bottom: 0; }
-  @media (max-width: 720px) { .service-row { grid-template-columns: 1fr; gap: 32px; direction: ltr; margin-bottom: 48px; } }
-  .service-text .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 14px; display: block; }
-  .service-text h2 { font-size: clamp(28px, 3.5vw, 38px); margin-bottom: 18px; }
-  .service-text p { font-size: 15.5px; }
-  .service-visual { background: var(--ink); color: var(--paper); padding: 48px 36px; min-height: 240px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
-  .service-visual::after { content: ""; position: absolute; bottom: -40px; right: -40px; width: 200px; height: 200px; background: var(--gold); opacity: 0.15; border-radius: 50%; }
-  .service-visual .vlabel { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--gold-soft); margin-bottom: 14px; }
-  .service-visual h3 { color: var(--paper); font-size: 32px; margin-bottom: 12px; font-weight: 500; position: relative; z-index: 1; }
-  .service-visual p { color: rgba(250, 247, 241, 0.7); font-size: 14px; margin: 0; position: relative; z-index: 1; }
+        /* Live indicator */
+        .live-strip { display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-light); margin-bottom: 22px; }
+        .live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); position: relative; }
+        .live-dot::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; background: var(--success); opacity: 0.35; animation: livePulse 1.8s ease-out infinite; }
+        @keyframes livePulse { 0% { transform: scale(0.7); opacity: 0.5; } 100% { transform: scale(2.2); opacity: 0; } }
 
-  .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: var(--rule-light); border: 1px solid var(--rule-light); margin-top: 40px; }
-  .demo { background: var(--paper); padding: 36px 32px; transition: background 0.2s; display: flex; flex-direction: column; }
-  .demo:hover { background: #fbf9f3; }
-  .demo .tag { display: inline-block; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 16px; }
-  .demo h3 { font-size: 22px; margin-bottom: 10px; }
-  .demo p { font-size: 14.5px; flex: 1; margin-bottom: 20px; }
-  .demo-link { font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-2); font-weight: 600; border-bottom: 1px solid var(--rule); padding-bottom: 2px; align-self: flex-start; }
-  .demo-link:hover { color: var(--accent); border-color: var(--accent); }
+        /* Agent demo card visual */
+        .agent-demo {
+            background: white;
+            border-radius: 24px;
+            padding: 32px 28px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+            max-width: 420px;
+            margin: 0 auto;
+        }
+        .agent-header { display: flex; align-items: center; gap: 14px; padding-bottom: 16px; margin-bottom: 18px; border-bottom: 1px solid rgba(0,0,0,0.06); }
+        .agent-avatar { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), #5856d6); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.1rem; flex-shrink: 0; }
+        .agent-name { font-weight: 600; color: var(--text-main); font-size: 1rem; }
+        .agent-status { font-size: 0.78rem; color: var(--success); display: flex; align-items: center; gap: 6px; }
+        .agent-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--success); }
+        .msg { padding: 10px 14px; border-radius: 14px; font-size: 0.92rem; margin-bottom: 8px; max-width: 84%; line-height: 1.45; }
+        .msg.bot { background: #f5f5f7; color: var(--text-main); border-top-left-radius: 4px; opacity: 0; animation: msgIn 0.5s ease-out forwards; }
+        .msg.user { background: var(--accent); color: white; margin-left: auto; border-top-right-radius: 4px; opacity: 0; animation: msgIn 0.5s ease-out forwards; }
+        .msg.m1 { animation-delay: 0.4s; } .msg.m2 { animation-delay: 1.2s; } .msg.m3 { animation-delay: 2.0s; } .msg.m4 { animation-delay: 2.8s; } .msg.m5 { animation-delay: 3.6s; }
+        @keyframes msgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .typing { background: #f5f5f7; padding: 12px 14px; border-radius: 14px; border-top-left-radius: 4px; display: inline-flex; gap: 4px; margin-top: 4px; opacity: 0; animation: msgIn 0.4s ease-out 4.4s forwards; }
+        .typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--text-light); animation: typeBounce 1.2s ease-in-out infinite; }
+        .typing span:nth-child(2) { animation-delay: 0.2s; }
+        .typing span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typeBounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-4px); opacity: 1; } }
 
-  .cta-section { background: var(--ink); color: var(--paper); padding: 80px 0; border: none; }
-  .cta-section .section-num { color: var(--gold-soft); }
-  .cta-section h2 { color: var(--paper); }
-  .cta-section p { color: rgba(250, 247, 241, 0.78); }
-  .cta-section .btn { background: var(--paper); color: var(--ink); padding: 14px 28px; font-size: 14.5px; font-weight: 500; border-radius: 2px; display: inline-block; margin-top: 16px; }
-  .cta-section .btn:hover { background: var(--gold-soft); color: var(--paper); }
+        /* Stats strip */
+        .stats-strip { padding: 80px 0; background-color: white; }
+        .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+        @media (max-width: 768px) { .stat-grid { grid-template-columns: 1fr 1fr; gap: 30px; } }
+        .stat { padding: 16px; }
+        .stat-num { font-size: 2.8rem; font-weight: 700; color: var(--accent); letter-spacing: -0.02em; line-height: 1; margin-bottom: 8px; }
+        .stat-lbl { font-size: 0.92rem; color: var(--text-light); font-weight: 500; }
 
-  footer { padding: 36px 0; background: var(--paper); border-top: 1px solid var(--rule); }
-  .footer-inner { max-width: 1080px; margin: 0 auto; padding: 0 32px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--ink-3); }
-  .footer-inner .brand { font-size: 16px; }
-</style>
+        /* Sections */
+        section.agent-section { padding: 110px 0; }
+        section.agent-section.tinted { background-color: var(--bg-secondary); }
+        .section-eyebrow { display: block; font-size: 0.78rem; color: var(--accent); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; }
+        .agent-row { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .agent-row.reverse { direction: rtl; }
+        .agent-row.reverse > * { direction: ltr; }
+        @media (max-width: 900px) { .agent-row, .agent-row.reverse { grid-template-columns: 1fr; gap: 50px; direction: ltr; } }
+        .agent-row h2 { margin-bottom: 20px; }
+        .agent-row p { margin-bottom: 16px; }
+        .agent-features { list-style: none; margin: 24px 0 28px; }
+        .agent-features li { padding: 8px 0; font-size: 1rem; color: var(--text-light); display: flex; align-items: start; gap: 12px; }
+        .agent-features li::before { content: "✓"; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+        .agent-features strong { color: var(--text-main); font-weight: 600; }
+        .agent-cta-link { display: inline-flex; align-items: center; gap: 10px; padding: 12px 22px; border: 1.5px solid var(--accent); color: var(--accent); border-radius: 28px; font-weight: 500; font-size: 0.95rem; transition: all 0.3s ease; }
+        .agent-cta-link:hover { background: var(--accent); color: white; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0, 113, 227, 0.2); }
+        .agent-cta-link::after { content: "→"; transition: margin-left 0.2s; }
+        .agent-cta-link:hover::after { margin-left: 4px; }
+
+        /* CTA */
+        .related-cta { padding: 100px 0; background-color: white; text-align: center; }
+        .related-cta h2 { margin-bottom: 16px; }
+        .related-cta p { max-width: 540px; margin: 0 auto 36px; }
+
+        /* Contact */
+        .contact { padding: 100px 0 60px 0; text-align: center; background-color: var(--bg-secondary); }
+        .contact-form { max-width: 460px; margin: 40px auto 0; display: flex; flex-direction: column; gap: 14px; }
+        input, textarea { padding: 16px; border-radius: 12px; border: 1px solid #d2d2d7; background: white; font-size: 1rem; outline: none; width: 100%; font-family: inherit; }
+        textarea { resize: vertical; min-height: 110px; }
+        input:focus, textarea:focus { border-color: var(--accent); }
+        footer { margin-top: 60px; border-top: 1px solid #d2d2d7; padding-top: 30px; font-size: 0.82rem; color: var(--text-light); }
+        .brand-name-footer { font-weight: 700; color: var(--text-main); }
+        .brand-name-footer span { font-weight: 400; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.3rem; }
+            h2 { font-size: 1.85rem; }
+            .menu-toggle { display: flex; }
+            .nav-links { position: fixed; top: 78px; left: 0; width: 100%; background: white; flex-direction: column; padding: 36px 24px; transform: translateY(-150%); transition: transform 0.3s ease-in-out; z-index: 999; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+            .nav-links.active { transform: translateY(0); }
+            .nav-links li { width: 100%; text-align: center; }
+            .nav-links a { display: block; font-size: 1.15rem; padding: 14px 0; }
+            .btn-nav { width: 100%; display: block; padding: 14px 0; border-radius: 12px; }
+            .logo-icon { height: 38px; }
+            .logo-text-span { font-size: 1.25rem; }
+        }
+    </style>
 </head>
 <body>
 
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="/" class="brand">Carolina Redesign<span class="dot">.</span></a>
-    <button class="menu-toggle" id="menuBtn" aria-label="Menu"><div class="bar"></div><div class="bar"></div><div class="bar"></div></button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="/strategy/">Strategy</a></li>
-      <li><a href="/operations/">Operations</a></li>
-      <li><a href="/agents/" class="active">Agents</a></li>
-      <li><a href="/#about">About</a></li>
-      <li><a href="/#contact" class="cta">Start a Conversation</a></li>
-    </ul>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="container">
-    <div class="crumb"><a href="/">Carolina Redesign</a> &nbsp;/&nbsp; Agents</div>
-    <div class="eyebrow">Pillar 03 — Web &amp; Agents</div>
-    <h1>Your website should be <em>your best employee</em>.</h1>
-    <p class="deck">High-performance websites with AI voice receptionists, intake bots, and workflow automation. The infrastructure most organizations should have already — built for the way leads actually arrive.</p>
-  </div>
-</header>
-
-<section>
-  <div class="container">
-    <span class="section-num">01 — THE INTELLIGENT SITE STANDARD</span>
-    <h2>You can't put a Ferrari engine in a rusted car. We build the infrastructure first.</h2>
-    <p>Every AI deployment we ship rests on a foundation of fast, conversion-focused web architecture. We build that foundation first — then layer the agents on top.</p>
-    <div class="score-grid">
-      <div class="score">
-        <div class="num">100</div>
-        <h3>Speed</h3>
-        <p>Instant load times</p>
-      </div>
-      <div class="score">
-        <div class="num">24/7</div>
-        <h3>Availability</h3>
-        <p>AI never sleeps</p>
-      </div>
-      <div class="score">
-        <div class="num">0%</div>
-        <h3>Missed Calls</h3>
-        <p>Every lead captured</p>
-      </div>
-      <div class="score">
-        <div class="num">SEO</div>
-        <h3>Ranking</h3>
-        <p>Local search dominance</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="tinted">
-  <div class="container">
-    <span class="section-num">02 — THE STACK</span>
-    <h2>Three layers, built in order.</h2>
-    <p>We build the foundation, then the workforce, then the engine. Skipping a layer is the most common reason AI deployments fail to convert.</p>
-
-    <div style="margin-top: 56px;">
-      <div class="service-row">
-        <div class="service-text">
-          <span class="label">LAYER 01 — THE FOUNDATION</span>
-          <h2>High-performance web design.</h2>
-          <p>Before we automate, we optimize. We replace outdated sites with sleek, custom-coded platforms designed to convert traffic into leads. No bloat. No vendor lock-in. Just performance.</p>
+    <nav class="navbar">
+        <div class="container nav-flex">
+            <a href="/" class="logo-wrapper">
+                <img src="/cr-logo.png" alt="Carolina Redesign Logo" class="logo-icon">
+                <div class="logo-text-span"><strong>Carolina</strong><span>Redesign</span><span class="brand-dot">.</span></div>
+            </a>
+            <button class="menu-toggle" id="menuBtn" aria-label="Toggle Menu"><div class="bar"></div><div class="bar"></div><div class="bar"></div></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/strategy/">Strategy</a></li>
+                <li><a href="/operations/">Operations</a></li>
+                <li><a href="/agents/" class="current">Agents</a></li>
+                <li><a href="/websites/">Websites</a></li>
+                <li><a href="/#about">About</a></li>
+                <li><a href="#contact" class="btn-nav">Start a Conversation</a></li>
+            </ul>
         </div>
-        <div class="service-visual">
-          <div class="vlabel">FOUNDATION</div>
-          <h3>Conversion Design</h3>
-          <p>Custom-coded · SEO-optimized · Mobile-first</p>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="crumb"><a href="/">Carolina Redesign</a> &nbsp;/&nbsp; AI Agents</div>
+            <div class="hero-flex">
+                <div>
+                    <span class="eyebrow">AI Agents · Practice 03</span>
+                    <h1>Your best employee never sleeps<span class="brand-dot" style="font-size: 0.6em; vertical-align: 0.15em;">.</span></h1>
+                    <p class="subhead">We build <strong>custom-trained AI agents</strong> that answer your phones, qualify your leads, book your calendar, and run intake — twenty-four hours a day, in under a second, for pennies on the dollar.</p>
+                    <div class="cta-wrapper">
+                        <a href="#legal" class="btn-primary">See the Agents</a>
+                        <a href="#contact" class="link-secondary">Get a custom agent →</a>
+                    </div>
+                </div>
+                <div>
+                    <div class="agent-demo" aria-hidden="true">
+                        <div class="agent-header">
+                            <div class="agent-avatar">CR</div>
+                            <div>
+                                <div class="agent-name">Intake Assistant</div>
+                                <div class="agent-status">Online · Responds in &lt;1s</div>
+                            </div>
+                        </div>
+                        <div class="msg bot m1">Hi! Thanks for reaching out. What kind of help do you need today?</div>
+                        <div class="msg user m2">I think I have a case from a car accident last week.</div>
+                        <div class="msg bot m3">I'm sorry to hear that. Was a police report filed at the scene?</div>
+                        <div class="msg user m4">Yes, the officer gave me a report number.</div>
+                        <div class="msg bot m5">Perfect. Based on that, you qualify for a free consultation. I see an opening at 2:00 PM today — should I book that for you?</div>
+                        <div class="typing"><span></span><span></span><span></span></div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <div class="service-row reverse">
-        <div class="service-text">
-          <span class="label">LAYER 02 — THE WORKFORCE</span>
-          <h2>AI voice receptionists.</h2>
-          <p>Never miss a money call again. We deploy AI voice agents that answer the phone, qualify leads, gather context, and book appointments instantly. It sounds human — but it works for pennies and never takes a vacation.</p>
+    <section class="stats-strip">
+        <div class="container">
+            <div class="stat-grid">
+                <div class="stat">
+                    <div class="stat-num">&lt;1s</div>
+                    <div class="stat-lbl">Response time</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">24/7</div>
+                    <div class="stat-lbl">Always answering</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">2</div>
+                    <div class="stat-lbl">Languages, by default</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">0%</div>
+                    <div class="stat-lbl">Missed leads</div>
+                </div>
+            </div>
         </div>
-        <div class="service-visual">
-          <div class="vlabel">WORKFORCE</div>
-          <h3>24/7 AI Agent</h3>
-          <p>Voice + text · Bilingual · Custom-trained</p>
+    </section>
+
+    <!-- LEGAL -->
+    <section class="agent-section" id="legal">
+        <div class="container">
+            <div class="agent-row">
+                <div>
+                    <span class="section-eyebrow">Legal · Personal Injury &amp; Family</span>
+                    <h2>The intake agent that <span style="color: var(--accent);">qualifies cases</span> before your paralegal wakes up.</h2>
+                    <p>In personal injury, time kills deals. If you don't answer in under five minutes, your competitor will. We build empathetic, bilingual AI intake agents that answer the phone instantly, screen for liability, gather case facts, and book consultations on your calendar — all before the qualifying lead even leaves the scene.</p>
+                    <ul class="agent-features">
+                        <li><strong>Instant qualification.</strong>&nbsp;"Were you at fault?" "Is there a police report?" The AI gathers the facts that matter.</li>
+                        <li><strong>Bilingual by default.</strong>&nbsp;Capture the 20%+ of leads that prefer Spanish. The AI switches languages instantly.</li>
+                        <li><strong>Direct calendar booking.</strong>&nbsp;Qualified leads land on your attorney's calendar — no tag, no chase.</li>
+                    </ul>
+                    <a href="/legal/" class="agent-cta-link">See the Legal Bot</a>
+                </div>
+                <div>
+                    <div class="agent-demo" aria-hidden="true" style="max-width: 380px;">
+                        <div class="agent-header">
+                            <div class="agent-avatar" style="background: linear-gradient(135deg, #5856d6, #af52de);">L</div>
+                            <div>
+                                <div class="agent-name">Legal Intake</div>
+                                <div class="agent-status">Live</div>
+                            </div>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 12px;">Average lead-to-booking time:</div>
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--text-main); letter-spacing: -0.02em; margin-bottom: 4px;">47 seconds</div>
+                        <div style="font-size: 0.85rem; color: var(--success); font-weight: 600;">↑ 96% faster than human intake</div>
+                        <div style="margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(0,0,0,0.06); font-size: 0.85rem; color: var(--text-light);">
+                            ✓ Police report check<br>
+                            ✓ Liability screening<br>
+                            ✓ Spanish &amp; English<br>
+                            ✓ Calendar booking
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <div class="service-row">
-        <div class="service-text">
-          <span class="label">LAYER 03 — THE ENGINE</span>
-          <h2>Workflow automation.</h2>
-          <p>Eliminate the busy work. From missed-call text-back to automated Google review requests, we build the invisible systems that run your business on autopilot.</p>
+    <!-- MEDICAL -->
+    <section class="agent-section tinted" id="medical">
+        <div class="container">
+            <div class="agent-row reverse">
+                <div>
+                    <span class="section-eyebrow">Healthcare · HIPAA-Compliant</span>
+                    <h2>The clinical concierge that <span style="color: var(--accent);">ends the front-desk bottleneck</span>.</h2>
+                    <p>In the modern practice, the phone is the enemy of efficiency. Thirty percent of patients hang up after two minutes on hold — and they don't call back. They call the next practice on Google. We build HIPAA-compliant AI receptionists that triage patient needs, sync appointments to your EHR, and route emergencies to your on-call nurse — without burning out your clinical staff.</p>
+                    <ul class="agent-features">
+                        <li><strong>HIPAA-compliant architecture.</strong>&nbsp;Patient data encrypted in transit and at rest. Banking-grade security protocols.</li>
+                        <li><strong>Intelligent triage.</strong>&nbsp;Distinguishes between refills, emergencies, and bookings. Complex medical questions instantly routed to your on-call nurse.</li>
+                        <li><strong>Dynamic calendar sync.</strong>&nbsp;Syncs directly with your existing EHR and scheduling system.</li>
+                    </ul>
+                    <a href="/medical/" class="agent-cta-link">See the Clinical Concierge</a>
+                </div>
+                <div>
+                    <div class="agent-demo" aria-hidden="true" style="max-width: 380px;">
+                        <div class="agent-header">
+                            <div class="agent-avatar" style="background: linear-gradient(135deg, #34c759, #30b0c7);">C</div>
+                            <div>
+                                <div class="agent-name">Clinical Concierge</div>
+                                <div class="agent-status">HIPAA · Active</div>
+                            </div>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 12px;">Calls handled this week:</div>
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--text-main); letter-spacing: -0.02em; margin-bottom: 4px;">2,847</div>
+                        <div style="font-size: 0.85rem; color: var(--success); font-weight: 600;">↑ Zero hold time, zero hangups</div>
+                        <div style="margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(0,0,0,0.06); font-size: 0.85rem; color: var(--text-light);">
+                            ✓ Appointment booking<br>
+                            ✓ Prescription refills<br>
+                            ✓ Triage routing<br>
+                            ✓ After-hours coverage
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="service-visual">
-          <div class="vlabel">ENGINE</div>
-          <h3>Auto-Pilot Ops</h3>
-          <p>Stripe · CRM sync · Review automation</p>
+    </section>
+
+    <!-- CUSTOM -->
+    <section class="agent-section" id="custom">
+        <div class="container">
+            <div class="agent-row">
+                <div>
+                    <span class="section-eyebrow">Custom · Built For Your Industry</span>
+                    <h2>If your industry isn't here, we'll <span style="color: var(--accent);">build the agent that is</span>.</h2>
+                    <p>Every industry has its own intake language. Generic chatbots fail because they don't speak it. We've built agents for state legislators, ministry teams, workforce development agencies, and trade specialists — and we're always taking on the next unusual problem. If you can describe what your best employee does on their best day, we can build the agent that does it on every day.</p>
+                    <ul class="agent-features">
+                        <li><strong>Custom-trained on your data.</strong>&nbsp;Your scripts, your terminology, your edge cases. The agent learns your business — not the other way around.</li>
+                        <li><strong>Integrated with your stack.</strong>&nbsp;CRM, calendar, billing, EHR, custom databases — whatever your team uses, we connect.</li>
+                        <li><strong>Strategic engagements only.</strong>&nbsp;Custom work is the deepest pillar of the practice. Start with a free discovery call.</li>
+                    </ul>
+                    <a href="/operations/" class="agent-cta-link">Explore Special Projects</a>
+                </div>
+                <div>
+                    <div class="agent-demo" aria-hidden="true" style="max-width: 380px;">
+                        <div class="agent-header">
+                            <div class="agent-avatar" style="background: linear-gradient(135deg, #ff9500, #ff3b30);">★</div>
+                            <div>
+                                <div class="agent-name">Custom Build</div>
+                                <div class="agent-status">By engagement</div>
+                            </div>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 12px;">Recent custom builds:</div>
+                        <div style="font-size: 0.95rem; color: var(--text-main); line-height: 1.7;">
+                            <div style="padding: 6px 0;">✦ Palmetto ZBB Suite <span style="color: var(--text-light); font-size: 0.82rem;">— SC State Gov</span></div>
+                            <div style="padding: 6px 0;">✦ Workforce Tracker <span style="color: var(--text-light); font-size: 0.82rem;">— Multi-County</span></div>
+                            <div style="padding: 6px 0;">✦ Ministry Margin Brief <span style="color: var(--text-light); font-size: 0.82rem;">— Faith-Based Org</span></div>
+                            <div style="padding: 6px 0;">✦ Clinical Cyber Research <span style="color: var(--text-light); font-size: 0.82rem;">— AI Safety</span></div>
+                        </div>
+                        <div style="margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(0,0,0,0.06); font-size: 0.82rem; color: var(--text-light);">
+                            Engagements available by referral.
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section>
-  <div class="container">
-    <span class="section-num">03 — TRY A LIVE DEMO</span>
-    <h2>Specialized agents, custom-trained for specific industries.</h2>
-    <p>Every industry has its own intake language. Generic chatbots fail because they don't speak it. We build agents that do — and you can talk to them right now.</p>
+    <section class="related-cta">
+        <div class="container">
+            <h2>Agents need infrastructure.</h2>
+            <p>Behind every great AI agent is a great website, a fast hosting stack, and operational systems that capture what the agent learns. We build the whole stack.</p>
+            <div class="cta-wrapper" style="justify-content: center;">
+                <a href="/websites/" class="btn-primary">Explore Websites</a>
+                <a href="/operations/" class="link-secondary">Explore Operations →</a>
+            </div>
+        </div>
+    </section>
 
-    <div class="demo-grid">
-      <a href="/legal/" class="demo">
-        <span class="tag">LEGAL</span>
-        <h3>Legal Intake</h3>
-        <p>An empathetic AI agent that qualifies leads, gathers accident details, and schedules consultations instantly — built for personal injury and family practice firms.</p>
-        <span class="demo-link">Try the Legal Bot →</span>
-      </a>
-      <a href="/medical/" class="demo">
-        <span class="tag">HEALTHCARE</span>
-        <h3>Clinical Concierge</h3>
-        <p>HIPAA-compliant triage that handles appointment booking, prescription refills, and general inquiries — without burning out clinical staff.</p>
-        <span class="demo-link">Try the Medical Bot →</span>
-      </a>
-      <a href="/ministries/" class="demo">
-        <span class="tag">MINISTRIES</span>
-        <h3>Faith-Based Operations</h3>
-        <p>Catalog assistants, donor engagement tools, and operational dashboards for organizations whose work depends on stewardship.</p>
-        <span class="demo-link">Explore Ministries →</span>
-      </a>
-    </div>
-  </div>
-</section>
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Build an agent for your business.</h2>
+            <p>Tell us about your intake bottleneck — missed calls, slow response, after-hours gaps, or anything else.</p>
 
-<section class="cta-section">
-  <div class="container">
-    <span class="section-num">— BEGIN A CONVERSATION</span>
-    <h2>Ready to stop losing leads to voicemail?</h2>
-    <p>A fifteen-minute conversation about your current intake process, your missed-call problem, and what a properly built site-plus-agents stack would do for your business.</p>
-    <a href="/#contact" class="btn">Start Conversation</a>
-  </div>
-</section>
+            <div style="margin: 24px 0;">
+                <a href="tel:+18033027674" style="font-size: 1.2rem; font-weight: 600; color: var(--accent); text-decoration: none;">📞 (803) 302-7674</a>
+            </div>
 
-<footer>
-  <div class="footer-inner">
-    <span class="brand">Carolina Redesign<span class="dot" style="color: var(--gold);">.</span></span>
-    <span>&copy; 2026 · An AI Transformation Studio · Chapin, SC</span>
-  </div>
-</footer>
+            <form class="contact-form" action="https://formspree.io/f/xjgbaddv" method="POST">
+                <input type="text" name="name" placeholder="Name" required>
+                <input type="email" name="email" placeholder="Email Address" required>
+                <textarea name="message" placeholder="Tell me about your intake process — what's slow, what's missing, what your best receptionist does on their best day."></textarea>
+                <button type="submit" class="btn-primary">Get My Custom Agent Plan</button>
+            </form>
+        </div>
+        <footer>
+            <div class="container">
+                <p>&copy; 2026 <span class="brand-name-footer">Carolina<span>Redesign</span><span class="brand-dot">.</span></span> &nbsp;·&nbsp; Intelligent Systems &nbsp;·&nbsp; Chapin, SC</p>
+            </div>
+        </footer>
+    </section>
 
-<script>
-  document.getElementById('menuBtn').addEventListener('click', () => {
-    document.getElementById('navLinks').classList.toggle('active-menu');
-  });
-</script>
+    <script>
+        document.getElementById('menuBtn').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('active'));
+    </script>
 
 </body>
 </html>
