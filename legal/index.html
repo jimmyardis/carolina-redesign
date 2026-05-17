@@ -62,7 +62,7 @@
             <button class="bg-brand-blue text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-blue-600 transition shadow-xl shadow-blue-500/20">
                 Audit My Intake Process
             </button>
-            <button class="border border-brand-dark text-brand-dark px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-50 transition">
+            <button id="test-legal-bot" class="border border-brand-dark text-brand-dark px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-50 transition">
                 Test the Legal Bot
             </button>
         </div>
@@ -217,16 +217,13 @@
     </footer>
     
     <!-- InjuryIntake AI Widget -->
+    <script src="https://injuryintake-app-production.up.railway.app/widget/acme_pi.js"></script>
     <script>
-      window.PIWidgetConfig = {
-        apiUrl: 'http://localhost:8000',
-        primaryColor: '#2563eb',
-        headerTitle: 'Free Case Review',
-        headerSubtitle: 'Tell us about your injury'
-      };
+        document.getElementById("test-legal-bot").addEventListener("click", function() {
+            if (window.IIWidget) window.IIWidget.open();
+        });
     </script>
-    <script src="http://localhost:8000/widget/widget.js"></script>
-    
+
 </body>
-      <script src="https://injuryintake-app-production.up.railway.app/widget/acme_pi.js"></script>           
 </html>
+
