@@ -32,24 +32,28 @@ html, body {
 .wrap { max-width: 1380px; margin: 0 auto; padding: 0 5%; }
 
 header.hero { padding: 56px 0 28px; border-bottom: 1px solid var(--line); }
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+.header-links {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: 14px; margin-bottom: 18px;
   font-family: 'Inter', sans-serif;
   font-size: 13px;
+}
+.header-links a {
+  display: inline-flex; align-items: center; gap: 6px;
   color: var(--ink-mute);
   text-decoration: none;
-  margin-bottom: 18px;
   padding: 6px 0;
   transition: color 0.18s ease;
 }
-.back-link:hover { color: var(--wc); }
-.back-link .back-arrow {
+.header-links a:hover { color: var(--wc); }
+.header-links .back-arrow,
+.header-links .fwd-arrow {
   display: inline-block;
   transition: transform 0.18s ease;
 }
-.back-link:hover .back-arrow { transform: translateX(-3px); }
+.header-links a:hover .back-arrow { transform: translateX(-3px); }
+.header-links a:hover .fwd-arrow { transform: translateX(3px); }
+.header-links .divider { color: var(--line-strong); }
 .kicker {
   font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--wc); font-weight: 600;
@@ -316,7 +320,11 @@ footer {
 
 <div class="wrap">
   <header class="hero">
-    <a href="./" class="back-link"><span class="back-arrow">←</span> Back to the written analysis</a>
+    <div class="header-links">
+      <a href="./"><span class="back-arrow">←</span> Back to the written analysis</a>
+      <span class="divider">·</span>
+      <a href="slides.html">View the slide deck <span class="fwd-arrow">→</span></a>
+    </div>
     <div class="kicker">A side-by-side property productivity analysis · Charleston, South Carolina</div>
     <h1 class="title">The walled city, the borough,<br/>and the <em>strip.</em></h1>
     <p class="subtitle">Three patches of Charleston, three patterns of development, one city government. The original 1704 walled city, the historic Cannonborough-Elliotborough neighborhood north of it, and a same-size chunk of Savannah Highway in West Ashley. The older patterns out-earn the newer one by an order of magnitude per acre — and the gap is bigger than the headline suggests once you account for civic land and streets.</p>

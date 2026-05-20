@@ -193,14 +193,22 @@ aside.callout p { font-family: 'Inter', sans-serif; font-size: 15px; color: var(
 
 aside.callout.warm { border-left-color: var(--wc); background: rgba(184,105,77,0.04); }
 
+.companion-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 28px 0 8px;
+}
+@media (max-width: 640px) {
+  .companion-grid { grid-template-columns: 1fr; }
+}
 .cta-dashboard {
   display: block;
   background: var(--bg-card);
   border: 1px solid var(--line);
   border-left: 4px solid var(--wc);
   border-radius: 4px;
-  padding: 28px 32px;
-  margin: 28px 0 8px;
+  padding: 24px 26px;
   text-decoration: none;
   color: var(--ink);
   transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
@@ -210,6 +218,11 @@ aside.callout.warm { border-left-color: var(--wc); background: rgba(184,105,77,0
   box-shadow: 0 10px 28px rgba(107, 31, 0, 0.10);
   border-color: var(--wc-soft);
 }
+.cta-dashboard.slides { border-left-color: var(--ce); }
+.cta-dashboard.slides:hover {
+  box-shadow: 0 10px 28px rgba(93, 107, 79, 0.12);
+  border-color: var(--ce-soft);
+}
 .cta-dashboard .cta-eyebrow {
   display: block;
   font-family: 'Inter', sans-serif;
@@ -217,10 +230,11 @@ aside.callout.warm { border-left-color: var(--wc); background: rgba(184,105,77,0
   color: var(--wc); font-weight: 600;
   margin-bottom: 10px;
 }
+.cta-dashboard.slides .cta-eyebrow { color: var(--ce); }
 .cta-dashboard .cta-title {
   display: block;
   font-family: 'Playfair Display', serif;
-  font-size: 24px; font-weight: 700; line-height: 1.25;
+  font-size: 21px; font-weight: 700; line-height: 1.25;
   color: var(--ink);
   margin-bottom: 8px;
 }
@@ -229,11 +243,12 @@ aside.callout.warm { border-left-color: var(--wc); background: rgba(184,105,77,0
   color: var(--wc);
   transition: transform 0.18s ease;
 }
+.cta-dashboard.slides .cta-arrow { color: var(--ce); }
 .cta-dashboard:hover .cta-arrow { transform: translateX(4px); }
 .cta-dashboard .cta-sub {
   display: block;
   font-family: 'Inter', sans-serif;
-  font-size: 15px; color: var(--ink-mute);
+  font-size: 14px; line-height: 1.5; color: var(--ink-mute);
   margin: 0;
 }
 
@@ -410,11 +425,18 @@ footer a { color: var(--wc); }
 
     <p>Every parcel summarized in this report is available to explore in the companion interactive dashboard. Filter by area (Walled City, CENA, West Ashley, or all), filter by use type, include or exclude civic / tax-exempt parcels, and recolor the map by per-acre tax, per-acre value, owner-occupied status, or civic exemption. Click any parcel for its full assessor record. The full 1,935-parcel spreadsheet, the boundary polygons, the methodology, and every step of the pipeline are also downloadable.</p>
 
-    <a href="dashboard.html" class="cta-dashboard">
-      <span class="cta-eyebrow">Companion piece</span>
-      <span class="cta-title">Explore every parcel in the interactive dashboard<span class="cta-arrow"> →</span></span>
-      <span class="cta-sub">1,935 parcels across the Walled City, CENA, and the Savannah Hwy strip — mapped, filterable, and downloadable.</span>
-    </a>
+    <div class="companion-grid">
+      <a href="slides.html" class="cta-dashboard slides">
+        <span class="cta-eyebrow">Slide deck</span>
+        <span class="cta-title">The 14-slide visual summary<span class="cta-arrow"> →</span></span>
+        <span class="cta-sub">A walkthrough designed for screen sharing or projection — the argument distilled to its sharpest form.</span>
+      </a>
+      <a href="dashboard.html" class="cta-dashboard">
+        <span class="cta-eyebrow">Interactive dashboard</span>
+        <span class="cta-title">Explore every parcel<span class="cta-arrow"> →</span></span>
+        <span class="cta-sub">1,935 parcels across the Walled City, CENA, and the Savannah Hwy strip — mapped, filterable, and downloadable.</span>
+      </a>
+    </div>
 
     <h2>Methodology, briefly</h2>
 
