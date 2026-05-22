@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Vincity — a mini study on the measurement, the metaphor, and the math of street network density. Why how often streets intersect determines whether a neighborhood pays its way.">
+<title>Vincity — A Mini Study | Carolina Redesign</title>
+<link rel="icon" type="image/png" href="/cr-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --cream: #FAF7F2;
+  --ink: #1A1614;
+  --ink-mute: #6B5E50;
+  --line: #E5DFD3;
+  --gold: #C9A227;
+  --moss: #5D6B4F;
+  --moss-deep: #3F4A36;
+  --navy: #1A3248;
+  --navy-deep: #0D1A27;
+  --wc: #6B1F00;
+  --wa: #445B7A;
+  --paper: #F1ECDF;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Source Serif 4', Georgia, serif; background: var(--cream); color: var(--ink); line-height: 1.65; }
+.tnum { font-variant-numeric: tabular-nums; }
+
+/* NAV */
+.navbar { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--line); padding: 0 2rem; height: 68px; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); font-family: 'Inter', sans-serif; }
+.nav-logo img { height: 36px; }
+.nav-logo-text { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.02em; }
+.nav-back { font-family: 'Inter', sans-serif; font-size: 0.82rem; color: var(--ink-mute); text-decoration: none; letter-spacing: 0.03em; }
+.nav-back:hover { color: var(--ink); }
+
+/* HERO */
+.hero {
+  background: var(--navy-deep);
+  color: #FAF7F2;
+  padding: 5rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 80% 50%, rgba(201,162,39,0.10) 0%, transparent 65%),
+              radial-gradient(ellipse 50% 40% at 15% 20%, rgba(93,107,79,0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-inner { max-width: 980px; margin: 0 auto; position: relative; }
+.kicker {
+  font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif; font-weight: 900;
+  font-size: clamp(2.6rem, 7vw, 5.4rem); line-height: 0.98;
+  margin-bottom: 1.8rem; letter-spacing: -0.02em;
+}
+.hero h1 em { font-style: italic; color: var(--gold); }
+.lede {
+  font-family: 'Source Serif 4', serif; font-size: 1.18rem; line-height: 1.65;
+  color: rgba(250,247,242,0.78); max-width: 720px;
+  border-top: 1px solid rgba(201,162,39,0.25); padding-top: 1.5rem; margin-top: 1rem;
+}
+.byline {
+  font-family: 'Inter', sans-serif; font-size: 0.78rem; letter-spacing: 0.05em;
+  color: rgba(250,247,242,0.45); margin-top: 1.8rem;
+}
+
+/* CONTENT WRAPPER */
+.wrap { max-width: 940px; margin: 0 auto; padding: 4rem 2rem; }
+article { font-size: 1.06rem; line-height: 1.75; }
+article p { margin-bottom: 1.3rem; color: var(--ink); }
+article strong { color: var(--ink); font-weight: 600; }
+article em { font-style: italic; }
+article h2 {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: clamp(1.9rem, 4vw, 2.5rem); line-height: 1.15;
+  margin: 3rem 0 1.2rem; color: var(--ink); letter-spacing: -0.01em;
+}
+article h2.first { margin-top: 0; }
+article h3 {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: 1.35rem; margin: 1.8rem 0 0.6rem; color: var(--ink);
+}
+article .sub-h {
+  font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-mute);
+  margin-top: 2.5rem; margin-bottom: 0.6rem;
+}
+
+/* DEFINITION */
+.def {
+  background: var(--paper); border-left: 4px solid var(--gold);
+  padding: 2rem 2.2rem; margin: 0 0 2.4rem;
+  border-radius: 0 6px 6px 0;
+}
+.def .sub-h { color: var(--moss-deep); margin-top: 0; margin-bottom: 1rem; }
+.def h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; margin: 0 0 0.8rem; color: var(--ink); }
+.def p { font-family: 'Source Serif 4', serif; font-size: 1.02rem; line-height: 1.68; color: var(--ink); margin-bottom: 0.9rem; }
+.def p:last-child { margin-bottom: 0; }
+.def em { font-style: italic; color: var(--ink); }
+
+/* COMPARISON SECTION (the grocery thought experiment) */
+.compare {
+  background: linear-gradient(180deg, var(--cream) 0%, #F4EFE4 100%);
+  margin: 3.5rem -2rem;
+  padding: 4rem 2rem 4.5rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.compare .compare-inner { max-width: 1180px; margin: 0 auto; }
+.compare-kicker {
+  font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--moss-deep);
+  text-align: center; margin-bottom: 0.8rem;
+}
+.compare h2 {
+  font-family: 'Playfair Display', serif; font-weight: 900;
+  font-size: clamp(1.9rem, 4.2vw, 2.8rem); line-height: 1.1;
+  text-align: center; max-width: 720px; margin: 0 auto 1rem; letter-spacing: -0.01em;
+}
+.compare h2 em { font-style: italic; color: var(--moss); }
+.compare .compare-lede {
+  font-family: 'Source Serif 4', serif; font-size: 1.08rem; line-height: 1.7;
+  color: var(--ink-mute); text-align: center; max-width: 680px;
+  margin: 0 auto 2.8rem;
+}
+.compare-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+@media (max-width: 820px) { .compare-grid { grid-template-columns: 1fr; gap: 3rem; } }
+.compare-card { display: flex; flex-direction: column; }
+.compare-tag {
+  font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.5rem;
+}
+.compare-tag.real { color: var(--moss-deep); }
+.compare-tag.engineered { color: var(--wa); }
+.compare-card h3 {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: 1.45rem; line-height: 1.25; margin-bottom: 0.7rem; color: var(--ink);
+}
+.compare-img-wrap {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 6px;
+  padding: 0.85rem; margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.compare-img-wrap img { width: 100%; height: auto; display: block; border-radius: 3px; }
+.compare-card p {
+  font-family: 'Source Serif 4', serif; font-size: 0.98rem; line-height: 1.65;
+  color: var(--ink); margin-bottom: 0.8rem;
+}
+.compare-stats {
+  margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(0,0,0,0.08);
+  display: flex; gap: 2rem; flex-wrap: wrap;
+}
+.compare-stat { font-family: 'Inter', sans-serif; }
+.compare-stat .v {
+  font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 700;
+  display: block; line-height: 1;
+}
+.compare-stat .l { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-mute); margin-top: 0.3rem; }
+.compare-stat.real .v { color: var(--moss); }
+.compare-stat.engineered .v { color: var(--wa); }
+
+.compare-takeaway {
+  margin: 3rem auto 0; max-width: 720px; text-align: center;
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 1.25rem; line-height: 1.55; color: var(--ink);
+  padding: 1.5rem 2rem; border-top: 1px solid var(--moss); border-bottom: 1px solid var(--moss);
+}
+
+/* VINCITY BENCHMARKS */
+.bench-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1px; background: var(--line); border: 1px solid var(--line);
+  border-radius: 6px; overflow: hidden; margin: 1.5rem 0 2.5rem;
+}
+.bench {
+  background: #fff; padding: 1.5rem 1.25rem; text-align: center;
+  font-family: 'Inter', sans-serif;
+  position: relative;
+}
+.bench .v {
+  font-family: 'Playfair Display', serif; font-weight: 900;
+  font-size: 2.4rem; line-height: 1; color: var(--ink); display: block;
+  font-variant-numeric: tabular-nums;
+}
+.bench .v.gold { color: var(--gold); }
+.bench .v.moss { color: var(--moss); }
+.bench .v.wc { color: var(--wc); }
+.bench .v.wa { color: var(--wa); }
+.bench .l { font-size: 0.75rem; font-weight: 600; color: var(--ink); margin-top: 0.6rem; }
+.bench .ll { font-size: 0.7rem; color: var(--ink-mute); margin-top: 0.2rem; line-height: 1.4; }
+.bench-bar {
+  height: 4px; background: var(--line); margin: 0.9rem auto 0;
+  width: 100%; border-radius: 2px; overflow: hidden;
+}
+.bench-bar-fill { height: 100%; }
+
+/* THRESHOLD CALLOUT */
+.threshold {
+  background: var(--ink); color: #FAF7F2;
+  padding: 3.5rem 2.5rem; margin: 3.5rem -2rem;
+  position: relative; overflow: hidden;
+}
+.threshold-inner { max-width: 820px; margin: 0 auto; position: relative; }
+.threshold .sub-h { color: var(--gold); margin-top: 0; }
+.threshold h2 {
+  font-family: 'Playfair Display', serif; font-weight: 900;
+  font-size: clamp(1.8rem, 4vw, 2.6rem); color: #FAF7F2;
+  line-height: 1.15; margin-bottom: 1.2rem; letter-spacing: -0.01em;
+}
+.threshold p { font-family: 'Source Serif 4', serif; font-size: 1.08rem; line-height: 1.75; color: rgba(250,247,242,0.78); margin-bottom: 1.1rem; }
+.threshold strong { color: #FAF7F2; }
+.threshold-rule {
+  display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0;
+  font-family: 'Inter', sans-serif;
+}
+.threshold-rule .num {
+  font-family: 'Playfair Display', serif; font-size: 3.4rem; font-weight: 900;
+  color: var(--gold); line-height: 1; font-variant-numeric: tabular-nums;
+}
+.threshold-rule .lab {
+  font-family: 'Source Serif 4', serif; font-size: 0.95rem;
+  color: rgba(250,247,242,0.8); line-height: 1.5;
+}
+
+/* MECHANISM SECTION */
+.mech-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem; margin: 1.8rem 0 2rem;
+}
+.mech {
+  background: #fff; border: 1px solid var(--line); border-radius: 6px;
+  padding: 1.5rem 1.6rem;
+}
+.mech .mn {
+  font-family: 'Playfair Display', serif; font-size: 2.2rem;
+  font-weight: 900; color: var(--moss); line-height: 1; margin-bottom: 0.8rem;
+}
+.mech h4 {
+  font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.15rem;
+  margin-bottom: 0.5rem; color: var(--ink); line-height: 1.3;
+}
+.mech p {
+  font-family: 'Source Serif 4', serif; font-size: 0.94rem; line-height: 1.6;
+  color: var(--ink-mute); margin: 0;
+}
+
+/* PULL QUOTE */
+.pull {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 1.4rem; line-height: 1.45; color: var(--moss-deep);
+  padding: 1.5rem 0; border-top: 1px solid var(--moss); border-bottom: 1px solid var(--moss);
+  margin: 2rem 0;
+}
+
+/* FOOTER */
+footer { background: var(--navy-deep); color: rgba(250,247,242,0.45); padding: 3rem 2rem; font-family: 'Inter', sans-serif; }
+footer .footer-inner { max-width: 940px; margin: 0 auto; }
+footer h5 { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+footer ol { margin-left: 1.2rem; font-family: 'Source Serif 4', serif; font-size: 0.86rem; line-height: 1.7; color: rgba(250,247,242,0.65); }
+footer ol em { font-style: italic; }
+footer ol li { margin-bottom: 0.55rem; }
+footer ol li a { color: rgba(201,162,39,0.85); text-decoration: none; }
+footer ol li a:hover { color: var(--gold); }
+footer .colophon { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.75rem; color: rgba(250,247,242,0.3); line-height: 1.6; }
+
+@media (max-width: 600px) {
+  .hero { padding: 3.5rem 1.25rem 3rem; }
+  .wrap { padding: 3rem 1.25rem; }
+  .compare { padding: 3rem 1.25rem 3.5rem; margin-left: -1.25rem; margin-right: -1.25rem; }
+  .threshold { padding: 2.5rem 1.5rem; margin-left: -1.25rem; margin-right: -1.25rem; }
+  article { font-size: 1rem; }
+  .bench-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar">
+  <a class="nav-logo" href="/">
+    <img src="/cr-logo.png" alt="Carolina Redesign">
+    <span class="nav-logo-text">Carolina Redesign</span>
+  </a>
+  <a class="nav-back" href="/urban-productivity/">← Urban Productivity Series</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <p class="kicker">A Mini Study · Urban Productivity Series</p>
+    <h1>Vincity.<br><em>A measurement, a metaphor, a math.</em></h1>
+    <p class="lede">How often a street network crosses itself determines almost everything about whether a neighborhood will be valuable, walkable, financially solvent, or none of the above. The math is simple. The implications are not.</p>
+    <p class="byline">By Jimmy Ardis · Carolina Redesign · A companion piece to the Urban Productivity series</p>
+  </div>
+</header>
+
+<!-- CONTENT -->
+<div class="wrap">
+  <article>
+
+    <h2 class="first">A small number with large consequences</h2>
+
+    <p>Most people walk through a city without noticing how often they pass through intersections. They notice traffic, they notice storefronts, they notice whether the place "feels like something." What they don't realize is that the thing they're responding to has a number attached to it.</p>
+
+    <p>That number is <em>vincity</em>: the count of thoroughfare intersections per acre of land. It sounds technical because it is, but the underlying intuition is simple. A neighborhood with many intersections per acre has a finely-woven street network — small blocks, frequent corners, many possible routes between any two points. A neighborhood with few intersections per acre has a coarse network — long blocks, few connections, forced routes through a small number of arterials.</p>
+
+    <p>The first kind of network tends to produce buildings, sidewalks, storefronts, and corner shops. The second kind tends to produce parking lots, strip plazas, and traffic lights. Both kinds get called "neighborhoods." Only one of them tends to pay its way in property tax.</p>
+
+    <aside class="def">
+      <div class="sub-h">A definition</div>
+      <h3>Vincity</h3>
+      <p><em>Vincity</em> (n.) — the number of thoroughfare intersections per acre of urban fabric. A measurement of street network connectivity and granularity. The term was coined by traditional neighborhood developer Vince Graham.</p>
+      <p>The analogy is to <em>thread count</em> in textiles. Higher thread count means finer yarns and tighter weaving — producing fabric that is softer, more durable, and worth more per square inch. Higher vincity, similarly, means finer streets and tighter weaving — producing urban fabric that is more walkable, more commercially viable, and worth more per acre.</p>
+      <p>The framework descends from Jane Jacobs's <em>The Death and Life of Great American Cities</em> (1961), Chapter 8: "The Need for Small Blocks." Joe Minicozzi at Urban3 and Chuck Marohn at Strong Towns have spent the intervening decades documenting that vincity tracks fiscal productivity tightly across American development patterns. The Strong Towns guidance: <em>aim for at least 0.5 intersections per acre</em>.</p>
+    </aside>
+
+  </article>
+</div>
+
+<!-- THE GROCERY STORE THOUGHT EXPERIMENT -->
+<section class="compare">
+  <div class="compare-inner">
+    <p class="compare-kicker">The Thought Experiment</p>
+    <h2>Two grocery stores, <em>same product mix.</em></h2>
+    <p class="compare-lede">Imagine the same square footage, the same inventory, the same number of shoppers. The only difference is the floor plan. Look at what changes — and ask yourself which one wants to be in business next year.</p>
+
+    <div class="compare-grid">
+      <div class="compare-card">
+        <p class="compare-tag real">The actual co-op · East Aurora, NY</p>
+        <h3>Fine grain. Five aisles. Every section reachable from every other section.</h3>
+        <div class="compare-img-wrap">
+          <img src="images/vincity/coop-floorplan.jpg" alt="East Aurora Co-op Market floor plan showing five short aisles between perimeter departments (Produce, Dairy, Frozen, Beer, Seafood & Meat, Bakery), with multiple cross-aisles connecting them.">
+        </div>
+        <p>Five short aisles. Perimeter departments — Produce, Dairy, Frozen, Beer, Seafood & Meat, Bakery — wrap a fine interior grid. A shopper headed for bread passes Cheese and Hot Soups and a Café on the way. A shopper headed for produce passes Bulk Coffee, Dried Fruit, Hot Meals to Go. <strong>Every aisle intersects every department.</strong> The store rewards browsing and produces impulse purchases. Cross-traffic between sections is the design.</p>
+        <div class="compare-stats">
+          <div class="compare-stat real">
+            <span class="v">5</span>
+            <span class="l">aisles</span>
+          </div>
+          <div class="compare-stat real">
+            <span class="v">8+</span>
+            <span class="l">departments touched</span>
+          </div>
+          <div class="compare-stat real">
+            <span class="v">≈ high</span>
+            <span class="l">vincity (per cart-trip)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="compare-card">
+        <p class="compare-tag engineered">Hypothetical · Designed by a traffic engineer</p>
+        <h3>One arterial. Six cul-de-sacs. Each department a dead end.</h3>
+        <div class="compare-img-wrap">
+          <img src="images/vincity/engineered-store.jpg" alt="Satirical architectural plat drawing of a hypothetical grocery store designed by a traffic engineer: one 'Main Arterial' aisle with six perpendicular cul-de-sacs labeled Dairy Cul-de-Sac, Produce Court, Frozen Place, Bakery Turnaround, Meat Terminus, Dry Goods Dead End, each terminating in a circular turnaround.">
+        </div>
+        <p>One central spine — the "Main Arterial." Six perpendicular aisles dead-end into circular turnarounds: <em>Dairy Cul-de-Sac, Produce Court, Frozen Place, Bakery Turnaround, Meat Terminus, Dry Goods Dead End.</em> A shopper headed for bread enters through Parking Required, drives the Main Arterial, takes the Bakery exit, hits the turnaround, returns to the Arterial. Cross-traffic between Dairy and Bakery requires backing all the way out of one cul-de-sac and into another. <strong>Browsing is impossible.</strong> Impulse purchases collapse. The store rewards lists, in and out.</p>
+        <div class="compare-stats">
+          <div class="compare-stat engineered">
+            <span class="v">1</span>
+            <span class="l">arterial</span>
+          </div>
+          <div class="compare-stat engineered">
+            <span class="v">1</span>
+            <span class="l">department per trip</span>
+          </div>
+          <div class="compare-stat engineered">
+            <span class="v">≈ low</span>
+            <span class="l">vincity (per cart-trip)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="compare-takeaway">"The same principle that makes the co-op floor plan work — and that makes the cul-de-sac version absurd — is the principle that makes neighborhoods either pay their way or quietly cost their cities money. The plat is the product."</div>
+  </div>
+</section>
+
+<!-- THE NUMBERS FROM OUR DATA -->
+<div class="wrap" style="padding-top: 0;">
+  <article>
+
+    <h2>The vincity of our case studies</h2>
+
+    <p>Across the patterns documented in this series, the vincity values track exactly the per-acre productivity values reported in the parcel data. Here is the score, smallest to largest:</p>
+
+    <div class="bench-grid">
+      <div class="bench">
+        <span class="v wa tnum">0.23</span>
+        <div class="l">Savannah Hwy</div>
+        <div class="ll">West Ashley auto strip<br/>post-1950</div>
+      </div>
+      <div class="bench">
+        <span class="v moss tnum">0.39</span>
+        <div class="l">Elliotborough</div>
+        <div class="ll">Eastern half of CENA<br/>mid-19th century</div>
+      </div>
+      <div class="bench" style="background: linear-gradient(180deg, #FAF6E5 0%, #FFFAEB 100%); border-right: 1px solid var(--gold); border-left: 1px solid var(--gold);">
+        <span class="v gold tnum">0.50</span>
+        <div class="l">Strong Towns min</div>
+        <div class="ll">Marohn / Urban3<br/>fiscal threshold</div>
+      </div>
+      <div class="bench">
+        <span class="v wc tnum">0.61</span>
+        <div class="l">Walled City</div>
+        <div class="ll">Charleston, 1704<br/>incl. alleys</div>
+      </div>
+      <div class="bench">
+        <span class="v moss tnum">1.83</span>
+        <div class="l">Savannah, GA</div>
+        <div class="ll">Oglethorpe wards, 1733<br/>designed for connectivity</div>
+      </div>
+    </div>
+
+    <p>Read the row from left to right. The auto strip is well below the Strong Towns minimum. Elliotborough — a 19th-century working-class extension of the historic peninsula — sits just below the threshold. The walled city, woven over a century with its dense alley network, comfortably exceeds it. Savannah, Georgia — purpose-built for connectivity by James Oglethorpe in 1733 — is more than three times the recommended minimum and remains, three centuries later, one of the most economically valuable acres in the American South.</p>
+
+    <p class="pull">Vincity is not a measure of taste. It is a measure of how the network was designed — and what kind of value the network can hold.</p>
+
+    <h2>Why it tracks value</h2>
+
+    <p>The correlation between vincity and per-acre property tax revenue is too tight to be accidental. The mechanisms by which they're related, however, are worth naming explicitly — because each one is a separate lever a city has to pull.</p>
+
+    <div class="mech-grid">
+      <div class="mech">
+        <div class="mn">1</div>
+        <h4>Frontage economics</h4>
+        <p>More intersections mean more corner lots. Corner lots are the most valuable retail real estate in any walkable district because two streets of pedestrian traffic feed each storefront. High vincity multiplies that effect.</p>
+      </div>
+      <div class="mech">
+        <div class="mn">2</div>
+        <h4>Block geometry</h4>
+        <p>Small blocks force taller, deeper, more efficient buildings. A 600-foot suburban block accommodates strip-mall buildings with parking out front. A 200-foot historic block forces a four-story mixed-use building wall to wall. The smaller block produces more building per acre.</p>
+      </div>
+      <div class="mech">
+        <div class="mn">3</div>
+        <h4>Route diversity</h4>
+        <p>More intersections mean more ways to get from A to B. Pedestrians, cyclists, and emergency vehicles all benefit. Traffic distributes across many small streets instead of concentrating on a few large arterials. The neighborhood becomes more walkable and less stressful — both of which are priced into property values.</p>
+      </div>
+      <div class="mech">
+        <div class="mn">4</div>
+        <h4>Social capital</h4>
+        <p>Jane Jacobs's original point. Frequent intersections mean frequent chance encounters, mixed uses, "eyes on the street." Higher vincity produces more of what Jacobs called the <em>intricate sidewalk ballet</em> — the social texture that turns proximity into community. That texture has economic consequences, even if they don't fit on a balance sheet.</p>
+      </div>
+    </div>
+
+    <h2>The Elliotborough question</h2>
+
+    <p>The numbers above raise an obvious question. Elliotborough sits at 0.39 — below the Strong Towns minimum of 0.50 — and yet the parcel data show it generating <strong>$149,000 per acre per year</strong> in property tax. That's more than 24 times what the Savannah Highway strip produces. How does a sub-threshold vincity neighborhood pay its way that well?</p>
+
+    <p>Three contributing factors. <em>First,</em> Elliotborough sits adjacent to and shares infrastructure with the walled city — its residents can walk to a network well above the threshold. <em>Second,</em> the missing intersections are predominantly missing alleys; Vince Graham's manual count of historic Charleston's alley network suggests a similar mid-19th-century alley density that has been lost to OSM mapping or to physical erasure. <em>Third,</em> the Upper King Street corridor concentrates commercial value into a narrow band; the rest of the neighborhood can be slightly coarser without sacrificing the overall fiscal output.</p>
+
+    <p>The interesting implication: if Elliotborough's vincity were brought back up to the walled city's 0.61 — by reactivating lost alleys, formalizing existing service ways, or breaking up a few of the longest blocks — the productivity multiplier could compound. Even small block-scale interventions reliably increase per-acre value. The neighborhood's structural weakness is also its structural opportunity.</p>
+
+  </article>
+</div>
+
+<!-- THRESHOLD -->
+<section class="threshold">
+  <div class="threshold-inner">
+    <div class="sub-h">Strong Towns / Urban3</div>
+    <h2>The 0.5 rule, and why it matters.</h2>
+    <p>Chuck Marohn and Joe Minicozzi have documented per-acre productivity across hundreds of American cities. The pattern they keep finding: when intersection density falls below <strong>roughly 0.5 per acre</strong>, the development pattern becomes a net fiscal drain on its city — even when the buildings on it look prosperous. Maintenance costs scale with road miles. Service costs scale with parcel counts. Revenue scales with land value, which scales with vincity.</p>
+
+    <div class="threshold-rule">
+      <span class="num tnum">0.50</span>
+      <span class="lab"><strong>intersections per acre</strong><br/>The Strong Towns recommendation. Below this, the math turns negative. Above this, growth can pay for the infrastructure that supports it.</span>
+    </div>
+
+    <p>This is not a stylistic argument. It is an arithmetic one. The number says nothing about how a neighborhood should look — only about whether the way it is built can fund the services it requires. Two centuries after the walled city was woven, and three centuries after Oglethorpe surveyed Savannah, both of those neighborhoods can still afford themselves. Most things built since are still relying on subsidies from the patterns that came before.</p>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<footer>
+  <div class="footer-inner">
+    <h5>Sources & References</h5>
+    <ol>
+      <li>Jane Jacobs, <em>The Death and Life of Great American Cities</em> (Random House, 1961). Chapter 8: "The Need for Small Blocks."</li>
+      <li>Charles Marohn, <em>Strong Towns: A Bottom-Up Revolution to Rebuild American Prosperity</em> (Wiley, 2019); the Strong Towns 0.5/ac intersection density guidance. <a href="https://www.strongtowns.org/" target="_blank" rel="noopener noreferrer">strongtowns.org</a></li>
+      <li>Joe Minicozzi, Urban3 — per-acre property tax productivity framework. <a href="https://www.urbanthree.com/" target="_blank" rel="noopener noreferrer">urbanthree.com</a></li>
+      <li>Vince Graham, "Charleston vs Savannah: Comparing the Oldest Sections" (Fall 2018). Walled city manual intersection count: 39 intersections in 62-acre historic footprint (0.63/ac). Savannah Oglethorpe plan: 121 intersections in 66 acres (1.83/ac).</li>
+      <li>Vincity calculations for this study were derived from OpenStreetMap data via the Overpass API, restricted to named highway types (primary, secondary, tertiary, residential, unclassified, trunk, motorway, link variants) and named service / alley ways. Counted intersections are nodes that connect two or more distinct named ways and fall inside the analysis polygon.</li>
+      <li>East Aurora Co-op Market floor plan reproduced with attribution. © East Aurora Co-op Market, locally grown, community owned. The "engineered grocery store" diagram is a satirical illustration of an alternative layout — no such store exists, and no traffic engineer was harmed in its production.</li>
+      <li>Property tax productivity values from the Charleston-county parcel analyses published as <em>The Walled City Still Pays</em> and the <em>Elliotborough vignette</em> companion piece — see <a href="/urban-productivity/charleston/">/urban-productivity/charleston</a>.</li>
+    </ol>
+    <div class="colophon">
+      Carolina Redesign · Urban Productivity Series · 2026 ·
+      Vincity values are calculated estimates derived from publicly-available OSM data and Charleston County parcel records.
+      The Strong Towns 0.5/ac threshold is a guidance benchmark, not a regulatory standard.
+      Methodology mirrors that of the walled city analysis; see the underlying report for full pipeline documentation.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
