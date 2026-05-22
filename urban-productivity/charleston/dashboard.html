@@ -32,28 +32,6 @@ html, body {
 .wrap { max-width: 1380px; margin: 0 auto; padding: 0 5%; }
 
 header.hero { padding: 56px 0 28px; border-bottom: 1px solid var(--line); }
-.header-links {
-  display: flex; flex-wrap: wrap; align-items: center;
-  gap: 14px; margin-bottom: 18px;
-  font-family: 'Inter', sans-serif;
-  font-size: 13px;
-}
-.header-links a {
-  display: inline-flex; align-items: center; gap: 6px;
-  color: var(--ink-mute);
-  text-decoration: none;
-  padding: 6px 0;
-  transition: color 0.18s ease;
-}
-.header-links a:hover { color: var(--wc); }
-.header-links .back-arrow,
-.header-links .fwd-arrow {
-  display: inline-block;
-  transition: transform 0.18s ease;
-}
-.header-links a:hover .back-arrow { transform: translateX(-3px); }
-.header-links a:hover .fwd-arrow { transform: translateX(3px); }
-.header-links .divider { color: var(--line-strong); }
 .kicker {
   font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--wc); font-weight: 600;
@@ -320,13 +298,6 @@ footer {
 
 <div class="wrap">
   <header class="hero">
-    <div class="header-links">
-      <a href="/urban-productivity/"><span class="back-arrow">←</span> Urban Productivity Series</a>
-      <span class="divider">·</span>
-      <a href="./"><span class="back-arrow">←</span> Back to the written analysis</a>
-      <span class="divider">·</span>
-      <a href="slides.html">View the slide deck <span class="fwd-arrow">→</span></a>
-    </div>
     <div class="kicker">A side-by-side property productivity analysis · Charleston, South Carolina</div>
     <h1 class="title">The walled city, the borough,<br/>and the <em>strip.</em></h1>
     <p class="subtitle">Three patches of Charleston, three patterns of development, one city government. The original 1704 walled city, the historic Cannonborough-Elliotborough neighborhood north of it, and a same-size chunk of Savannah Highway in West Ashley. The older patterns out-earn the newer one by an order of magnitude per acre — and the gap is bigger than the headline suggests once you account for civic land and streets.</p>
@@ -340,7 +311,7 @@ footer {
           <div class="mini-stat"><div class="v wc-color tnum">$1.54B</div><div class="l">Appraised</div></div>
           <div class="mini-stat"><div class="v wc-color tnum">$24.6M</div><div class="l">Annual tax</div></div>
           <div class="mini-stat"><div class="v wc-color tnum">$334K</div><div class="l">Tax / acre</div></div>
-          <div class="mini-stat"><div class="v wc-color tnum">0.37</div><div class="l">Intersections / acre</div></div>
+          <div class="mini-stat"><div class="v wc-color tnum">0.61</div><div class="l">Intersections / acre <span style="font-size:9px;color:var(--ink-mute);">(vincity, w/ alleys)</span></div></div>
         </div>
       </div>
       <div class="ribbon-col">
@@ -547,7 +518,7 @@ footer {
         <p>One thing the data also makes clear is how much of the walled city is given over to civic uses that pay no property tax at all — churches, museums, the city's own buildings, schools. About <strong>10.7 acres (14%) of the walled city is tax-exempt civic land</strong>. Even with that subtracted, the remaining taxable 43.3 acres generate <strong>$550K per acre per year</strong>. The walled city subsidizes itself, and then some.</p>
       </div>
       <div>
-        <div class="pull">"It's not just a tax-base argument. The streets are denser, the intersections are more numerous, and the pattern diffuses traffic rather than concentrating it. The walled city has 0.37 intersections per acre. The Savannah Hwy strip has 0.23."</div>
+        <div class="pull">"It's not just a tax-base argument. The streets are denser, the intersections are more numerous, and the pattern diffuses traffic rather than concentrating it. The walled city has 0.61 intersections per acre (vincity, including the alley network — Stoll's Alley, Lodge Alley, Longitude Lane). The Savannah Hwy strip has 0.23 — below the Strong Towns 0.50 minimum."</div>
         <p style="font-size:13px;color:var(--ink-mute)">Boundary: Meeting, Cumberland, East Bay, Water Streets. Parcel data: Charleston County CDC_ParcelMap. Tax estimates use City of Charleston millage (313.6) and SC assessment ratios (4% owner-occupied / 6% other). Intersection counts from OpenStreetMap, restricted to drivable named roads. Tax figures are upper-bound — actual bills may be modestly reduced by historic-preservation easements.</p>
       </div>
     </div>

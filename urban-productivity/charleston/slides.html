@@ -12,12 +12,19 @@
 <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 <style>
 :root {
-  --bg: #FAF7F2; --bg-deep: #1A1A1A; --bg-card: #FFFFFF;
+  --bg: #FAF7F2; --bg-deep: #161616; --bg-card: #FFFFFF;
   --ink: #1A1A1A; --ink-soft: #404040; --ink-mute: #7A7A7A;
   --line: #E5DFD3; --line-strong: #C9C0AC;
   --wc: #6B1F00; --wc-soft: #B8694D;
   --ce: #5D6B4F; --ce-soft: #8FA275;
   --wa: #445B7A; --wa-soft: #6F8BAB;
+  /* Dark-slide accent variants (brighter, more saturated for legibility on dark) */
+  --wc-on-dark: #F59E45;
+  --wc-on-dark-soft: #FFB87E;
+  --ce-on-dark: #B5C49A;
+  --ce-on-dark-soft: #8FA275;
+  --wa-on-dark: #9FB8D6;
+  --wa-on-dark-soft: #6F8BAB;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body {
@@ -38,6 +45,86 @@ html, body {
 }
 .slide.active { opacity: 1; visibility: visible; }
 .tnum { font-variant-numeric: tabular-nums; }
+
+/* ============ DARK SLIDES ============ */
+.slide.dark { background: var(--bg-deep); color: #F5F5F5; }
+.slide.dark h1.title { color: #FFFFFF; }
+.slide.dark h2 { color: #FFFFFF; }
+.slide.dark .subtitle { color: #C8C8C8; }
+.slide.dark .subtitle strong { color: #FFFFFF; }
+.slide.dark .subtitle.small { color: #999; }
+.slide.dark .kicker { color: var(--wc-on-dark); }
+.slide.dark h1.title .accent,
+.slide.dark h2 .accent { color: var(--wc-on-dark); }
+
+/* Title slide meta */
+.slide.dark .title-card .meta { color: #999; border-top-color: #333; }
+.slide.dark .title-card .meta strong { color: #FFFFFF; }
+
+/* Area row (3-col stats) on dark */
+.slide.dark .area-row { background: #1F1F1F; border-color: #2E2E2E; }
+.slide.dark .area-row .col + .col { border-left-color: #2E2E2E; }
+.slide.dark .area-row .name { color: #FFFFFF; }
+.slide.dark .area-row .sub { color: #999; }
+.slide.dark .area-row .stat .v.wc { color: var(--wc-on-dark); }
+.slide.dark .area-row .stat .v.ce { color: var(--ce-on-dark); }
+.slide.dark .area-row .stat .v.wa { color: var(--wa-on-dark); }
+.slide.dark .area-row .stat .l { color: #888; }
+.slide.dark .area-row .tag.wc { background: rgba(245,158,69,0.16); color: var(--wc-on-dark); }
+.slide.dark .area-row .tag.ce { background: rgba(181,196,154,0.18); color: var(--ce-on-dark); }
+.slide.dark .area-row .tag.wa { background: rgba(159,184,214,0.18); color: var(--wa-on-dark); }
+
+/* Compare bars on dark */
+.slide.dark .compare-bar .track { background: rgba(255,255,255,0.10); }
+.slide.dark .compare-bar .fill-wc { background: linear-gradient(90deg, #F59E45, #FF7E1F); }
+.slide.dark .compare-bar .fill-ce { background: linear-gradient(90deg, #B5C49A, #8FA275); }
+.slide.dark .compare-bar .fill-wa { background: linear-gradient(90deg, #9FB8D6, #6F8BAB); }
+
+/* Land breakdown on dark — used on summary if it has area-row */
+.slide.dark .land-card h3.wc { color: var(--wc-on-dark); }
+.slide.dark .land-card h3.ce { color: var(--ce-on-dark); }
+.slide.dark .land-card h3.wa { color: var(--wa-on-dark); }
+.slide.dark .land-card .label { color: #999; }
+.slide.dark .land-legend { color: #C8C8C8; }
+
+/* Vincity cards on dark */
+.slide.dark .vincity-card { background: #1F1F1F; border-color: #2E2E2E; }
+.slide.dark .vincity-card .v.wc { color: var(--wc-on-dark); }
+.slide.dark .vincity-card .v.ce { color: var(--ce-on-dark); }
+.slide.dark .vincity-card .v.wa { color: var(--wa-on-dark); }
+.slide.dark .vincity-card .area { color: #FFFFFF; }
+.slide.dark .vincity-card .meta { color: #999; }
+
+/* Tables on dark */
+.slide.dark table.data th { color: #999; border-bottom-color: #444; }
+.slide.dark table.data td { border-bottom-color: #2E2E2E; color: #F5F5F5; }
+.slide.dark table.data td.t { color: #999; }
+.slide.dark table.top td { border-bottom-color: #2E2E2E; color: #F5F5F5; }
+
+/* Method cards on dark */
+.slide.dark .method-card { background: #1F1F1F; border-color: #2E2E2E; }
+.slide.dark .method-card .item { color: #C8C8C8; border-top-color: #2E2E2E; }
+.slide.dark .method-card .item b { color: #FFFFFF; }
+.slide.dark .method-card h3 { color: #FFFFFF; }
+
+/* Top performers card headers on dark */
+.slide.dark .three-col .col-card .h.wc { background: rgba(245,158,69,0.16); color: var(--wc-on-dark); }
+.slide.dark .three-col .col-card .h.ce { background: rgba(181,196,154,0.18); color: var(--ce-on-dark); }
+.slide.dark .three-col .col-card .h.wa { background: rgba(159,184,214,0.18); color: var(--wa-on-dark); }
+.slide.dark table.top td.addr { color: #FFFFFF; }
+.slide.dark table.top td.use { color: #999; }
+
+/* Tag pills outside area-row on dark */
+.slide.dark .tag.wc { background: rgba(245,158,69,0.16); color: var(--wc-on-dark); }
+.slide.dark .tag.ce { background: rgba(181,196,154,0.18); color: var(--ce-on-dark); }
+.slide.dark .tag.wa { background: rgba(159,184,214,0.18); color: var(--wa-on-dark); }
+
+/* Map slide on dark — give the legend a dark-mode treatment */
+.slide.dark.has-map .legend { color: #C8C8C8; }
+
+/* Dots on dark slides */
+.slide.dark + .nav .dot { background: rgba(255,255,255,0.18); }
+.slide.dark + .nav .dot.active { background: var(--wc-on-dark); }
 
 .kicker {
   font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
@@ -189,6 +276,11 @@ table.top td.num { text-align: right; font-family: 'Playfair Display', serif; fo
 
 /* Maps */
 #mapSlide { width: 100%; height: 100%; background: #E8E2D3; border-radius: 4px; }
+/* On dark slide, the light map gets a subtle elevation so it "floats" */
+.slide.dark.has-map #mapSlide {
+  border-radius: 6px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.08);
+}
 .slide.has-map .layout {
   flex: 1; display: grid;
   grid-template-columns: 1fr 1fr; gap: 4vw;
@@ -294,47 +386,33 @@ table.top td.num { text-align: right; font-family: 'Playfair Display', serif; fo
 }
 .arrow:hover { background: var(--ink); color: var(--bg); }
 
-.cross-links {
-  position: fixed; top: 18px; right: 22px; z-index: 100;
-  display: flex; gap: 10px; align-items: center;
-  font-family: 'Inter', sans-serif;
-  font-size: 11px; letter-spacing: 0.08em;
-}
-.cross-links a {
-  color: var(--ink-mute);
-  text-decoration: none;
-  padding: 6px 12px;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  background: rgba(255,255,255,0.55);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
-}
-.cross-links a:hover {
-  color: var(--wc);
-  border-color: var(--line);
-  background: rgba(255,255,255,0.9);
-}
+/* Nav theming when current slide is dark */
+body.on-dark-slide .dot { background: rgba(255,255,255,0.22); }
+body.on-dark-slide .dot.active { background: var(--wc-on-dark); }
+body.on-dark-slide .counter { color: #999; border-color: #2E2E2E; }
+body.on-dark-slide .arrow { background: #1F1F1F; color: #C8C8C8; border-color: #2E2E2E; }
+body.on-dark-slide .arrow:hover { background: #F5F5F5; color: #1A1A1A; }
+
+/* Tighten methodology slides specifically so they never overflow */
+.slide.method-slide { padding: 5vh 6vw; }
+.slide.method-slide h2 { font-size: clamp(20px, 2.4vw, 30px); margin-bottom: 8px; }
+.slide.method-slide .method-grid { gap: 16px; margin-top: 2vh; }
+.slide.method-slide .method-card { padding: 14px 16px; }
+.slide.method-slide .method-card h3 { font-size: 15px; margin-bottom: 6px; }
+.slide.method-slide .method-card .item { font-size: 12px; padding: 5px 0; line-height: 1.45; }
+.slide.method-slide .kicker { margin-bottom: 10px; }
 
 @media (max-width: 720px) {
   .slide { padding: 5vh 5vw; }
-  .cross-links { top: 10px; right: 12px; gap: 6px; font-size: 10px; }
-  .cross-links a { padding: 4px 8px; }
 }
 </style>
 </head>
 <body>
 
-<nav class="cross-links" aria-label="Companion pieces">
-  <a href="./">Read the analysis</a>
-  <a href="dashboard.html">Explore the dashboard</a>
-</nav>
-
 <div class="deck">
 
-  <!-- SLIDE 1 — TITLE -->
-  <section class="slide active title-card">
+  <!-- SLIDE 1 — TITLE (dark) -->
+  <section class="slide active dark title-card">
     <div class="slide-content">
       <div class="kicker">A property productivity analysis · Charleston, South Carolina</div>
       <h1 class="title">The walled city <span class="accent">still&nbsp;pays.</span></h1>
@@ -343,8 +421,8 @@ table.top td.num { text-align: right; font-family: 'Playfair Display', serif; fo
     </div>
   </section>
 
-  <!-- SLIDE 2 — THE THREE AREAS (MAP + SUMMARY) -->
-  <section class="slide has-map">
+  <!-- SLIDE 2 — THE THREE AREAS (MAP + SUMMARY) — dark -->
+  <section class="slide has-map dark">
     <div class="slide-content top">
       <div class="kicker">The three areas</div>
       <h2 style="margin-bottom: 14px;">Three patches of Charleston, same governance, very different per-acre realities.</h2>
@@ -438,8 +516,8 @@ table.top td.num { text-align: right; font-family: 'Playfair Display', serif; fo
     </div>
   </section>
 
-  <!-- SLIDE 5 — TAX PER TAXABLE ACRE -->
-  <section class="slide">
+  <!-- SLIDE 5 — TAX PER TAXABLE ACRE (dark) -->
+  <section class="slide dark">
     <div class="slide-content">
       <div class="kicker">Tax revenue per taxable acre</div>
       <h2>Strip out the streets and the tax-exempt civic land. The gap widens to <span class="accent">25×</span>.</h2>
@@ -531,30 +609,30 @@ table.top td.num { text-align: right; font-family: 'Playfair Display', serif; fo
     </div>
   </section>
 
-  <!-- SLIDE 8 — VINCITY -->
-  <section class="slide">
+  <!-- SLIDE 8 — VINCITY (dark) -->
+  <section class="slide dark">
     <div class="slide-content top">
       <div class="kicker">Intersection density</div>
       <h2>A street network that diffuses traffic rather than concentrating it.</h2>
-      <p class="subtitle">The economic argument has a structural twin: more intersections per acre means more route choices, slower average car speeds, more pedestrian-exposed value-creating frontage. Counted via OpenStreetMap, drivable named roads only (a conservative count — Charleston's alley network shows 0.60 intersections/acre in the walled city on the reconstructed 1844 map).</p>
+      <p class="subtitle">Vincity is the count of thoroughfare intersections per acre — a measurement of how the street network is woven. After Jane Jacobs's "The Need for Small Blocks" (Death and Life, Chapter 8): more intersections per acre mean more route choices, smaller blocks, more value-creating frontage exposed to pedestrians. Counted with the walled city's full alley network included.</p>
       <div class="vincity-grid">
         <div class="vincity-card">
-          <div class="v wc tnum">0.37</div>
+          <div class="v wc tnum">0.61</div>
           <div class="area">Walled City</div>
-          <div class="meta">27 intersections in 74 ac</div>
-        </div>
-        <div class="vincity-card">
-          <div class="v ce tnum">0.41</div>
-          <div class="area">CENA</div>
-          <div class="meta">80 intersections in 194 ac</div>
+          <div class="meta">45 named-way intersections in 74 ac<br/>Vince's manual count: 39 / 62 ac historic = 0.63</div>
         </div>
         <div class="vincity-card">
           <div class="v wa tnum">0.23</div>
           <div class="area">Savannah Hwy</div>
-          <div class="meta">16 intersections in 70 ac</div>
+          <div class="meta">16 intersections in 70 ac<br/>Below the Strong Towns 0.50 minimum</div>
+        </div>
+        <div class="vincity-card">
+          <div class="v" style="color: #B89045;">1.83</div>
+          <div class="area">Savannah, GA</div>
+          <div class="meta">Oglethorpe's six wards, 1733<br/>121 / 66 ac · the high-side benchmark</div>
         </div>
       </div>
-      <p class="subtitle small" style="margin-top: 3vh;">The fine-grained pre-zoning street network diffuses traffic across many paths. The suburban arterial pattern concentrates it on a few. Even with the conservative OSM count, the two historic patches have 1.6× and 1.8× the intersection density of the suburban one.</p>
+      <p class="subtitle small" style="margin-top: 3vh;">The fine-grained pre-zoning street network diffuses traffic across many paths. The suburban arterial pattern concentrates it on a few. Vince Graham's reference frame: <em>"aim for at least 0.5 intersections per acre."</em> The walled city meets that minimum; the Savannah Hwy strip doesn't.</p>
     </div>
   </section>
 
@@ -634,7 +712,7 @@ table.top td.num { text-align: right; font-family: 'Playfair Display', serif; fo
   </section>
 
   <!-- SLIDE 12 — METHODOLOGY part 1 -->
-  <section class="slide">
+  <section class="slide method-slide">
     <div class="slide-content top">
       <div class="kicker">Methodology, part 1</div>
       <h2>Data sources and tax calculation.</h2>
@@ -659,7 +737,7 @@ table.top td.num { text-align: right; font-family: 'Playfair Display', serif; fo
   </section>
 
   <!-- SLIDE 13 — METHODOLOGY part 2 -->
-  <section class="slide">
+  <section class="slide method-slide">
     <div class="slide-content top">
       <div class="kicker">Methodology, part 2</div>
       <h2>Caveats and companion materials.</h2>
@@ -682,8 +760,8 @@ table.top td.num { text-align: right; font-family: 'Playfair Display', serif; fo
     </div>
   </section>
 
-  <!-- SLIDE 14 — SUMMARY / CLOSING -->
-  <section class="slide">
+  <!-- SLIDE 14 — SUMMARY / CLOSING (dark) -->
+  <section class="slide dark">
     <div class="slide-content">
       <div class="kicker">Summary</div>
       <h2 style="margin-bottom: 18px;">Three patches of Charleston. Same tax structure. Three patterns of land use that produce very different results.</h2>
@@ -733,6 +811,9 @@ slides.forEach((_, i) => {
 });
 
 function applyTheme() {
+  const slide = slides[idx];
+  const isDark = slide.classList.contains('dark');
+  document.body.classList.toggle('on-dark-slide', isDark);
   document.querySelectorAll('.dot').forEach((d, i) => {
     d.classList.toggle('active', i === idx);
   });
@@ -791,19 +872,20 @@ function initMap() {
     zoomControl: false, attributionControl: false,
     scrollWheelZoom: false, dragging: false, touchZoom: false, doubleClickZoom: false
   }).setView([32.785, -79.97], 13);
+  // Light basemap inside a dark slide — the map "floats" on the dark page
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
     subdomains: 'abcd'
   }).addTo(map);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
     subdomains: 'abcd', pane: 'shadowPane'
   }).addTo(map);
-  // Three polygons
+  // Three polygons — regular brand colors, since basemap is light
   const wcPoly = { "type":"Polygon","coordinates":[[[-79.9311,32.7731],[-79.9271,32.7731],[-79.9264,32.7800],[-79.9311,32.7794],[-79.9311,32.7731]]] };
   const cePoly = { "type":"Polygon","coordinates":[[[-79.9498,32.7880],[-79.9382,32.7880],[-79.9382,32.7945],[-79.9498,32.7945],[-79.9498,32.7880]]] };
   const waPoly = { "type":"Polygon","coordinates":[[[-80.0155,32.7870],[-80.0095,32.7870],[-80.0095,32.7915],[-80.0155,32.7915],[-80.0155,32.7870]]] };
-  const wcLayer = L.geoJSON(wcPoly, { style: { color: '#6B1F00', weight: 3, fillColor: '#B8694D', fillOpacity: 0.28, dashArray: '6,4' } }).addTo(map);
-  const ceLayer = L.geoJSON(cePoly, { style: { color: '#5D6B4F', weight: 3, fillColor: '#8FA275', fillOpacity: 0.28, dashArray: '6,4' } }).addTo(map);
-  const waLayer = L.geoJSON(waPoly, { style: { color: '#445B7A', weight: 3, fillColor: '#6F8BAB', fillOpacity: 0.28, dashArray: '6,4' } }).addTo(map);
+  const wcLayer = L.geoJSON(wcPoly, { style: { color: '#6B1F00', weight: 3, fillColor: '#B8694D', fillOpacity: 0.32, dashArray: '6,4' } }).addTo(map);
+  const ceLayer = L.geoJSON(cePoly, { style: { color: '#5D6B4F', weight: 3, fillColor: '#8FA275', fillOpacity: 0.32, dashArray: '6,4' } }).addTo(map);
+  const waLayer = L.geoJSON(waPoly, { style: { color: '#445B7A', weight: 3, fillColor: '#6F8BAB', fillOpacity: 0.32, dashArray: '6,4' } }).addTo(map);
   const both = L.featureGroup([wcLayer, ceLayer, waLayer]);
   map.fitBounds(both.getBounds(), { padding: [40, 40] });
   setTimeout(() => map.invalidateSize(), 80);
