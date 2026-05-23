@@ -537,9 +537,38 @@ function setupMap() {
   const H = wrap.clientHeight;
   svg.attr("viewBox", `0 0 ${W} ${H}`);
 
-  // Projection — Mercator fit to polygon
-  const projection = d3.geoMercator()
-    .fitExtent([[20, 20], [W - 20, H - 20]], POLY);
+  // Manual linear projection — d3.geoMercator misbehaves on this small a polygon.
+  // We project longitude / latitude linearly to pixel space, accounting for the
+  // latitude scaling (cos correction) so the aspect ratio stays correct.
+  const PAD = 20;
+  const polyRing = POLY.coordinates[0];
+  const lons = polyRing.map(p => p[0]);
+  const lats = polyRing.map(p => p[1]);
+  const lon0 = Math.min(...lons), lon1 = Math.max(...lons);
+  const lat0 = Math.min(...lats), lat1 = Math.max(...lats);
+  const meanLat = (lat0 + lat1) / 2;
+  const lonRangeAdj = (lon1 - lon0) * Math.cos(meanLat * Math.PI / 180);
+  const latRange = lat1 - lat0;
+  const usableW = W - 2 * PAD;
+  const usableH = H - 2 * PAD;
+  // Scale to fit both dimensions, preserving aspect ratio
+  const scale = Math.min(usableW / lonRangeAdj, usableH / latRange);
+  const drawnW = lonRangeAdj * scale;
+  const drawnH = latRange * scale;
+  const offsetX = (W - drawnW) / 2;
+  const offsetY = (H - drawnH) / 2;
+  function projectPoint(lon, lat) {
+    const x = offsetX + ((lon - lon0) * Math.cos(meanLat * Math.PI / 180)) * scale;
+    const y = offsetY + (lat1 - lat) * scale;  // flip Y for SVG
+    return [x, y];
+  }
+  // d3.geoPath-compatible projection
+  const projection = d3.geoTransform({
+    point: function(lon, lat) {
+      const [x, y] = projectPoint(lon, lat);
+      this.stream.point(x, y);
+    }
+  });
   const path = d3.geoPath(projection);
 
   // Clear previous
