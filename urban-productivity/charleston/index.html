@@ -131,15 +131,6 @@ aside.definition .def-body p { font-family: 'Source Serif 4', serif; font-size: 
 aside.definition .def-body p:last-child { margin-bottom: 0; }
 aside.definition .def-body em { font-style: italic; color: var(--ink); }
 
-.vincity-ref-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
-  margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(107,31,0,0.18); }
-.vincity-ref-grid .vref { padding: 0 8px; }
-.vincity-ref-grid .vref .v { font-family: 'Playfair Display', serif; font-size: 28px;
-  font-weight: 700; color: var(--wc); line-height: 1; font-variant-numeric: tabular-nums; }
-.vincity-ref-grid .vref .l { font-family: 'Inter', sans-serif; font-size: 11px;
-  color: var(--ink-mute); margin-top: 6px; letter-spacing: 0.04em; }
-@media (max-width: 640px) { .vincity-ref-grid { grid-template-columns: 1fr; } }
-
 footer { border-top: 1px solid var(--line); padding: 40px 0;
   font-family: 'Inter', sans-serif; font-size: 13px; color: var(--ink-mute); }
 footer h4 { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;
@@ -229,40 +220,6 @@ footer a { color: var(--wc); }
       </table>
     </div>
 
-    <h2>Vincity: a measure of how the street network is woven</h2>
-
-    <p>A second dimension is worth introducing here, because it tracks the economic argument so closely. The walled city has many more intersections per acre than the Savannah Highway corridor — a denser, more finely-woven street network. That density is itself a kind of land use, and it produces its own kind of value.</p>
-
-    <aside class="definition">
-      <div class="sub-h">A definition · Urban planning · After Jacobs</div>
-      <h3>Vincity</h3>
-      <div class="def-body">
-        <p><em>Vincity</em> (n.) — the total number of thoroughfare intersections per acre of urban fabric. A measurement of street network connectivity and granularity. The term was coined by traditional neighborhood developer Vince Graham.</p>
-        <p>The analogy is to <em>thread count</em> in textiles: the number of yarns per square inch of woven fabric. Higher thread count typically uses finer yarns and produces softer, more durable cloth. Higher vincity typically reflects finer, narrower streets and more frequent intersections — more route choices, smaller blocks, more value-creating frontage exposed to pedestrian traffic.</p>
-        <p>The framework draws on Jane Jacobs's <em>The Death and Life of Great American Cities</em> (1961), particularly Chapter 8, "The Need for Small Blocks." Jacobs argued that short blocks and frequent intersections are essential to urban vitality: route diversity, social and economic mixing, commercial vitality at corners, "eyes on the street" for safety, and the diffuse traffic distribution that comes from many small connections rather than a few large ones. The fiscal corollary — that this density of connectivity correlates with higher per-acre property-tax productivity — has been operationalized by Joe Minicozzi at Urban3 and Chuck Marohn at Strong Towns. The Strong Towns recommendation: <em>aim for at least 0.5 intersections per acre</em>.</p>
-        <p>Like thread count, vincity is not a standalone indicator of quality. A district can have high vincity and bad design; a coarse network with great public realm can outperform a fine network with poor design. But measured across thousands of American development patterns, vincity tracks fiscal productivity closely — finer-grained, more connected networks tend to pay more per acre of land than their suburban counterparts.</p>
-      </div>
-
-      <div class="vincity-ref-grid">
-        <div class="vref">
-          <div class="v">0.61</div>
-          <div class="l">Walled City<br/>(Charleston, 1704)</div>
-        </div>
-        <div class="vref">
-          <div class="v">0.23</div>
-          <div class="l">Savannah Hwy strip<br/>(West Ashley, post-war)</div>
-        </div>
-        <div class="vref">
-          <div class="v">1.83</div>
-          <div class="l">Savannah, GA<br/>(Oglethorpe's six wards)</div>
-        </div>
-      </div>
-    </aside>
-
-    <p>The walled city's vincity, measured by counting all named-thoroughfare intersections including its rich alley network (Stoll's Alley, Lodge Alley, Bedon's Alley, Longitude Lane, and the rest), is approximately <strong>0.61 per acre</strong> — 39 intersections in the 62-acre historic footprint, with the OSM-confirmed count for the modern street rectangle landing at 45 named-way intersections in 73.7 acres (0.61/ac). The Savannah Highway corridor's count, by the same drivable-named-roads methodology, is roughly <strong>0.23 per acre</strong>. The walled city has roughly <strong>2.7 times more intersections per acre</strong>.</p>
-
-    <p>The reference benchmark on the high side is downtown Savannah, Georgia. James Oglethorpe's original six-ward plan from 1733 contains <strong>121 intersections in 66 acres — 1.83 per acre</strong>, roughly three times the walled city's vincity. Oglethorpe's network was designed for connectivity from the start; Charleston's network had to weave itself together over a century of incremental growth inside the wall. Both pre-zoning patterns easily exceed the Strong Towns minimum of 0.5 intersections per acre. The Savannah Highway pattern, like most post-zoning suburban arterial development, doesn't.</p>
-
     <h2>What makes the strip leak value</h2>
 
     <p>Look at the land-to-improvement ratio. In the walled city, the land is worth <strong>35%</strong> of total appraised value and the buildings are worth <strong>65%</strong> — a healthy split that says the buildings are pulling their weight. On the Savannah Highway strip, the same split is <strong>50% land / 50% improvements</strong>. Nearly half the value out there is in the dirt. That's the Urban3 "Detroit problem" in early form: when most of an acre is parking, the buildings stop carrying their weight.</p>
@@ -320,7 +277,7 @@ footer a { color: var(--wc); }
 
     <aside class="callout">
       <h3>What's next</h3>
-      <p>A future round will extend the comparison to Charleston's other pre-zoning neighborhood patterns. The most economically valuable section of Cannonborough-Elliotborough — specifically Elliotborough, bounded on the east by Meeting Street and on the west by Rutledge Avenue, approximately 137 acres — would be the natural next case study. CENA generates a substantial share of the City of Charleston's property and hospitality tax base despite being treated, in Vince Graham's phrase, "like a red-headed stepchild" relative to neighborhoods south of Calhoun Street. Letting the same methodology speak to that case may make the argument for traffic calming, tree planting, and other public-realm investment harder to dismiss.</p>
+      <p>A future round will extend the comparison to Charleston's other pre-zoning neighborhood patterns. The eastern half of Cannonborough-Elliotborough — bounded by Meeting Street, Rutledge Avenue, Crosstown / Septima Clark Parkway, and Mary/Morris Streets, approximately 137 acres — is the natural next case study. It generates a substantial share of the City of Charleston's property and hospitality tax base despite receiving less public-realm investment than the neighborhoods south of Calhoun Street. Letting the same methodology speak to that case may make the argument for traffic calming, tree planting, and other public-realm investment harder to dismiss.</p>
     </aside>
 
     <h2>The companion data</h2>
@@ -335,7 +292,7 @@ footer a { color: var(--wc); }
 
     <p>Parcels were pulled in a single spatial-intersect query against Charleston County's CDC_ParcelMap ArcGIS REST service. Only parcels with centroid inside the polygon were retained. For the land breakdowns, Shapely's <code>unary_union</code> was used to deduplicate condo parcels.</p>
 
-    <p>Property tax is estimated parcel-by-parcel as <span class="tnum">Appraised × Ratio × 313.6 ÷ 1000 − LOST credit</span>, where Ratio is 4% for Legal Residence = Y parcels and 6% otherwise. The LOST (Local Option Sales Tax) credit applies as 0.00090 × the taxable amount. Civic and tax-exempt parcels are identified by class code (670–720: government, schools, religious, museums; 451: road right-of-way) and treated as paying zero property tax. Vincity (intersections per acre) is counted via OpenStreetMap via the Overpass API, restricted to named highway and alley types. Vince Graham's reference manual count of 39 intersections in the 62-acre historic footprint corresponds closely to the modern OSM count (45 in 73.65 acres). Pedestrian-only paths and unnamed service drives are excluded from this count.</p>
+    <p>Property tax is estimated parcel-by-parcel as <span class="tnum">Appraised × Ratio × 313.6 ÷ 1000 − LOST credit</span>, where Ratio is 4% for Legal Residence = Y parcels and 6% otherwise. The LOST (Local Option Sales Tax) credit applies as 0.00090 × the taxable amount. Civic and tax-exempt parcels are identified by class code (670–720: government, schools, religious, museums; 451: road right-of-way) and treated as paying zero property tax.</p>
 
   </article>
 </div>
@@ -351,9 +308,7 @@ footer a { color: var(--wc); }
       <li>Charleston County CDC_ParcelMap, ArcGIS REST service. Data pulled May 2026.</li>
       <li>Charleston County Auditor 2024 Millage Card. City of Charleston combined millage (TD 63 and TD 71) = 313.6 mills (89.8 city + 223.8 countywide).</li>
       <li>South Carolina Code Ann. § 12-43-220 (assessment ratios: 4% owner-occupied, 6% other).</li>
-      <li>OpenStreetMap, via Overpass API. Named highway types (primary, secondary, tertiary, residential, unclassified, trunk, motorway, link variants) plus named service roads / alleys. © OpenStreetMap contributors.</li>
-      <li>Vincity reference values: Vince Graham, "Charleston vs Savannah: Comparing the Oldest Sections" (Fall 2018). Manual intersection counts including alley network: 39 intersections in 62-acre historic walled city footprint = 0.63/ac; 121 intersections in 66-acre Savannah Oglethorpe plan = 1.83/ac.</li>
-      <li>Jane Jacobs, <em>The Death and Life of Great American Cities</em> (Random House, 1961). Chapter 8: "The Need for Small Blocks."</li>
+      <li>Jane Jacobs, <em>The Death and Life of Great American Cities</em> (Random House, 1961).</li>
       <li>Charles Marohn, Strong Towns. <a href="https://www.strongtowns.org/" target="_blank" rel="noopener noreferrer">strongtowns.org</a></li>
       <li>Joseph Minicozzi, Urban3. Property-tax-per-acre framework. <a href="https://www.urban-three.com/" target="_blank" rel="noopener noreferrer">urban-three.com</a></li>
       <li>Congress for the New Urbanism. <a href="https://www.cnu.org/" target="_blank" rel="noopener noreferrer">cnu.org</a></li>
