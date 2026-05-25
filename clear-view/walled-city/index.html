@@ -118,33 +118,33 @@ g.layer-2d.off { opacity: 0; pointer-events: none; }
 .enceinte-path { fill: none; stroke: #7A2310; stroke-width: 2; stroke-dasharray: 4 2; opacity: 0.85; }
 
 /* SIDE PANEL */
-/* Side panel: two stacked cards. Caption stays visible at top, operator below. */
+/* Side panel: two stacked cards. Both grow to fit their content; the whole
+   aside scrolls if combined content exceeds the viewport. */
 aside.side {
   font-family: 'Source Serif 4', serif;
   align-self: start;
   position: sticky; top: 80px;
   max-height: calc(100vh - 100px);
+  overflow-y: auto;
   display: flex; flex-direction: column; gap: 14px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
 }
+aside.side::-webkit-scrollbar { width: 5px; }
+aside.side::-webkit-scrollbar-track { background: transparent; }
+aside.side::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
 .caption-card {
   background: var(--cream); border: 1px solid var(--line); border-radius: 2px;
   padding: 1.3rem 1.4rem;
-  flex: 0 1 auto;
-  overflow: hidden;  /* cut off right below the quote — no scrollbar inside caption */
+  flex: 0 0 auto;  /* grow to fit content, never shrink */
   box-shadow: 0 0 0 1px rgba(160,140,90,0.06), 0 2px 6px rgba(0,0,0,0.04);
 }
 .operator-card {
   background: var(--cream); border: 1px solid var(--line); border-radius: 2px;
   padding: 1.1rem 1.3rem;
-  flex: 1 1 auto;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--line) transparent;
+  flex: 0 0 auto;  /* grow to fit content, never shrink */
   box-shadow: 0 0 0 1px rgba(160,140,90,0.06), 0 2px 6px rgba(0,0,0,0.04);
 }
-.operator-card::-webkit-scrollbar { width: 5px; }
-.operator-card::-webkit-scrollbar-track { background: transparent; }
-.operator-card::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
 .layer-active-sub { font-family: 'Inter', sans-serif; font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; }
 .layer-active-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.5rem; line-height: 1.15; color: var(--ink); margin-bottom: 0.2rem; letter-spacing: -0.01em; }
 .layer-active-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 0.9rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--line); }
@@ -1331,6 +1331,9 @@ function updateActiveCaption() {
   document.getElementById("layerBody").innerHTML = cap.body;
   document.getElementById("layerQuote").innerHTML = cap.quote;
   document.getElementById("layerAttr").innerHTML = cap.quoteAttribution;
+  // Scroll caption back into view so an autoplay update is always visible
+  const side = document.querySelector("aside.side");
+  if (side) side.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 // =========================================================================
