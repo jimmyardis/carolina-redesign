@@ -100,13 +100,55 @@ article em { font-style: italic; }
 .callout p { font-size: 1rem; margin-bottom: 0.7rem; }
 .callout p:last-child { margin-bottom: 0; }
 
-/* TEASER (chapter 1 coming) */
-.teaser { background: linear-gradient(180deg, var(--paper) 0%, #ECE4D2 100%); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 3rem 0 0; padding: 3.5rem 2rem; }
-.teaser-inner { max-width: 720px; margin: 0 auto; }
-.teaser .chapter-num { color: var(--navy); }
-.teaser h2 { font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--ink); margin: 0.5rem 0 1rem; line-height: 1.1; }
-.teaser p { font-size: 1.08rem; color: var(--ink-soft); margin-bottom: 1rem; }
-.teaser .comingtag { display: inline-block; font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); background: rgba(42,66,87,0.08); padding: 0.35rem 0.8rem; border-radius: 999px; margin-top: 0.5rem; }
+/* CHAPTER 3 — INTERACTIVE SOLVENCY LEDGER */
+.calc-section { background: linear-gradient(180deg, var(--paper) 0%, #ECE4D2 100%); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 3rem 0 0; padding: 3rem 2rem 3.5rem; }
+.calc-inner { max-width: 900px; margin: 0 auto; }
+.calc-section .chapter-num { color: var(--navy); }
+.calc-section h2 { font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(1.9rem,4.5vw,2.9rem); color: var(--ink); margin: 0.5rem 0 1rem; line-height: 1.08; letter-spacing: -0.01em; }
+.calc-section .intro { font-size: 1.07rem; color: var(--ink-soft); margin-bottom: 1rem; max-width: 700px; }
+.calc-section .intro strong { color: var(--ink); }
+.calc-section .intro em { font-style: italic; }
+.calc-grid { display: grid; grid-template-columns: 290px 1fr; gap: 1.4rem; margin-top: 2rem; align-items: start; }
+@media (max-width: 760px){ .calc-grid { grid-template-columns: 1fr; } }
+.calc-controls { background: var(--cream); border: 1px solid var(--line); border-radius: 6px; padding: 1.4rem; position: sticky; top: 78px; }
+@media (max-width: 760px){ .calc-controls { position: static; } }
+.calc-controls h4 { font-family:'Inter',sans-serif; font-size:0.66rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-mute); margin-bottom:1.1rem; }
+.ctrl { margin-bottom: 1.15rem; }
+.ctrl:last-child { margin-bottom: 0; }
+.ctrl label { display:flex; justify-content:space-between; font-family:'Inter',sans-serif; font-size:0.78rem; color:var(--ink-soft); margin-bottom:0.4rem; gap:0.5rem; }
+.ctrl label .val { font-weight:700; color:var(--terra); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.ctrl input[type=range]{ width:100%; -webkit-appearance:none; appearance:none; height:3px; background:var(--line-strong); border-radius:2px; outline:none; margin:0; }
+.ctrl input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; width:17px; height:17px; border-radius:50%; background:var(--terra); cursor:pointer; border:2px solid var(--cream); box-shadow:0 1px 3px rgba(0,0,0,0.25); }
+.ctrl input[type=range]::-moz-range-thumb{ width:17px;height:17px;border-radius:50%;background:var(--terra);cursor:pointer;border:2px solid var(--cream);}
+.calc-results { display:flex; flex-direction:column; gap:1rem; }
+.ledger { background:var(--cream); border:1px solid var(--line); border-radius:6px; padding:1.25rem 1.4rem; }
+.ledger.town { border-left:4px solid var(--navy); }
+.ledger.county { border-left:4px solid var(--moss); }
+.ledger h5 { font-family:'Inter',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:0.15rem; }
+.ledger.town h5 { color:var(--navy); }
+.ledger.county h5 { color:var(--moss); }
+.ledger .who { font-family:'Source Serif 4',serif; font-style:italic; font-size:0.86rem; color:var(--ink-mute); margin-bottom:0.8rem; }
+.ledger .lines { font-family:'Inter',sans-serif; font-size:0.82rem; }
+.ledger .ln { display:flex; justify-content:space-between; padding:0.22rem 0; color:var(--ink-soft); gap:1rem; }
+.ledger .ln span:last-child { font-variant-numeric:tabular-nums; white-space:nowrap; }
+.ledger .ln.pos span:last-child { color:var(--moss); }
+.ledger .ln.neg span:last-child { color:var(--red); }
+.ledger .net { display:flex; justify-content:space-between; align-items:baseline; margin-top:0.6rem; padding-top:0.6rem; border-top:1px solid var(--line); font-family:'Playfair Display',serif; }
+.ledger .net .lbl { font-size:0.92rem; font-weight:700; color:var(--ink); }
+.ledger .net .amt { font-size:1.55rem; font-weight:900; font-variant-numeric:tabular-nums; }
+.ledger .net .amt.pos { color:var(--moss); }
+.ledger .net .amt.neg { color:var(--red); }
+.verdict { background:var(--ink); color:var(--cream); border-radius:6px; padding:1.3rem 1.4rem; }
+.verdict .vh { font-family:'Inter',sans-serif; font-size:0.66rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); margin-bottom:0.5rem; }
+.verdict p { font-family:'Source Serif 4',serif; font-size:0.98rem; line-height:1.55; color:rgba(250,247,242,0.88); margin:0; }
+.verdict strong { color:#fff; font-weight:600; }
+.calc-note { font-family:'Inter',sans-serif; font-size:0.72rem; color:var(--ink-mute); margin-top:1.1rem; line-height:1.55; }
+.calc-note strong { color: var(--ink-soft); }
+.calc-closing { max-width: 720px; margin: 2.5rem auto 0; padding: 0 2rem; }
+.calc-closing p { font-size: 1.07rem; margin-bottom: 1.25rem; color: var(--ink); }
+.calc-closing p.lead { font-size:1.16rem; color:var(--ink-soft); }
+.calc-closing em { font-style: italic; }
+.calc-closing strong { font-weight: 600; }
 
 /* METHOD / FOOTER */
 .method { max-width: 720px; margin: 3rem auto 0; padding: 2rem; background: var(--cream); border: 1px solid var(--line); border-radius: 4px; font-size: 0.92rem; color: var(--ink-soft); line-height: 1.65; }
@@ -221,16 +263,67 @@ footer .disclaimer { margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px so
   <p>Which is Chapter Three.</p>
 </article>
 
-<!-- ============ CHAPTER 1 TEASER ============ -->
-<div class="teaser">
-  <div class="teaser-inner">
+<!-- ============ CHAPTER 3 — INTERACTIVE LEDGER ============ -->
+<div class="calc-section">
+  <div class="calc-inner">
     <div class="chapter-num">Chapter Three · The Payoff</div>
-    <h2>Productive isn't the same as solvent</h2>
-    <p>Palatin produces real revenue per acre. But revenue is only half of a ledger. The other half is the bill: a <strong>$42 million</strong> wastewater-plant expansion, the road maintenance that arrives on a 20-year delay, and the school seats that 1,000 new homes (600 Palatin + 400 Mungo) will require.</p>
-    <p>The decisive question — the one the 2015 sewer contract quietly answered without anyone running the math — is whether this development funds the infrastructure it triggers, or whether it socializes that cost onto Chapin's existing 7,700 ratepayers over the next thirty years.</p>
-    <p>That's a model you should be able to run yourself, with your own assumptions. We're building it next: an open infrastructure-solvency calculator for the Brighton site.</p>
-    <span class="comingtag">In preparation · The solvency ledger</span>
+    <h2>Productive isn't the same as solvent — and it isn't the same for everyone</h2>
+    <p class="intro">Chapter Two showed Palatin produces strong revenue <em>per acre.</em> But "does it pay for itself?" has a hidden second half: <strong>pays for whom?</strong> Because of one quiet fact, the revenue and the costs land on two different governments.</p>
+    <p class="intro">The Palatin parcel sits <strong>outside</strong> Chapin's town limits. So its property taxes flow to <strong>Lexington County and the school district</strong> — not the town. But the <strong>sewer</strong> the homes require is the Town of Chapin's to build: a <strong>$42 million</strong> plant expansion the town must finance, to serve 600 homes it collects no property tax from. Move the sliders and watch the two ledgers diverge.</p>
+
+    <div class="calc-grid">
+      <div class="calc-controls">
+        <h4>Your assumptions</h4>
+        <div class="ctrl">
+          <label>Avg home value <span class="val" id="v_hv">$700K</span></label>
+          <input type="range" id="hv" min="600000" max="1000000" step="25000" value="700000">
+        </div>
+        <div class="ctrl">
+          <label>"Foundry" commercial leased <span class="val" id="v_fp">40%</span></label>
+          <input type="range" id="fp" min="0" max="100" step="5" value="40">
+        </div>
+        <div class="ctrl">
+          <label>Sewer tap fee / home <span class="val" id="v_tf">$6,000</span></label>
+          <input type="range" id="tf" min="3000" max="12000" step="500" value="6000">
+        </div>
+        <div class="ctrl">
+          <label>Monthly water+sewer bill <span class="val" id="v_mb">$90</span></label>
+          <input type="range" id="mb" min="60" max="150" step="5" value="90">
+        </div>
+        <div class="ctrl">
+          <label>Palatin's share of the $42M plant <span class="val" id="v_es">7%</span></label>
+          <input type="range" id="es" min="0" max="30" step="1" value="7">
+        </div>
+      </div>
+
+      <div class="calc-results">
+        <div class="ledger county">
+          <h5>Ledger A · Lexington County &amp; Schools</h5>
+          <div class="who">Collects the property tax · provides roads &amp; schools</div>
+          <div class="lines" id="countyLines"></div>
+          <div class="net"><span class="lbl">30-year net</span><span class="amt" id="countyNet"></span></div>
+        </div>
+        <div class="ledger town">
+          <h5>Ledger B · Town of Chapin</h5>
+          <div class="who">Builds &amp; finances the sewer · collects no property tax here</div>
+          <div class="lines" id="townLines"></div>
+          <div class="net"><span class="lbl">30-year net</span><span class="amt" id="townNet"></span></div>
+        </div>
+        <div class="verdict">
+          <div class="vh">What the split means</div>
+          <p id="verdictText"></p>
+        </div>
+      </div>
+    </div>
+
+    <p class="calc-note"><strong>How this is built.</strong> A 30-year, undiscounted, deliberately simple model — adjust the sliders to test it. Fixed planning assumptions (all conservative, none official): Palatin = 600 homes, ~50% age-restricted (few students); owner-occupied homes taxed at ~210 effective mills after SC Act 388's school-operating exemption (≈ a realistic Lexington owner-occupied bill — the school's operating share is backfilled by the state, so the district is still funded); commercial "Foundry" = 40 ac at $1.5M/ac when fully leased, taxed at 6% × 461.743 mills; school cost ≈ $4,000 net-local per student (165 students from Palatin's family homes); county road/services ≈ $400/home/yr; town utility margin ≈ 25% of billed revenue; incremental sewer treatment ≈ 0.13 MGD at $5/1,000 gal. These are illustrative, not Chapin's audited figures.</p>
   </div>
+</div>
+
+<div class="calc-closing">
+  <p class="lead">However you set the dials, the shape holds: <strong>Ledger A runs deep green; Ledger B hovers near zero</strong> — while the town is the one that has to borrow tens of millions to build the plant.</p>
+  <p>This is the real Brighton problem, and it is not the one either side is arguing. It isn't "growth versus no-growth." Palatin, on balance, pays for itself <em>many times over.</em> The trouble is that the entity collecting the windfall — the county and the schools — is not the entity carrying the cost and the debt: the town. A mayor who freezes sewer taps in that situation isn't simply obstructing growth. He's responding, clumsily or not, to a genuine structural mismatch: <em>why should the town borrow $42 million and serve 600 homes outside its limits, for roughly break-even, so the county can bank the tax?</em></p>
+  <p>Which means the fix isn't a lawsuit, and it isn't a blockade. It's an <strong>arithmetic problem with arithmetic answers:</strong> the county shares a slice of the new property-tax revenue with the town's utility fund; or the developer pre-funds the capacity it consumes; or the sale price itself helps capitalize the plant the sale makes necessary. Any of those re-aligns who-pays with who-benefits — and turns a courtroom fight into a deal. The fifteen-year-empty park finally gets used; the town stops subsidizing growth it can't tax; and the pattern question from Chapter Two — can it be built closer to $73,000 an acre than $49,000? — becomes the productive argument worth having.</p>
 </div>
 
 <!-- ============ METHODOLOGY ============ -->
@@ -300,6 +393,81 @@ chart.setOption({
   }]
 });
 window.addEventListener('resize', () => chart.resize());
+
+// ============ CHAPTER 3 — INTERACTIVE SOLVENCY LEDGER ============
+(function(){
+  const HORIZON = 30, N = 600, TAPS = 667, EXPANSION = 42e6;
+  const FOUNDRY_FULL = 40 * 1.5e6;          // 40 ac @ $1.5M/ac fully leased
+  const OO_EFF_MILLS = 0.210;               // owner-occ effective rate after Act 388 school-op exemption
+  const COMM_MILLS = 0.461743;              // commercial: full unincorporated millage
+  const STUDENTS = 165;                     // Palatin family homes (~300) x 0.55
+  const SCHOOL_NET_PER_STUDENT = 4000;      // net-local cost per student after state per-pupil
+  const ROAD_PER_HOME = 400;                // county road/services $/home/yr
+  const UTIL_MARGIN = 0.25;                 // town keeps ~25% of billed water+sewer
+  const TREAT_MGD = 0.13, TREAT_RATE = 5/1000; // incremental treatment, $/gal
+
+  const els = {
+    hv: document.getElementById('hv'), fp: document.getElementById('fp'),
+    tf: document.getElementById('tf'), mb: document.getElementById('mb'),
+    es: document.getElementById('es'),
+    v_hv: document.getElementById('v_hv'), v_fp: document.getElementById('v_fp'),
+    v_tf: document.getElementById('v_tf'), v_mb: document.getElementById('v_mb'),
+    v_es: document.getElementById('v_es'),
+  };
+  function fmt(v){
+    const s = v < 0 ? '−' : '';
+    const a = Math.abs(v);
+    if (a >= 1e6) return s + '$' + (a/1e6).toFixed(1) + 'M';
+    if (a >= 1e3) return s + '$' + Math.round(a/1e3) + 'K';
+    return s + '$' + Math.round(a);
+  }
+  function recompute(){
+    const homeVal = +els.hv.value, foundry = +els.fp.value/100,
+          tap = +els.tf.value, bill = +els.mb.value, share = +els.es.value/100;
+    els.v_hv.textContent = '$' + Math.round(homeVal/1000) + 'K';
+    els.v_fp.textContent = els.fp.value + '%';
+    els.v_tf.textContent = '$' + (+tap).toLocaleString();
+    els.v_mb.textContent = '$' + bill;
+    els.v_es.textContent = els.es.value + '%';
+
+    // --- Ledger A: County + Schools ---
+    const propTaxHomes = N * homeVal * 0.04 * OO_EFF_MILLS;       // owner-occupied effective
+    const foundryTax = FOUNDRY_FULL * foundry * 0.06 * COMM_MILLS; // commercial full rate
+    const propTax30 = (propTaxHomes + foundryTax) * HORIZON;
+    const school30 = STUDENTS * SCHOOL_NET_PER_STUDENT * HORIZON;
+    const road30 = N * ROAD_PER_HOME * HORIZON;
+    const countyNet = propTax30 - school30 - road30;
+    document.getElementById('countyLines').innerHTML =
+      `<div class="ln pos"><span>Property tax, 30 yr (county+schools+special)</span><span>+${fmt(propTax30)}</span></div>` +
+      `<div class="ln neg"><span>School cost (net of state per-pupil)</span><span>−${fmt(school30)}</span></div>` +
+      `<div class="ln neg"><span>County roads &amp; services</span><span>−${fmt(road30)}</span></div>`;
+    const cn = document.getElementById('countyNet');
+    cn.textContent = fmt(countyNet); cn.className = 'amt ' + (countyNet>=0?'pos':'neg');
+
+    // --- Ledger B: Town of Chapin ---
+    const tapRev = TAPS * tap;
+    const utilMargin30 = N * bill * 12 * HORIZON * UTIL_MARGIN;
+    const planShare = share * EXPANSION;
+    const treat30 = TREAT_MGD * 1e6 * TREAT_RATE * 365 * HORIZON;
+    const townNet = tapRev + utilMargin30 - planShare - treat30;
+    document.getElementById('townLines').innerHTML =
+      `<div class="ln pos"><span>Tap fees (${TAPS} @ ${fmt(tap)})</span><span>+${fmt(tapRev)}</span></div>` +
+      `<div class="ln pos"><span>Utility margin, 30 yr</span><span>+${fmt(utilMargin30)}</span></div>` +
+      `<div class="ln neg"><span>Share of $42M plant expansion</span><span>−${fmt(planShare)}</span></div>` +
+      `<div class="ln neg"><span>Incremental sewer treatment, 30 yr</span><span>−${fmt(treat30)}</span></div>`;
+    const tn = document.getElementById('townNet');
+    tn.textContent = fmt(townNet); tn.className = 'amt ' + (townNet>=0?'pos':'neg');
+
+    // --- Verdict ---
+    const ratio = countyNet > 0 && Math.abs(townNet) > 0 ? Math.round(countyNet / Math.max(Math.abs(townNet), 1)) : null;
+    const townWord = townNet >= 0 ? 'roughly breaks even' : 'runs a deficit of ' + fmt(Math.abs(townNet));
+    document.getElementById('verdictText').innerHTML =
+      `Over 30 years the county and schools net <strong>${fmt(countyNet)}</strong> from Palatin. The Town of Chapin — which must build and finance the sewer plant — <strong>${townWord}</strong>. ` +
+      `The development clearly pays for itself in total. It just pays <strong>the government that doesn't have to build the pipes.</strong> Re-aligning that split is the deal that ends the standoff.`;
+  }
+  ['hv','fp','tf','mb','es'].forEach(id => els[id].addEventListener('input', recompute));
+  recompute();
+})();
 </script>
 
 </body>
