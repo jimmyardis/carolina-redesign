@@ -21,7 +21,7 @@ AI Opportunity Assessment pipeline upgraded to the v2.1 directive set (2026-07-0
 
 ## Next Action
 
-Redeploy `intake-webhook/` to Railway (if it's live there) so the nested-schema parsing is in production, then run one test call against the Reese assistant end to end.
+Paste `HYPERAGENT_HANDOFF_v2.1.md` + the three documents (generation spec, taxonomy, template) into the HyperAgent Assessment Builder agent, then run one test call against the Reese assistant end to end.
 
 ## Blockers
 
@@ -43,7 +43,9 @@ Redeploy `intake-webhook/` to Railway (if it's live there) so the nested-schema 
 - Established `templates/assessment_interactive.html` as the canonical report template (from the Tidewater sample) and applied the full generation-spec §7 work list: new "Where you stand" readiness-scorecard section (six bars + stage chip + verbatim disclaimer), quick-win path badges (DIY / Guided DIY) + "Also fits" alternative lines, help strip replaced with drop-in L6 verbatim, build cards gained path badges + "Worth knowing" / "It worked if" lines, safe-use starter card between Impact and Paths, extended data arrays with placeholder content, footer version comment `template v2.1 · taxonomy v1.1 · intake v2.1 · spec v2.1`. Also added a scan-signals strip in the why-section (spec §3.2 requires it as an editable copy block though §7 omitted it). Verified headless: zero JS errors, all new elements render, scorecard bars animate
 - Rewrote `caroline_build.py` to intake script v2.1 and PATCHed the live Vapi assistant (HTTP 200): consent-first opening, blocks A–E with the four new gate probes, implementation-preference question, nested §8 structured-data schema. Decision: persona renamed Caroline → Reese because the directive names Reese explicitly; name is a single `AGENT_NAME` constant — one-word change + re-run to revert
 - Updated `intake-webhook/app.py` to read business/contact from the nested `profile` object with legacy flat-schema fallbacks; verified both shapes parse. Not redeployed to Railway this session
-- Left mid-stream: voice is still vapi "Emma" pending a real ElevenLabs voice ID; webhook redeploy + end-to-end test call still to do
+- Redeployed intake-webhook to Railway (`carolina-intake` project, deployment SUCCESS, health green); confirmed the Vapi assistant's serverUrl already points at it and the shared secret is enforced
+- Drafted `HYPERAGENT_HANDOFF_v2.1.md` (also copied to Windows Downloads) — the migration message for the HyperAgent Assessment Builder agent
+- Left mid-stream: HyperAgent agent still runs v1 instructions until the handoff is pasted in; voice is still vapi "Emma" pending a real ElevenLabs voice ID; end-to-end test call still to do; repo not pushed (public Pages repo would publish the directives — private-repo option offered)
 
 ### 2026-05-23
 
