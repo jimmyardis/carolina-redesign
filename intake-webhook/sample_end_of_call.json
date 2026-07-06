@@ -1,0 +1,23 @@
+{
+  "message": {
+    "type": "end-of-call-report",
+    "endedReason": "customer-ended-call",
+    "durationSeconds": 1042,
+    "recordingUrl": "https://example.com/recording.mp3",
+    "summary": "Owner of a 3-person HVAC company. Most time lost to missed calls and manual scheduling. Uses QuickBooks + paper. Wants to stop losing after-hours leads.",
+    "transcript": "AI: Hi, this is Caroline with Carolina Redesign... \nUser: Hey, yeah, this is Dale over at Dale's Comfort Air...\n(full transcript here)",
+    "customer": { "number": "+18035551234" },
+    "call": { "id": "call_test_12345" },
+    "analysis": {
+      "structuredData": {
+        "business_name": "Dale's Comfort Air",
+        "contact_first_name": "Dale",
+        "team_size": 3,
+        "current_tools": ["QuickBooks", "paper scheduling"],
+        "biggest_pain": "missed after-hours calls / slow follow-up",
+        "monthly_tool_budget": "under $500",
+        "tech_comfort": "low"
+      }
+    }
+  }
+}

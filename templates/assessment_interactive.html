@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tidewater Comfort Co. — AI Opportunity Assessment · Carolina Redesign</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F2EB; --paper-2:#EFEBE1; --card:#FFFFFF;
+  --ink:#0E1C1A; --ink-2:#132522; --ink-card:#193430;
+  --teal:#0F9B8A; --teal-deep:#0A6A60; --teal-bright:#16C0AA; --teal-bg:rgba(15,155,138,.10);
+  --gold:#C98A3C; --gold-bg:rgba(201,138,60,.12);
+  --rust:#C4573C; --rust-bg:rgba(196,87,60,.10);
+  --tx:#14201E; --tx-soft:#566561; --tx-faint:#8A968F;
+  --cream:#EAE6DB; --cream-dim:rgba(234,230,219,.62);
+  --line:#E0DCD0; --line-dark:rgba(234,230,219,.14);
+  --radius:14px; --radius-sm:9px;
+  --shadow:0 1px 2px rgba(14,28,26,.05),0 10px 34px rgba(14,28,26,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--tx);line-height:1.6;font-size:16.5px;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;letter-spacing:-.02em;line-height:1.1;color:inherit}
+.mono{font-family:'IBM Plex Mono',monospace}
+.wrap{max-width:1100px;margin:0 auto;padding:0 6%}
+a{color:var(--teal-deep)}
+
+/* ---------- semantic badges: the page's shared vocabulary ---------- */
+.badge{display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Mono';font-size:10.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;padding:4px 10px;border-radius:100px;white-space:nowrap}
+.badge .d{width:7px;height:7px;border-radius:50%}
+.b-leak{background:var(--rust-bg);color:var(--rust)} .b-leak .d{background:var(--rust)}
+.b-win{background:var(--teal-bg);color:var(--teal-deep)} .b-win .d{background:var(--teal)}
+.b-build{background:var(--gold-bg);color:#9a6a24} .b-build .d{background:var(--gold)}
+.b-steady{background:rgba(138,150,143,.14);color:var(--tx-faint)} .b-steady .d{background:var(--tx-faint)}
+.b-guided{background:none;border:1.5px solid var(--teal);color:var(--teal-deep)} .b-guided .d{background:var(--teal)}
+.node-ref{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px;border-radius:6px;background:var(--ink);color:var(--teal-bright);font-family:'IBM Plex Mono';font-size:11.5px;font-weight:500;cursor:pointer;border:none}
+.node-ref:hover{background:var(--teal-deep);color:#fff}
+
+/* ---------- nav ---------- */
+nav{position:sticky;top:0;z-index:60;background:rgba(245,242,235,.86);backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1100px;margin:0 auto;padding:13px 6%;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk';font-weight:600;font-size:14.5px}
+.brand .dot{width:10px;height:10px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px var(--teal-bg)}
+.brand small{color:var(--tx-faint);font-weight:500}
+.nav-links{display:flex;gap:20px;font-size:13px;font-weight:500}
+.nav-links a{color:var(--tx-soft);text-decoration:none}
+.nav-links a:hover{color:var(--teal-deep)}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;background:var(--teal);width:0%}
+@media(max-width:900px){.nav-links{display:none}}
+
+/* ---------- hero ---------- */
+header.hero{background:radial-gradient(120% 130% at 82% -10%,#15302b 0%,var(--ink) 58%);color:var(--cream);padding:96px 0 88px;position:relative;overflow:hidden}
+.hero .eyebrow{font-family:'IBM Plex Mono';font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--teal-bright);margin-bottom:22px}
+.hero h1{font-size:clamp(38px,6.4vw,72px);font-weight:700;color:#fff;max-width:16ch}
+.hero h1 .accent{color:var(--teal-bright)}
+.hero .lede{font-size:clamp(16px,2vw,20px);color:var(--cream);max-width:60ch;margin-top:22px;font-weight:400}
+.hero .lede b{color:#fff}
+.hero .metarow{display:flex;gap:clamp(22px,4vw,60px);margin-top:44px;flex-wrap:wrap}
+.hero .metarow .k{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-bright);margin-bottom:5px}
+.hero .metarow .v{font-size:14.5px;color:var(--cream);max-width:26ch}
+.sample-pill{position:absolute;top:26px;right:6%;font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);background:var(--gold);padding:5px 12px;border-radius:4px;font-weight:500}
+
+/* ---------- sections ---------- */
+section{padding:78px 0;scroll-margin-top:56px}
+section + section{border-top:1px solid var(--line)}
+.sec-eyebrow{font-family:'IBM Plex Mono';font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal-deep);margin-bottom:12px}
+.sec-title{font-size:clamp(27px,3.8vw,42px);font-weight:700;max-width:22ch}
+.sec-intro{color:var(--tx-soft);max-width:66ch;margin-top:16px;font-size:17px}
+.sec-intro b{color:var(--tx)}
+section.dark{background:var(--ink);color:var(--cream);border-top:none}
+section.dark .sec-eyebrow{color:var(--teal-bright)}
+section.dark .sec-title{color:#fff}
+section.dark .sec-intro{color:var(--cream-dim)}
+section.dark .sec-intro b{color:#fff}
+
+/* ---------- why: stats + chart ---------- */
+.why-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(22px,3.4vw,46px);margin-top:44px;align-items:start}
+.stat-stack{display:grid;gap:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 24px;box-shadow:var(--shadow);display:flex;align-items:baseline;gap:18px}
+.stat .n{font-family:'Space Grotesk';font-weight:700;font-size:clamp(26px,3.2vw,38px);color:var(--teal-deep);white-space:nowrap;min-width:3.4ch}
+.stat .l{font-size:14px;color:var(--tx-soft);line-height:1.45}
+.chart-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+.chart-card .ct{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx-faint);margin-bottom:14px}
+.chart-card svg{width:100%;height:auto;display:block}
+.chart-foot{font-size:11.5px;color:var(--tx-faint);margin-top:10px;font-style:italic}
+.why-close{margin-top:34px;background:var(--paper-2);border:1px dashed var(--line);border-radius:var(--radius);padding:22px 26px;max-width:74ch;font-size:16px;color:var(--tx)}
+.why-close b{color:var(--teal-deep)}
+@media(max-width:860px){.why-grid{grid-template-columns:1fr}}
+
+/* ---------- the map ---------- */
+.map-shell{margin-top:46px}
+.map-scroll{overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch}
+.pipeline{display:flex;align-items:stretch;gap:0;min-width:940px}
+.pnode{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;padding:6px 8px;background:none;border:none;cursor:pointer;font-family:inherit}
+.pnode .bubble{width:clamp(58px,6vw,72px);height:clamp(58px,6vw,72px);border-radius:50%;background:var(--ink-card);border:2px solid var(--line-dark);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk';font-weight:700;font-size:clamp(19px,2vw,24px);color:var(--cream);transition:transform .2s,border-color .2s,box-shadow .2s}
+.pnode .nm{font-size:12.5px;font-weight:600;color:var(--cream);text-align:center;line-height:1.3;max-width:12ch}
+.pnode .tagline{font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;text-align:center}
+.pnode.leak .bubble{border-color:var(--rust);box-shadow:0 0 0 4px var(--rust-bg)}
+.pnode.leak .tagline{color:#E08B72}
+.pnode.win .bubble{border-color:var(--teal-bright);box-shadow:0 0 0 4px rgba(22,192,170,.12)}
+.pnode.win .tagline{color:var(--teal-bright)}
+.pnode.build .bubble{border-color:var(--gold);box-shadow:0 0 0 4px var(--gold-bg)}
+.pnode.build .tagline{color:var(--gold)}
+.pnode.steady .bubble{border-color:rgba(234,230,219,.3)}
+.pnode.steady .tagline{color:var(--cream-dim)}
+.pnode:hover .bubble,.pnode.active .bubble{transform:translateY(-4px)}
+.pnode.active .bubble{background:var(--teal-deep);border-color:var(--teal-bright);color:#fff}
+.pnode:focus-visible .bubble{outline:3px solid var(--teal-bright);outline-offset:3px}
+.pnode::after{content:"";position:absolute;top:calc(clamp(58px,6vw,72px)/2 + 6px);right:calc(-50% + clamp(29px,3vw,36px));width:calc(100% - clamp(58px,6vw,72px));height:2px;background:var(--line-dark)}
+.pnode:last-child::after{display:none}
+.map-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:26px;justify-content:center}
+.map-hint{text-align:center;font-family:'IBM Plex Mono';font-size:11.5px;color:var(--cream-dim);margin-top:16px;letter-spacing:.06em}
+
+/* node detail panel */
+.node-detail{margin-top:34px;background:var(--ink-card);border:1px solid var(--line-dark);border-radius:var(--radius);padding:clamp(22px,3vw,34px);min-height:190px}
+.nd-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.nd-head h3{font-size:clamp(19px,2.3vw,25px);color:#fff}
+.nd-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:clamp(14px,2vw,24px)}
+.nd-col .k{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-bright);margin-bottom:7px}
+.nd-col .v{font-size:14.5px;color:var(--cream);line-height:1.55}
+.nd-col .v em{color:var(--cream-dim);font-style:italic}
+@media(max-width:820px){.nd-grid{grid-template-columns:1fr}}
+
+/* ---------- readiness scorecard ---------- */
+.score-card{margin-top:44px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(20px,2.6vw,32px);box-shadow:var(--shadow)}
+.score-head{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+.score-head .ct{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx-faint)}
+.score-row{margin-bottom:16px}
+.score-row .bar-row{grid-template-columns:220px 1fr 54px;margin-bottom:5px}
+.score-row .note{font-size:13px;color:var(--tx-soft);line-height:1.5}
+@media(max-width:860px){.score-row .bar-row{grid-template-columns:130px 1fr 48px}}
+
+/* ---------- opportunity scatter ---------- */
+.scatter-card{margin-top:44px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(20px,2.6vw,32px);box-shadow:var(--shadow)}
+.scatter-card svg{width:100%;height:auto;display:block}
+.scatter-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px}
+.leg{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--tx-soft);font-weight:500}
+.leg .sw{width:13px;height:13px;border-radius:50%}
+.opp-list{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:10px 26px;font-size:14px;color:var(--tx-soft)}
+.opp-list .oi{display:flex;gap:10px;align-items:baseline}
+.opp-list .oi .on{font-family:'IBM Plex Mono';font-size:12px;color:var(--teal-deep);min-width:2ch}
+@media(max-width:820px){.opp-list{grid-template-columns:1fr}}
+
+/* ---------- quick wins ---------- */
+.qw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.8vw,22px);margin-top:44px}
+.qw{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(18px,2.2vw,26px);box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px}
+.qw .toprow{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.qw h3{font-size:19px}
+.qw .fixes{font-size:12.5px;color:var(--tx-faint)}
+.qw .use{font-size:14px;color:var(--tx-soft);line-height:1.5;flex:1}
+.qw .meta{display:flex;gap:16px;padding-top:12px;border-top:1px solid var(--line);flex-wrap:wrap}
+.qw .meta div{min-width:0}
+.qw .mk{display:block;font-family:'IBM Plex Mono';font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--tx-faint);margin-bottom:2px}
+.qw .mv{font-size:13.5px;font-weight:600}
+.qw .mv.save{color:var(--teal-deep)}
+.qw .alt{font-size:12.5px;color:var(--tx-faint)}
+.help-strip{margin-top:30px;background:var(--paper-2);border:1px dashed var(--line);border-radius:var(--radius);padding:22px 26px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.help-strip p{font-size:15px;color:var(--tx);max-width:62ch}
+.help-strip p b{color:var(--teal-deep)}
+@media(max-width:900px){.qw-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.qw-grid{grid-template-columns:1fr}}
+
+/* ---------- builds ---------- */
+.build-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.8vw,22px);margin-top:44px}
+.build{background:var(--ink-card);border:1px solid var(--line-dark);border-radius:var(--radius);padding:clamp(20px,2.4vw,30px);display:flex;flex-direction:column;gap:12px}
+.build .rule{height:3px;width:44px;background:var(--gold);border-radius:2px}
+.build h3{font-size:20px;color:#fff}
+.build .txt{font-size:14.5px;color:var(--cream);line-height:1.55;flex:1}
+.build .toprow{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.build .badge.b-build{color:var(--gold)}
+.build .aux{font-size:13px;color:var(--cream-dim)}
+.build .aux b{color:var(--cream)}
+.build .why{font-size:13px;color:var(--cream-dim);border-top:1px solid var(--line-dark);padding-top:12px}
+.build .why b{color:var(--gold)}
+.build .fixes{font-size:12px;color:var(--cream-dim)}
+@media(max-width:900px){.build-grid{grid-template-columns:1fr}}
+
+/* ---------- impact ---------- */
+.fin-grid{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:clamp(14px,1.8vw,22px);margin-top:44px}
+.fin{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(20px,2.6vw,32px);box-shadow:var(--shadow)}
+.fin.hero-card{background:var(--ink);color:var(--cream);border:none}
+.fin .label{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx-faint);margin-bottom:12px}
+.fin.hero-card .label{color:var(--teal-bright)}
+.fin .big{font-family:'Space Grotesk';font-weight:700;font-size:clamp(34px,4.6vw,58px);letter-spacing:-.03em;line-height:.95}
+.fin.hero-card .big{color:var(--teal-bright);font-size:clamp(40px,5.4vw,68px)}
+.fin .cap{font-size:13.5px;color:var(--tx-soft);margin-top:10px}
+.fin.hero-card .cap{color:var(--cream-dim)}
+.bars-card{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(20px,2.6vw,32px);box-shadow:var(--shadow)}
+.bars-card .ct{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx-faint);margin-bottom:18px}
+.bar-row{display:grid;grid-template-columns:150px 1fr 54px;align-items:center;gap:14px;margin-bottom:12px}
+.bar-row .bn{font-size:13.5px;font-weight:600}
+.bar-row .track{height:14px;background:var(--paper-2);border-radius:100px;overflow:hidden}
+.bar-row .fill{height:100%;background:linear-gradient(90deg,var(--teal-deep),var(--teal-bright));border-radius:100px;width:0;transition:width 1.1s cubic-bezier(.16,1,.3,1)}
+.bar-row .bv{font-family:'IBM Plex Mono';font-size:12.5px;color:var(--teal-deep);text-align:right}
+.fin-note{margin-top:22px;font-size:13px;color:var(--tx-faint);font-style:italic;max-width:86ch;line-height:1.55}
+.safe-card{margin-top:44px;background:var(--paper-2);border:1px dashed var(--line);border-radius:var(--radius);padding:26px 30px}
+.safe-card .ct{font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx-faint);margin-bottom:14px}
+.safe-row{display:grid;grid-template-columns:190px 1fr;gap:14px;padding:10px 0;font-size:14.5px;color:var(--tx)}
+.safe-row + .safe-row{border-top:1px solid var(--line)}
+.safe-row .k{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--tx-soft);padding-top:3px}
+.safe-row.ok .k{color:var(--teal-deep)}
+.safe-row.no .k{color:var(--rust)}
+@media(max-width:640px){.safe-row{grid-template-columns:1fr;gap:4px}}
+@media(max-width:860px){.fin-grid{grid-template-columns:1fr}.bar-row{grid-template-columns:110px 1fr 48px}}
+
+/* ---------- paths ---------- */
+.paths{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.2vw,28px);margin-top:44px}
+.path{border-radius:var(--radius);padding:clamp(24px,3vw,38px);display:flex;flex-direction:column;gap:14px}
+.path.diy{background:var(--ink-card);border:1px solid var(--line-dark)}
+.path.us{background:linear-gradient(150deg,#0E4A42,var(--teal-deep));border:1px solid rgba(22,192,170,.35)}
+.path h3{font-size:clamp(20px,2.4vw,26px);color:#fff}
+.path p{font-size:15px;color:var(--cream);line-height:1.6}
+.path ul{list-style:none;display:grid;gap:9px;margin-top:4px}
+.path li{font-size:14px;color:var(--cream);padding-left:22px;position:relative}
+.path li::before{content:"";position:absolute;left:2px;top:8px;width:8px;height:8px;border-radius:2px;background:var(--teal-bright)}
+.path .tagp{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal-bright)}
+.cta{display:inline-flex;align-items:center;gap:12px;margin-top:auto;background:var(--teal-bright);color:#04201c;font-family:'Space Grotesk';font-weight:600;font-size:16px;padding:14px 26px;border-radius:9px;text-decoration:none;align-self:flex-start}
+.cta.ghost{background:none;border:1.5px solid rgba(234,230,219,.4);color:var(--cream)}
+.paths-note{margin-top:26px;text-align:center;font-size:14px;color:var(--cream-dim);max-width:70ch;margin-left:auto;margin-right:auto}
+@media(max-width:820px){.paths{grid-template-columns:1fr}}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink);color:var(--cream-dim);padding:44px 0;border-top:1px solid var(--line-dark);font-size:13px}
+footer .frow{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+
+/* ---------- reveal motion ---------- */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  .bar-row .fill{transition:none}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand"><span class="dot"></span> Carolina Redesign <small>/ AI Opportunity Assessment</small></div>
+    <div class="nav-links">
+      <a href="#why">Why this exists</a><a href="#map">Your business</a><a href="#stand">Where you stand</a><a href="#opps">Opportunities</a><a href="#wins">Quick wins</a><a href="#builds">Bigger plays</a><a href="#impact">The math</a><a href="#paths">Next steps</a>
+    </div>
+  </div>
+  <div class="progress" id="progress"></div>
+</nav>
+
+<header class="hero">
+  <span class="sample-pill">Sample</span>
+  <div class="wrap">
+    <div class="eyebrow">Prepared for Tidewater Comfort Co. · Mount Pleasant, SC · June 2026</div>
+    <h1>Your business, mapped.<br><span class="accent">Your next move, clear.</span></h1>
+    <p class="lede">Dale — this assessment was built from your intake call and a scan of your public footprint. It lays out how work flows through Tidewater today, where hours and leads are leaking, and exactly what to do about it — <b>whether you do it yourself or bring in help.</b></p>
+    <div class="metarow">
+      <div><div class="k">Business</div><div class="v">HVAC &amp; home services · 19 employees</div></div>
+      <div><div class="k">Primary focus</div><div class="v">Stop the after-hours lead leak &amp; reclaim owner + dispatch hours</div></div>
+      <div><div class="k">The headline</div><div class="v">~11 hours a week back, for ~$492/mo in tools</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- 1 · WHY -->
+<section id="why">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-eyebrow">Why this assessment exists</div>
+      <h2 class="sec-title">The problem isn't too little AI. It's too much.</h2>
+      <p class="sec-intro">Every week brings a new wave of AI tools promising to transform your business. For an owner running 19 people and a full job board, that's not an opportunity — <b>it's noise.</b> The job of this assessment is to turn tens of thousands of options into the six that matter for Tidewater, ranked by payoff, with honest numbers attached.</p>
+    </div>
+    <div class="why-grid">
+      <div class="stat-stack reveal">
+        <div class="stat"><span class="n">30k+</span><span class="l">AI tools now listed across the major directories — up from a few hundred five years ago. Nobody can evaluate them all. You shouldn't try.</span></div>
+        <div class="stat"><span class="n">~6</span><span class="l">The number that actually fit your business, your budget, and your team's comfort level right now. That's what this report narrows to.</span></div>
+        <div class="stat"><span class="n">2 wks</span><span class="l">How fast the quick wins in this report can realistically be live — most are install-and-go, no engineering.</span></div>
+      </div>
+      <div class="chart-card reveal">
+        <div class="ct">AI tools launched per year (illustrative)</div>
+        <svg viewBox="0 0 460 220" role="img" aria-label="Area chart showing rapid growth in AI tools launched per year from 2020 to 2026">
+          <defs>
+            <linearGradient id="ag" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#0F9B8A" stop-opacity=".55"/>
+              <stop offset="1" stop-color="#0F9B8A" stop-opacity=".04"/>
+            </linearGradient>
+          </defs>
+          <g font-family="IBM Plex Mono" font-size="10" fill="#8A968F">
+            <text x="28" y="212">2020</text><text x="96" y="212">2021</text><text x="164" y="212">2022</text><text x="232" y="212">2023</text><text x="300" y="212">2024</text><text x="368" y="212">2025</text><text x="428" y="212">'26</text>
+          </g>
+          <line x1="24" y1="196" x2="452" y2="196" stroke="#E0DCD0" stroke-width="1"/>
+          <path d="M36 190 L104 184 L172 168 L240 128 L308 84 L376 46 L436 22 L436 196 L36 196 Z" fill="url(#ag)"/>
+          <path d="M36 190 L104 184 L172 168 L240 128 L308 84 L376 46 L436 22" fill="none" stroke="#0A6A60" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="436" cy="22" r="4.5" fill="#16C0AA"/>
+          <text x="352" y="18" font-family="IBM Plex Mono" font-size="10.5" fill="#0A6A60">you are here</text>
+        </svg>
+        <div class="chart-foot">Directional, based on public AI-tool directory listings. The curve is the point: the filter is now worth more than the feed.</div>
+      </div>
+    </div>
+    <div class="why-close reveal">
+      <b>Our promise for the next ten minutes of your reading:</b> everything here is specific to Tidewater — built from your own words on the intake call and what your website and reviews told us. It's genuinely useful even if you never spend a dollar with us. That's on purpose.
+    </div>
+    <!-- scan signals: 1–2 concrete public-scan findings, each tied to a quick win (editable copy) -->
+    <div class="why-close reveal" style="margin-top:14px">
+      <span class="mono" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx-faint);display:block;margin-bottom:8px">From your public footprint</span>
+      <b>From your reviews:</b> three recent Google reviews mention nobody answering after hours — that's exactly what quick win 1 fixes. <b>From your site:</b> there's no way to book online today — quick win 2 closes that gap.
+    </div>
+  </div>
+</section>
+
+<!-- 2 · THE MAP -->
+<section id="map" class="dark">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-eyebrow">Your business, as we heard it</div>
+      <h2 class="sec-title">How work flows through Tidewater today</h2>
+      <p class="sec-intro">From your intake call, here's your operation drawn as a pipeline — from the first ring of the phone to the review that wins the next job. <b>Tap any node</b> to see what you told us, what it's costing, and the move. We'll walk these same nodes together on your call.</p>
+    </div>
+    <div class="map-shell reveal">
+      <div class="map-scroll">
+        <div class="pipeline" id="pipeline" role="tablist" aria-label="Tidewater workflow map"></div>
+      </div>
+      <div class="map-legend">
+        <span class="badge b-leak"><span class="d"></span>Leaking now</span>
+        <span class="badge b-win"><span class="d"></span>Quick win available</span>
+        <span class="badge b-build"><span class="d"></span>Bigger play</span>
+        <span class="badge b-steady"><span class="d"></span>Running fine</span>
+      </div>
+      <div class="node-detail" id="nodeDetail" role="tabpanel" aria-live="polite"></div>
+      <div class="map-hint">← tap the nodes — this map is the backbone of the whole report →</div>
+    </div>
+  </div>
+</section>
+
+<!-- 2a · WHERE YOU STAND -->
+<section id="stand">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-eyebrow">Readiness, measured honestly</div>
+      <h2 class="sec-title">Where you stand</h2>
+      <p class="sec-intro">Six dimensions of AI readiness, scored from your interview and your public footprint. <b>This is why some opportunities made the list and others wait</b> — the stage below is the link between your scores and the sequencing on your map.</p>
+    </div>
+    <div class="score-card reveal">
+      <div class="score-head">
+        <span class="ct">Readiness scorecard · 1–5</span>
+        <span class="badge b-build" id="stageChip"></span>
+      </div>
+      <div id="scoreWrap"></div>
+      <div class="fin-note">Scores are directional — built from your interview, your own words, and your public footprint. They exist to prioritize action, not to certify anything.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · OPPORTUNITIES -->
+<section id="opps">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-eyebrow">Ranked, not just listed</div>
+      <h2 class="sec-title">Every opportunity, weighed by payoff vs. effort</h2>
+      <p class="sec-intro">Not everything on the map deserves your attention this quarter. Here's each opportunity plotted honestly — including the ones we suggest you <b>ignore</b>. The teal cluster is where this report focuses: high impact you can capture in days, not months.</p>
+    </div>
+    <div class="scatter-card reveal">
+      <svg viewBox="0 0 760 430" role="img" aria-label="Impact versus effort scatter plot of all opportunities">
+        <line x1="60" y1="20" x2="60" y2="380" stroke="#E0DCD0" stroke-width="1.5"/>
+        <line x1="60" y1="380" x2="730" y2="380" stroke="#E0DCD0" stroke-width="1.5"/>
+        <line x1="60" y1="200" x2="730" y2="200" stroke="#EFEBE1" stroke-width="1" stroke-dasharray="5 6"/>
+        <line x1="395" y1="20" x2="395" y2="380" stroke="#EFEBE1" stroke-width="1" stroke-dasharray="5 6"/>
+        <g font-family="IBM Plex Mono" font-size="10.5" fill="#8A968F">
+          <text x="20" y="30" transform="rotate(-90 20 30)" text-anchor="end">← Impact →</text>
+          <text x="392" y="412" text-anchor="middle">← Effort →</text>
+          <text x="80" y="42" fill="#0A6A60" font-size="11">QUICK WINS · do now</text>
+          <text x="560" y="42" fill="#9a6a24" font-size="11">BIGGER PLAYS · phase in</text>
+          <text x="80" y="372" font-size="11">FILL-INS · when idle</text>
+          <text x="580" y="372" font-size="11">IGNORE · not now</text>
+        </g>
+        <g id="scatterDots"></g>
+      </svg>
+      <div class="scatter-legend">
+        <span class="leg"><span class="sw" style="background:#0F9B8A"></span>Quick win (1–6)</span>
+        <span class="leg"><span class="sw" style="background:#C98A3C"></span>Carolina Redesign build (A–C)</span>
+        <span class="leg"><span class="sw" style="background:#B9C2BD"></span>Not worth it right now</span>
+      </div>
+      <div class="opp-list" id="oppList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · QUICK WINS -->
+<section id="wins">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-eyebrow">Tier 1 · plug-and-play</div>
+      <h2 class="sec-title">Six quick wins you can run yourself</h2>
+      <p class="sec-intro">Real, named, off-the-shelf tools — no engineering, no contract with us required. Each one is tagged to the node it fixes on your map. <b>Start with the free one on day one.</b></p>
+    </div>
+    <div class="qw-grid" id="qwGrid"></div>
+    <div class="help-strip reveal">
+      <p>Most of the quick wins in this report can be implemented internally — that's by design. Where a recommendation involves integrations, workflow redesign, or custom builds, outside help can save time and reduce risk. That help does not need to come from Carolina Redesign; what matters is a partner who understands both your workflow and the practical limits of AI systems. <b>Carolina Redesign, or a similar implementation partner,</b> can assist where helpful — and this report is yours to use independently or hand to any qualified vendor or internal team.</p>
+      <span class="badge b-win"><span class="d"></span>DIY-friendly by design</span>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · BUILDS -->
+<section id="builds" class="dark">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-eyebrow">Tier 2 · AI-native workflows</div>
+      <h2 class="sec-title">Three bigger plays, where the real upside lives</h2>
+      <p class="sec-intro">These aren't apps you install — they're workflows rebuilt around AI, custom to how Tidewater runs. Bigger lift, bigger payoff. <b>This is where a partner earns their keep</b> — us, or whoever you choose. Each is tied to the biggest pains you named.</p>
+    </div>
+    <div class="build-grid" id="buildGrid"></div>
+  </div>
+</section>
+
+<!-- 6 · IMPACT -->
+<section id="impact">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-eyebrow">The bottom line</div>
+      <h2 class="sec-title">What the quick wins add up to</h2>
+      <p class="sec-intro">Conservative math, stated assumptions, quick-wins only — the bigger plays would come with their own scoped ROI. <b>Add it up yourself; it reconciles.</b></p>
+    </div>
+    <div class="fin-grid reveal">
+      <div class="fin hero-card"><div class="label">Monthly net ROI</div><div class="big">+$3,350</div><div class="cap">After subtracting every tool cost below</div></div>
+      <div class="fin"><div class="label">Weekly time returned</div><div class="big">11 hrs</div><div class="cap">≈ 47 hours a month back to you and your dispatcher</div></div>
+      <div class="fin"><div class="label">Total monthly tool cost</div><div class="big">~$492</div><div class="cap">All six quick-win tools combined</div></div>
+    </div>
+    <div class="bars-card reveal">
+      <div class="ct">Hours reclaimed per week, by tool</div>
+      <div id="barsWrap"></div>
+      <div class="fin-note">Math: 11 hrs/wk reclaimed (Rosie 2 · Fathom 2 · Housecall Pro 4 · Chatbase 3) ≈ 47 hrs/mo × a conservative $50/hr blended value = ~$2,350, plus ~3 added booked jobs/mo from faster lead response at ~$500 net each = ~$1,500, minus ~$492 in tool cost = <b>~$3,350/mo net</b>. Your real numbers are likely higher — this is the floor, not the ceiling.</div>
+    </div>
+    <!-- safe-use starter: four rows, populated per taxonomy drop-in L7 (editable copy) -->
+    <div class="safe-card reveal">
+      <div class="ct">Using AI safely at Tidewater — the starter rules</div>
+      <div class="safe-row ok"><span class="k">Green light</span><span>Drafting, summarizing, brainstorming, internal productivity, first-pass analysis.</span></div>
+      <div class="safe-row"><span class="k">Human review first</span><span>Anything sent to a customer, anything involving money, personnel, or commitments.</span></div>
+      <div class="safe-row no"><span class="k">Keep out of AI tools</span><span>Customer payment details and home-access notes — door codes, gate codes, alarm instructions.</span></div>
+      <div class="safe-row"><span class="k">One rule to start</span><span>Say the recording-consent line before Fathom joins any customer call.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · PATHS -->
+<section id="paths" class="dark">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sec-eyebrow">Your move</div>
+      <h2 class="sec-title">Two honest paths from here</h2>
+      <p class="sec-intro">Both are wins. The only bad outcome is this report sitting in a tab. <b>Pick a lane on the walkthrough call — it's already included in your assessment.</b></p>
+    </div>
+    <div class="paths reveal">
+      <div class="path diy">
+        <span class="tagp">Path one · run it yourself</span>
+        <h3>Take the map and go</h3>
+        <p>Everything in the quick wins is yours — tools, costs, setup steps. Start with Fathom (free, 15 minutes) tomorrow morning and work down the list.</p>
+        <ul>
+          <li>Day 1 — Fathom on your calendar (free)</li>
+          <li>Day 2 — NiceJob review texts switched on</li>
+          <li>Day 3 — Make.com web-form responder live</li>
+          <li>Day 4 — Rosie answering your main line 24/7</li>
+        </ul>
+        <a class="cta ghost" href="#">Download the checklist</a>
+      </div>
+      <div class="path us">
+        <span class="tagp">Path two · build with a partner</span>
+        <h3>Have it done — and go bigger</h3>
+        <p>We install the quick wins in a week, then scope the bigger plays: the unified CRM, the knowledge agent, the auto-dispatch — fixed price, in writing, no on-the-spot decisions.</p>
+        <ul>
+          <li>Week 1 — all six quick wins installed &amp; tested</li>
+          <li>Week 2 — scoped proposal for your #1 bigger play</li>
+          <li>You decide cold, from a written fixed price</li>
+        </ul>
+        <a class="cta" href="#">Book your 30-minute walkthrough →</a>
+      </div>
+    </div>
+    <p class="paths-note">On the walkthrough we'll pull up your map, node by node, and answer the only question that matters: which of these is worth <em>your</em> next 30 days.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap frow">
+    <div class="brand" style="color:var(--cream)"><span class="dot"></span> Carolina Redesign</div>
+    <span class="mono">Assessment prepared June 2026 · tool pricing approximate — confirmed at install</span>
+  </div>
+  <!-- template v2.1 · taxonomy v1.1 · intake v2.1 · spec v2.1 -->
+</footer>
+
+<script>
+/* ============ DATA — this is what HyperAgent templates per client ============ */
+const NODES=[
+ {id:1,name:"Lead comes in",cls:"leak",tag:"Leaking now",
+  today:"Calls and web forms, but after 6pm everything rolls to voicemail — and web leads wait hours for a callback.",
+  quote:"“If we don't pick up, they just call the next guy.”",
+  cost:"~6 missed after-hours leads a month, plus web leads lost to slower response.",
+  move:"Rosie answers the line 24/7 and books jobs; a Make.com responder replies to every web form in under 2 minutes.",tools:"Rosie · Make.com"},
+ {id:2,name:"Answer & qualify",cls:"win",tag:"Quick win",
+  today:"You and the office answer the same ten questions — pricing, service area, maintenance plans — all day, every day.",
+  quote:"“It's the same call fifty times a week.”",
+  cost:"~3 hours a week of pure repetition.",
+  move:"A Chatbase assistant trained on your FAQs handles the repeats on your site and by text; humans take the real ones.",tools:"Chatbase"},
+ {id:3,name:"Schedule & dispatch",cls:"leak",tag:"Leaking now",
+  today:"Scheduling and reminders juggled manually between the whiteboard, texts, and your dispatcher's memory.",
+  quote:"“Every morning is a puzzle.”",
+  cost:"~4 hours a week of dispatch admin, plus no-shows from missed reminders.",
+  move:"Housecall Pro for scheduling, dispatch, and automatic customer reminders — and down the road, auto-dispatch by route and skill (bigger play C).",tools:"Housecall Pro"},
+ {id:4,name:"The job gets done",cls:"steady",tag:"Running fine",
+  today:"Your techs are the business — 4.6 stars across 87 reviews says the craft isn't the problem.",
+  quote:"“The work speaks for itself.”",
+  cost:"Nothing to fix here. AI stays out of the way of what already works.",
+  move:"None recommended. The wins are all around the job, not in it.",tools:"—"},
+ {id:5,name:"Invoice & follow-up",cls:"win",tag:"Quick win",
+  today:"Invoicing and follow-up happen on nights and weekends — when they happen at all.",
+  quote:"“Sunday night is paperwork night.”",
+  cost:"Owner evenings, plus slow-paid invoices.",
+  move:"Housecall Pro's invoicing and payment reminders take the night shift; the unified CRM (bigger play A) ties it all together later.",tools:"Housecall Pro"},
+ {id:6,name:"Review & rebook",cls:"win",tag:"Quick win",
+  today:"Review requests are asked by hand, or never — three recent Google reviews even mention nobody answering after hours.",
+  quote:"“We just forget to ask.”",
+  cost:"Compounding cost: reviews are your #1 local-SEO asset and they're being left on the table.",
+  move:"NiceJob auto-texts a review link after every completed job. Set it once, it never forgets.",tools:"NiceJob"},
+ {id:7,name:"Run the business",cls:"build",tag:"Bigger play",
+  today:"Team meetings with no follow-through; pricing and SOP knowledge lives in your head and your best tech's.",
+  quote:"“If Manny left tomorrow, we'd be in trouble.”",
+  cost:"2 hours a week in meetings that evaporate, plus key-person risk you can't invoice.",
+  move:"Fathom captures every meeting free, today. The knowledge agent (bigger play B) turns your pricing and SOPs into something any tech can ask.",tools:"Fathom"}
+];
+
+/* SCORECARD — six {dimension, score, note} objects plus one {stage, stage_label} object (taxonomy §4.2) */
+const SCORECARD=[
+ {dimension:"Strategy & alignment",score:4,note:"You named the pain precisely — the after-hours leak — and what six months of success looks like. That clarity is rarer than you'd think."},
+ {dimension:"Workflow maturity",score:2,note:"The morning whiteboard puzzle says it: how-we-do-things lives in heads, not checklists."},
+ {dimension:"Data & knowledge readiness",score:2,note:"Jobs live between texts, the whiteboard, and memory — there's no single place to point a tool at yet."},
+ {dimension:"Technology & integration",score:3,note:"QuickBooks and a working website are real footholds; nothing talks to anything else yet."},
+ {dimension:"Team capability",score:3,note:"The office is comfortable with new software and the crew is open — one visible win will carry the rest."},
+ {dimension:"Governance & risk posture",score:2,note:"Payment details and home-access notes are handled with care, but there are no written rules about AI or customer data yet."},
+ {stage:"S1",stage_label:"Stage 1 · Capture"}
+];
+
+const QUICKWINS=[
+ {tool:"Rosie",node:1,use:"AI phone agent answers every call 24/7, screens callers, and books straight onto the calendar.",cost:"~$149/mo",setup:"1 day",saves:"~6 leads + 2 hrs/wk",path:"DIY",alt:"Goodcall — if you'd rather have a human-sounding receptionist model trained per location."},
+ {tool:"Make.com responder",node:1,use:"Auto-replies to every web form in under 2 minutes with a booking link — before the competition calls back.",cost:"~$29/mo",setup:"2 days",saves:"2–3 jobs/mo",path:"Guided DIY",alt:"Zapier — if you want the same automation with a gentler learning curve at a slightly higher price."},
+ {tool:"Fathom",node:7,use:"Free AI notetaker joins your meetings and writes the summary and action items. The day-one move.",cost:"Free",setup:"15 min",saves:"2 hrs/wk",path:"DIY",alt:"Otter.ai — if a searchable archive of every meeting matters more than the free price."},
+ {tool:"Housecall Pro",node:3,use:"Field-service scheduling, dispatch, invoicing, and automatic customer reminders in one place.",cost:"~$199/mo",setup:"1 week",saves:"4 hrs/wk",path:"Guided DIY",alt:"Jobber — if you'd trade some depth for a simpler interface and lighter pricing."},
+ {tool:"NiceJob",node:6,use:"Auto-texts a review link after each completed job; your Google profile compounds on autopilot.",cost:"~$75/mo",setup:"1 day",saves:"+reviews",path:"DIY",alt:"Podium — if you want reviews and customer texting managed in one inbox."},
+ {tool:"Chatbase",node:2,use:"Site & SMS chatbot trained on your FAQs that handles the repeat questions before they hit the office.",cost:"~$40/mo",setup:"2 days",saves:"3 hrs/wk",path:"DIY",alt:"Tidio — if you want live-chat handoff to a human in the same widget."}
+];
+
+const BUILDS=[
+ {id:"A",name:"Unified lead-to-review CRM",nodes:[1,5,6],txt:"One system tying leads, jobs, invoices, and follow-up together — so nothing falls through the cracks between the phone and the truck.",why:"Tied to your #1 pain: the after-hours leak is really a visibility problem end to end.",path:"Done-For-You",risk:"Migration is the real work — plan on two weeks of running the whiteboard and the CRM in parallel before the whiteboard comes down.",metric:"Every lead is visible from first ring to review, and nothing sits unanswered past 24 hours."},
+ {id:"B",name:"Tidewater knowledge agent",nodes:[2,7],txt:"A private assistant trained on your pricing, SOPs, and job history — so any tech or CSR answers like your most experienced one.",why:"Directly answers the key-person risk you named on the call.",path:"Done-With-You",risk:"It's only as good as what it's fed — budget a half-day to get pricing and SOPs out of heads and into writing first.",metric:"A first-year tech answers a pricing question without radioing your best one."},
+ {id:"C",name:"Auto-dispatch engine",nodes:[3],txt:"Assignment by route, skill, and job type — turning the morning whiteboard puzzle into a one-click start.",why:"The compounding play: every dispatch hour saved repeats five days a week, forever.",path:"Done-For-You",risk:"Needs a season of clean Housecall Pro data first — auto-dispatch on messy job records just automates the mess.",metric:"Morning dispatch takes ten minutes, not an hour."}
+];
+
+const SCATTER=[
+ {x:120,y:70,c:"#0F9B8A",l:"1",label:"Rosie — 24/7 call answering"},
+ {x:170,y:95,c:"#0F9B8A",l:"2",label:"Make.com web-form responder"},
+ {x:85,y:150,c:"#0F9B8A",l:"3",label:"Fathom meeting notes (free)"},
+ {x:250,y:60,c:"#0F9B8A",l:"4",label:"Housecall Pro scheduling"},
+ {x:130,y:125,c:"#0F9B8A",l:"5",label:"NiceJob review automation"},
+ {x:195,y:135,c:"#0F9B8A",l:"6",label:"Chatbase FAQ assistant"},
+ {x:520,y:55,c:"#C98A3C",l:"A",label:"Unified CRM build"},
+ {x:565,y:90,c:"#C98A3C",l:"B",label:"Knowledge agent build"},
+ {x:610,y:70,c:"#C98A3C",l:"C",label:"Auto-dispatch build"},
+ {x:200,y:330,c:"#B9C2BD",l:"·",label:"Email template cleanup — fine, later"},
+ {x:640,y:320,c:"#B9C2BD",l:"·",label:"Custom mobile app — skip it"}
+];
+
+const BARS=[
+ {n:"Housecall Pro",v:4},{n:"Chatbase",v:3},{n:"Rosie",v:2},{n:"Fathom",v:2}
+];
+
+/* ============ RENDER ============ */
+const pipeline=document.getElementById('pipeline');
+const detail=document.getElementById('nodeDetail');
+NODES.forEach((n,i)=>{
+  const b=document.createElement('button');
+  b.className='pnode '+n.cls; b.setAttribute('role','tab');
+  b.innerHTML=`<span class="bubble">${n.id}</span><span class="nm">${n.name}</span><span class="tagline">${n.tag}</span>`;
+  b.addEventListener('click',()=>selectNode(i));
+  pipeline.appendChild(b);
+});
+function badgeFor(cls,tag){
+  const map={leak:'b-leak',win:'b-win',build:'b-build',steady:'b-steady'};
+  return `<span class="badge ${map[cls]}"><span class="d"></span>${tag}</span>`;
+}
+function selectNode(i){
+  const n=NODES[i];
+  [...pipeline.children].forEach((el,j)=>el.classList.toggle('active',j===i));
+  detail.innerHTML=`
+    <div class="nd-head"><h3>${n.id} · ${n.name}</h3>${badgeFor(n.cls,n.tag)}</div>
+    <div class="nd-grid">
+      <div class="nd-col"><div class="k">Today, in your words</div><div class="v">${n.today}<br><em>${n.quote}</em></div></div>
+      <div class="nd-col"><div class="k">What it's costing</div><div class="v">${n.cost}</div></div>
+      <div class="nd-col"><div class="k">The move</div><div class="v">${n.move}<br><em>${n.tools}</em></div></div>
+    </div>`;
+}
+selectNode(0);
+
+/* readiness scorecard */
+const scDims=SCORECARD.filter(s=>s.dimension), scStage=SCORECARD.find(s=>s.stage);
+document.getElementById('stageChip').innerHTML=`<span class="d"></span>Overall: ${scStage.stage_label}`;
+document.getElementById('scoreWrap').innerHTML=scDims.map(s=>`
+  <div class="score-row">
+    <div class="bar-row"><span class="bn">${s.dimension}</span><span class="track"><span class="fill" data-v="${s.score}" data-max="5"></span></span><span class="bv">${s.score} / 5</span></div>
+    <div class="note">${s.note}</div>
+  </div>`).join('');
+
+/* scatter */
+const dots=document.getElementById('scatterDots');
+dots.innerHTML=SCATTER.map(d=>{
+  const cx=d.x+60, cy=d.y;
+  return `<g><circle cx="${cx}" cy="${cy}" r="15" fill="${d.c}" opacity="${d.c==='#B9C2BD'?0.75:0.92}"></circle>
+  <text x="${cx}" y="${cy+4.5}" text-anchor="middle" font-family="IBM Plex Mono" font-size="12" font-weight="500" fill="#fff">${d.l}</text>
+  <title>${d.label}</title></g>`;
+}).join('');
+
+/* opp list */
+document.getElementById('oppList').innerHTML=SCATTER.filter(d=>d.l!=='·').map(d=>
+  `<div class="oi"><span class="on">${d.l}</span><span>${d.label}</span></div>`).join('')
+  + `<div class="oi"><span class="on">·</span><span>Grayed out on the chart: email cleanup (fine, later) and a custom mobile app (skip it).</span></div>`;
+
+/* quick wins */
+document.getElementById('qwGrid').innerHTML=QUICKWINS.map((q,i)=>`
+  <div class="qw reveal">
+    <div class="toprow"><h3>${q.tool}</h3><span class="badge ${q.path==='DIY'?'b-win':'b-guided'}"><span class="d"></span>${q.path}</span></div>
+    <div class="fixes">Fixes node <button class="node-ref" onclick="jumpNode(${q.node})">${q.node}</button> on your map</div>
+    <p class="use">${q.use}</p>
+    <div class="meta">
+      <div><span class="mk">Cost</span><span class="mv">${q.cost}</span></div>
+      <div><span class="mk">Setup</span><span class="mv">${q.setup}</span></div>
+      <div><span class="mk">Saves</span><span class="mv save">${q.saves}</span></div>
+    </div>
+    <div class="alt">Also fits: ${q.alt}</div>
+  </div>`).join('');
+
+/* builds */
+document.getElementById('buildGrid').innerHTML=BUILDS.map(b=>`
+  <div class="build reveal">
+    <div class="toprow"><span class="mono" style="color:var(--gold);font-size:13px">${b.id}</span><span class="badge b-build"><span class="d"></span>${b.path}</span></div>
+    <div class="rule"></div>
+    <h3>${b.name}</h3>
+    <div class="fixes">Rebuilds node${b.nodes.length>1?'s':''} ${b.nodes.map(n=>`<button class="node-ref" onclick="jumpNode(${n})">${n}</button>`).join(' ')}</div>
+    <p class="txt">${b.txt}</p>
+    <p class="aux"><b>Worth knowing:</b> ${b.risk}</p>
+    <p class="aux"><b>It worked if:</b> ${b.metric}</p>
+    <p class="why"><b>Why it made the list:</b> ${b.why}</p>
+  </div>`).join('');
+
+function jumpNode(id){
+  document.getElementById('map').scrollIntoView({behavior:'smooth'});
+  setTimeout(()=>selectNode(id-1),450);
+}
+
+/* bars */
+const bw=document.getElementById('barsWrap');
+bw.innerHTML=BARS.map(b=>`
+  <div class="bar-row"><span class="bn">${b.n}</span><span class="track"><span class="fill" data-v="${b.v}"></span></span><span class="bv">${b.v} hrs</span></div>`).join('');
+
+/* reveal + bars observer */
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){
+    e.target.classList.add('in');
+    e.target.querySelectorAll('.fill').forEach(f=>{f.style.width=(f.dataset.v/(+f.dataset.max||4)*100)+'%'});
+    io.unobserve(e.target);
+  }
+}),{threshold:.18});
+document.querySelectorAll('.reveal, .bars-card').forEach(el=>io.observe(el));
+
+/* progress bar */
+const prog=document.getElementById('progress');
+addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+},{passive:true});
+</script>
+</body>
+</html>
