@@ -1,47 +1,65 @@
 # Carolina Redesign — Intake Webhook
 
-Replaces the Make.com scenario from the HyperAgent guide. One small FastAPI
-service that receives Vapi's end-of-call POST and fans out to three branches:
+Always-on intake catcher **and first-draft generator** (Railway service
+`carolina-intake`). One FastAPI service that receives Vapi's end-of-call POST,
+queues the intake, then auto-drafts the report with the Claude API:
 
-1. **Airtable** — create a record (client data, transcript, structured data, status)
-2. **Assessment Builder (HTTP)** — POST transcript + structured data to the HyperAgent
-   webhook so the deck auto-generates
-3. **Telegram** — ping you: "New intake from <Business> — deck generating"
+1. **Airtable** — create a record (client data, transcript, structured data,
+   Status = `Ready for Report`). Airtable is the report queue.
+2. **Telegram** — ping you: "New intake from <Business> — queued in Airtable."
+3. **Auto-draft** (`report_gen.py`, background task) — Claude Opus 4.8 with web
+   search follows `assets/generation_spec_v2.md` + taxonomy + frozen template
+   and produces the report HTML; it's attached to the Airtable row (`Draft
+   Report` field), Status → `Draft Ready`, Telegram pings again. You review and
+   edit the draft before emailing it. The old HyperAgent "Assessment Builder"
+   was retired 2026-07-16.
 
-No Make.com subscription, no visual canvas. You own the whole thing.
+If `ANTHROPIC_API_KEY` is unset or generation fails, the row stays at
+`Ready for Report` and the **`/build-assessment`** Claude Code skill
+(`.claude/skills/build-assessment/`) is the manual path.
 
 ## Data flow
 
 ```
-Caroline (Vapi)  --end-of-call-report-->  /vapi-webhook
-                                              │  (filter: ignore non-end-of-call events)
-                                              │  (parse: pull business, transcript, structuredData)
-                                              ├──► Airtable  Create Record   (Status = Deck Generating)
-                                              ├──► Assessment Builder  POST { <body_key>: prompt }
-                                              └──► Telegram  sendMessage
+Reese (Vapi)  --end-of-call-report-->  /vapi-webhook   (Railway, always on)
+                                           │  (filter + parse)
+                                           ├──► Airtable  Create Record   (Status = Ready for Report)
+                                           ├──► Telegram  "queued — drafting report"
+                                           └──► background: report_gen.py
+                                                    Claude Opus 4.8 + web search
+                                                    per assets/{spec,taxonomy,template}
+                                                    ├─ ok  → attach draft to row, Status = Draft Ready, Telegram ping
+                                                    └─ fail→ Status stays Ready for Report, Telegram error
+                                                            (fallback: /build-assessment locally)
 ```
 
-## What still needs YOU (external UIs — can't be automated)
+## Assets
 
-1. **Airtable base** — create an empty base named "Carolina Redesign Pipeline" in the
-   Airtable UI, grab its Base ID (`app...`). Create a token at
-   https://airtable.com/create/tokens with scopes `data.records:write` +
-   `schema.bases:write`. Then run once:
+`assets/` holds deploy-time copies of the governing documents (the Railway root
+dir is `intake-webhook`, so the service can't read `../directives`). After any
+directive or template change: `./sync_assets.sh && railway up --detach`.
 
-   ```bash
-   AIRTABLE_TOKEN=pat... AIRTABLE_BASE_ID=app... python setup_airtable.py
-   ```
+## Queue helper
 
-   That builds the `Assessments` table with all the right fields automatically.
+```bash
+# names of pending intakes
+python fetch_intakes.py list
+# save one intake (structured data + transcript) to a local JSON file
+python fetch_intakes.py pull recXXXXXXXXXXXXXX
+# update its status after the report is built / sent
+python fetch_intakes.py mark recXXXXXXXXXXXXXX "Report Ready"
+```
 
-2. **Assessment Builder webhook** — in HyperAgent, on the Assessment Builder agent →
-   Invocations tab → enable Webhook/API → copy the **URL**, **auth token**, and note
-   the **example request body key** (`message` vs `prompt`). Put those in the env vars
-   below. Set `ASSESSMENT_BUILDER_BODY_KEY` to match exactly.
+Reads `AIRTABLE_TOKEN` / `AIRTABLE_BASE_ID` / `AIRTABLE_TABLE` from the environment
+or `~/.env`.
 
 ## Environment variables
 
 See `.env.example`. On Railway, set them in the service Variables tab.
+Auto-draft additionally uses `ANTHROPIC_API_KEY` (required to enable),
+`REPORT_MODEL` (default `claude-opus-4-8`), and `AIRTABLE_DRAFT_FIELD`
+(default `Draft Report` — must exist as an **attachment** field on the
+Assessments table).
 
 ## Local run
 
@@ -56,13 +74,16 @@ curl -X POST localhost:8000/vapi-webhook -H 'Content-Type: application/json' --d
 
 ## Deploy (Railway)
 
+- Project `carolina-intake`, service `carolina-intake`
+  (https://carolina-intake-production.up.railway.app)
 - Root directory: `intake-webhook`
 - Start command: `uvicorn app:app --host 0.0.0.0 --port $PORT`
-- Set all env vars from `.env.example`.
+- Deploy from this directory: `railway up --detach` (link with
+  `railway link --project carolina-intake` first if needed).
 
-## Wire Caroline to it
+## Wire Reese to it
 
-Set Caroline's `serverUrl` to `https://<railway-domain>/vapi-webhook` — either in the
-Vapi dashboard, or via the Vapi API (extend `../caroline_build.py`). If you set
-`VAPI_WEBHOOK_SECRET`, configure the same value as Caroline's server secret so the
-service can reject spoofed calls.
+Reese's `serverUrl` points at `https://carolina-intake-production.up.railway.app/vapi-webhook`
+— set in the Vapi dashboard or via `../caroline_build.py`. `VAPI_WEBHOOK_SECRET` is
+set on the service; Reese sends the same value in `x-vapi-secret` so spoofed calls
+are rejected.

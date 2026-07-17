@@ -1,2 +1,6 @@
 __pycache__/
 *.pyc
+
+# Client intake data + generated reports — repo is public GitHub Pages, never push these
+intakes/
+clients/

@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
 """Carolina Redesign — intake webhook.
 
-Replaces the Make.com scenario. Receives Vapi's end-of-call POST, then fans out
-to three destinations exactly like the original guide's Router:
+Always-on intake catcher. Receives Vapi's end-of-call POST and fans out to two
+destinations:
 
-  1. Airtable  — create a record (client data, transcript, structured data, status)
-  2. HTTP      — POST transcript + structured data to the Assessment Builder webhook
-                 (HyperAgent) so the deck auto-generates
-  3. Telegram  — ping you: "New intake from <Business> — deck generating"
+  1. Airtable  — create a record (client data, transcript, structured data,
+                 Status = "Ready for Report"). Airtable is the report queue.
+  2. Telegram  — ping you: "New intake from <Business> — queued for report"
+
+Then, if ANTHROPIC_API_KEY is set, a background task (report_gen.py) drafts the
+report with Claude Opus 4.8 and attaches it to the Airtable row for review —
+the Claude API replacement for the retired HyperAgent Assessment Builder
+(2026-07-16). If generation is disabled or fails, the row stays queued and the
+/build-assessment Claude Code skill is the manual path.
 
 Everything is configured via environment variables (see .env.example). The service
 verifies Vapi's payload is an `end-of-call-report` before doing anything, so other
@@ -25,7 +30,9 @@ import os
 from typing import Any
 
 import httpx
-from fastapi import FastAPI, Header, HTTPException, Request
+from fastapi import BackgroundTasks, FastAPI, Header, HTTPException, Request
+
+import report_gen
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger("intake")
@@ -43,17 +50,6 @@ VAPI_WEBHOOK_SECRET = os.getenv("VAPI_WEBHOOK_SECRET", "").strip()
 AIRTABLE_TOKEN = os.getenv("AIRTABLE_TOKEN", "").strip()
 AIRTABLE_BASE_ID = os.getenv("AIRTABLE_BASE_ID", "").strip()
 AIRTABLE_TABLE = os.getenv("AIRTABLE_TABLE", "Assessments").strip()
-
-ASSESSMENT_BUILDER_URL = os.getenv("ASSESSMENT_BUILDER_URL", "").strip()
-ASSESSMENT_BUILDER_TOKEN = os.getenv("ASSESSMENT_BUILDER_TOKEN", "").strip()
-# HyperAgent authenticates webhook calls with a custom header, not Bearer auth.
-# The endpoint's 401 body names it: X-Hyperagent-Webhook-Secret.
-ASSESSMENT_BUILDER_AUTH_HEADER = os.getenv(
-    "ASSESSMENT_BUILDER_AUTH_HEADER", "X-Hyperagent-Webhook-Secret"
-).strip()
-# HyperAgent receives any POSTed JSON as the user message; we send the intake under
-# this key. "message" is human-readable; change only if your endpoint expects another.
-ASSESSMENT_BUILDER_BODY_KEY = os.getenv("ASSESSMENT_BUILDER_BODY_KEY", "message").strip()
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "").strip()
@@ -128,7 +124,7 @@ async def write_airtable(client: httpx.AsyncClient, data: dict[str, Any]) -> dic
         "Summary": data["summary"],
         "Recording URL": data["recording_url"],
         "Structured Data": json.dumps(data["structured"], indent=2),
-        "Status": "Deck Generating",
+        "Status": "Ready for Report",
     }
     # Drop empties so Airtable doesn't choke on unknown/blank typed fields.
     fields = {k: v for k, v in fields.items() if v not in ("", None)}
@@ -146,61 +142,38 @@ async def write_airtable(client: httpx.AsyncClient, data: dict[str, Any]) -> dic
 
 
 # ---------------------------------------------------------------------------
-# Branch 2 — HTTP: POST to the Assessment Builder (HyperAgent) webhook
-# ---------------------------------------------------------------------------
-async def trigger_assessment_builder(
-    client: httpx.AsyncClient, data: dict[str, Any]
-) -> dict:
-    if not ASSESSMENT_BUILDER_URL:
-        return {"skipped": "assessment builder not configured"}
-
-    # Compose the prompt the builder agent receives. It gets the full transcript
-    # plus the structured extraction so the deck generation has everything.
-    prompt = (
-        f"New AI Opportunity Assessment intake.\n\n"
-        f"Business: {data['business'] or 'Unknown'}\n"
-        f"Contact: {data['contact']}\n"
-        f"Phone: {data['phone']}\n\n"
-        f"--- STRUCTURED DATA ---\n"
-        f"{json.dumps(data['structured'], indent=2)}\n\n"
-        f"--- FULL TRANSCRIPT ---\n"
-        f"{data['transcript']}"
-    )
-    body = {ASSESSMENT_BUILDER_BODY_KEY: prompt}
-
-    headers = {"Content-Type": "application/json"}
-    if ASSESSMENT_BUILDER_TOKEN:
-        headers[ASSESSMENT_BUILDER_AUTH_HEADER] = ASSESSMENT_BUILDER_TOKEN
-
-    resp = await client.post(ASSESSMENT_BUILDER_URL, headers=headers, json=body)
-    resp.raise_for_status()
-    # Builder may return JSON or plain text; handle both.
-    try:
-        return resp.json()
-    except Exception:
-        return {"status_code": resp.status_code, "text": resp.text[:500]}
-
-
-# ---------------------------------------------------------------------------
-# Branch 3 — Telegram: notify
+# Branch 2 — Telegram: notify
 # ---------------------------------------------------------------------------
 async def notify_telegram(client: httpx.AsyncClient, data: dict[str, Any]) -> dict:
     if not (TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID):
         return {"skipped": "telegram not configured"}
 
     business = data["business"] or "Unknown business"
+    if report_gen.enabled():
+        followup = "Drafting the report now — expect a 'draft ready' ping."
+    else:
+        followup = "Run /build-assessment in carolina-redesign to generate the report."
     text = (
         f"📞 New intake from *{business}*\n"
         f"Contact: {data['contact'] or 'n/a'} ({data['phone'] or 'no number'})\n"
-        f"Duration: {data['duration_seconds']}s — deck generating…"
+        f"Duration: {data['duration_seconds']}s — queued in Airtable.\n"
+        f"{followup}"
     )
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-    resp = await client.post(
-        url,
-        json={"chat_id": TELEGRAM_CHAT_ID, "text": text, "parse_mode": "Markdown"},
-    )
-    resp.raise_for_status()
-    return resp.json()
+    # Telegram occasionally times out from Railway; one retry keeps the ping
+    # without risking the webhook response (Airtable already has the row).
+    last_exc: Exception | None = None
+    for _ in range(2):
+        try:
+            resp = await client.post(
+                url,
+                json={"chat_id": TELEGRAM_CHAT_ID, "text": text, "parse_mode": "Markdown"},
+            )
+            resp.raise_for_status()
+            return resp.json()
+        except (httpx.TimeoutException, httpx.TransportError) as e:
+            last_exc = e
+    raise last_exc  # type: ignore[misc]
 
 
 # ---------------------------------------------------------------------------
@@ -211,14 +184,16 @@ async def health() -> dict:
     return {
         "ok": True,
         "airtable": bool(AIRTABLE_TOKEN and AIRTABLE_BASE_ID),
-        "assessment_builder": bool(ASSESSMENT_BUILDER_URL),
         "telegram": bool(TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID),
+        "report_gen": report_gen.enabled(),
+        "report_model": report_gen.REPORT_MODEL if report_gen.enabled() else None,
     }
 
 
 @app.post("/vapi-webhook")
 async def vapi_webhook(
     request: Request,
+    background: BackgroundTasks,
     x_vapi_secret: str | None = Header(default=None),
 ) -> dict:
     # Optional auth gate
@@ -239,11 +214,10 @@ async def vapi_webhook(
 
     results: dict[str, Any] = {}
     async with httpx.AsyncClient(timeout=30.0) as client:
-        # Router: three branches. Run independently; one failing shouldn't
-        # sink the others (a Telegram outage must not lose the Airtable row).
+        # Router: two branches. Run independently; one failing shouldn't
+        # sink the other (a Telegram outage must not lose the Airtable row).
         for name, coro in (
             ("airtable", write_airtable(client, data)),
-            ("assessment_builder", trigger_assessment_builder(client, data)),
             ("telegram", notify_telegram(client, data)),
         ):
             try:
@@ -251,5 +225,15 @@ async def vapi_webhook(
             except Exception as e:  # noqa: BLE001 — log and continue per branch
                 log.exception("branch %s failed", name)
                 results[name] = {"error": str(e)}
+
+    # Auto-draft: runs after this response returns, so Vapi isn't kept waiting.
+    record_id = (results.get("airtable") or {}).get("id")
+    if report_gen.enabled() and record_id:
+        background.add_task(report_gen.run_report_job, data, record_id)
+        results["report_gen"] = {"scheduled": True, "record": record_id}
+    elif report_gen.enabled():
+        results["report_gen"] = {"skipped": "no airtable record to attach draft to"}
+    else:
+        results["report_gen"] = {"skipped": "ANTHROPIC_API_KEY not configured"}
 
     return {"processed": True, "business": data["business"], "results": results}
