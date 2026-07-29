@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Incremental State — How South Carolina's Budget Actually Grows</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --dark:      #071018;
+  --navy:      #0D1F2D;
+  --mid:       #0F2D1E;
+  --sc-blue:   #003B5C;
+  --sc-green:  #1B4F37;
+  --gold:      #C9A227;
+  --gold-lt:   #E8C84A;
+  --terra:     #C94F2A;
+  --cream:     #F5EFE0;
+  --cream-lt:  #FAF7F2;
+  --ink:       #1A1614;
+  --body:      #2A2420;
+  --muted:     #6B5E50;
+  --line:      #E5DFD3;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Source Serif 4', Georgia, serif; color: var(--body); background: var(--cream-lt); font-size: 18px; line-height: 1.75; }
+
+.wrap        { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+.wrap-narrow { max-width: 760px;  margin: 0 auto; padding: 0 2rem; }
+
+/* ── NAV ── */
+.site-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(7,16,24,0.97); backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(201,162,39,0.2);
+  padding: 0.75rem 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-brand { font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); text-decoration: none; }
+.nav-pill   { font-family: 'Inter', sans-serif; font-size: 0.72rem; color: rgba(245,239,224,0.5); border: 1px solid rgba(201,162,39,0.25); border-radius: 20px; padding: 0.22rem 0.7rem; }
+
+/* ── HERO ── */
+.hero {
+  background: var(--dark); padding: 6rem 2rem 5rem; position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 75% 55% at 65% 45%, rgba(13,31,46,0.7) 0%, transparent 70%),
+              radial-gradient(ellipse 45% 40% at 10% 75%, rgba(27,79,55,0.12) 0%, transparent 60%);
+}
+.hero-inner  { max-width: 920px; margin: 0 auto; position: relative; }
+.hero-kicker { font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+.hero h1     { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; line-height: 1.04; color: var(--cream); margin-bottom: 1rem; letter-spacing: -0.02em; }
+.hero h1 em  { font-style: italic; color: var(--gold); }
+.hero-sub    { font-family: 'Playfair Display', serif; font-size: clamp(1.05rem, 2.5vw, 1.35rem); font-style: italic; font-weight: 400; color: rgba(245,239,224,0.65); max-width: 600px; margin-bottom: 2rem; }
+.hero-lede   { font-size: 1.05rem; line-height: 1.72; color: rgba(245,239,224,0.8); max-width: 660px; border-top: 1px solid rgba(201,162,39,0.25); padding-top: 1.5rem; }
+.hero-byline { margin-top: 2rem; font-family: 'Inter', sans-serif; font-size: 0.75rem; color: rgba(245,239,224,0.35); letter-spacing: 0.04em; }
+
+/* ── HERO STATS ── */
+.hero-stats { margin-top: 3rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); border-top: 1px solid rgba(201,162,39,0.18); }
+.hstat { padding: 1.4rem 1rem; border-right: 1px solid rgba(201,162,39,0.12); }
+.hstat:last-child { border-right: none; }
+.hstat-n { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--gold); line-height: 1; display: block; margin-bottom: 0.2rem; }
+.hstat-l { font-family: 'Inter', sans-serif; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(245,239,224,0.45); }
+
+/* ── SECTIONS ── */
+.section-light { background: var(--cream-lt); padding: 5rem 0; }
+.section-dark  { background: var(--navy);     padding: 5rem 0; color: var(--cream); }
+.section-mid   { background: #0F1F12;          padding: 5rem 0; color: var(--cream); }
+
+.section-label { font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.7rem; display: block; }
+.section-light .section-label { color: var(--sc-blue); }
+
+h2.sh { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 700; line-height: 1.18; margin-bottom: 1.25rem; color: var(--ink); }
+.section-dark h2.sh, .section-mid h2.sh { color: var(--cream); }
+
+/* ── BODY ── */
+p { margin-bottom: 1.25rem; }
+.body-lede { font-size: 1.12rem; font-weight: 300; line-height: 1.75; color: var(--muted); margin-bottom: 1.75rem; }
+.section-dark .body-lede, .section-mid .body-lede { color: rgba(245,239,224,0.65); }
+.drop-cap::first-letter { font-family: 'Playfair Display', serif; float: left; font-size: 4.2rem; font-weight: 900; line-height: 0.78; margin: 0.08em 0.12em -0.05em 0; color: var(--gold); }
+
+/* ── PULL QUOTE ── */
+.pull-quote { border-left: 4px solid var(--gold); margin: 2.5rem 0; padding: 1rem 1.5rem; }
+.pull-quote p { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-style: italic; line-height: 1.5; color: var(--ink); margin: 0; }
+.section-dark .pull-quote p, .section-mid .pull-quote p { color: var(--cream); }
+
+/* ── CALLOUT ── */
+.callout { background: rgba(0,59,92,0.07); border-left: 4px solid var(--sc-blue); border-radius: 0 6px 6px 0; padding: 1.25rem 1.5rem; margin: 2rem 0; }
+.section-dark .callout, .section-mid .callout { background: rgba(201,162,39,0.08); border-color: var(--gold); }
+.callout-lbl { font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sc-blue); margin-bottom: 0.4rem; display: block; }
+.section-dark .callout-lbl, .section-mid .callout-lbl { color: var(--gold-lt); }
+.callout p { font-size: 0.93rem; line-height: 1.65; margin: 0; }
+
+/* ── BIG STAT ── */
+.big-stat-wrap { text-align: center; padding: 2.5rem 0 1.5rem; }
+.big-stat { font-family: 'Playfair Display', serif; font-size: clamp(4.5rem, 14vw, 10rem); font-weight: 900; line-height: 1; color: var(--gold); letter-spacing: -0.02em; }
+.big-stat-unit { font-family: 'Inter', sans-serif; font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245,239,224,0.5); margin-top: 0.5rem; }
+
+/* ── CHART ── */
+.chart-wrap { margin: 2.5rem 0; background: rgba(255,255,255,0.03); border: 1px solid rgba(201,162,39,0.15); border-radius: 8px; padding: 1.5rem; }
+.section-light .chart-wrap { background: #fff; border-color: rgba(0,59,92,0.1); }
+.chart-title { font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem; }
+.section-light .chart-title { color: var(--sc-blue); }
+.chart-sub { font-family: 'Inter', sans-serif; font-size: 0.78rem; color: rgba(245,239,224,0.45); margin-bottom: 1rem; }
+.section-light .chart-sub { color: var(--muted); }
+
+/* ── AGENCY TABLE ── */
+.agency-table { width: 100%; border-collapse: collapse; font-family: 'Inter', sans-serif; font-size: 0.82rem; margin: 1.5rem 0; }
+.agency-table th { text-align: left; padding: 0.5rem 0.75rem; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(245,239,224,0.5); border-bottom: 1px solid rgba(201,162,39,0.2); }
+.agency-table td { padding: 0.55rem 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(245,239,224,0.82); vertical-align: middle; }
+.agency-table tr:last-child td { border-bottom: none; }
+.section-light .agency-table th { color: var(--muted); border-bottom-color: rgba(0,59,92,0.2); }
+.section-light .agency-table td { color: var(--body); border-bottom-color: rgba(0,59,92,0.08); }
+.td-up   { color: #6ABF8E !important; font-weight: 600; }
+.td-down { color: #FF8080 !important; font-weight: 600; }
+.section-light .td-up { color: #1B7A45 !important; }
+.section-light .td-down { color: #B23A2A !important; }
+
+/* ── LEDGER BOX ── */
+.match-example { background: rgba(201,162,39,0.06); border: 1px solid rgba(201,162,39,0.2); border-radius: 8px; padding: 1.5rem; margin: 2rem 0; }
+.match-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; font-family: 'Inter', sans-serif; font-size: 0.88rem; }
+.match-row:last-child { margin-bottom: 0; border-top: 1px solid rgba(201,162,39,0.15); padding-top: 0.75rem; }
+.match-label { color: rgba(245,239,224,0.55); min-width: 260px; }
+.match-value { font-weight: 600; color: var(--gold); }
+.match-value.red { color: #FF8080; }
+.match-value.green { color: #6ABF8E; }
+
+/* ── LEGEND ── */
+.legend { display: flex; gap: 1.5rem; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 0.4rem; font-family: 'Inter', sans-serif; font-size: 0.78rem; color: rgba(245,239,224,0.65); }
+.legend-item.light { color: var(--muted); }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+/* ── METHODOLOGY ── */
+.method-box { background: rgba(0,59,92,0.06); border: 1px solid rgba(0,59,92,0.12); border-radius: 6px; padding: 1.5rem; margin-top: 2rem; font-family: 'Inter', sans-serif; font-size: 0.8rem; line-height: 1.65; color: var(--muted); }
+.method-box strong { color: var(--body); }
+
+/* ── FOOTER ── */
+.site-footer { background: var(--dark); color: rgba(245,239,224,0.45); padding: 3.5rem 2rem; }
+.footer-grid { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; }
+.footer-brand { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--gold); margin-bottom: 0.5rem; }
+.footer-desc  { font-family: 'Source Serif 4', serif; font-size: 0.85rem; line-height: 1.65; color: rgba(245,239,224,0.38); }
+.footer-col-head { font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(201,162,39,0.6); margin-bottom: 0.6rem; }
+.footer-links { list-style: none; }
+.footer-links li { margin-bottom: 0.35rem; }
+.footer-links a { color: rgba(245,239,224,0.38); text-decoration: none; font-family: 'Inter', sans-serif; font-size: 0.8rem; }
+.footer-links a:hover { color: var(--gold); }
+.footer-bottom { max-width: 1280px; margin: 2rem auto 0; padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,0.06); font-family: 'Inter', sans-serif; font-size: 0.72rem; color: rgba(245,239,224,0.25); }
+
+@media (max-width: 700px) {
+  .hero { padding: 4rem 1.25rem 3rem; }
+  .section-light, .section-dark, .section-mid { padding: 3.5rem 0; }
+  .wrap, .wrap-narrow { padding: 0 1.25rem; }
+  .hero-stats { grid-template-columns: repeat(2,1fr); }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .match-label { min-width: 150px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a class="nav-brand" href="/palmetto-ledger/">← The Palmetto Ledger</a>
+  <span class="nav-pill">The Palmetto Ledger · Issue 2 · July 2026</span>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<header class="hero">
+  <div class="hero-inner">
+    <p class="hero-kicker">Carolina Redesign · The Palmetto Ledger · Issue 2</p>
+    <h1>The Incremental<br><em>State</em></h1>
+    <p class="hero-sub">One year, two budgets, and not a single agency cut</p>
+    <p class="hero-lede">
+      South Carolina law requires zero-based budgeting: every appropriation justified from
+      scratch, every year. We compared the enacted FY2024-25 budget with the enacted FY2025-26
+      budget — all 115 agencies, line item by line item — to see what actually happened.
+      The answer: not one agency's general-fund appropriation went down. A hundred and one
+      went up. Ninety-one cents of every general-fund dollar is last year's number, carried
+      forward. This is what the base looks like when nobody re-argues it.
+    </p>
+    <p class="hero-byline">
+      Carolina Redesign · Palmetto ZBB Suite · Data: SC FY2024-25 &amp; FY2025-26 Appropriations Acts · July 2026
+    </p>
+  </div>
+
+  <div class="hero-inner" style="margin-top:0;">
+    <div class="hero-stats">
+      <div class="hstat">
+        <span class="hstat-n">0</span>
+        <span class="hstat-l">Agencies with a general-fund cut</span>
+      </div>
+      <div class="hstat">
+        <span class="hstat-n">101</span>
+        <span class="hstat-l">Agencies with a general-fund increase</span>
+      </div>
+      <div class="hstat">
+        <span class="hstat-n">+$826M</span>
+        <span class="hstat-l">General-fund growth in one year (+6.6%)</span>
+      </div>
+      <div class="hstat">
+        <span class="hstat-n">+7.5%</span>
+        <span class="hstat-l">Median agency GF growth rate</span>
+      </div>
+      <div class="hstat">
+        <span class="hstat-n">91¢</span>
+        <span class="hstat-l">Of every GF dollar = last year's base, unchanged or reduced</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 1 — THE FRAMEWORK
+══════════════════════════════════════════ -->
+<section class="section-light">
+  <div class="wrap-narrow">
+    <span class="section-label">The Framework</span>
+    <h2 class="sh">Two enacted budgets, one question: what got re-decided?</h2>
+    <p class="body-lede">
+      Issue 1 of this series mapped where South Carolina's money comes from. This issue asks a
+      different question: how does the budget change from one year to the next — and how much of
+      it is ever actually re-examined?
+    </p>
+
+    <p class="drop-cap">
+      Zero-based budgeting has a simple premise: start every agency at zero, and make it justify
+      every dollar it requests. The opposite of ZBB is incremental budgeting: start every agency
+      at last year's number, and argue only about the increase. South Carolina's statute calls for
+      the first. The best way to test which one the state actually practices is to hold two
+      consecutive enacted budgets side by side and measure what moved.
+    </p>
+
+    <p>
+      That is what this analysis does. We compared the recurring appropriations in the FY2024-25
+      Appropriations Act against the FY2025-26 Act (H.4025) for all 115 agency sections —
+      $12.42 billion in state general funds growing to $13.25 billion — and then went a level
+      deeper, matching roughly 2,400 individual line items across the two years by agency,
+      program, and line description. The result is a precise anatomy of one year of budget
+      change: which agencies moved, by how much, and how many numbers were simply carried
+      forward untouched.
+    </p>
+
+    <div class="callout">
+      <span class="callout-lbl">Data Source</span>
+      <p>
+        All figures are verbatim extractions from the enacted FY2024-25 and FY2025-26 South
+        Carolina General Appropriations Acts, processed through the Palmetto ZBB Suite.
+        Agency-level comparisons use each act's official Section Recapitulation. This analysis
+        covers recurring Part IA appropriations; one-time surplus and Capital Reserve Fund
+        spending is excluded (it is the subject of a future issue). "General funds" is state
+        tax money the legislature appropriates directly — the third of the budget it fully controls.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 2 — ZERO
+══════════════════════════════════════════ -->
+<section class="section-dark">
+  <div class="wrap-narrow">
+    <span class="section-label">The Headline Number</span>
+    <h2 class="sh">The number of agencies that took a cut</h2>
+    <p class="body-lede">
+      Of the 114 agency sections that appear in both years' budgets, 101 received a general-fund
+      increase and 13 stayed exactly flat. None — not one — was reduced.
+    </p>
+  </div>
+
+  <div class="wrap">
+    <div class="big-stat-wrap">
+      <div class="big-stat">0</div>
+      <div class="big-stat-unit">agencies saw their general-fund appropriation go down, FY2024-25 → FY2025-26</div>
+    </div>
+  </div>
+
+  <div class="wrap-narrow" style="margin-top:2rem;">
+    <p>
+      In a genuinely zero-based process, some agencies would win and some would lose in most
+      years — priorities shift, programs end, one-time needs expire. In an incremental process,
+      the distribution looks exactly like this one: everyone's base survives intact, and the
+      argument is only ever about the size of the raise. The median GF-funded agency grew
+      7.5% in a single year. Statewide, general funds grew 6.6% — well above the pace of
+      inflation or population growth.
+    </p>
+
+    <p>
+      The increases themselves are not the indictment; many fund real cost growth in salaries,
+      health plans, and caseloads. The indictment is the shape of the distribution. When 101
+      agencies move up and zero move down, the floor under every agency is last year's
+      appropriation — which is the one thing a zero-based process is not supposed to guarantee.
+    </p>
+
+    <!-- MAIN CHART -->
+    <div class="chart-wrap" style="margin-top:2rem;">
+      <div class="chart-title">The Twenty Largest General-Fund Increases</div>
+      <div class="chart-sub">FY2024-25 enacted (gray) vs. FY2025-26 enacted (gold) · State general funds only · Verbatim from Section Recapitulations</div>
+      <div class="legend" style="margin-bottom:1rem;">
+        <div class="legend-item"><div class="legend-dot" style="background:rgba(245,239,224,0.35);"></div>FY2024-25 general funds</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#C9A227;"></div>FY2025-26 general funds</div>
+      </div>
+      <div id="chart-main" style="height:760px;"></div>
+    </div>
+
+    <p style="font-family:'Inter',sans-serif;font-size:0.78rem;color:rgba(245,239,224,0.4);">
+      Note: the Capital Reserve Fund and Debt Service appear here because they are appropriated
+      in Part IA; both grow by statutory formula rather than agency request.
+    </p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 3 — THE RATCHET
+══════════════════════════════════════════ -->
+<section class="section-light">
+  <div class="wrap-narrow">
+    <span class="section-label">The Ratchet</span>
+    <h2 class="sh">Everything moves up, nothing moves down</h2>
+    <p class="body-lede">
+      Plot every GF-funded agency's one-year growth rate and the picture is unambiguous:
+      the distribution starts at zero and only goes up.
+    </p>
+
+    <p class="drop-cap">
+      Among the 104 agencies that receive state general funds, the single most common outcome
+      was a raise of 5–10%. Eighteen agencies grew 10–20%. Fifteen grew more than 20%. And at
+      the bottom of the distribution, the floor: three agencies flat to the penny, zero agencies
+      below it. A budget process with a hard floor at 0% and no ceiling is a ratchet — it turns
+      in one direction only.
+    </p>
+
+    <div class="chart-wrap">
+      <div class="chart-title">Distribution of One-Year General-Fund Growth Rates</div>
+      <div class="chart-sub">104 GF-funded agencies, FY2024-25 → FY2025-26 · Ten agencies receiving no general funds excluded</div>
+      <div id="chart-hist" style="height:340px;"></div>
+    </div>
+
+    <p>
+      The fastest movers were mostly small and mid-sized agencies: the Department of Archives
+      &amp; History nearly doubled (+95.8%, $6.4M → $12.4M), the Department on Aging grew 64%
+      ($22.5M → $37.0M), the Department of Employment and Workforce grew 59% ($8.2M → $13.0M),
+      and the SC Conservation Bank grew 46% ($16.3M → $23.8M). Among large agencies, the
+      Department of Public Safety (+22.1%), Department of Environmental Services (+24.9%), and
+      Department of Veterans' Affairs (+27.2%) posted the steepest climbs.
+    </p>
+
+    <p>
+      And the flat 13? Ten of them receive no general funds at all — they simply have nothing
+      to cut. The other three are the more interesting story: the Department of Transportation's
+      general-fund appropriation was <strong>$123,057,270 in both years — identical to the
+      penny</strong>. So was the Public Employee Benefit Authority's, at $112,368,739. Numbers
+      that repeat to seven significant figures were not re-derived from zero. They were copied.
+    </p>
+
+    <table class="agency-table">
+      <thead>
+        <tr><th>Fastest-growing agencies (&gt;$5M base)</th><th>FY2024-25 GF</th><th>FY2025-26 GF</th><th>Change</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Dept of Archives &amp; History</td><td>$6.4M</td><td>$12.4M</td><td class="td-up">+95.8%</td></tr>
+        <tr><td>Dept on Aging</td><td>$22.5M</td><td>$37.0M</td><td class="td-up">+64.0%</td></tr>
+        <tr><td>Dept of Employment &amp; Workforce</td><td>$8.2M</td><td>$13.0M</td><td class="td-up">+59.1%</td></tr>
+        <tr><td>SC Conservation Bank</td><td>$16.3M</td><td>$23.8M</td><td class="td-up">+46.2%</td></tr>
+        <tr><td>Dept of Insurance</td><td>$7.7M</td><td>$10.9M</td><td class="td-up">+41.4%</td></tr>
+        <tr><td>State Museum Commission</td><td>$7.4M</td><td>$10.5M</td><td class="td-up">+40.6%</td></tr>
+        <tr><td>Dept of Veterans' Affairs</td><td>$74.8M</td><td>$95.1M</td><td class="td-up">+27.2%</td></tr>
+        <tr><td>Dept of Environmental Services</td><td>$82.4M</td><td>$103.0M</td><td class="td-up">+24.9%</td></tr>
+        <tr><td>Dept of Public Safety</td><td>$178.0M</td><td>$217.3M</td><td class="td-up">+22.1%</td></tr>
+      </tbody>
+    </table>
+    <p style="font-family:'Inter',sans-serif;font-size:0.78rem;color:var(--muted);">
+      The Division of Aeronautics grew +222% ($2.6M → $8.2M) from a smaller base. Growth
+      percentages for agencies with negligible prior-year GF (e.g., the Public Service
+      Commission, which moved from about $1,300 to $543,000) are excluded as bookkeeping artifacts.
+    </p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 4 — THE COPY-PASTE BASE
+══════════════════════════════════════════ -->
+<section class="section-dark">
+  <div class="wrap-narrow">
+    <span class="section-label">The Copy-Paste Base</span>
+    <h2 class="sh">Where each general-fund dollar actually came from</h2>
+    <p class="body-lede">
+      Drop below the agency level to the roughly 2,400 individual line items in each act, and
+      you can decompose the entire $13.25 billion general fund into what was inherited and what
+      was decided.
+    </p>
+
+    <p class="drop-cap">
+      Matching this year's line items to last year's — same agency, same program, same line
+      description — accounts for 89% of the current budget's line structure. Within those
+      matched lines, <strong>1,410 carry the identical general-fund amount in both years</strong>;
+      747 of them are non-zero appropriations worth $1.71 billion, entered in the new act at the
+      exact same dollar figure as the old one. The rest of the matched lines moved: $917 million
+      in increases against just $186 million in reductions — five dollars added for every dollar
+      trimmed. New line items contributed $286 million; discontinued ones removed $191 million.
+    </p>
+
+    <div class="match-example">
+      <div style="font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:1rem;">One Year of General-Fund Change — The Complete Ledger</div>
+      <div class="match-row">
+        <span class="match-label">FY2024-25 general funds (enacted)</span>
+        <span class="match-value">$12,420,375,425</span>
+      </div>
+      <div class="match-row">
+        <span class="match-label">− Discontinued line items (307 lines)</span>
+        <span class="match-value red">− $190,819,778</span>
+      </div>
+      <div class="match-row">
+        <span class="match-label">− Reductions within continuing lines</span>
+        <span class="match-value red">− $185,880,371</span>
+      </div>
+      <div class="match-row">
+        <span class="match-label">+ Increases within continuing lines</span>
+        <span class="match-value green">+ $916,529,587</span>
+      </div>
+      <div class="match-row">
+        <span class="match-label">+ New line items (264 lines)</span>
+        <span class="match-value green">+ $285,957,730</span>
+      </div>
+      <div class="match-row">
+        <span class="match-label">FY2025-26 general funds (enacted)</span>
+        <span class="match-value">$13,246,162,593</span>
+      </div>
+    </div>
+
+    <p>
+      Add up the money that reflects an affirmative new decision — the increases plus the new
+      lines — and you get $1.20 billion, about 9.1% of the general fund. The other 90.9%,
+      $12.04 billion, is last year's base riding into the new act at or below its prior level,
+      overwhelmingly at it. That is the increment in incremental budgeting, measured: the
+      annual appropriations debate is, in dollar terms, an argument about nine cents on the dollar.
+    </p>
+
+    <div class="pull-quote">
+      <p>"Seven hundred forty-seven line items — $1.71 billion — appear in the FY2025-26
+      Appropriations Act at the exact dollar figure they carried the year before. A number
+      that repeats to the penny was not justified from zero. It was inherited."</p>
+    </div>
+
+    <div class="chart-wrap" style="margin-top:2rem;">
+      <div class="chart-title">Anatomy of One Year's General-Fund Change</div>
+      <div class="chart-sub">Line-item-level decomposition, FY2024-25 → FY2025-26 · $ millions · Axis starts at $11.5B to make changes visible</div>
+      <div id="chart-water" style="height:400px;"></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 5 — THE GREAT SWAP
+══════════════════════════════════════════ -->
+<section class="section-mid">
+  <div class="wrap-narrow">
+    <span class="section-label">The Great Swap</span>
+    <h2 class="sh">The budget "shrank" $1.1 billion. State spending grew $826 million.</h2>
+
+    <p class="drop-cap">
+      Here is the twist that makes this year's comparison unusual: while general funds grew
+      6.6%, the total budget — all funds — actually fell 2.7%, from $40.23 billion to
+      $39.16 billion. Both things are true, and the gap between them is the story. Non-general-fund
+      money, mostly federal, dropped by roughly $1.9 billion, and state tax dollars rose to
+      backfill part of the hole. The state swapped federal money for its own.
+    </p>
+
+    <p>
+      The swap is concentrated where the pandemic-era federal money was. The Department of
+      Education's total budget fell $615 million as federal relief funds rolled off — while its
+      general-fund appropriation rose $171 million. The Department of Social Services lost
+      $306 million in total funds and gained $22.5 million in state funds. The pattern repeats
+      at Disabilities &amp; Special Needs, the Office of Resilience, and Employment &amp; Workforce.
+      One bookkeeping change amplifies the headline decline: the $801 million Tax Relief Trust
+      Fund, carried as its own budget section in FY2024-25, does not appear as a section in the
+      FY2025-26 act at all.
+    </p>
+
+    <table class="agency-table">
+      <thead>
+        <tr><th>Agency</th><th>Total funds change</th><th>General funds change</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Dept of Education</td><td class="td-down">− $615.3M</td><td class="td-up">+ $170.7M</td></tr>
+        <tr><td>Dept of Social Services</td><td class="td-down">− $306.0M</td><td class="td-up">+ $22.5M</td></tr>
+        <tr><td>Dept of Disabilities &amp; Special Needs</td><td class="td-down">− $66.7M</td><td class="td-up">+ $7.7M</td></tr>
+        <tr><td>Office of Resilience</td><td class="td-down">− $30.6M</td><td>flat</td></tr>
+        <tr><td>Dept of Employment &amp; Workforce</td><td class="td-down">− $30.6M</td><td class="td-up">+ $4.8M</td></tr>
+        <tr><td>Dept of Public Health</td><td class="td-down">− $24.3M</td><td class="td-up">+ $9.3M</td></tr>
+        <tr><td>Attorney General's Office</td><td class="td-down">− $19.6M</td><td class="td-up">+ $1.3M</td></tr>
+        <tr><td>Adjutant General's Office</td><td class="td-down">− $19.3M</td><td class="td-up">+ $2.2M</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      This is the dependency map from Issue 1 in motion. When federal funding recedes, the
+      question of what the state actually chooses to fund stops being theoretical. In FY2025-26,
+      the legislature's revealed choice was to replace a meaningful share of the departing
+      federal dollars with recurring state money — locking pandemic-era spending levels into
+      the permanent base. Every dollar of that backfill is now protected by the same ratchet
+      documented above.
+    </p>
+
+    <div class="callout">
+      <span class="callout-lbl">Why This Compounds</span>
+      <p>
+        A 6.6% general-fund growth rate, sustained, doubles the state-funded budget in about
+        eleven years. Because the base is never re-justified, each year's increment becomes the
+        next year's floor. The $826 million added this year is not a one-time expense — it is a
+        permanent enlargement of the base that every future budget will inherit by default.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 6 — WHAT THIS MEANS FOR ZBB
+══════════════════════════════════════════ -->
+<section class="section-light">
+  <div class="wrap-narrow">
+    <span class="section-label">The ZBB Implication</span>
+    <h2 class="sh">The 9% budget debate — and how to widen it</h2>
+
+    <p class="drop-cap">
+      None of this means South Carolina's appropriators are careless. It means they are doing
+      what every legislature does when the tools only make the increment visible: they debate
+      the increment. The $1.2 billion in new decisions gets hearings, amendments, and floor
+      votes. The $12 billion base gets carried forward — 747 of its line items to the exact
+      penny — because no process exists that forces it back onto the table.
+    </p>
+
+    <p>
+      Zero-based budgeting, done honestly, is the process that puts it back on the table. Not
+      all at once — no legislature can re-derive 2,400 line items in a session — but on a
+      rotation, with real decision packages: what does this line buy, what would 80% of it buy,
+      what happens at zero? The data above suggests where to start. The three agencies whose
+      appropriations repeat to the penny are carrying numbers nobody has recently derived.
+      The agencies that grew 40–95% in a single year have, by definition, bases that no longer
+      describe them. And the $1.7 billion in copy-paste lines is the purest inventory of
+      unexamined base in the budget.
+    </p>
+
+    <div class="callout">
+      <span class="callout-lbl">The ZBB Suite Approach</span>
+      <p>
+        Every figure in this analysis comes from the Palmetto ZBB Suite, which holds both years'
+        appropriations acts at line-item resolution for all 115 agencies and can generate this
+        comparison — agency by agency, line by line — on demand. The same engine produces
+        structured ZBB decision packages and analyst reports per agency. Future issues of the
+        Palmetto Ledger will examine the federal-match multiplier (where a state dollar cut
+        forfeits several federal ones) and the $1.86 billion in one-time money appropriated
+        outside the recurring base.
+      </p>
+    </div>
+
+    <p>
+      Issue 1 ended by observing that serious reform begins with a map of where the money comes
+      from. This issue adds the second coordinate: where the money came from <em>last year</em>.
+      A state that knows both — and that can see, to the penny, which of its numbers are
+      decisions and which are habits — has everything it needs to start budgeting from zero
+      in fact and not just in statute.
+    </p>
+
+    <div class="method-box">
+      <strong>Methodology.</strong> All figures are verbatim extractions from the enacted South
+      Carolina General Appropriations Acts for FY2024-25 and FY2025-26 (H.4025), as processed by
+      the Palmetto ZBB Suite. Agency-level comparisons use each act's Section Recapitulation
+      (115 sections per year; 114 match across years — First Steps enters as a new section in
+      FY2025-26, and the Tax Relief Trust Fund section appears only in FY2024-25). Statewide
+      general-fund growth of $825.8M reconciles exactly to the sum of matched-agency increases
+      ($805.2M) plus First Steps ($20.5M). Line-item decomposition matches items across years by
+      section, program subsection, and normalized line description, excluding total rows; the
+      ledger figures sum exactly to both years' enacted totals. Renamed lines count as
+      discontinued-plus-new, so the 90.9% carried-forward share is a floor, not a ceiling.
+      Recurring Part IA appropriations only; nonrecurring surplus and Capital Reserve Fund
+      appropriations are excluded. Analysis by Carolina Redesign, July 2026.
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">The Palmetto Ledger</div>
+      <p class="footer-desc">
+        Original budget analysis for South Carolina, powered by the Palmetto ZBB Suite.
+        Line-item appropriations data from the enacted FY2024-25 and FY2025-26 acts,
+        processed across all 115 state agencies. Part of the Carolina Redesign Research Series.
+      </p>
+    </div>
+    <div>
+      <p class="footer-col-head">Data Sources</p>
+      <ul class="footer-links">
+        <li><a href="#">SC H.4025 FY2025-26 Appropriations Act</a></li>
+        <li><a href="#">SC FY2024-25 Appropriations Act</a></li>
+        <li><a href="#">Palmetto ZBB Suite</a></li>
+        <li><a href="#">SC Dept of Administration</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-head">Research Series</p>
+      <ul class="footer-links">
+        <li><a href="/research/">All Research</a></li>
+        <li><a href="/palmetto-ledger/the-federal-floor.html">Issue 1 — The Federal Floor</a></li>
+        <li><a href="/urban-productivity/">Urban Productivity Series</a></li>
+        <li><a href="/urban-productivity/columbia/">Columbia, SC Analysis</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    Carolina Redesign · The Palmetto Ledger · Issue 2 · July 2026 ·
+    Budget figures are verbatim from the enacted appropriations acts. Verify against SC Dept of Administration for official figures.
+  </div>
+</footer>
+
+
+<!-- ══════════════════════════════════════════
+     CHARTS
+══════════════════════════════════════════ -->
+<script>
+// ── DATA (verbatim from Section Recapitulations, dollars) ──
+const top20 = [
+  {name:"Dept of Education",                  prior:4222678836, cur:4393428827, pct:4.0},
+  {name:"Dept of Health & Human Services",    prior:2178327876, cur:2271102188, pct:4.3},
+  {name:"Univ of South Carolina",             prior:284684227,  cur:325886983,  pct:14.5},
+  {name:"Dept of Public Safety",              prior:178037038,  cur:217320999,  pct:22.1},
+  {name:"Medical Univ of SC (MUSC)",          prior:147543318,  cur:176290820,  pct:19.5},
+  {name:"Dept of Corrections",                prior:587657503,  cur:615361272,  pct:4.7},
+  {name:"Clemson University",                 prior:193349463,  cur:219327137,  pct:13.4},
+  {name:"Dept of Social Services",            prior:316109514,  cur:338625452,  pct:7.1},
+  {name:"State Board for Technical Ed.",      prior:240522776,  cur:262395759,  pct:9.1},
+  {name:"Dept of Mental Health",              prior:306168286,  cur:327267357,  pct:6.9},
+  {name:"Dept of Environmental Services",     prior:82413107,   cur:102961732,  pct:24.9},
+  {name:"Dept of Veterans' Affairs",          prior:74795000,   cur:95127807,   pct:27.2},
+  {name:"Capital Reserve Fund",               prior:369783882,  cur:387352137,  pct:4.8},
+  {name:"Aid to Subdivisions",                prior:332763225,  cur:347513486,  pct:4.4},
+  {name:"Dept on Aging",                      prior:22533735,   cur:36952624,   pct:64.0},
+  {name:"Dept of Natural Resources",          prior:73727264,   cur:86328111,   pct:17.1},
+  {name:"Dept of Administration",             prior:117732742,  cur:129159118,  pct:9.7},
+  {name:"Judicial Department",                prior:102546815,  cur:113731584,  pct:10.9},
+  {name:"Debt Service",                       prior:143914766,  cur:153914766,  pct:6.9},
+  {name:"Dept of Public Health",              prior:127935963,  cur:137232538,  pct:7.3},
+];
+
+function fmt(v) {
+  if (v >= 1e9) return '$' + (v/1e9).toFixed(2) + 'B';
+  if (v >= 1e6) return '$' + (v/1e6).toFixed(0) + 'M';
+  return '$' + v.toLocaleString();
+}
+function fmtM(v) { return '$' + (v/1e6).toFixed(1) + 'M'; }
+
+// ── MAIN PAIRED BARS ──────────────────────────
+const mainChart = echarts.init(document.getElementById('chart-main'));
+const sorted = [...top20].sort((a,b) => (a.cur-a.prior) - (b.cur-b.prior)); // echarts yAxis bottom-up
+mainChart.setOption({
+  backgroundColor: 'transparent',
+  grid: { top: 10, bottom: 40, left: 215, right: 150 },
+  xAxis: {
+    type: 'value',
+    axisLabel: { color:'rgba(245,239,224,0.45)', fontSize:11, formatter: v => fmt(v) },
+    splitLine: { lineStyle:{ color:'rgba(255,255,255,0.06)' } },
+    axisLine: { show:false }
+  },
+  yAxis: {
+    type: 'category',
+    data: sorted.map(d => d.name),
+    axisLabel: { color:'rgba(245,239,224,0.75)', fontSize:11.5 }
+  },
+  series: [
+    {
+      name: 'FY2024-25',
+      type: 'bar',
+      data: sorted.map(d => d.prior),
+      itemStyle: { color:'rgba(245,239,224,0.30)' },
+      barGap: '-25%',
+      barMaxWidth: 14
+    },
+    {
+      name: 'FY2025-26',
+      type: 'bar',
+      data: sorted.map(d => d.cur),
+      itemStyle: { color:'#C9A227' },
+      barMaxWidth: 14,
+      label: {
+        show: true, position: 'right',
+        formatter: p => {
+          const d = sorted[p.dataIndex];
+          return `+${fmtM(d.cur-d.prior)}  (+${d.pct}%)`;
+        },
+        color:'rgba(245,239,224,0.6)', fontSize:10.5
+      }
+    }
+  ],
+  tooltip: {
+    trigger:'axis',
+    formatter: params => {
+      const d = sorted[params[0].dataIndex];
+      return `<b>${d.name}</b><br>
+        FY2024-25 GF: ${fmt(d.prior)}<br>
+        FY2025-26 GF: ${fmt(d.cur)}<br>
+        Change: +${fmtM(d.cur-d.prior)} (+${d.pct}%)`;
+    }
+  }
+});
+
+// ── HISTOGRAM (light section) ─────────────────
+const histChart = echarts.init(document.getElementById('chart-hist'));
+const HIST = [
+  {bin:'Flat (0%)', n:3,  color:'#8A8378'},
+  {bin:'0–2%',      n:14, color:'#B5A96A'},
+  {bin:'2–5%',      n:21, color:'#C9A227'},
+  {bin:'5–10%',     n:33, color:'#C9A227'},
+  {bin:'10–20%',    n:18, color:'#C97B27'},
+  {bin:'20–50%',    n:10, color:'#C94F2A'},
+  {bin:'50%+',      n:5,  color:'#B23A2A'},
+];
+histChart.setOption({
+  backgroundColor: 'transparent',
+  grid: { top: 30, bottom: 45, left: 55, right: 20 },
+  xAxis: {
+    type: 'category',
+    data: HIST.map(d => d.bin),
+    name: 'One-year GF growth', nameLocation:'middle', nameGap:30,
+    nameTextStyle:{ color:'#6B5E50', fontSize:10 },
+    axisLabel: { color:'#2A2420', fontSize:11.5 },
+    axisLine: { lineStyle:{ color:'rgba(0,59,92,0.2)' } }
+  },
+  yAxis: {
+    type: 'value', name:'Agencies', nameTextStyle:{ color:'#6B5E50', fontSize:10 },
+    axisLabel: { color:'#6B5E50', fontSize:11 },
+    splitLine: { lineStyle:{ color:'rgba(0,59,92,0.07)' } }
+  },
+  series: [{
+    type: 'bar',
+    data: HIST.map(d => ({ value:d.n, itemStyle:{ color:d.color } })),
+    barMaxWidth: 60,
+    label: { show:true, position:'top', color:'#2A2420', fontSize:12, fontWeight:600 }
+  }],
+  tooltip: { trigger:'axis', formatter: p => `<b>${p[0].name}</b><br>${p[0].value} agencies` }
+});
+
+// ── WATERFALL (dark section) ──────────────────
+const waterChart = echarts.init(document.getElementById('chart-water'));
+// exact ledger figures, $M
+const W = {
+  base: 12420.375425,
+  gone: 190.819778,
+  dec:  185.880371,
+  inc:  916.529587,
+  neu:  285.957730,
+  end:  13246.162593
+};
+const afterGone = W.base - W.gone;        // 12229.556
+const afterDec  = afterGone - W.dec;      // 12043.675
+const afterInc  = afterDec + W.inc;       // 12960.205
+const cats = ['FY2024-25\nEnacted', 'Discontinued\nlines', 'Reduced\nlines', 'Increased\nlines', 'New\nlines', 'FY2025-26\nEnacted'];
+const placeholders = [0, afterGone, afterDec, afterDec, afterInc, 0];
+const bars = [
+  { value: W.base, itemStyle:{ color:'rgba(245,239,224,0.30)' }, lbl: '$12,420M' },
+  { value: W.gone, itemStyle:{ color:'#B23A2A' }, lbl: '−$191M' },
+  { value: W.dec,  itemStyle:{ color:'#B23A2A' }, lbl: '−$186M' },
+  { value: W.inc,  itemStyle:{ color:'#4A9A6C' }, lbl: '+$917M' },
+  { value: W.neu,  itemStyle:{ color:'#C9A227' }, lbl: '+$286M' },
+  { value: W.end,  itemStyle:{ color:'#C9A227' }, lbl: '$13,246M' },
+];
+waterChart.setOption({
+  backgroundColor: 'transparent',
+  grid: { top: 30, bottom: 55, left: 70, right: 20 },
+  xAxis: {
+    type: 'category', data: cats,
+    axisLabel: { color:'rgba(245,239,224,0.7)', fontSize:11, interval:0, lineHeight:15 },
+    axisLine: { lineStyle:{ color:'rgba(255,255,255,0.15)' } }
+  },
+  yAxis: {
+    type: 'value', min: 11500, name:'$ millions (GF)',
+    nameTextStyle:{ color:'rgba(245,239,224,0.35)', fontSize:10 },
+    axisLabel: { color:'rgba(245,239,224,0.45)', fontSize:10.5, formatter: v => '$'+v.toLocaleString()+'M' },
+    splitLine: { lineStyle:{ color:'rgba(255,255,255,0.06)' } }
+  },
+  series: [
+    { type:'bar', stack:'w', data: placeholders,
+      itemStyle:{ color:'transparent' }, emphasis:{ itemStyle:{ color:'transparent' } }, tooltip:{ show:false } },
+    { type:'bar', stack:'w', barMaxWidth: 64,
+      data: bars,
+      label: { show:true, position:'top', formatter: p => bars[p.dataIndex].lbl,
+               color:'rgba(245,239,224,0.75)', fontSize:11, fontWeight:600 } }
+  ],
+  tooltip: {
+    trigger:'axis',
+    formatter: params => {
+      const i = params[params.length-1].dataIndex;
+      const detail = [
+        'Every recurring GF line item in the FY2024-25 act',
+        '307 line items in the old act with no match in the new one: −$190.8M',
+        'Continuing line items appropriated below their prior level: −$185.9M',
+        'Continuing line items appropriated above their prior level: +$916.5M',
+        '264 line items in the new act with no prior-year match: +$286.0M',
+        'Every recurring GF line item in the FY2025-26 act'
+      ];
+      return `<b>${cats[i].replace('\n',' ')}</b><br>${detail[i]}`;
+    }
+  }
+});
+
+window.addEventListener('resize', () => {
+  mainChart.resize(); histChart.resize(); waterChart.resize();
+});
+</script>
+</body>
+</html>

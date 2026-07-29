@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The Palmetto Ledger — original analysis of South Carolina's state budget, powered by the Palmetto ZBB Suite. Line-item appropriations data across all 115 state agencies.">
+<title>The Palmetto Ledger — Carolina Redesign</title>
+<link rel="icon" type="image/png" href="/cr-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --dark:   #071018;
+  --navy:   #0D1F2D;
+  --gold:   #C9A227;
+  --gold-lt:#E8C84A;
+  --cream:  #F5EFE0;
+  --cream-lt:#FAF7F2;
+  --ink:    #1A1614;
+  --muted:  #6B5E50;
+  --line:   #E5DFD3;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Source Serif 4', Georgia, serif; background: var(--cream-lt); color: var(--ink); line-height: 1.7; }
+
+.site-nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(7,16,24,0.97); backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(201,162,39,0.2);
+  padding: 0.75rem 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-brand { font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); text-decoration: none; }
+.nav-pill  { font-family: 'Inter', sans-serif; font-size: 0.72rem; color: rgba(245,239,224,0.5); border: 1px solid rgba(201,162,39,0.25); border-radius: 20px; padding: 0.22rem 0.7rem; }
+
+.hero {
+  background: var(--dark); padding: 5.5rem 2rem 4.5rem; position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 75% 55% at 65% 45%, rgba(13,31,46,0.7) 0%, transparent 70%),
+              radial-gradient(ellipse 45% 40% at 10% 75%, rgba(27,79,55,0.12) 0%, transparent 60%);
+}
+.hero-inner { max-width: 880px; margin: 0 auto; position: relative; }
+.hero-kicker { font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
+.hero h1 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(2.6rem, 7vw, 5rem); font-weight: 900; line-height: 1.06; color: var(--cream); margin-bottom: 1rem; letter-spacing: -0.02em; }
+.hero h1 em { font-style: italic; color: var(--gold); }
+.hero-sub {
+  font-size: 1.05rem; line-height: 1.72; color: rgba(245,239,224,0.75); max-width: 640px;
+  border-top: 1px solid rgba(201,162,39,0.25); padding-top: 1.25rem;
+}
+
+.issues { max-width: 880px; margin: 0 auto; padding: 4rem 2rem; }
+.issues-label { font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #003B5C; margin-bottom: 1.5rem; display: block; }
+
+.issue-card {
+  display: block; text-decoration: none; color: inherit;
+  background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--gold);
+  border-radius: 8px; padding: 1.75rem 2rem; margin-bottom: 1.5rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.issue-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(7,16,24,0.08); }
+.issue-tag { font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.4rem; display: block; }
+.issue-card h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.75rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.6rem; }
+.issue-card p { font-size: 0.95rem; color: var(--muted); margin-bottom: 0.9rem; }
+.issue-stats { display: flex; gap: 1.75rem; flex-wrap: wrap; margin-bottom: 0.9rem; }
+.istat-n { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: #003B5C; display: block; line-height: 1.1; }
+.istat-l { font-family: 'Inter', sans-serif; font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+.issue-arrow { font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 600; color: var(--gold); }
+
+.issue-card.upcoming {
+  border-left-color: var(--line); background: transparent; cursor: default;
+}
+.issue-card.upcoming:hover { transform: none; box-shadow: none; }
+.issue-card.upcoming .issue-tag { color: var(--muted); }
+.issue-card.upcoming h2 { color: var(--muted); }
+
+.method-note {
+  max-width: 880px; margin: 0 auto 4rem; padding: 0 2rem;
+}
+.method-note-inner {
+  background: rgba(0,59,92,0.06); border: 1px solid rgba(0,59,92,0.12); border-radius: 6px;
+  padding: 1.5rem; font-family: 'Inter', sans-serif; font-size: 0.8rem; line-height: 1.65; color: var(--muted);
+}
+.method-note-inner strong { color: var(--ink); }
+
+.site-footer { background: var(--dark); color: rgba(245,239,224,0.45); padding: 2.5rem 2rem; }
+.footer-bottom { max-width: 880px; margin: 0 auto; font-family: 'Inter', sans-serif; font-size: 0.72rem; color: rgba(245,239,224,0.35); }
+.footer-bottom a { color: rgba(201,162,39,0.7); text-decoration: none; }
+
+@media (max-width: 700px) {
+  .hero { padding: 4rem 1.25rem 3rem; }
+  .issues, .method-note { padding-left: 1.25rem; padding-right: 1.25rem; }
+  .issue-card { padding: 1.25rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a class="nav-brand" href="/research/">← Research Series</a>
+  <span class="nav-pill">The Palmetto Ledger</span>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="hero-kicker">Carolina Redesign · Research Series</p>
+    <h1>The Palmetto<br><em>Ledger</em></h1>
+    <p class="hero-sub">
+      Original analysis of South Carolina's state budget, powered by the Palmetto ZBB Suite —
+      the enacted appropriations acts held at line-item resolution across all 115 state agencies.
+      Every dollar figure verbatim from the source documents. No estimates, no summaries of
+      summaries: the budget itself, read closely.
+    </p>
+  </div>
+</header>
+
+<main class="issues">
+  <span class="issues-label">All Issues</span>
+
+  <a class="issue-card" href="/palmetto-ledger/the-incremental-state.html">
+    <span class="issue-tag">Issue 2 · July 2026</span>
+    <h2>The Incremental State</h2>
+    <p>One year, two budgets, and not a single agency cut. We matched the FY2024-25 and FY2025-26
+    appropriations acts line item by line item to measure how much of a "zero-based" budget is
+    ever actually re-decided — and how much simply rides in from the year before.</p>
+    <div class="issue-stats">
+      <div><span class="istat-n">0</span><span class="istat-l">agencies with a GF cut</span></div>
+      <div><span class="istat-n">91¢</span><span class="istat-l">of every GF dollar = carried-forward base</span></div>
+      <div><span class="istat-n">747</span><span class="istat-l">line items identical to the penny</span></div>
+    </div>
+    <span class="issue-arrow">Read Issue 2 →</span>
+  </a>
+
+  <a class="issue-card" href="/palmetto-ledger/the-federal-floor.html">
+    <span class="issue-tag">Issue 1 · May 2026</span>
+    <h2>The Federal Floor</h2>
+    <p>Two out of every three dollars in South Carolina's $39.2 billion budget comes from somewhere
+    other than state taxes. A map of the budget's architecture: federal matching funds, university
+    revenues, dedicated streams, and the state-funded core where budget decisions bite directly.</p>
+    <div class="issue-stats">
+      <div><span class="istat-n">66¢</span><span class="istat-l">of every dollar is non-general-fund</span></div>
+      <div><span class="istat-n">$11.9B</span><span class="istat-l">DHHS alone — 30% of the budget</span></div>
+      <div><span class="istat-n">115</span><span class="istat-l">agencies analyzed</span></div>
+    </div>
+    <span class="issue-arrow">Read Issue 1 →</span>
+  </a>
+
+  <div class="issue-card upcoming">
+    <span class="issue-tag">Issue 3 · In development</span>
+    <h2>The Match Trap</h2>
+    <p>Where cutting one state dollar forfeits several federal ones: a line-item map of South
+    Carolina's federal matching exposure, built from the 2,000+ appropriations lines that carry
+    match requirements.</p>
+  </div>
+</main>
+
+<div class="method-note">
+  <div class="method-note-inner">
+    <strong>About the data.</strong> Every figure in this series is a verbatim extraction from the
+    enacted South Carolina General Appropriations Acts, processed through the Palmetto ZBB Suite —
+    a line-item budget analysis platform covering all 115 state agency sections, with each amount
+    traceable to its source page. Analysis is deterministic: all arithmetic is computed directly
+    from the extracted data, never estimated.
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-bottom">
+    <a href="/">Carolina Redesign</a> · The Palmetto Ledger · Original SC budget research ·
+    Verify against SC Dept of Administration for official figures.
+  </div>
+</footer>
+
+</body>
+</html>
