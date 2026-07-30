@@ -62,6 +62,14 @@ header.hero{background:radial-gradient(120% 130% at 82% -10%,#15302b 0%,var(--in
 .hero .metarow .k{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-bright);margin-bottom:5px}
 .hero .metarow .v{font-size:14.5px;color:var(--cream);max-width:26ch}
 .sample-pill{position:absolute;top:26px;right:6%;font-family:'IBM Plex Mono';font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);background:var(--gold);padding:5px 12px;border-radius:4px;font-weight:500}
+/* hero snapshot — values mirrored by JS from #impact + QUICKWINS; not editable copy */
+.snap{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:40px}
+.snap a{display:block;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:16px 18px;text-decoration:none;transition:border-color .2s,transform .2s}
+.snap a:hover{border-color:var(--teal-bright);transform:translateY(-2px)}
+.snap .n{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,3vw,34px);font-weight:700;color:var(--teal-bright);line-height:1.05}
+.snap .l{font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim);margin-top:6px}
+.snap-note{font-size:13px;color:var(--cream-dim);margin-top:12px}
+.snap-note a{color:var(--teal-bright)}
 
 /* ---------- sections ---------- */
 section{padding:78px 0;scroll-margin-top:56px}
@@ -259,6 +267,8 @@ footer .frow{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
       <div><div class="k">Primary focus</div><div class="v">Stop the after-hours lead leak &amp; reclaim owner + dispatch hours</div></div>
       <div><div class="k">The headline</div><div class="v">~11 hours a week back, for ~$492/mo in tools</div></div>
     </div>
+    <div class="snap" id="heroSnap" aria-label="Quick wins snapshot"></div>
+    <div class="snap-note" id="heroSnapNote"></div>
   </div>
 </header>
 
@@ -484,7 +494,7 @@ footer .frow{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
     <div class="brand" style="color:var(--cream)"><span class="dot"></span> Carolina Redesign</div>
     <span class="mono">Assessment prepared June 2026 · tool pricing approximate — confirmed at install</span>
   </div>
-  <!-- template v2.1 · taxonomy v1.1 · intake v2.1 · spec v2.1 -->
+  <!-- template v2.2 · taxonomy v1.1 · intake v2.1 · spec v2.1 -->
 </footer>
 
 <script>
@@ -674,6 +684,26 @@ addEventListener('scroll',()=>{
   const h=document.documentElement;
   prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
 },{passive:true});
+
+/* hero snapshot — mirrors the Impact section's fin cards + QUICKWINS count so
+   the upfront numbers can never disagree with The Math below */
+(function(){
+  const snap=document.getElementById('heroSnap');
+  if(!snap) return;
+  const fins=[...document.querySelectorAll('#impact .fin-grid .fin')].map(f=>({
+    label:(f.querySelector('.label')?.textContent||'').trim(),
+    big:(f.querySelector('.big')?.textContent||'').trim()
+  })).filter(f=>f.label&&f.big);
+  const find=t=>fins.find(f=>f.label.toLowerCase().includes(t));
+  const roi=find('roi'), time=find('time'), cost=find('cost');
+  const tiles=[{n:QUICKWINS.length,l:'quick wins — high impact, low effort',href:'#wins'}];
+  if(time)tiles.push({n:time.big,l:time.label,href:'#impact'});
+  if(cost)tiles.push({n:cost.big,l:cost.label,href:'#impact'});
+  if(roi)tiles.push({n:roi.big,l:roi.label,href:'#impact'});
+  snap.innerHTML=tiles.map(t=>`<a href="${t.href}"><div class="n">${t.n}</div><div class="l">${t.l}</div></a>`).join('');
+  const note=document.getElementById('heroSnapNote');
+  if(note)note.innerHTML='The detail behind every number — what each win is, what it costs, what it saves, and the assumptions — is all below. <a href="#wins">Start with the quick wins ↓</a>';
+})();
 </script>
 </body>
 </html>

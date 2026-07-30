@@ -200,7 +200,7 @@ STRUCTURED_PROMPT = (
     "- appetite.success_definition and catchall: verbatim.\n"
     "- flags: questions the agent could not answer, promised for the walkthrough call.\n"
     "- If something wasn't covered, use null — do not guess.\n\n"
-    "Transcript:\n{{transcript}}"
+    "Return ONLY JSON conforming to this schema:\n{{schema}}"
 )
 
 payload = {
@@ -208,7 +208,9 @@ payload = {
     "firstMessage": FIRST_MESSAGE,
     "voicemailMessage": VOICEMAIL,
     "endCallMessage": "Thanks again — talk soon. Bye now.",
-    "maxDurationSeconds": 1400,
+    # 45 min — the 2026-07-18 intake hit the old 1400s cap mid-interview
+    # (endedReason: exceeded-max-duration)
+    "maxDurationSeconds": 2700,
     "backgroundDenoisingEnabled": True,
     "model": {
         "provider": "anthropic",
@@ -224,9 +226,15 @@ payload = {
         "structuredDataPlan": {
             "enabled": True,
             "schema": STRUCTURED_SCHEMA,
+            # Mirror Vapi's default message shape: system carries the guidance +
+            # {{schema}}, user carries {{transcript}}. The previous single system
+            # message (transcript only, no schema var) made the extraction job
+            # skip silently — 0 structuredData tokens on the 2026-07-18 call.
             "messages": [
-                {"role": "system",
-                 "content": STRUCTURED_PROMPT},
+                {"role": "system", "content": STRUCTURED_PROMPT},
+                {"role": "user",
+                 "content": "Here is the transcript:\n\n{{transcript}}\n\n"
+                            ". Here is the ended reason of the call:\n\n{{endedReason}}\n\n"},
             ],
         },
     },

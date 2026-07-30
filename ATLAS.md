@@ -10,7 +10,7 @@
 | **Project** | Carolina Redesign |
 | **One-liner** | Columbia SC editorial site + AI Opportunity Assessment service (Vapi intake → webhook → Airtable queue → Claude Code report) |
 | **Status** | building |
-| **Last Active** | 2026-07-16 |
+| **Last Active** | 2026-07-20 |
 | **Stall Threshold** | 7 days |
 | **Repo** | https://github.com/jimmyardis/carolina-redesign |
 | **Stack** | Static HTML/CSS, GitHub Pages |
@@ -21,11 +21,11 @@ HyperAgent is out of the pipeline (2026-07-16): the always-on Railway webhook (`
 
 ## Next Action
 
-Run one full end-to-end draft on the sample intake (~$2–4 API cost, user go-ahead needed), then a real test call against Reese.
+Short test call against Reese to confirm structured-data extraction now populates (the 2026-07-19 fix added {{schema}} + user-message transcript to the plan); note a test call also triggers a ~$2 auto-draft.
 
 ## Blockers
 
-- None — Airtable token fixed same day (all four scopes on `cr_pipeline`; watch out: `data.recordComments:read` masquerades as `data.records:read` in the scope picker), `Draft Report` attachment field created (`fldnY7j0dIMHRTBET`).
+- None. (Watch-outs: Airtable's attachment preview doesn't run JS, so drafts look empty there — download + open in a browser. `data.recordComments:read` masquerades as `data.records:read` in the Airtable scope picker.)
 
 ## Open Questions
 
@@ -35,6 +35,27 @@ Run one full end-to-end draft on the sample intake (~$2–4 API cost, user go-ah
 ## Session Log
 
 <!-- Append-only. Most recent session on top. Claude Code adds an entry at the end of each work session. -->
+
+### 2026-07-29
+
+- Published Palmetto Ledger Issue 2 "The Incremental State" (built in the palmetto-zbb project): added `/palmetto-ledger/the-incremental-state.html`, new `/palmetto-ledger/index.html` series landing page (both issues + Issue 3 teaser), Issue 1 footer cross-link, research-index card now points to the landing page with an "Issue 2" chip. Commit `06aded2`, rebased over the remote Chapin/Brighton commits, pushed, live-verified.
+- Note: the push also carried 4 previously-unpushed local commits from the AI-assessment work (`45af020`…`b29c16b`); diff was secret-scanned before pushing (clean). Working tree still has uncommitted assessment-related edits (report_gen.py, templates, this file).
+
+### 2026-07-20
+
+- User reviewed the first real report — verdict "great" — and requested an upfront quick-wins + ROI snapshot. Template bumped **v2.1 → v2.2**: hero now carries a 4-tile snapshot strip (quick-win count · weekly hours returned · monthly tool cost · monthly net ROI) plus a "details are all below" note linking to #wins
+- Design decision: the snapshot is rendered by JS that mirrors the Impact section's `.fin` cards and `QUICKWINS.length` — zero new data arrays or editable copy blocks, so the generator/spec content requirements are unchanged and the hero numbers can never disagree with The Math section
+- Version string bumped to `template v2.2` in the template footer, spec §7 footer line, report_gen.py SYSTEM_ROLE, and the /build-assessment skill; assets re-synced (`sync_assets.sh`) and Railway redeployed (SUCCESS) — all future auto-drafts include the snapshot
+- Retrofitted the snapshot into the user's own populated report, verified headless (tiles: 6 wins · 9 hrs · ~$198 · +$2,250, zero JS errors), uploaded as `assessment-carolina-redesign-v2.2.html` to the Airtable row and pruned the old attachment
+- Uncommitted at session end: template, spec, report_gen.py, SKILL.md, assets, caroline_build.py (from 2026-07-19), ATLAS.md
+
+### 2026-07-19
+
+- First REAL end-to-end run (user's own intake call, 2026-07-18): webhook + Telegram + auto-draft all fired; draft attached to the Airtable row. User reported it "not filled out" — diagnosis: the draft is fully populated (all six arrays, scan-signals, safe-use card, zero Tidewater placeholders, renders clean in headless Chromium with 6 quick-win cards + scorecard) — **Airtable's attachment preview doesn't execute JavaScript**, and the template renders nearly everything client-side, so it looks empty there. Correct viewing: download the attachment, open in a browser
+- Real bug #1 found + fixed: Vapi structured-data extraction NEVER ran (structuredDataPromptTokens = 0 on both real calls; Airtable rows show Business Name "Unknown", Structured Data `{}`). Cause: `structuredDataPlan.messages` override was a single system message with `{{transcript}}` and no `{{schema}}`. Fixed in `caroline_build.py` to mirror Vapi's default shape (system = guidance + `{{schema}}`, user = `{{transcript}}` + `{{endedReason}}`), PATCHed live (HTTP 200, verified)
+- Real bug #2 found + fixed: the intake call ended `exceeded-max-duration` at the 1400s cap — the interview was cut off mid-call. `maxDurationSeconds` raised to 2700 (45 min), PATCHed live
+- The auto-draft handled the empty extraction gracefully (generated from transcript alone — quality looked strong: personalized scorecard notes, real scan findings, L6 verbatim intact)
+- Housekeeping noted, not done: two stray Airtable rows (a 0-second and a 68-second call) sit at "Ready for Report"; extraction fix unverified until the next call; caroline_build.py change uncommitted
 
 ### 2026-07-16
 

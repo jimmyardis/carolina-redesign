@@ -24,7 +24,7 @@ row is stuck at `Ready for Report` because generation failed or was disabled, or
 2. `directives/opportunity_taxonomy.md` — the ONLY source of what may be recommended:
    gating (§3), scoring/placement (§4), path labels (§4.1), scorecard ratings (§4.2),
    verbatim drop-in language (§6, L1–L7).
-3. `templates/assessment_interactive.html` — the frozen canonical template (v2.1).
+3. `templates/assessment_interactive.html` — the frozen canonical template (v2.2).
    You edit exactly two things in a copy of it: the data arrays at the top of the
    `<script>` block, and the copy blocks marked editable. Never redesign, restyle, or
    restructure. If the template itself needs a change, flag it in run notes — a human
@@ -59,7 +59,7 @@ requirements — useful orientation, but the three documents above are authorita
    verified `alt`. Every build: `path` (Done-With-You / Done-For-You) + `risk` +
    `metric`. Safe-use card rows reflect THIS client's `gate_probes.sensitive_data`.
    L6 verbatim in the help strip. Footer comment:
-   `<!-- template v2.1 · taxonomy v1.1 · intake v2.1 · spec v2.1 -->`.
+   `<!-- template v2.2 · taxonomy v1.1 · intake v2.1 · spec v2.1 -->`.
 
 5. **QA rubric — spec §5, all 13 checks.** Any failure → the report does not send;
    log which check failed and why, fix, re-run the rubric.

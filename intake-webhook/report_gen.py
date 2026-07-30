@@ -67,7 +67,7 @@ The three documents below are authoritative, in this order of operation:
 2. The opportunity taxonomy — the ONLY source of what may be recommended, how
    items are gated (§3), scored/placed (§4), path-labeled (§4.1), scorecard-
    rated (§4.2), and the verbatim drop-in language (§6, L1–L7).
-3. The canonical template (v2.1) — with placeholder data showing exactly what
+3. The canonical template (v2.2) — with placeholder data showing exactly what
    each array and copy block should look like when populated.
 
 The shape of the run:
@@ -85,7 +85,7 @@ The shape of the run:
 - Run the full §5 QA rubric (all 13 checks) yourself before finalizing; fix any
   failure before you output.
 - Footer version comment verbatim:
-  <!-- template v2.1 · taxonomy v1.1 · intake v2.1 · spec v2.1 -->
+  <!-- template v2.2 · taxonomy v1.1 · intake v2.1 · spec v2.1 -->
 
 OUTPUT FORMAT — this is machine-parsed: after your scan and reasoning, your
 final response text must be the COMPLETE populated HTML document and nothing
@@ -131,7 +131,7 @@ async def generate_draft(data: dict[str, Any]) -> str:
         {"type": "text", "text": f"=== OPPORTUNITY TAXONOMY (v1.1) ===\n\n{assets['taxonomy']}"},
         {
             "type": "text",
-            "text": f"=== CANONICAL TEMPLATE (v2.1) ===\n\n{assets['template']}",
+            "text": f"=== CANONICAL TEMPLATE (v2.2) ===\n\n{assets['template']}",
             # Stable prefix — cached across the pause_turn continuations below.
             "cache_control": {"type": "ephemeral"},
         },

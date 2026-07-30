@@ -151,7 +151,7 @@ the template as canonical and diff against it per QA #9.
    `path`,`risk`,`metric`) with render code reading the new fields; placeholder data in the
    canonical template.
 7. Bump footer version comment format to include template version:
-   `<!-- template v2.1 · taxonomy v1.1 · intake v2.1 · spec v2.1 -->`.
+   `<!-- template v2.2 · taxonomy v1.1 · intake v2.1 · spec v2.1 -->`.
 
 ## 6 · Delivery & self-annealing
 
