@@ -188,6 +188,11 @@
 
         @media (max-width: 768px) { .practice-grid { grid-template-columns: 1fr; } }
 
+        .assessment-strip { margin-top: 28px; background: var(--bg-secondary); border-radius: 22px; padding: 32px 36px; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+        .assessment-strip h3 { font-size: 1.25rem; margin-bottom: 6px; }
+        .assessment-strip p { font-size: 0.97rem; line-height: 1.5; max-width: 620px; }
+        @media (max-width: 768px) { .assessment-strip { flex-direction: column; align-items: flex-start; padding: 28px; } }
+
         /* Verticals */
         .verticals { padding: 100px 0; background-color: var(--bg-secondary); }
         .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
@@ -312,6 +317,7 @@
                 <li><a href="/operations/">Operations</a></li>
                 <li><a href="/agents/">Agents</a></li>
                 <li><a href="/websites/">Websites</a></li>
+                <li><a href="/assessment/">Assessment</a></li>
                 <li><a href="/research/">Research</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact" class="btn-nav">Start a Conversation</a></li>
@@ -456,6 +462,13 @@
                     <p>High-performance websites with AI voice receptionists, intake bots, and workflow automation. The infrastructure most organizations should have already.</p>
                     <span class="arrow">Explore Agents</span>
                 </a>
+            </div>
+            <div class="assessment-strip">
+                <div>
+                    <h3>Not sure where to start? Take the AI Opportunity Assessment<span class="brand-dot">.</span></h3>
+                    <p>A 15-minute phone interview with our AI, then a personalized report mapping your quick wins, readiness, and the math on each fix.</p>
+                </div>
+                <a href="/assessment/" class="btn-primary" style="flex-shrink: 0;">How it works →</a>
             </div>
         </div>
     </section>

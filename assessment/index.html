@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The AI Opportunity Assessment — a 15-minute phone interview with our AI interviewer, followed by a personalized report mapping exactly where AI can save your business time and money.">
+    <title>AI Opportunity Assessment | CarolinaRedesign.</title>
+    <link rel="icon" type="image/png" href="/cr-logo.png">
+
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --bg-secondary: #f5f5f7;
+            --text-main: #1d1d1f;
+            --text-light: #86868b;
+            --accent: #0071e3;
+            --accent-hover: #0077ed;
+            --accent-soft: rgba(0, 113, 227, 0.1);
+            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-stack); background: var(--bg-color); color: var(--text-main); line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        h1 { font-size: 3.5rem; font-weight: 600; letter-spacing: -0.025em; line-height: 1.08; margin-bottom: 1rem; }
+        h2 { font-size: 2.4rem; font-weight: 600; letter-spacing: -0.01em; line-height: 1.15; }
+        h3 { font-size: 1.4rem; font-weight: 600; }
+        p { font-size: 1.1rem; color: var(--text-light); }
+        a { text-decoration: none; transition: all 0.3s ease; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        .navbar { background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); height: 78px; display: flex; align-items: center; }
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .logo-wrapper { display: flex; align-items: center; gap: 14px; text-decoration: none; z-index: 1001; }
+        .logo-icon { height: 50px; width: auto; }
+        .logo-text-span { font-size: 1.55rem; color: var(--text-main); letter-spacing: -0.03em; line-height: 1; }
+        .logo-text-span strong { font-weight: 700; } .logo-text-span span { font-weight: 400; }
+        .brand-dot { color: var(--accent); font-weight: 700; }
+        .nav-links { list-style: none; display: flex; gap: 32px; align-items: center; }
+        .nav-links a { color: var(--text-light); font-size: 0.94rem; font-weight: 500; }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links .current { color: var(--accent); }
+        .btn-nav { background: var(--accent); color: white !important; padding: 10px 22px; border-radius: 25px; font-size: 0.9rem !important; white-space: nowrap; }
+        .btn-nav:hover { background: var(--accent-hover); }
+        .menu-toggle { display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1001; background: none; border: none; padding: 10px; }
+        .bar { width: 25px; height: 2px; background: var(--text-main); }
+
+        .crumb { font-size: 0.85rem; color: var(--text-light); margin-bottom: 20px; }
+        .crumb a { color: var(--text-light); border-bottom: 1px solid rgba(0,0,0,0.1); }
+        .crumb a:hover { color: var(--accent); }
+
+        .hero { padding: 130px 0 80px; background: linear-gradient(180deg, var(--bg-color), var(--bg-secondary)); text-align: center; }
+        .eyebrow { display: inline-block; background: var(--accent-soft); color: var(--accent); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 14px; border-radius: 20px; margin-bottom: 28px; }
+        .hero h1 { max-width: 850px; margin: 0 auto 1rem; }
+        .subhead { font-size: 1.3rem; margin: 22px auto 36px; max-width: 700px; color: var(--text-light); font-weight: 400; line-height: 1.5; }
+        .subhead strong { color: var(--text-main); font-weight: 600; }
+        .cta-wrapper { display: flex; gap: 18px; justify-content: center; align-items: center; flex-wrap: wrap; }
+        .btn-primary { background: var(--accent); color: white; padding: 14px 30px; border-radius: 30px; font-weight: 500; font-size: 1.02rem; display: inline-block; white-space: nowrap; }
+        .btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0, 113, 227, 0.25); }
+        .link-secondary { color: var(--accent); font-weight: 500; font-size: 1.02rem; }
+        .link-secondary:hover { text-decoration: underline; }
+        .hero-phone { margin-top: 18px; font-size: 0.9rem; color: var(--text-light); }
+
+        section { padding: 100px 0; }
+        section.tinted { background: var(--bg-secondary); }
+        .section-eyebrow { display: block; font-size: 0.78rem; color: var(--accent); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; text-align: center; }
+        .section-title { text-align: center; margin-bottom: 14px; }
+        .section-desc { text-align: center; margin: 0 auto 60px; max-width: 700px; }
+        .lead { font-size: 1.45rem; max-width: 760px; margin: 0 auto 30px; color: var(--text-main); line-height: 1.45; font-weight: 400; text-align: center; }
+        .pullquote { border-left: 3px solid var(--accent); padding: 8px 0 8px 28px; margin: 36px auto; font-size: 1.6rem; line-height: 1.4; color: var(--text-main); font-style: italic; max-width: 760px; font-weight: 400; }
+
+        /* How it works */
+        .method-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+        @media (max-width: 768px) { .method-grid { grid-template-columns: 1fr; } }
+        .method { padding: 32px; background: white; border-radius: 20px; border: 1px solid rgba(0,0,0,0.05); border-left: 3px solid var(--accent); }
+        .method-phase { color: var(--accent); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.08em; margin-bottom: 12px; }
+        .method h3 { font-size: 1.3rem; margin-bottom: 10px; }
+        .method p { font-size: 0.97rem; line-height: 1.55; }
+
+        /* Report contents */
+        .report-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        @media (max-width: 900px) { .report-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 620px) { .report-grid { grid-template-columns: 1fr; } }
+        .report-card { background: white; border: 1px solid rgba(0,0,0,0.08); border-radius: 22px; padding: 32px 28px; transition: all 0.3s ease; }
+        .report-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); border-color: rgba(0, 113, 227, 0.15); }
+        .report-num { color: var(--accent); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; margin-bottom: 16px; }
+        .report-card h3 { font-size: 1.25rem; margin-bottom: 10px; }
+        .report-card p { font-size: 0.97rem; line-height: 1.55; }
+
+        /* Who it's for */
+        .who-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        @media (max-width: 768px) { .who-grid { grid-template-columns: 1fr; } }
+        .who-card { background: white; padding: 36px 32px; border-radius: 20px; border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; }
+        .who-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,0.06); }
+        .who-tag { display: inline-block; background: #e3f2fd; color: var(--accent); padding: 5px 12px; border-radius: 15px; font-size: 0.78rem; font-weight: 600; margin-bottom: 16px; letter-spacing: 0.02em; }
+        .who-card h3 { font-size: 1.3rem; margin-bottom: 8px; }
+        .who-card p { font-size: 0.96rem; line-height: 1.5; }
+
+        /* Ground rules */
+        .rules-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+        .rule-row { display: flex; gap: 18px; align-items: flex-start; background: white; border: 1px solid rgba(0,0,0,0.05); border-radius: 16px; padding: 24px 28px; }
+        .rule-check { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; margin-top: 2px; }
+        .rule-row p { font-size: 1rem; line-height: 1.55; }
+        .rule-row strong { color: var(--text-main); font-weight: 600; }
+
+        /* CTA */
+        .cta-box { background: var(--text-main); color: white; padding: 80px 50px; border-radius: 28px; text-align: center; margin-top: 30px; }
+        .cta-box h2 { color: white; margin-bottom: 16px; }
+        .cta-box p { color: rgba(255,255,255,0.75); max-width: 580px; margin: 0 auto 36px; font-size: 1.15rem; }
+        .cta-box .btn-primary { background: white; color: var(--text-main); }
+        .cta-box .btn-primary:hover { background: var(--accent); color: white; }
+        .cta-box .cta-alt { display: block; margin-top: 22px; font-size: 0.9rem; color: rgba(255,255,255,0.55); }
+        .cta-box .cta-alt a { color: rgba(255,255,255,0.8); border-bottom: 1px solid rgba(255,255,255,0.3); }
+        .cta-box .cta-alt a:hover { color: white; }
+
+        footer { padding: 36px 0; background: var(--bg-color); border-top: 1px solid rgba(0,0,0,0.08); }
+        .footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 0.82rem; color: var(--text-light); }
+        .brand-name-footer { font-weight: 700; color: var(--text-main); }
+        .brand-name-footer span { font-weight: 400; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.4rem; }
+            h2 { font-size: 1.85rem; }
+            .menu-toggle { display: flex; }
+            .nav-links { position: fixed; top: 78px; left: 0; width: 100%; background: white; flex-direction: column; padding: 36px 24px; transform: translateY(-150%); transition: transform 0.3s; z-index: 999; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+            .nav-links.active { transform: translateY(0); }
+            .nav-links li { width: 100%; text-align: center; }
+            .nav-links a { display: block; font-size: 1.15rem; padding: 14px 0; }
+            .btn-nav { width: 100%; display: block; padding: 14px 0; border-radius: 12px; }
+            .logo-icon { height: 38px; }
+            .logo-text-span { font-size: 1.25rem; }
+            .cta-box { padding: 60px 28px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-flex">
+            <a href="/" class="logo-wrapper">
+                <img src="/cr-logo.png" alt="Carolina Redesign Logo" class="logo-icon">
+                <div class="logo-text-span"><strong>Carolina</strong><span>Redesign</span><span class="brand-dot">.</span></div>
+            </a>
+            <button class="menu-toggle" id="menuBtn" aria-label="Toggle Menu"><div class="bar"></div><div class="bar"></div><div class="bar"></div></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/strategy/">Strategy</a></li>
+                <li><a href="/operations/">Operations</a></li>
+                <li><a href="/agents/">Agents</a></li>
+                <li><a href="/websites/">Websites</a></li>
+                <li><a href="/assessment/" class="current">Assessment</a></li>
+                <li><a href="/#about">About</a></li>
+                <li><a href="tel:+18438924433" class="btn-nav">Start Your Assessment</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="crumb" style="text-align: left;"><a href="/">Carolina Redesign</a> &nbsp;/&nbsp; <a href="/strategy/">Strategy</a> &nbsp;/&nbsp; AI Opportunity Assessment</div>
+            <span class="eyebrow">AI Opportunity Assessment</span>
+            <h1>Fifteen minutes on the phone.<br>A map of every hour AI can give you back<span class="brand-dot" style="font-size: 0.6em; vertical-align: 0.15em;">.</span></h1>
+            <p class="subhead">Talk to <strong>Reese</strong>, our AI interviewer, about how your operation actually runs — then receive a <strong>personalized interactive report</strong>: your quick wins, your readiness scorecard, and the math on what each fix is worth. Built from your own words, reviewed by a human before it ships.</p>
+            <div class="cta-wrapper">
+                <a href="tel:+18438924433" class="btn-primary">Call (843) 892-4433</a>
+                <a href="#how" class="link-secondary">See how it works →</a>
+            </div>
+            <p class="hero-phone"><strong style="color: var(--text-main);">$999, flat.</strong> One phone call. No prep, no forms, no sales pitch mid-interview.</p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <span class="section-eyebrow">The Problem</span>
+            <h2 class="section-title">Everyone says "use AI."<br>Nobody says <em>where</em>.</h2>
+            <p class="lead">Generic AI advice fails because it starts with the tools. The assessment starts with your operation — the phone that rings at 7 PM, the invoice that goes out late, the knowledge that lives in one person's head — and only then asks where AI honestly helps.</p>
+            <div class="pullquote">
+                "The report doesn't tell you what's possible with AI. It tells you what's worth doing in <em>your</em> business, in what order, and what each step pays back."
+            </div>
+        </div>
+    </section>
+
+    <section class="tinted" id="how">
+        <div class="container">
+            <span class="section-eyebrow">How It Works</span>
+            <h2 class="section-title">Three steps. One phone call is yours.</h2>
+            <p class="section-desc">The whole assessment is built around a single recorded conversation — everything after that happens on our side.</p>
+            <div class="method-grid">
+                <div class="method">
+                    <div class="method-phase">STEP 01 · ~15 MINUTES</div>
+                    <h3>Talk to Reese</h3>
+                    <p>Call the assessment line and Reese — our AI interviewer, and it says so upfront — walks your operation end to end: how leads come in, how work gets done, how money gets collected, what eats your week. It asks one question at a time and never pitches you anything.</p>
+                </div>
+                <div class="method">
+                    <div class="method-phase">STEP 02 · OUR SIDE</div>
+                    <h3>We build your report</h3>
+                    <p>Your interview — in your own words — is combined with a scan of your public presence (your website, your reviews) and analyzed against our opportunity framework. A human reviews every report before it goes out. Nothing ships on autopilot.</p>
+                </div>
+                <div class="method">
+                    <div class="method-phase">STEP 03 · DELIVERY</div>
+                    <h3>Read it, then act on it</h3>
+                    <p>You receive a personalized interactive report — not a PDF of boilerplate. Every recommendation is tagged do-it-yourself, set-it-up-with-you, or fully-handled, so you can act on it with us or without us.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <span class="section-eyebrow">The Deliverable</span>
+            <h2 class="section-title">What's in your report.</h2>
+            <p class="section-desc">A single interactive page, built entirely from your interview. Here's what it covers.</p>
+            <div class="report-grid">
+                <div class="report-card">
+                    <div class="report-num">01 / SNAPSHOT</div>
+                    <h3>The Bottom Line, Up Front</h3>
+                    <p>The report opens with the headline numbers: how many quick wins we found, the weekly hours they return, what the tools cost per month, and the estimated net monthly return.</p>
+                </div>
+                <div class="report-card">
+                    <div class="report-num">02 / MAP</div>
+                    <h3>Your Operation, Mapped</h3>
+                    <p>Every stage of your operation — from first contact to money in the bank — marked as a leak, a quick win, a bigger play, or running fine. Each one grounded in what you actually told us, quotes included.</p>
+                </div>
+                <div class="report-card">
+                    <div class="report-num">03 / SCORECARD</div>
+                    <h3>Readiness Scorecard</h3>
+                    <p>Six dimensions of AI readiness — from how documented your processes are to how your data is organized — scored in plain English, with an overall maturity stage so recommendations match where you actually are.</p>
+                </div>
+                <div class="report-card">
+                    <div class="report-num">04 / QUICK WINS</div>
+                    <h3>Six Quick Wins</h3>
+                    <p>Six specific, near-term moves, each tied to a stage of your operation and tagged with an implementation path — DIY with instructions, set up with you, or handled entirely. No hundred-item wishlist.</p>
+                </div>
+                <div class="report-card">
+                    <div class="report-num">05 / THE MATH</div>
+                    <h3>The Math</h3>
+                    <p>Hours and dollars, itemized. What each fix saves per week, what it costs to run, and what that nets out to per month — so "worth it" is a number, not a feeling.</p>
+                </div>
+                <div class="report-card">
+                    <div class="report-num">06 / SAFE USE</div>
+                    <h3>Safe-Use Starter Rules</h3>
+                    <p>Starter guardrails for your team, personalized to the sensitive information you actually handle — customer data, payment details, health records, kids' information — so adopting AI doesn't create a liability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tinted">
+        <div class="container">
+            <span class="section-eyebrow">Who It's For</span>
+            <h2 class="section-title">Three kinds of caller.</h2>
+            <p class="section-desc">The interview adapts to how you work. Same fifteen minutes, three different conversations.</p>
+            <div class="who-grid">
+                <div class="who-card">
+                    <span class="who-tag">BUSINESS OWNERS</span>
+                    <h3>Running a business with a team</h3>
+                    <p>Reese walks a job from the first ring of the phone to the day the money's in the bank — and finds where calls get missed, quotes go out slow, and paperwork eats your evenings.</p>
+                </div>
+                <div class="who-card">
+                    <span class="who-tag">EXECUTIVES &amp; PROFESSIONALS</span>
+                    <h3>Managing your own workload</h3>
+                    <p>Reese walks through your Monday — inbox, meetings, decisions, deep work, follow-up — and finds where an AI layer defends your calendar and your attention.</p>
+                </div>
+                <div class="who-card">
+                    <span class="who-tag">NONPROFIT LEADERS</span>
+                    <h3>Leading a mission</h3>
+                    <p>Reese walks your mission cycle — funding in, donor communication, program delivery, volunteers, compliance and reporting — and finds where thin staff time is going to work a system could do.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <span class="section-eyebrow">Ground Rules</span>
+            <h2 class="section-title">How the interview is run.</h2>
+            <p class="section-desc">The call works because it's honest about what it is. These rules are built into Reese, not left to chance.</p>
+            <div class="rules-list">
+                <div class="rule-row">
+                    <div class="rule-check">✓</div>
+                    <p><strong>Reese tells you it's an AI, first thing.</strong> No pretending to be a person. It asks for your consent to record before the interview starts, and the recording exists so your report can be built from your own words.</p>
+                </div>
+                <div class="rule-row">
+                    <div class="rule-check">✓</div>
+                    <p><strong>It interviews; it doesn't advise.</strong> Reese never prescribes tools, prices, or fixes on the call. If you ask "so what should I use?", it will tell you plainly: that's what the report is for — guessing on the phone would get it wrong.</p>
+                </div>
+                <div class="rule-row">
+                    <div class="rule-check">✓</div>
+                    <p><strong>Specifics beat coverage.</strong> One real story about the invoice that slipped is worth three vague answers. Reese follows up until it understands how things actually work — not how the brochure says they work.</p>
+                </div>
+                <div class="rule-row">
+                    <div class="rule-check">✓</div>
+                    <p><strong>A human reviews every report.</strong> The analysis is AI-assisted; the judgment isn't. Nothing is delivered until a person at Carolina Redesign has read it and signed off.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tinted">
+        <div class="container">
+            <div class="cta-box">
+                <h2>The interview line is open.</h2>
+                <p>The assessment is <strong style="color: white;">$999, flat</strong> — interview, public scan, report, and walkthrough included. Call whenever you have fifteen quiet minutes; Reese answers around the clock. Prefer to talk to a person first? Start a conversation instead.</p>
+                <a href="tel:+18438924433" class="btn-primary">Call (843) 892-4433</a>
+                <span class="cta-alt">Questions first? <a href="/#contact">Contact us</a> — we'll tell you straight whether the assessment fits.</span>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-inner">
+            <span class="brand-name-footer">Carolina<span>Redesign</span><span class="brand-dot">.</span></span>
+            <span>&copy; 2026 · An AI Transformation Studio · Chapin, SC</span>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('menuBtn').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('active'));
+    </script>
+
+</body>
+</html>

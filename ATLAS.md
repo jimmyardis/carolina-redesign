@@ -38,6 +38,11 @@ Short test call against Reese to confirm structured-data extraction now populate
 
 ### 2026-07-29
 
+- Built the public marketing page for the AI Opportunity Assessment at `/assessment/index.html` — hero with the Reese intake line CTA (call (843) 892-4433, number pulled live from Vapi since it isn't recorded in the repo), 3-step how-it-works, six report-deliverable cards matching template v2.2 sections (snapshot / map / scorecard / quick wins / the math / safe-use), the three caller segments (smb/exec/npo), and a "ground rules" section (AI disclosure + consent, interviewer-not-advisor, human review). No pricing shown — none is published anywhere; CTA falls back to the contact form for scope/pricing questions
+- Wired two entry points: homepage `.assessment-strip` callout after the practices grid, and a "Start with the AI Opportunity Assessment →" link in the strategy page's Diagnostic build card
+- Added "Assessment" to the top nav on all six navbar pages (home, strategy, operations, agents, websites, assessment) and **published the price: $999 flat** (user's call, 2026-07-29) — shown in the assessment hero and closing CTA box. Fixed `.btn-nav` wrapping (missing `white-space: nowrap`) on the strategy + assessment navbars now that the nav has an extra item; all navbars re-verified headless at 1280px
+- Verified headless (desktop 1280px + mobile 390px full-page screenshots + homepage strip): layout, stacking, and CTAs all render correctly
+- Uncommitted at session end: `assessment/index.html` (new), `index.html`, `strategy/index.html`, ATLAS.md — plus the pre-existing assessment-pipeline edits noted below
 - Published Palmetto Ledger Issue 2 "The Incremental State" (built in the palmetto-zbb project): added `/palmetto-ledger/the-incremental-state.html`, new `/palmetto-ledger/index.html` series landing page (both issues + Issue 3 teaser), Issue 1 footer cross-link, research-index card now points to the landing page with an "Issue 2" chip. Commit `06aded2`, rebased over the remote Chapin/Brighton commits, pushed, live-verified.
 - Note: the push also carried 4 previously-unpushed local commits from the AI-assessment work (`45af020`…`b29c16b`); diff was secret-scanned before pushing (clean). Working tree still has uncommitted assessment-related edits (report_gen.py, templates, this file).
 
