@@ -10,18 +10,18 @@
 | **Project** | Carolina Redesign |
 | **One-liner** | Columbia SC editorial site + AI Opportunity Assessment service (Vapi intake → webhook → Airtable queue → Claude Code report) |
 | **Status** | building |
-| **Last Active** | 2026-07-20 |
+| **Last Active** | 2026-07-31 |
 | **Stall Threshold** | 7 days |
 | **Repo** | https://github.com/jimmyardis/carolina-redesign |
 | **Stack** | Static HTML/CSS, GitHub Pages |
 
 ## Current State
 
-HyperAgent is out of the pipeline (2026-07-16): the always-on Railway webhook (`carolina-intake`, live) queues each Vapi intake in Airtable and now **auto-drafts the report via the Claude API** — `intake-webhook/report_gen.py` runs Claude Opus 4.8 with web search against the v2.1 spec/taxonomy/frozen template (deploy-time copies in `intake-webhook/assets/`, synced by `sync_assets.sh`), attaches the draft HTML to the Airtable row (`Draft Report` field), sets Status "Draft Ready", and Telegrams. User reviews/edits before emailing. `/build-assessment` Claude Code skill is the manual fallback. Deployed with `report_gen: true`; stub tests + API-shape sanity check pass; full paid end-to-end draft not yet run.
+The assessment is now **publicly sellable end to end**: the redesigned checkout-first sales page at `/assessment/` (live 2026-07-31) → $999 Stripe payment link → `/assessment/start/` post-checkout page → Reese intake line → webhook/Airtable/auto-draft pipeline (unchanged since 07-16: `carolina-intake` Railway webhook queues intakes, `report_gen.py` auto-drafts via Claude Opus 4.8, human reviews before emailing). Page promises 48-hour delivery, a 45-min walkthrough, and a 5-hrs/week-or-refund guarantee. Stripe checkout currently runs on the user's single Stripe account (also hosts Secursion products); a per-brand second account was recommended, decision pending.
 
 ## Next Action
 
-Short test call against Reese to confirm structured-data extraction now populates (the 2026-07-19 fix added {{schema}} + user-message transcript to the plan); note a test call also triggers a ~$2 auto-draft.
+Run one real test purchase through the live flow (checkout → redirect → start page → call Reese), which also finally verifies the 2026-07-19 Vapi extraction fix; refund it from the Stripe dashboard afterward (~$2 auto-draft will fire).
 
 ## Blockers
 
