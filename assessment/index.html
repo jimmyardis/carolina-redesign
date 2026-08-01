@@ -1,320 +1,420 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="The AI Opportunity Assessment — a 15-minute phone interview with our AI interviewer, followed by a personalized report mapping exactly where AI can save your business time and money.">
-    <title>AI Opportunity Assessment | CarolinaRedesign.</title>
-    <link rel="icon" type="image/png" href="/cr-logo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The AI Opportunity Assessment — a consultant-built map of exactly where AI belongs in your business, what each move is worth per month, and what order to do it in. $999 flat.">
+<title>AI Opportunity Assessment | CarolinaRedesign.</title>
+<link rel="icon" type="image/png" href="/cr-logo.png">
+<style>
+:root{
+  --bg:#ffffff;
+  --bg-2:#f5f5f7;
+  --ink:#1d1d1f;
+  --ink-2:#86868b;
+  --line:rgba(0,0,0,.08);
+  --accent:#0071e3;
+  --accent-hover:#0077ed;
+  --accent-soft:rgba(0,113,227,.10);
+  --money:#0a8f5b;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+.narrow{max-width:780px;margin:0 auto}
+h1{font-size:clamp(2.5rem,6vw,4rem);font-weight:700;letter-spacing:-.035em;line-height:1.03}
+h2{font-size:clamp(1.9rem,4vw,2.7rem);font-weight:650;letter-spacing:-.025em;line-height:1.12}
+h3{font-size:1.22rem;font-weight:650;letter-spacing:-.015em}
+p{font-size:1.08rem;color:var(--ink-2)}
+a{text-decoration:none;transition:all .25s ease}
+section{padding:96px 0}
+.tag{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:18px}
+.tag-dim{color:var(--ink-2)}
 
-    <style>
-        :root {
-            --bg-color: #ffffff;
-            --bg-secondary: #f5f5f7;
-            --text-main: #1d1d1f;
-            --text-light: #86868b;
-            --accent: #0071e3;
-            --accent-hover: #0077ed;
-            --accent-soft: rgba(0, 113, 227, 0.1);
-            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { font-family: var(--font-stack); background: var(--bg-color); color: var(--text-main); line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-        h1 { font-size: 3.5rem; font-weight: 600; letter-spacing: -0.025em; line-height: 1.08; margin-bottom: 1rem; }
-        h2 { font-size: 2.4rem; font-weight: 600; letter-spacing: -0.01em; line-height: 1.15; }
-        h3 { font-size: 1.4rem; font-weight: 600; }
-        p { font-size: 1.1rem; color: var(--text-light); }
-        a { text-decoration: none; transition: all 0.3s ease; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+/* nav */
+.navbar{background:rgba(255,255,255,.9);backdrop-filter:blur(20px);position:fixed;width:100%;top:0;z-index:1000;border-bottom:1px solid var(--line);height:74px;display:flex;align-items:center}
+.nav-flex{display:flex;justify-content:space-between;align-items:center;width:100%}
+.logo-wrapper{display:flex;align-items:center;gap:12px}
+.logo-icon{height:44px;width:auto}
+.logo-text-span{font-size:1.45rem;color:var(--ink);letter-spacing:-.03em;line-height:1;font-weight:400}
+.logo-text-span strong{font-weight:700}
+.brand-dot{color:var(--accent);font-weight:700}
+.nav-links{list-style:none;display:flex;gap:30px;align-items:center}
+.nav-links a{color:var(--ink-2);font-size:.93rem;font-weight:500}
+.nav-links a:hover{color:var(--accent)}
+.nav-links .current{color:var(--accent)}
+.btn-nav{background:var(--accent);color:#fff!important;padding:10px 20px;border-radius:24px;font-size:.88rem!important;white-space:nowrap}
+.btn-nav:hover{background:var(--accent-hover)}
+@media(max-width:900px){.nav-links li:not(.nav-cta){display:none}}
 
-        .navbar { background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); height: 78px; display: flex; align-items: center; }
-        .nav-flex { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .logo-wrapper { display: flex; align-items: center; gap: 14px; text-decoration: none; z-index: 1001; }
-        .logo-icon { height: 50px; width: auto; }
-        .logo-text-span { font-size: 1.55rem; color: var(--text-main); letter-spacing: -0.03em; line-height: 1; }
-        .logo-text-span strong { font-weight: 700; } .logo-text-span span { font-weight: 400; }
-        .brand-dot { color: var(--accent); font-weight: 700; }
-        .nav-links { list-style: none; display: flex; gap: 32px; align-items: center; }
-        .nav-links a { color: var(--text-light); font-size: 0.94rem; font-weight: 500; }
-        .nav-links a:hover { color: var(--accent); }
-        .nav-links .current { color: var(--accent); }
-        .btn-nav { background: var(--accent); color: white !important; padding: 10px 22px; border-radius: 25px; font-size: 0.9rem !important; white-space: nowrap; }
-        .btn-nav:hover { background: var(--accent-hover); }
-        .menu-toggle { display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1001; background: none; border: none; padding: 10px; }
-        .bar { width: 25px; height: 2px; background: var(--text-main); }
+/* buttons */
+.btn-primary{background:var(--accent);color:#fff;padding:16px 32px;border-radius:32px;font-weight:600;font-size:1.05rem;display:inline-block;white-space:nowrap;box-shadow:0 6px 20px rgba(0,113,227,.22)}
+.btn-primary:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,113,227,.28)}
+.btn-ghost{color:var(--accent);font-weight:600;font-size:1.02rem;padding:16px 8px}
+.btn-ghost:hover{text-decoration:underline}
+.cta-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
 
-        .crumb { font-size: 0.85rem; color: var(--text-light); margin-bottom: 20px; }
-        .crumb a { color: var(--text-light); border-bottom: 1px solid rgba(0,0,0,0.1); }
-        .crumb a:hover { color: var(--accent); }
+/* hero */
+.hero{padding:150px 0 0;background:linear-gradient(180deg,#fff 0%,#fbfbfd 100%)}
+.hero h1{max-width:16ch}
+.hero .sub{font-size:1.28rem;line-height:1.5;max-width:620px;margin:26px 0 34px;color:var(--ink-2)}
+.hero .sub strong{color:var(--ink);font-weight:600}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:30px;font-family:var(--mono);font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.hero-meta span{display:flex;align-items:center;gap:8px}
+.hero-meta span::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--accent)}
 
-        .hero { padding: 130px 0 80px; background: linear-gradient(180deg, var(--bg-color), var(--bg-secondary)); text-align: center; }
-        .eyebrow { display: inline-block; background: var(--accent-soft); color: var(--accent); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 14px; border-radius: 20px; margin-bottom: 28px; }
-        .hero h1 { max-width: 850px; margin: 0 auto 1rem; }
-        .subhead { font-size: 1.3rem; margin: 22px auto 36px; max-width: 700px; color: var(--text-light); font-weight: 400; line-height: 1.5; }
-        .subhead strong { color: var(--text-main); font-weight: 600; }
-        .cta-wrapper { display: flex; gap: 18px; justify-content: center; align-items: center; flex-wrap: wrap; }
-        .btn-primary { background: var(--accent); color: white; padding: 14px 30px; border-radius: 30px; font-weight: 500; font-size: 1.02rem; display: inline-block; white-space: nowrap; }
-        .btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0, 113, 227, 0.25); }
-        .link-secondary { color: var(--accent); font-weight: 500; font-size: 1.02rem; }
-        .link-secondary:hover { text-decoration: underline; }
-        .hero-phone { margin-top: 18px; font-size: 0.9rem; color: var(--text-light); }
+/* swarm */
+.swarm-wrap{margin-top:76px;padding-bottom:70px;position:relative;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.swarm{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-height:210px;overflow:hidden}
+.chip{font-family:var(--mono);font-size:.74rem;padding:6px 11px;border-radius:14px;background:var(--bg-2);color:#c3c3c8;border:1px solid transparent;white-space:nowrap;transition:all .5s ease}
+.chip.hot{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 4px 14px rgba(0,113,227,.3)}
+.swarm-caption{text-align:center;margin-top:34px;font-size:1.02rem;color:var(--ink-2)}
+.swarm-caption strong{color:var(--ink);font-weight:600}
 
-        section { padding: 100px 0; }
-        section.tinted { background: var(--bg-secondary); }
-        .section-eyebrow { display: block; font-size: 0.78rem; color: var(--accent); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; text-align: center; }
-        .section-title { text-align: center; margin-bottom: 14px; }
-        .section-desc { text-align: center; margin: 0 auto 60px; max-width: 700px; }
-        .lead { font-size: 1.45rem; max-width: 760px; margin: 0 auto 30px; color: var(--text-main); line-height: 1.45; font-weight: 400; text-align: center; }
-        .pullquote { border-left: 3px solid var(--accent); padding: 8px 0 8px 28px; margin: 36px auto; font-size: 1.6rem; line-height: 1.4; color: var(--text-main); font-style: italic; max-width: 760px; font-weight: 400; }
+/* problem */
+.problem{background:var(--bg-2)}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
+@media(max-width:820px){.grid-3{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:30px 26px}
+.card h3{margin-bottom:10px}
+.card p{font-size:1rem}
+.card .num{font-family:var(--mono);font-size:.72rem;color:var(--accent);letter-spacing:.12em;display:block;margin-bottom:16px}
 
-        /* How it works */
-        .method-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
-        @media (max-width: 768px) { .method-grid { grid-template-columns: 1fr; } }
-        .method { padding: 32px; background: white; border-radius: 20px; border: 1px solid rgba(0,0,0,0.05); border-left: 3px solid var(--accent); }
-        .method-phase { color: var(--accent); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.08em; margin-bottom: 12px; }
-        .method h3 { font-size: 1.3rem; margin-bottom: 10px; }
-        .method p { font-size: 0.97rem; line-height: 1.55; }
+/* stakes */
+.pull{font-size:clamp(1.3rem,2.6vw,1.7rem);line-height:1.4;color:var(--ink);font-weight:500;letter-spacing:-.02em;margin:34px 0}
+.leak-list{list-style:none;margin:34px 0 0;border-top:1px solid var(--line)}
+.leak-list li{display:flex;gap:18px;align-items:baseline;padding:18px 0;border-bottom:1px solid var(--line);font-size:1.06rem;color:var(--ink-2)}
+.leak-list .when{font-family:var(--mono);font-size:.74rem;color:var(--accent);min-width:88px;letter-spacing:.06em;flex-shrink:0}
+.leak-list b{color:var(--ink);font-weight:600}
 
-        /* Report contents */
-        .report-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-        @media (max-width: 900px) { .report-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 620px) { .report-grid { grid-template-columns: 1fr; } }
-        .report-card { background: white; border: 1px solid rgba(0,0,0,0.08); border-radius: 22px; padding: 32px 28px; transition: all 0.3s ease; }
-        .report-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); border-color: rgba(0, 113, 227, 0.15); }
-        .report-num { color: var(--accent); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; margin-bottom: 16px; }
-        .report-card h3 { font-size: 1.25rem; margin-bottom: 10px; }
-        .report-card p { font-size: 0.97rem; line-height: 1.55; }
+/* offer */
+.offer{background:linear-gradient(180deg,#fbfbfd,#f0f4fa)}
+.stack{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:48px}
+@media(max-width:820px){.stack{grid-template-columns:1fr}}
+.stack-item{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;display:flex;gap:18px;align-items:flex-start}
+.stack-item .mark{width:30px;height:30px;border-radius:9px;background:var(--accent-soft);color:var(--accent);font-family:var(--mono);font-size:.78rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:600}
+.stack-item h3{margin-bottom:6px}
+.stack-item p{font-size:.99rem}
+.stack-item.feature{grid-column:1/-1;background:var(--ink);border-color:var(--ink)}
+.stack-item.feature h3{color:#fff}
+.stack-item.feature p{color:rgba(255,255,255,.66)}
+.stack-item.feature .mark{background:rgba(255,255,255,.14);color:#fff}
 
-        /* Who it's for */
-        .who-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-        @media (max-width: 768px) { .who-grid { grid-template-columns: 1fr; } }
-        .who-card { background: white; padding: 36px 32px; border-radius: 20px; border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; }
-        .who-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,0.06); }
-        .who-tag { display: inline-block; background: #e3f2fd; color: var(--accent); padding: 5px 12px; border-radius: 15px; font-size: 0.78rem; font-weight: 600; margin-bottom: 16px; letter-spacing: 0.02em; }
-        .who-card h3 { font-size: 1.3rem; margin-bottom: 8px; }
-        .who-card p { font-size: 0.96rem; line-height: 1.5; }
+/* price */
+.price-box{margin-top:44px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:38px 34px;text-align:center;box-shadow:0 14px 44px rgba(0,0,0,.05)}
+.price-num{font-size:3.2rem;font-weight:700;letter-spacing:-.04em;line-height:1}
+.price-note{font-family:var(--mono);font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin:12px 0 26px}
+.guarantee{margin-top:24px;font-size:.98rem;color:var(--ink-2);max-width:520px;margin-left:auto;margin-right:auto}
+.guarantee b{color:var(--money);font-weight:600}
 
-        /* Ground rules */
-        .rules-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
-        .rule-row { display: flex; gap: 18px; align-items: flex-start; background: white; border: 1px solid rgba(0,0,0,0.05); border-radius: 16px; padding: 24px 28px; }
-        .rule-check { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; margin-top: 2px; }
-        .rule-row p { font-size: 1rem; line-height: 1.55; }
-        .rule-row strong { color: var(--text-main); font-weight: 600; }
+/* bio */
+.bio{display:grid;grid-template-columns:1fr 1.4fr;gap:56px;align-items:center}
+@media(max-width:820px){.bio{grid-template-columns:1fr;gap:32px}}
+.bio-card{background:var(--ink);color:#fff;border-radius:22px;padding:34px}
+.bio-card h3{color:#fff;font-size:1.5rem;margin-bottom:4px}
+.bio-card .role{font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.bio-card ul{list-style:none;margin-top:24px}
+.bio-card li{padding:11px 0;border-top:1px solid rgba(255,255,255,.12);font-size:.95rem;color:rgba(255,255,255,.78)}
+.bio p{font-size:1.1rem}
+.bio p+p{margin-top:18px}
 
-        /* CTA */
-        .cta-box { background: var(--text-main); color: white; padding: 80px 50px; border-radius: 28px; text-align: center; margin-top: 30px; }
-        .cta-box h2 { color: white; margin-bottom: 16px; }
-        .cta-box p { color: rgba(255,255,255,0.75); max-width: 580px; margin: 0 auto 36px; font-size: 1.15rem; }
-        .cta-box .btn-primary { background: white; color: var(--text-main); }
-        .cta-box .btn-primary:hover { background: var(--accent); color: white; }
-        .cta-box .cta-alt { display: block; margin-top: 22px; font-size: 0.9rem; color: rgba(255,255,255,0.55); }
-        .cta-box .cta-alt a { color: rgba(255,255,255,0.8); border-bottom: 1px solid rgba(255,255,255,0.3); }
-        .cta-box .cta-alt a:hover { color: white; }
+/* who */
+.who{background:var(--bg-2)}
+.who .card h3{font-size:1.12rem}
 
-        footer { padding: 36px 0; background: var(--bg-color); border-top: 1px solid rgba(0,0,0,0.08); }
-        .footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 0.82rem; color: var(--text-light); }
-        .brand-name-footer { font-weight: 700; color: var(--text-main); }
-        .brand-name-footer span { font-weight: 400; }
+/* faq */
+details{border-bottom:1px solid var(--line);padding:22px 0}
+summary{cursor:pointer;font-weight:600;font-size:1.1rem;letter-spacing:-.01em;list-style:none;display:flex;justify-content:space-between;gap:20px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--accent);font-size:1.5rem;font-weight:400;line-height:1}
+details[open] summary::after{content:"−"}
+details p{margin-top:14px;font-size:1.02rem}
 
-        @media (max-width: 768px) {
-            h1 { font-size: 2.4rem; }
-            h2 { font-size: 1.85rem; }
-            .menu-toggle { display: flex; }
-            .nav-links { position: fixed; top: 78px; left: 0; width: 100%; background: white; flex-direction: column; padding: 36px 24px; transform: translateY(-150%); transition: transform 0.3s; z-index: 999; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-            .nav-links.active { transform: translateY(0); }
-            .nav-links li { width: 100%; text-align: center; }
-            .nav-links a { display: block; font-size: 1.15rem; padding: 14px 0; }
-            .btn-nav { width: 100%; display: block; padding: 14px 0; border-radius: 12px; }
-            .logo-icon { height: 38px; }
-            .logo-text-span { font-size: 1.25rem; }
-            .cta-box { padding: 60px 28px; }
-        }
-    </style>
+/* final */
+.final{background:var(--ink);color:#fff;text-align:center}
+.final h2{color:#fff;max-width:20ch;margin:0 auto}
+.final p{color:rgba(255,255,255,.62);max-width:520px;margin:22px auto 34px}
+.final .cta-row{justify-content:center}
+.final .btn-primary{background:#fff;color:var(--ink);box-shadow:none}
+.final .btn-primary:hover{background:#fff;transform:translateY(-2px)}
+.final .fine{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.42);margin-top:28px}
+
+footer{padding:38px 0;text-align:center;font-size:.86rem;color:var(--ink-2);border-top:1px solid var(--line)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .chip{transition:none}
+  html{scroll-behavior:auto}
+}
+</style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="container nav-flex">
-            <a href="/" class="logo-wrapper">
-                <img src="/cr-logo.png" alt="Carolina Redesign Logo" class="logo-icon">
-                <div class="logo-text-span"><strong>Carolina</strong><span>Redesign</span><span class="brand-dot">.</span></div>
-            </a>
-            <button class="menu-toggle" id="menuBtn" aria-label="Toggle Menu"><div class="bar"></div><div class="bar"></div><div class="bar"></div></button>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="/strategy/">Strategy</a></li>
-                <li><a href="/operations/">Operations</a></li>
-                <li><a href="/agents/">Agents</a></li>
-                <li><a href="/websites/">Websites</a></li>
-                <li><a href="/assessment/" class="current">Assessment</a></li>
-                <li><a href="/#about">About</a></li>
-                <li><a href="tel:+18438924433" class="btn-nav">Start Your Assessment</a></li>
-            </ul>
-        </div>
-    </nav>
+<nav class="navbar">
+  <div class="container nav-flex">
+    <a href="/" class="logo-wrapper">
+      <img src="/cr-logo.png" alt="Carolina Redesign" class="logo-icon">
+      <span class="logo-text-span"><strong>Carolina</strong>Redesign<span class="brand-dot">.</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/strategy/">Strategy</a></li>
+      <li><a href="/operations/">Operations</a></li>
+      <li><a href="/agents/">Agents</a></li>
+      <li><a href="/websites/">Websites</a></li>
+      <li><a href="/assessment/" class="current">Assessment</a></li>
+      <li class="nav-cta"><a href="#get" class="btn-nav">Get the Assessment</a></li>
+    </ul>
+  </div>
+</nav>
 
-    <section class="hero">
-        <div class="container">
-            <div class="crumb" style="text-align: left;"><a href="/">Carolina Redesign</a> &nbsp;/&nbsp; <a href="/strategy/">Strategy</a> &nbsp;/&nbsp; AI Opportunity Assessment</div>
-            <span class="eyebrow">AI Opportunity Assessment</span>
-            <h1>Fifteen minutes on the phone.<br>A map of every hour AI can give you back<span class="brand-dot" style="font-size: 0.6em; vertical-align: 0.15em;">.</span></h1>
-            <p class="subhead">Talk to <strong>Reese</strong>, our AI interviewer, about how your operation actually runs — then receive a <strong>personalized interactive report</strong>: your quick wins, your readiness scorecard, and the math on what each fix is worth. Built from your own words, reviewed by a human before it ships.</p>
-            <div class="cta-wrapper">
-                <a href="tel:+18438924433" class="btn-primary">Call (843) 892-4433</a>
-                <a href="#how" class="link-secondary">See how it works →</a>
-            </div>
-            <p class="hero-phone"><strong style="color: var(--text-main);">$999, flat.</strong> One phone call. No prep, no forms, no sales pitch mid-interview.</p>
-        </div>
-    </section>
+<!-- HERO -->
+<header class="hero">
+  <div class="container">
+    <span class="tag">AI Opportunity Assessment</span>
+    <h1>There are thousands of AI tools. Only a handful make sense for your business. But which ones?</h1>
+    <p class="sub">The Assessment tells you <strong>which ones</strong>, where they go, what each one is worth per month, and what order to do them in. Built on how your business actually runs — not a generic playbook.</p>
+    <div class="cta-row">
+      <a href="#get" class="btn-primary">Get my assessment — $999</a>
+      <a href="#deliverable" class="btn-ghost">See what you get →</a>
+    </div>
+    <div class="hero-meta">
+      <span>Delivered in 48 hours</span>
+      <span>45-minute walkthrough included</span>
+      <span>Flat fee — nothing recurring</span>
+    </div>
+  </div>
 
-    <section>
-        <div class="container">
-            <span class="section-eyebrow">The Problem</span>
-            <h2 class="section-title">Everyone says "use AI."<br>Nobody says <em>where</em>.</h2>
-            <p class="lead">Generic AI advice fails because it starts with the tools. The assessment starts with your operation — the phone that rings at 7 PM, the invoice that goes out late, the knowledge that lives in one person's head — and only then asks where AI honestly helps.</p>
-            <div class="pullquote">
-                "The report doesn't tell you what's possible with AI. It tells you what's worth doing in <em>your</em> business, in what order, and what each step pays back."
-            </div>
-        </div>
-    </section>
+  <div class="swarm-wrap">
+    <div class="swarm" id="swarm" aria-hidden="true"></div>
+    <p class="swarm-caption container"><strong>Six of these would pay for themselves in your business this quarter.</strong><br>Probably not the six you've been hearing about.</p>
+  </div>
+</header>
 
-    <section class="tinted" id="how">
-        <div class="container">
-            <span class="section-eyebrow">How It Works</span>
-            <h2 class="section-title">Three steps. One phone call is yours.</h2>
-            <p class="section-desc">The whole assessment is built around a single recorded conversation — everything after that happens on our side.</p>
-            <div class="method-grid">
-                <div class="method">
-                    <div class="method-phase">STEP 01 · ~15 MINUTES</div>
-                    <h3>Talk to Reese</h3>
-                    <p>Call the assessment line and Reese — our AI interviewer, and it says so upfront — walks your operation end to end: how leads come in, how work gets done, how money gets collected, what eats your week. It asks one question at a time and never pitches you anything.</p>
-                </div>
-                <div class="method">
-                    <div class="method-phase">STEP 02 · OUR SIDE</div>
-                    <h3>We build your report</h3>
-                    <p>Your interview — in your own words — is combined with a scan of your public presence (your website, your reviews) and analyzed against our opportunity framework. A human reviews every report before it goes out. Nothing ships on autopilot.</p>
-                </div>
-                <div class="method">
-                    <div class="method-phase">STEP 03 · DELIVERY</div>
-                    <h3>Read it, then act on it</h3>
-                    <p>You receive a personalized interactive report — not a PDF of boilerplate. Every recommendation is tagged do-it-yourself, set-it-up-with-you, or fully-handled, so you can act on it with us or without us.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="container">
+    <div class="narrow" style="margin:0">
+      <span class="tag">The actual problem</span>
+      <h2>You're not behind on AI. You're stuck on <em>where</em>.</h2>
+      <p style="margin-top:20px;font-size:1.15rem">Nobody running a real business has time to evaluate a thousand tools a month to find the four that matter. So the decision keeps getting pushed, and the gap keeps widening.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card reveal">
+        <span class="num">01 — THE FIREHOSE</span>
+        <h3>Everything claims to change everything</h3>
+        <p>New tools ship faster than anyone can test them. Every one is transformational, according to the people selling it. None of them know what happens in your shop on a Tuesday.</p>
+      </div>
+      <div class="card reveal">
+        <span class="num">02 — THE BLANK PAGE</span>
+        <h3>"We should be using AI for… something"</h3>
+        <p>You're sure there's an opportunity here. Nobody can point at which part of "here," or tell you what it's worth if you do it.</p>
+      </div>
+      <div class="card reveal">
+        <span class="num">03 — THE PILOT THAT DIED</span>
+        <h3>It worked once, then nothing changed</h3>
+        <p>Most AI experiments fail for the same reason: they got bolted onto a demo instead of the place where work actually moves through the business.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section>
-        <div class="container">
-            <span class="section-eyebrow">The Deliverable</span>
-            <h2 class="section-title">What's in your report.</h2>
-            <p class="section-desc">A single interactive page, built entirely from your interview. Here's what it covers.</p>
-            <div class="report-grid">
-                <div class="report-card">
-                    <div class="report-num">01 / SNAPSHOT</div>
-                    <h3>The Bottom Line, Up Front</h3>
-                    <p>The report opens with the headline numbers: how many quick wins we found, the weekly hours they return, what the tools cost per month, and the estimated net monthly return.</p>
-                </div>
-                <div class="report-card">
-                    <div class="report-num">02 / MAP</div>
-                    <h3>Your Operation, Mapped</h3>
-                    <p>Every stage of your operation — from first contact to money in the bank — marked as a leak, a quick win, a bigger play, or running fine. Each one grounded in what you actually told us, quotes included.</p>
-                </div>
-                <div class="report-card">
-                    <div class="report-num">03 / SCORECARD</div>
-                    <h3>Readiness Scorecard</h3>
-                    <p>Six dimensions of AI readiness — from how documented your processes are to how your data is organized — scored in plain English, with an overall maturity stage so recommendations match where you actually are.</p>
-                </div>
-                <div class="report-card">
-                    <div class="report-num">04 / QUICK WINS</div>
-                    <h3>Six Quick Wins</h3>
-                    <p>Six specific, near-term moves, each tied to a stage of your operation and tagged with an implementation path — DIY with instructions, set up with you, or handled entirely. No hundred-item wishlist.</p>
-                </div>
-                <div class="report-card">
-                    <div class="report-num">05 / THE MATH</div>
-                    <h3>The Math</h3>
-                    <p>Hours and dollars, itemized. What each fix saves per week, what it costs to run, and what that nets out to per month — so "worth it" is a number, not a feeling.</p>
-                </div>
-                <div class="report-card">
-                    <div class="report-num">06 / SAFE USE</div>
-                    <h3>Safe-Use Starter Rules</h3>
-                    <p>Starter guardrails for your team, personalized to the sensitive information you actually handle — customer data, payment details, health records, kids' information — so adopting AI doesn't create a liability.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- STAKES -->
+<section>
+  <div class="container narrow">
+    <span class="tag">What's on the table</span>
+    <h2>AI is revolutionizing businesses every day. The right tools can save you serious time and improve your margins. Today.</h2>
+    <p class="pull">The money isn't in replacing your people. It's in the seams — the fifteen places a week where something gets dropped, delayed, retyped, or chased.</p>
+    <ul class="leak-list">
+      <li><span class="when">6:40 PM</span><span>The call that goes to voicemail — and to <b>whoever answered first</b> tomorrow morning.</span></li>
+      <li><span class="when">DAY 3</span><span>The quote that finally goes out, <b>two days after they decided</b>.</span></li>
+      <li><span class="when">NET 60</span><span>The invoice nobody chased, sitting in a folder <b>earning you nothing</b>.</span></li>
+      <li><span class="when">MONTHLY</span><span>The report somebody rebuilds by hand, <b>the same way, every month</b>.</span></li>
+      <li><span class="when">SUNDAY</span><span>The four hours of admin you do at the kitchen table <b>because there's no other time</b>.</span></li>
+    </ul>
+    <p style="margin-top:34px;font-size:1.12rem">Each one is small. Together they are your margin, your weekends, and about half of your patience. This is where AI is quietly, boringly, extremely good — and it's the part almost nobody maps for you.</p>
+  </div>
+</section>
 
-    <section class="tinted">
-        <div class="container">
-            <span class="section-eyebrow">Who It's For</span>
-            <h2 class="section-title">Three kinds of caller.</h2>
-            <p class="section-desc">The interview adapts to how you work. Same fifteen minutes, three different conversations.</p>
-            <div class="who-grid">
-                <div class="who-card">
-                    <span class="who-tag">BUSINESS OWNERS</span>
-                    <h3>Running a business with a team</h3>
-                    <p>Reese walks a job from the first ring of the phone to the day the money's in the bank — and finds where calls get missed, quotes go out slow, and paperwork eats your evenings.</p>
-                </div>
-                <div class="who-card">
-                    <span class="who-tag">EXECUTIVES &amp; PROFESSIONALS</span>
-                    <h3>Managing your own workload</h3>
-                    <p>Reese walks through your Monday — inbox, meetings, decisions, deep work, follow-up — and finds where an AI layer defends your calendar and your attention.</p>
-                </div>
-                <div class="who-card">
-                    <span class="who-tag">NONPROFIT LEADERS</span>
-                    <h3>Leading a mission</h3>
-                    <p>Reese walks your mission cycle — funding in, donor communication, program delivery, volunteers, compliance and reporting — and finds where thin staff time is going to work a system could do.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- DELIVERABLE / OFFER -->
+<section class="offer" id="deliverable">
+  <div class="container">
+    <div class="narrow" style="margin:0">
+      <span class="tag">The deliverable</span>
+      <h2>What you actually get.</h2>
+      <p style="margin-top:20px;font-size:1.15rem">Not a report about AI. A decision document about your business, with the numbers attached — plus the hour where we sit down and go through it together.</p>
+    </div>
 
-    <section>
-        <div class="container">
-            <span class="section-eyebrow">Ground Rules</span>
-            <h2 class="section-title">How the interview is run.</h2>
-            <p class="section-desc">The call works because it's honest about what it is. These rules are built into Reese, not left to chance.</p>
-            <div class="rules-list">
-                <div class="rule-row">
-                    <div class="rule-check">✓</div>
-                    <p><strong>Reese tells you it's an AI, first thing.</strong> No pretending to be a person. It asks for your consent to record before the interview starts, and the recording exists so your report can be built from your own words.</p>
-                </div>
-                <div class="rule-row">
-                    <div class="rule-check">✓</div>
-                    <p><strong>It interviews; it doesn't advise.</strong> Reese never prescribes tools, prices, or fixes on the call. If you ask "so what should I use?", it will tell you plainly: that's what the report is for — guessing on the phone would get it wrong.</p>
-                </div>
-                <div class="rule-row">
-                    <div class="rule-check">✓</div>
-                    <p><strong>Specifics beat coverage.</strong> One real story about the invoice that slipped is worth three vague answers. Reese follows up until it understands how things actually work — not how the brochure says they work.</p>
-                </div>
-                <div class="rule-row">
-                    <div class="rule-check">✓</div>
-                    <p><strong>A human reviews every report.</strong> The analysis is AI-assisted; the judgment isn't. Nothing is delivered until a person at Carolina Redesign has read it and signed off.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="stack">
+      <div class="stack-item reveal">
+        <span class="mark">01</span>
+        <div><h3>Your operation, mapped end to end</h3><p>Every stage from first contact to money in the bank, marked as a leak, a quick win, a bigger play, or fine as-is.</p></div>
+      </div>
+      <div class="stack-item reveal">
+        <span class="mark">02</span>
+        <div><h3>Six moves, in priority order</h3><p>Specific and near-term — not a hundred-item wishlist. Each one tagged do-it-yourself, set-it-up-with-you, or fully handled.</p></div>
+      </div>
+      <div class="stack-item reveal">
+        <span class="mark">03</span>
+        <div><h3>The math on each one</h3><p>Hours saved per week, cost to run per month, what it nets out to. "Worth it" becomes a number instead of a feeling.</p></div>
+      </div>
+      <div class="stack-item reveal">
+        <span class="mark">04</span>
+        <div><h3>A readiness scorecard</h3><p>Six dimensions, scored in plain English, so the recommendations match where your business actually is today.</p></div>
+      </div>
+      <div class="stack-item reveal">
+        <span class="mark">05</span>
+        <div><h3>Safe-use rules for your team</h3><p>Written around the sensitive information you actually handle, so adopting AI doesn't hand you a liability.</p></div>
+      </div>
+      <div class="stack-item reveal">
+        <span class="mark">06</span>
+        <div><h3>A 90-day sequence</h3><p>What to do first, what it unlocks, and what can wait until the first three are paying for themselves.</p></div>
+      </div>
+      <div class="stack-item feature reveal">
+        <span class="mark">07</span>
+        <div><h3>45 minutes, one-on-one, walking through all of it</h3><p>The part you can't get from a document. We go through the findings, you push back, you ask the "but what about—" questions, and you leave knowing exactly what you're doing Monday. Yours to record and share with your team.</p></div>
+      </div>
+    </div>
 
-    <section class="tinted">
-        <div class="container">
-            <div class="cta-box">
-                <h2>The interview line is open.</h2>
-                <p>The assessment is <strong style="color: white;">$999, flat</strong> — interview, public scan, report, and walkthrough included. Call whenever you have fifteen quiet minutes; Reese answers around the clock. Prefer to talk to a person first? Start a conversation instead.</p>
-                <a href="tel:+18438924433" class="btn-primary">Call (843) 892-4433</a>
-                <span class="cta-alt">Questions first? <a href="/#contact">Contact us</a> — we'll tell you straight whether the assessment fits.</span>
-            </div>
-        </div>
-    </section>
+    <div class="price-box" id="get">
+      <div class="price-num">$999</div>
+      <div class="price-note">Flat · One time · Everything above included</div>
+      <div class="cta-row" style="justify-content:center">
+        <a href="https://buy.stripe.com/4gMeVed1T6bw4Je5Fq6Zy05" class="btn-primary">Start my assessment</a>
+      </div>
+      <p class="guarantee">Right after checkout you'll get everything you need to start — it takes about fifteen minutes of your time, and no prep. <b>If we can't identify at least 5 hours of time savings per week, we'll refund you the full cost.</b></p>
+    </div>
+  </div>
+</section>
 
-    <footer>
-        <div class="container footer-inner">
-            <span class="brand-name-footer">Carolina<span>Redesign</span><span class="brand-dot">.</span></span>
-            <span>&copy; 2026 · An AI Transformation Studio · Chapin, SC</span>
-        </div>
-    </footer>
+<!-- BIO -->
+<section>
+  <div class="container bio">
+    <div class="bio-card reveal">
+      <h3>Jimmy Ardis</h3>
+      <span class="role">Founder · Carolina Redesign</span>
+      <ul>
+        <li>15+ years advising organizations on operations and compliance</li>
+        <li>Built and exited a consulting firm at $2.4M in annual revenue</li>
+        <li>Co-founder, South Carolina Artificial Intelligence Observatory</li>
+        <li>U.S. Air Force veteran · MPA, College of Charleston</li>
+        <li>Based in Chapin, South Carolina</li>
+      </ul>
+    </div>
+    <div>
+      <span class="tag">Who's behind it</span>
+      <h2>We map your workflows and provide a clear AI roadmap.</h2>
+      <p style="margin-top:22px">Plenty of people can list AI tools. The hard part is knowing which ones survive contact with a real business — one with a small team, imperfect data, and no appetite for a six-month implementation.</p>
+      <p>That's the work I've been doing for fifteen years, first in operations and compliance consulting, now full-time in AI. I've built the systems, watched which ones actually get used six months later, and I'll tell you plainly when the answer is "don't bother with that one yet."</p>
+      <p>You're buying judgement and clarity, not software.</p>
+    </div>
+  </div>
+</section>
 
-    <script>
-        document.getElementById('menuBtn').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('active'));
-    </script>
+<!-- WHO -->
+<section class="who">
+  <div class="container">
+    <div class="narrow" style="margin:0">
+      <span class="tag">Fit</span>
+      <h2>Built for people who own the outcome.</h2>
+    </div>
+    <div class="grid-3">
+      <div class="card reveal">
+        <h3>Business owners</h3>
+        <p>From the first ring of the phone to the day the money lands — where calls get missed, quotes go out slow, and paperwork eats your evenings.</p>
+      </div>
+      <div class="card reveal">
+        <h3>Executives and professionals</h3>
+        <p>Your Monday: inbox, meetings, decisions, deep work, follow-up. Where an AI layer defends your calendar and your attention.</p>
+      </div>
+      <div class="card reveal">
+        <h3>Nonprofit leaders</h3>
+        <p>Funding in, donor communication, program delivery, volunteers, reporting. Where thin staff time is doing work a system should be doing.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- FAQ -->
+<section>
+  <div class="container narrow">
+    <span class="tag">Before you buy</span>
+    <h2>Fair questions.</h2>
+    <div style="margin-top:34px">
+      <details><summary>Is this a sales pitch for your other services?</summary>
+        <p>No. Every recommendation is tagged so you can see which ones you can do yourself — and most businesses can do several of them without me. If you want help with the rest, that's a separate conversation you're free to skip.</p></details>
+      <details><summary>How much of my time does this take?</summary>
+        <p>About fifteen minutes to tell us how your business runs, and 45 minutes for the walkthrough. No forms, no prep, no homework in between.</p></details>
+      <details><summary>We already use ChatGPT. Is this still worth it?</summary>
+        <p>Usually more so. Businesses already using AI casually tend to have the clearest gap between where it's helping one person and where it could be running a whole step of the operation.</p></details>
+      <details><summary>I'm not technical. Will I understand it?</summary>
+        <p>It's written for an owner, not an engineer. Plain English, real numbers, and an hour with me to ask anything that isn't clear.</p></details>
+      <details><summary>What if there's nothing worth doing in my business?</summary>
+        <p>Then the report will say that, and I'll refund you. That answer is worth knowing too — but in fifteen years I haven't met an operation with nothing in the seams.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="final">
+  <div class="container">
+    <h2>Stop guessing which tools matter.</h2>
+    <p>One flat fee. Fifteen minutes of your time. A map of exactly where AI pays in your business, and the hour to walk through it together.</p>
+    <div class="cta-row">
+      <a href="https://buy.stripe.com/4gMeVed1T6bw4Je5Fq6Zy05" class="btn-primary">Start my assessment — $999</a>
+    </div>
+    <p class="fine">Delivered in 48 hours · Refunded if it isn't worth it</p>
+  </div>
+</section>
+
+<footer>CarolinaRedesign. © 2026 · An AI Transformation Studio · Chapin, SC</footer>
+
+<script>
+(function(){
+  var tools = ["ChatGPT","Claude","Gemini","Copilot","Perplexity","Zapier","Make","n8n","Notion AI","Otter","Fireflies","Gamma","Midjourney","Runway","ElevenLabs","Descript","Jasper","Copy.ai","Writesonic","Grammarly","Clay","Apollo","Instantly","Smartlead","Lavender","Gong","Chorus","HubSpot AI","Salesforce Einstein","Zoho Zia","Intercom Fin","Zendesk AI","Ada","Drift","Tidio","Chatbase","Voiceflow","Vapi","Retell","Bland","Synthflow","Air.ai","Sierra","Decagon","Cursor","Replit","Lovable","Bolt","v0","Windsurf","Devin","Vercel AI","LangChain","LlamaIndex","Pinecone","Weaviate","Chroma","Supabase","Airtable AI","Coda AI","ClickUp AI","Asana AI","Monday AI","Motion","Reclaim","Clockwise","Superhuman","Shortwave","Hey","Read AI","Circleback","Granola","Attio","Folk","Pipedrive AI","Close","Ramp","Brex","Vic.ai","Bill.com","Docyt","Truewind","Puzzle","Rossum","Klarity","Harvey","Spellbook","Ironclad","Luminance","Abridge","Nabla","Suki","Freed","Heidi","Tome","Beautiful.ai","Canva Magic","Figma AI","Uizard","Relume","Framer AI","Durable","Typeface","Persado","Mutiny","Unbounce AI","Optimizely","Amplitude AI","Julius","Hex","Databricks","Snowflake Cortex","Sana","Guru","Glean","Dust","Hebbia","Rewind","Mem","Reflect","Tana","Heptabase"];
+  var swarm = document.getElementById('swarm');
+  if(swarm){
+    var frag = document.createDocumentFragment();
+    tools.forEach(function(t){
+      var el = document.createElement('span');
+      el.className = 'chip';
+      el.textContent = t;
+      frag.appendChild(el);
+    });
+    swarm.appendChild(frag);
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var chips = swarm.querySelectorAll('.chip');
+    function lightUp(){
+      chips.forEach(function(c){ c.classList.remove('hot'); });
+      var picks = [];
+      while(picks.length < 6){
+        var i = Math.floor(Math.random()*chips.length);
+        if(picks.indexOf(i) === -1) picks.push(i);
+      }
+      picks.forEach(function(i, n){
+        setTimeout(function(){ chips[i].classList.add('hot'); }, reduce ? 0 : n*140);
+      });
+    }
+    lightUp();
+    if(!reduce) setInterval(lightUp, 3600);
+  }
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el,i){
+    el.style.transitionDelay = (i%3)*70 + 'ms';
+    io.observe(el);
+  });
+})();
+</script>
 </body>
 </html>

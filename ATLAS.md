@@ -36,6 +36,14 @@ Short test call against Reese to confirm structured-data extraction now populate
 
 <!-- Append-only. Most recent session on top. Claude Code adds an entry at the end of each work session. -->
 
+### 2026-07-31
+
+- Replaced `/assessment/index.html` with the user's redesigned sales page (from Downloads): tool-swarm hero animation, leak-list stakes section, 7-item deliverable stack, founder bio card, FAQ, scroll-reveal animations. Direction change from v1: **checkout-first flow** (buy → then 15-min intake) instead of call-the-line-first; page pitches a 45-min walkthrough + 90-day sequence as part of the deliverable
+- Applied 8 copy tweaks per user: "which ones" framing in h1/sub (de-emphasized "six"), "AI is revolutionizing businesses every day…" stakes h2, guarantee reworded to **"at least 5 hours of time savings per week or full refund"**, "Business owners" (dropped "with a team"), delivery promise **3 business days → 48 hours** (both spots), bio h2 "We map your workflows and provide a clear AI roadmap," closing line "You're buying judgement and clarity, not software"
+- Verified headless (desktop + mobile, reduced-motion pass to render `.reveal` sections): all sections populate, zero JS errors
+- **Checkout live**: user created the "AI Assessment - Carolina Redesign" product + $999 payment link in the Stripe dashboard (Secursion Stripe account `acct_1SYgPtJG3emK5MYF` — checkout/statement will show that account's branding). Link `plink_1TzS8TJG3emK5MYF2hwLnIk7` → https://buy.stripe.com/4gMeVed1T6bw4Je5Fq6Zy05. After-payment redirect set via API (restricted key from Railway secursion/vending had payment-link write but NOT product write) → `/assessment/start/`, a new post-checkout page built this session: call Reese (843) 892-4433, 15-min interview, 48-hr delivery, walkthrough scheduling, human-fallback contact. Both CTAs wired to the payment link
+- Minor pending: swarm caption still says "Six of these…" — slightly inconsistent with the de-sixed headline, left pending user call
+
 ### 2026-07-29
 
 - Built the public marketing page for the AI Opportunity Assessment at `/assessment/index.html` — hero with the Reese intake line CTA (call (843) 892-4433, number pulled live from Vapi since it isn't recorded in the repo), 3-step how-it-works, six report-deliverable cards matching template v2.2 sections (snapshot / map / scorecard / quick wins / the math / safe-use), the three caller segments (smb/exec/npo), and a "ground rules" section (AI disclosure + consent, interviewer-not-advisor, human review). No pricing shown — none is published anywhere; CTA falls back to the contact form for scope/pricing questions
