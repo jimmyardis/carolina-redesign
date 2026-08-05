@@ -52,18 +52,28 @@
             display: flex;
             align-items: center;
         }
-        .nav-flex { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 40px; }
         .logo-wrapper { display: flex; align-items: center; gap: 14px; text-decoration: none; z-index: 1001; }
         .logo-icon { height: 50px; width: auto; object-fit: contain; }
         .logo-text-span { font-family: var(--font-stack); font-size: 1.55rem; color: var(--text-main); letter-spacing: -0.03em; line-height: 1; }
         .logo-text-span strong { font-weight: 700; }
         .logo-text-span span { font-weight: 400; }
         .brand-dot { color: var(--accent); font-weight: 700; }
-        .nav-links { list-style: none; display: flex; gap: 32px; align-items: center; }
+        .nav-links { list-style: none; display: flex; gap: 28px; align-items: center; margin-left: auto; }
+        .nav-links a { white-space: nowrap; }
         .nav-links a { color: var(--text-light); font-size: 0.94rem; font-weight: 500; }
         .nav-links a:hover { color: var(--accent); }
         .btn-nav { background-color: var(--accent); color: white !important; padding: 10px 22px; border-radius: 25px; font-size: 0.9rem !important; white-space: nowrap; }
         .btn-nav:hover { background-color: var(--accent-hover); transform: scale(1.02); box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3); }
+        /* mid-desktop: keep nav clear of the logo before the mobile breakpoint */
+        @media (max-width: 1120px) {
+            .nav-flex { gap: 24px; }
+            .logo-icon { height: 42px; }
+            .logo-text-span { font-size: 1.3rem; }
+            .nav-links { gap: 20px; }
+            .nav-links a { font-size: 0.88rem; }
+            .btn-nav { padding: 9px 16px; font-size: 0.85rem !important; }
+        }
 
         .menu-toggle { display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1001; background: none; border: none; padding: 10px; }
         .bar { width: 25px; height: 2px; background-color: var(--text-main); transition: all 0.3s ease; }
@@ -277,6 +287,9 @@
         input:focus, textarea:focus { border-color: var(--accent); }
 
         footer { margin-top: 80px; border-top: 1px solid #d2d2d7; padding-top: 30px; font-size: 0.82rem; color: var(--text-light); }
+        .footer-links { font-size: 0.82rem; margin-bottom: 14px; line-height: 2; }
+        .footer-links a { color: var(--text-light); }
+        .footer-links a:hover { color: var(--accent); }
         .brand-name-footer { font-weight: 700; color: var(--text-main); }
         .brand-name-footer span { font-weight: 400; }
 
@@ -315,11 +328,9 @@
             <ul class="nav-links" id="nav-links">
                 <li><a href="/strategy/">Strategy</a></li>
                 <li><a href="/operations/">Operations</a></li>
-                <li><a href="/agents/">Agents</a></li>
-                <li><a href="/websites/">Websites</a></li>
+                <li><a href="/websites/">Web &amp; Agents</a></li>
                 <li><a href="/assessment/">Assessment</a></li>
                 <li><a href="/research/">Research</a></li>
-                <li><a href="#about">About</a></li>
                 <li><a href="#contact" class="btn-nav">Start a Conversation</a></li>
             </ul>
         </div>
@@ -456,11 +467,11 @@
                     <p>Custom dashboards, data integration, and digital retrofits for organizations whose unique workflows defy off-the-shelf tools. The fractional CTO posture, at fractional cost.</p>
                     <span class="arrow">Explore Operations</span>
                 </a>
-                <a href="/agents/" class="practice-card">
+                <a href="/websites/" class="practice-card">
                     <span class="practice-num">PRACTICE 03</span>
                     <h3>Web &amp; Agents<span class="brand-dot">.</span></h3>
                     <p>High-performance websites with AI voice receptionists, intake bots, and workflow automation. The infrastructure most organizations should have already.</p>
-                    <span class="arrow">Explore Agents</span>
+                    <span class="arrow">Explore Web &amp; Agents</span>
                 </a>
             </div>
             <div class="assessment-strip">
@@ -568,6 +579,7 @@
         </div>
         <footer>
             <div class="container">
+                <p class="footer-links"><a href="/strategy/">Strategy</a> &nbsp;·&nbsp; <a href="/operations/">Operations</a> &nbsp;·&nbsp; <a href="/websites/">Websites</a> &nbsp;·&nbsp; <a href="/agents/">AI Agents</a> &nbsp;·&nbsp; <a href="/assessment/">Assessment</a> &nbsp;·&nbsp; <a href="/research/">Research</a> &nbsp;·&nbsp; <a href="#about">About</a> &nbsp;·&nbsp; <a href="#contact">Contact</a></p>
                 <p>&copy; 2026 <span class="brand-name-footer">Carolina<span>Redesign</span><span class="brand-dot">.</span></span> &nbsp;·&nbsp; Intelligent Systems &nbsp;·&nbsp; Chapin, SC</p>
             </div>
         </footer>

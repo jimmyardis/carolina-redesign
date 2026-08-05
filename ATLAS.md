@@ -10,7 +10,7 @@
 | **Project** | Carolina Redesign |
 | **One-liner** | Columbia SC editorial site + AI Opportunity Assessment service (Vapi intake → webhook → Airtable queue → Claude Code report) |
 | **Status** | building |
-| **Last Active** | 2026-07-31 |
+| **Last Active** | 2026-08-04 |
 | **Stall Threshold** | 7 days |
 | **Repo** | https://github.com/jimmyardis/carolina-redesign |
 | **Stack** | Static HTML/CSS, GitHub Pages |
@@ -35,6 +35,18 @@ Run one real test purchase through the live flow (checkout → redirect → star
 ## Session Log
 
 <!-- Append-only. Most recent session on top. Claude Code adds an entry at the end of each work session. -->
+
+### 2026-08-04
+
+- **Nav streamlined 8 → 6 items** across all six top-level pages (`index`, `strategy`, `operations`, `agents`, `websites`, `assessment`). New order everywhere: Strategy · Operations · Web & Agents · Assessment · Research · [CTA]
+- **Decision: keep `/strategy/`.** User asked whether to delete it as redundant with Operations + Assessment. It isn't — it's Practice 01 on the homepage (with its own card + CTA) and it's the only page carrying the differentiating proof (Palmetto ZBB, ministry diagnostic, clinical cybersecurity, SCAIO). Operations targets ops managers in manufacturing/field-service; Assessment is the $999 productized entry offer. Three rungs of one ladder, not three names for one thing
+- **The actual redundancy was Websites + Agents.** The homepage already calls Practice 03 "Web & Agents" (one practice) while the nav gave it two slots, and the two pages cross-sell each other. Merged into a single nav item → `/websites/`, which is the better hub (Foundation/Workforce/Engine already covers agents as "The Workforce", plus the industry demo cards and a primary "Explore Agents" button). `/agents/` stays live, reachable from that button, the homepage footer, and its own breadcrumb (now `Carolina Redesign / Web & Agents / AI Agents`)
+- **About moved out of nav into a new homepage footer link row** (Strategy · Operations · Websites · AI Agents · Assessment · Research · About · Contact). It was only ever a `#about` anchor competing for a top-level slot
+- **Research added to subpage navs** — previously homepage-only, so navs now match across the site
+- **Renamed strategy card `Operational Diagnostics` → `Decision Briefings`** (eyebrow `01 / DIAGNOSTIC` → `01 / BRIEFING`). The old name collided by word with Operations and by concept with Assessment; the card copy was already describing a leadership brief
+- **Root cause of the logo collision was CSS, not item count** — fewer items alone didn't fix it. Added to all five hand-rolled navs: `gap: 40px` on `.nav-flex`, `margin-left: auto` on `.nav-links`, `white-space: nowrap` on nav links (stops "Web & Agents" wrapping to two lines), and a mid-desktop `@media (max-width: 1120px)` block that shrinks the logo, gap, and link size before the 768px mobile breakpoint. **Gotcha:** the media query must sit *after* the base `.nav-links a` / `.btn-nav` rules — inserted before them it was silently overridden by equal-specificity later rules
+- Verified headless at 1280/1100/1024 on all six pages + mobile hamburger at 390px: no collision, no wrap, mobile menu intact
+- Not pushed — repo is public GitHub Pages, awaiting user confirmation
 
 ### 2026-07-31
 

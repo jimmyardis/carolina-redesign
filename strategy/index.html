@@ -29,18 +29,28 @@
         .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
         .navbar { background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); height: 78px; display: flex; align-items: center; }
-        .nav-flex { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 40px; }
         .logo-wrapper { display: flex; align-items: center; gap: 14px; text-decoration: none; z-index: 1001; }
         .logo-icon { height: 50px; width: auto; }
         .logo-text-span { font-size: 1.55rem; color: var(--text-main); letter-spacing: -0.03em; line-height: 1; }
         .logo-text-span strong { font-weight: 700; } .logo-text-span span { font-weight: 400; }
         .brand-dot { color: var(--accent); font-weight: 700; }
-        .nav-links { list-style: none; display: flex; gap: 32px; align-items: center; }
+        .nav-links { list-style: none; display: flex; gap: 28px; align-items: center; margin-left: auto; }
+        .nav-links a { white-space: nowrap; }
         .nav-links a { color: var(--text-light); font-size: 0.94rem; font-weight: 500; }
         .nav-links a:hover { color: var(--accent); }
         .nav-links .current { color: var(--accent); }
         .btn-nav { background: var(--accent); color: white !important; padding: 10px 22px; border-radius: 25px; font-size: 0.9rem !important; white-space: nowrap; }
         .btn-nav:hover { background: var(--accent-hover); }
+        /* mid-desktop: keep nav clear of the logo before the mobile breakpoint */
+        @media (max-width: 1120px) {
+            .nav-flex { gap: 24px; }
+            .logo-icon { height: 42px; }
+            .logo-text-span { font-size: 1.3rem; }
+            .nav-links { gap: 20px; }
+            .nav-links a { font-size: 0.88rem; }
+            .btn-nav { padding: 9px 16px; font-size: 0.85rem !important; }
+        }
         .menu-toggle { display: none; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1001; background: none; border: none; padding: 10px; }
         .bar { width: 25px; height: 2px; background: var(--text-main); }
 
@@ -135,10 +145,9 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="/strategy/" class="current">Strategy</a></li>
                 <li><a href="/operations/">Operations</a></li>
-                <li><a href="/agents/">Agents</a></li>
-                <li><a href="/websites/">Websites</a></li>
+                <li><a href="/websites/">Web &amp; Agents</a></li>
                 <li><a href="/assessment/">Assessment</a></li>
-                <li><a href="/#about">About</a></li>
+                <li><a href="/research/">Research</a></li>
                 <li><a href="/#contact" class="btn-nav">Start a Conversation</a></li>
             </ul>
         </div>
@@ -172,8 +181,8 @@
             <p class="section-desc">All delivered the same way — fixed scope, fixed price, working answer.</p>
             <div class="build-grid">
                 <div class="build-card">
-                    <div class="build-num">01 / DIAGNOSTIC</div>
-                    <h3>Operational Diagnostics</h3>
+                    <div class="build-num">01 / BRIEFING</div>
+                    <h3>Decision Briefings</h3>
                     <p>A consultancy-grade brief examining where an organization's existing systems are obscuring the questions leadership most needs to answer. Mapped pain points, prioritized opportunities, recommended starting wedge. Designed to be read in one sitting.</p>
                     <p style="margin-top: 14px; font-size: 0.95rem;"><a href="/assessment/" style="color: var(--accent); font-weight: 600;">Start with the AI Opportunity Assessment →</a></p>
                 </div>
