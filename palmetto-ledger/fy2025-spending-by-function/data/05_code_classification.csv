@@ -1,0 +1,961 @@
+acct,acct_name,tier,fa
+5010580004,CLASS POS - TECH BOARD PASS THRU FOR TECH COLLEGES,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5010600002,UNCLASS POS - TECH BOARD PASS THRU FOR TECH COLL,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5010700001,OTHER PER SERV-TECH BOARD PASS THRU FOR TECH COLL,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5021575000,TECH BOARD PASS THRU FOR TECH COLLEGES,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5130990001,OTHER EMP CON - TECH BOARD PASS THRU FOR TECH COLL,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5160080000,STATE AID TO CLASSROOMS - EIA,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5160100000,AID TO SCHOOL DISTRICTS,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5160150000,ALLOC ED IMPV-4 YR EARLY CHILDHOOD PROG,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5160170000,AID TO DISTRICT NON-RECURRING,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5160220000,ALLOC ED IMPV-TEACHER SUPPLIES,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5160280000,FIRST STEPS TO SCHOOL READINESS,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5160400000,ADULT EDUCATION,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5160500000,CERDEP - SCDE,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5160620000,ALLOC ED IMPV-JR. SCHOLAR-PRIV COL&UNIV,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5160770000,ALLOC ED IMPV-NAT BOARD CERT INC,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5160810000,ALLOC ED IMPV-ARTS CURRICULA,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5160850000,ALLOC ED IMPV-TEACHER RECRUITMENT PROG,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5160900000,CAREER & TECHNOLOGY EDUCATION,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5160960000,SDE GRANTS COMMITTEE,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5161120000,CAPITAL FUNDING FOR DISADVANTAGED SCHOOLS,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170100000,ALLOC MUNICIPALITIES-UNRESTRICTED,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170110000,ALLOC MUNICIPALITIES-RES,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170110002,ALLOC MUNI-FEDERAL SUB-RECIPIENT RESTRICTED,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170110100,ALLOC MUNICIPALITIES-PERSONNEL,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170110200,ALLOC MUNICIPALITIES-CONTRACTUAL,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170110300,ALLOC MUNICIPALITIES-OTHER,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170110500,ALLOC MUNICIPALITIES-TRAVEL,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170110600,ALLOC MUNICIPALITIES-EQUIP,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170200000,ALLOC COUNTIES-UNRES,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170210000,ALLOC COUNTIES-RES,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170210100,ALLOC COUNTY-PERSONNEL,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170210200,ALLOC COUNTY-CONTRACTUAL,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170210300,ALLOC COUNTY-OTHER,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170210500,ALLOC COUNTY-TRAVEL,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170210600,ALLOC COUNTY-EQUIP,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170450000,ALLOC COUNTY LIBRARIES,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170500000,ALLOC SCH DIST,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170700000,ALLOC ST AGENCIES,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170700001,ALLOC ST AGENCIES FED SUBRECIPIENT REST,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170700100,ALLOC STATE-PERSONNEL,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170700200,ALLOC STATE-CONTRACTUAL,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170700300,ALLOC STATE-OTHER,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170700500,ALLOC STATE-TRAVEL,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170700600,ALLOC STATE-EQUIP,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170750000,ALLOC ENTITIES,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170750001,ALLOC ENTITIES ARRA PRINCIPAL FORGIVENES,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170750003,ALLOC ENTITIES FED SUBRECIPIENT RESTRICT,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170750004,ALLOC ENTITIES ALL PRINCIPAL FORGIVENESS,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170750100,ALLOC ENTITIES-PERSONNEL,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170750200,ALLOC ENTITIES-CONTRACTUAL,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170750300,ALLOC ENTITIES-OTHER,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170750500,ALLOC ENTITIES-TRAVEL,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170750600,ALLOC ENTITIES-EQUIP,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170760000,ALLOC ENTITIES-ALCOHOL & DRUG TREATMENT,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170770000,ALLOC ENTITIES-AID TO EMS REGIONAL,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170780000,ALLOC ENTITIES-ALCOHOL & DRUG INTERV,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170790000,ALLOC ENT ALCOHOL DRUG PREVENT,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170800000,ALLOC PRIVATE SECTOR,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170810000,ALLOC PRIVATE SECTOR-REPORTABLE,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170830000,ALLOCATIONS-USF,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5170850000,ALLOCATIONS TO PLANNING DISTRICTS,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180010000,AID MUNIC-INV TAX PHASEOUT REIMB,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180090000,AID MUNICIPALITIES-MANUF DEPR REIMBURSE,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180110000,AID MUNICIPALITIES-RES,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180120000,AID MUNICIPALITIES-HOMESTEAD EXEMPT,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180200000,AID COUNTIES-UNRESTRICTED,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180210000,AID COUNTIES-RES,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180220000,AID CNTYS-HOMESTEAD EXEMPTION REIMBURSE,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180240000,SUMMER SCHOOL CAMPS,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180280000,AID TO COUNTIES - CLERKS OF COURT,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180290000,AID TO COUNTIES - MFG DEPRECIATION REIMBURSEMENT,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180300000,AID TO COUNTIES - PROBATE JUDGES,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180310000,AID TO COUNTIES - SHERIFFS,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180330000,AID CNTYS-REGISTER OF DEEDS,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180350000,AID CNTYS-CORONERS,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180380000,AID COUNTIES-ELECTION COMMISSION,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180390000,AID TO COUNTIES - MAGISTRATES,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180400000,AID COUNTIES-POLL MANAGERS AND CLERKS,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180410000,AID CNTYS-DEFENSE INDIGENTS,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180440000,AID TO COUNTY VETERANS OFFICES,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180450000,AID CNTY LIBRARIES,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180470000,AID CNTYS-INV TAX PHASEOUT REIMBURSE,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180480001,HEX TIER I - $100K,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180480002,HEX TIER II - 65/OLDER,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180480003,HEX TIER III - 1 CENT / SCHOOL OPERATING,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180480004,HEX - $2.5M SUPPLEMENTAL,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180500000,AID SCH DIST,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180520000,READING COACHES,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180540000,STATE AID TO CLASSROOMS,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180560000,AID SCH DISTRICT-BUS DRIVER SALARIES,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180580000,AID SCH DIST-SCH BUS CONTRACT DRIVER SAL,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180610000,AID SCH DIST-BUS DRIVER AIDES FOR HANDI,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180630000,AID SCH DIST-EMPLOYER CONTRIBUTIONS,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180640000,AID SCH DIST-EDUCATION FINANCE ACT,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180660100,SCHOOL RESOURCE OFFICERS - PERSONNEL,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180660300,SCHOOL RESOURCE OFFICERS - OTHER,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180660500,SCHOOL RESOURCE OFFICERS - TRAVEL,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180660600,SCHOOL RESOURCE OFFICERS - EQUIPMENT,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180700000,AID ST AGENCIES,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180730000,AID TO EMERGENCY MEDICAL SERVICE-REG CO,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180750000,AID ENTITIES,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180760000,AID ENTITIES-ALCOHOL & DRUG TREATMENT,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180780000,AID TO ENT- Alcohol and Drug Intervention,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180790000,AID ENTITIES-ALCOHOL & DRUG PREVENTION,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180800000,AID PRIVATE SECTOR,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180850000,AID PLANNING DISTRICTS,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180860000,AID TO PRIVATE SECTOR-REPORTABLE,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180900000,AID COUNTIES-FIRE DEPARTMENT PREMIUM TAX,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180910000,AID COUNTIES-BROKERS PREMIUM-FIRE DEPART,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180920000,AID TO FIRE DISTRICTS,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180930000,AID-LOCAL GOVERNMENT FUND,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180940000,AID SCHOOL DISTRICT-HOLOCAUST,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5180960000,AID SCHOOL DISTRICT-RETIREE INSURANCE,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5181000000,AID TO COUNTIES - LOCAL CHILD FATALITY REVIEW TEAM,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+5181010000,RURAL COUNTY STABILIZATION FUND,Formula & Transfers,"Aid to Schools, Local Governments & Districts"
+1310000000,LOANS AND NOTES RECEIVABLE - CURRENT,Formula & Transfers,Debt Service & Financial Obligations
+5041820000,LEASE OTHER - PRINCIPAL,Formula & Transfers,Debt Service & Financial Obligations
+5041827000,LEASE SBITA - PRINCIPAL,Formula & Transfers,Debt Service & Financial Obligations
+5041840000,LEASE BUILDING - PRINCIPAL,Formula & Transfers,Debt Service & Financial Obligations
+5041860020,LEASE - MEDICAL SCIENCE LAB EQUIPMENT - PRINCIPAL,Formula & Transfers,Debt Service & Financial Obligations
+5041860050,LEASE - HEAVY EQUIP - NON REAL ESTATE - PRINCIPAL,Formula & Transfers,Debt Service & Financial Obligations
+5041867020,LEASE IT COPIERS - PRINCIPAL,Formula & Transfers,Debt Service & Financial Obligations
+5041867050,LEASE DATA PROCESSING EQUIP - PRINCIPAL,Formula & Transfers,Debt Service & Financial Obligations
+5041870000,LEASE LAND - PRINCIPAL,Formula & Transfers,Debt Service & Financial Obligations
+5060999996,MASTER LEASE ASSET CONTRA,Formula & Transfers,Debt Service & Financial Obligations
+5072010001,R/W-Payment of Interest on Jury Verdict,Formula & Transfers,Debt Service & Financial Obligations
+5080010000,PRINCIPAL PAYMENTS,Formula & Transfers,Debt Service & Financial Obligations
+5080030000,PRINCIPAL - MASTER LEASE PROGRAM,Formula & Transfers,Debt Service & Financial Obligations
+5100070000,SURETY BOND PAYMENTS,Formula & Transfers,Debt Service & Financial Obligations
+5021550000,INSURANCE - ADMINISTRATION FEE,Formula & Transfers,"Employee Benefits, Retirement & Insurance Plans"
+5040530000,INSURANCE - GROUP PLAN,Formula & Transfers,"Employee Benefits, Retirement & Insurance Plans"
+5040530001,INSURANCE - GROUP PLAN - EMPLOYEE,Formula & Transfers,"Employee Benefits, Retirement & Insurance Plans"
+5040530002,INSURANCE - GROUP PLAN - EMPLOYER,Formula & Transfers,"Employee Benefits, Retirement & Insurance Plans"
+5040530003,INSURANCE - GROUP PLAN - RETIREE,Formula & Transfers,"Employee Benefits, Retirement & Insurance Plans"
+5130010000,RETIREMENT - SRS,Formula & Transfers,"Employee Benefits, Retirement & Insurance Plans"
+5130010001,RETIREMENT - SRS - FURLOUGH,Formula & Transfers,"Employee Benefits, Retirement & Insurance Plans"
+5130030000,RETIREMENT - POLICE OFFICERS,Formula & Transfers,"Employee Benefits, Retirement & Insurance Plans"
+5130050000,RETIREMENT - GARS,Formula & Transfers,"Employee Benefits, Retirement & Insurance Plans"
+5130060000,RETIREMENT - JUDICIAL SOLICITORS,Formula & Transfers,"Employee Benefits, Retirement & Insurance Plans"
+5130070000,HEALTH INSURANCE-EMPLOYER CONTRIBUTIONS,Formula & Transfers,"Employee Benefits, Retirement & Insurance Plans"
+5130710000,PRE-RETIREMENT DEATH BENEFIT - STATE EMPLOYEES,Formula & Transfers,"Employee Benefits, Retirement & Insurance Plans"
+5130730000,PRE-RETIREMENT DEATH BENEFIT - POLICE OFFICER,Formula & Transfers,"Employee Benefits, Retirement & Insurance Plans"
+5130950000,DISBURSEMENT - TRUST FUNDS - RETIREMENT,Formula & Transfers,"Employee Benefits, Retirement & Insurance Plans"
+5021310002,MEDICAID - FFS PROVIDERS MEDICAL & HEALTH SERVICES,Formula & Transfers,Medicaid & Client Medical Assistance
+5021330005,MEDICAID-FFS CONTRACT AGMTS W GOVT/NONPROFIT ENTY,Formula & Transfers,Medicaid & Client Medical Assistance
+5110010000,CLIENT PAYMENTS,Formula & Transfers,Medicaid & Client Medical Assistance
+5110010007,CLIENT SERVICES DI APPLICANT TRAVEL CLT,Formula & Transfers,Medicaid & Client Medical Assistance
+5110010008,CLIENT SERVICES SSI APPLICANT TRAVEL CLT,Formula & Transfers,Medicaid & Client Medical Assistance
+5110010009,CLIENT SERVICES DISSI APPLICANT TRAV CLT,Formula & Transfers,Medicaid & Client Medical Assistance
+5110010011,CASE SERVICES - CHILD SUPPORT PMTS,Formula & Transfers,Medicaid & Client Medical Assistance
+5110010012,CASE SERVICES - INMATE MEALS,Formula & Transfers,Medicaid & Client Medical Assistance
+5110010013,CASE SERVICES - INMATE PROPERTY REIM,Formula & Transfers,Medicaid & Client Medical Assistance
+5110010014,CASE SERVICES - OTHER AMBULATORY EXP,Formula & Transfers,Medicaid & Client Medical Assistance
+5110499999,CASE SERVICES (STATISTICAL VR ONLY),Formula & Transfers,Medicaid & Client Medical Assistance
+5111010000,MED SERVICES - TAXABLE,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010015,MD SRV-IND OFFICE MEDICAL SERVICES,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010017,MD SRV-IND CONSULTATIONS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010020,MD SRV-IND PSYCHIATRY,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010022,MD SRV-IND GASTROENTEROLOGY,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010023,MD SRV-IND OPHTHALMOLOGY,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010024,MD SRV-IND SPEC OTORHINOLARYNGOLOGIC SVC,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010025,MD SRV-IND CARDIOVASCULAR SERVICES,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010028,MD SRV-IND NEUROLOGY NEUROMUSCULAR PROC,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010031,MD SRV-IND ANESTHESIA SERVICES,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010045,MD SRV-IND AUDITORY SYSTEM,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010046,MD SRV-IND DIAGNOSTIC RADIOLOGY,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010050,MD SRV-IND PATHOLOGY LAB INDIV,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010051,MD SRV-IND DENTAL PROCEDURES,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010053,MD SRV-IND THERAPEUTIC AND INJECTIONS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010054,MD SRV-IND HOSPITAL MED SERV INDIV PROV,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010058,MD SERV-IND REFUND OF EXPENDITURES,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010059,MD SERV-TAX REF EXP MCAID RECOUP 19,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010060,MD SERV-TAX REF EXP MCAID RECOUP 10,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010061,MD SERV-TAX REF EXP MCAID RECOUP 30,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010068,MD SRV-IND DIConsExam,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010069,MD SRV-IND DIHRConsExam,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010070,MD SRV-IND DIDHConsExam,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010071,MD SRV-IND SSIConsExam,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010072,MD SRV-IND SSIHRConExam,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010073,MD SRV-IND SSIDHConsExam,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010074,MD SRV-IND DI-SSIConsExam,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010075,MD SRV-IND DI-SSIHRConsExam,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010076,MD SRV-IND DI-SSIDHConsExam,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010077,MD SRV-IND DIMedRecord,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010078,MD SRV-IND DIHRMedRecord,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010079,MD SRV-IND DIDHMedRecord,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010080,MD SRV-IND SSIMedRecord,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010081,MD SRV-IND SSIHRMedRecord,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010082,MD SRV-IND SSIDHMedRecord,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010083,MD SRV-IND DI-SSIMedRecord,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010084,MD SRV-IND DI-SSIHRMedRecord,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010085,MD SRV-IND DI-SSIDHMedRecord,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010086,MD SERV - OFFICE MEDICAL SERVICES,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010087,MD SERV DIALYSIS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010088,MD SERV - ENT,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010089,MD SRV-IND RSConsExam,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010090,MD SRV-IND RSMedRecord,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010091,MD SRV-IND MAOConsExam,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010092,MD SRV-IND MAOMedRecord,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010095,MD SERV - PHYSICAL MEDICINE,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010096,MD SERV - GENERAL/TRAUMA SURGERY,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010097,MD SERV - UROLOGY,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010098,MD SERV ONCOLOGY,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010099,MD SERV OTHER,Formula & Transfers,Medicaid & Client Medical Assistance
+5111010100,MD SERV ORTHOPEDICS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020000,MED SERVICES - NON TAXABLE,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020012,MD SRV NONTAX REF EXP MCAID RECOUP 19,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020013,MD SRV NONTAX REF EXP MCAID RECOUP 10,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020014,MD SRV NONTAX REF EXP MCAID RECOUP 30,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020020,MD SRV-IND DIConsExamHOS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020022,MD SRV-IND DIDHConsExamHOS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020023,MD SRV-IND SSIConsExamHOS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020024,MD SRV-IND SSIHRConExamHOS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020026,MD SRV-IND DI-SSIConsExamHOS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020027,MD SRV-IND DI-SSIHRConsExamHOS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020029,MD SRV-IND DIMedRecordHOS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020030,MD SRV-IND DIHRMedRecordHOS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020031,MD SRV-IND DIDHMedRecordHOS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020032,MD SRV-IND SSIMedRecordHOS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020033,MD SRV-IND SSIHRMedRecordHOS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020034,MD SRV-IND SSIDHMedRecordHOS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020035,MD SRV-IND DI-SSIMedRecordHOS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020036,MD SRV-IND DI-SSIHRMedRecordHOS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020037,MD SRV-IND DI-SSIDHMedRecordHOS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020039,MD SRV-IND RSMedRecordHOS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020040,MD SRV-IND MAOConsExamHOS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020041,MD SRV-IND MAOMedRecordHOS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020042,MD SRV-IND HOSPITAL MEDICAL SVCS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020043,MD SRV-IND OUTPT & EMERGENCY SVCS,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020044,MD SRV-IND INPT HOSPITALIZATION,Formula & Transfers,Medicaid & Client Medical Assistance
+5111020045,MD SRV-IND LAB SVCS,Formula & Transfers,Medicaid & Client Medical Assistance
+5113010000,CASE SERVICES OTHER-INDIVIDUAL PROVIDERS,Formula & Transfers,Medicaid & Client Medical Assistance
+5113010001,CASE SERVICES-AMBULANCE,Formula & Transfers,Medicaid & Client Medical Assistance
+5113010008,CASE SERVICES OTHER-INDIVIDUAL PRO INTERPRETERS,Formula & Transfers,Medicaid & Client Medical Assistance
+5113010009,CASE SERVICES OTHER-INDIVIDUAL PRO READER SERVICES,Formula & Transfers,Medicaid & Client Medical Assistance
+5113010016,CLIENT SERVICES POST TRAIN,Formula & Transfers,Medicaid & Client Medical Assistance
+5113010017,CLIENT SERVICES VOCATIONAL TRAIN,Formula & Transfers,Medicaid & Client Medical Assistance
+5113010018,CLIENT SERVICES OTHER TRAINING,Formula & Transfers,Medicaid & Client Medical Assistance
+5113010020,CLIENT SERVICES MAINT,Formula & Transfers,Medicaid & Client Medical Assistance
+5113010021,CLIENT SERVICES TRANSPORTATION,Formula & Transfers,Medicaid & Client Medical Assistance
+5113010023,CLIENT SERVICES ALL OTHER,Formula & Transfers,Medicaid & Client Medical Assistance
+5113010024,CLIENT SERVICES POST EMPLOYMENT,Formula & Transfers,Medicaid & Client Medical Assistance
+5113010029,CLIENT SERVICES MAO APPLICANT TRAVEL,Formula & Transfers,Medicaid & Client Medical Assistance
+5113010057,CASE SERVICES OTHER - FUNERAL EXPENSES,Formula & Transfers,Medicaid & Client Medical Assistance
+5113020000,CASE SERVICES OTHER-CORPORATE PROVIDERS,Formula & Transfers,Medicaid & Client Medical Assistance
+5113020001,CASE SERVICES OTHER-CORP  PROV CLIENT EQUIP,Formula & Transfers,Medicaid & Client Medical Assistance
+5113020002,CASE SERVICES OTHER-CORP  PROV FOOD SERVICES,Formula & Transfers,Medicaid & Client Medical Assistance
+5113020003,CASE SERVICES OTHER-CORP  PROV SUPPLIES,Formula & Transfers,Medicaid & Client Medical Assistance
+5113020004,CASE SERVICES OTHER-CORP  PROV LOW VISION AIDS,Formula & Transfers,Medicaid & Client Medical Assistance
+5113020005,CASE SERVICES OTHER-CORP  PROV MEDICAL,Formula & Transfers,Medicaid & Client Medical Assistance
+5113020024,CASE SERVICES SUPPLIES OPER (MEALS),Formula & Transfers,Medicaid & Client Medical Assistance
+5113020025,CASE SERVICES SUPP CASH IN LIEU OF MEALS,Formula & Transfers,Medicaid & Client Medical Assistance
+5113020028,CASE SERVICES SUPPLIES ADMINISTRATIVE,Formula & Transfers,Medicaid & Client Medical Assistance
+5113020029,CASE SERVICES SUPPLIES ADMIN ADVANCES,Formula & Transfers,Medicaid & Client Medical Assistance
+5113020030,CASE SERVICES SUPPLIESADMIN RECOUPMENT,Formula & Transfers,Medicaid & Client Medical Assistance
+5011010000,TUITION ASSISTANCE - REPORTABLE,Formula & Transfers,Scholarships & Assistance to Individuals
+5021420000,TUITION ASSISTANCE - NON-REPORTABLE,Formula & Transfers,Scholarships & Assistance to Individuals
+5041310000,STIPENDS,Formula & Transfers,Scholarships & Assistance to Individuals
+5041310004,CLIENT STIPEND-OTHER,Formula & Transfers,Scholarships & Assistance to Individuals
+5041310005,CLIENT STIPEND WITHHOLDING - EMPLOYER SHARE,Formula & Transfers,Scholarships & Assistance to Individuals
+5100010000,SCHOLARSHIPS - NON-STATE EMPLOYEES,Formula & Transfers,Scholarships & Assistance to Individuals
+5100030000,SCHOLARSHIPS - STATE CONTRACT PROGRAM,Formula & Transfers,Scholarships & Assistance to Individuals
+5100040000,SCHOLARSHIPS - SOUTHERN REG EDU BD CONTR PROGRAM,Formula & Transfers,Scholarships & Assistance to Individuals
+5112510000,HOUSING ASSISTANCE,Formula & Transfers,Scholarships & Assistance to Individuals
+5113010002,ALT PLACEMENT-CHILDREN,Formula & Transfers,Scholarships & Assistance to Individuals
+5113010003,ALT PLACEMENT-SPECIAL CHILDREN/NEW HOPE,Formula & Transfers,Scholarships & Assistance to Individuals
+5113010005,ALT PLACEMENT-ADULTS RFP PLACEMENTS,Formula & Transfers,Scholarships & Assistance to Individuals
+5113010006,ALT PLACEMENT-WRAP SERVICES PLACEMENT,Formula & Transfers,Scholarships & Assistance to Individuals
+5113010007,ALT PLACEMENT-SPECIAL DMH PLACEMENTS,Formula & Transfers,Scholarships & Assistance to Individuals
+5183000000,EDUCATION SCHOLARSHIP TRUST FUND DISBURSEMENTS,Formula & Transfers,Scholarships & Assistance to Individuals
+1801002000,LAND IMPROVEMENTS NON-DEPRECIABLE - (MA),Operational,"Buildings, Land & Capital Construction"
+1801003000,LAND IMPROVEMENTS DEPRECIABLE - (MA),Operational,"Buildings, Land & Capital Construction"
+1801032000,EQUIPMENT PROCURED FOR CONSTRUCTION - (MA),Operational,"Buildings, Land & Capital Construction"
+5021329000,BUILDING RENOVATION,Operational,"Buildings, Land & Capital Construction"
+5021340000,ENGINEERING & ARCHITECTURAL,Operational,"Buildings, Land & Capital Construction"
+5021360002,UNDERGROUND STORAGE TANKS AND SUPERB,Operational,"Buildings, Land & Capital Construction"
+5021479601,INTERIOR LANDSCAPING SERVICES,Operational,"Buildings, Land & Capital Construction"
+5030070002,A AGENCY CAPITAL ASSETS,Operational,"Buildings, Land & Capital Construction"
+5031019601,INTERIOR LANDSCAPING SUPPLIES,Operational,"Buildings, Land & Capital Construction"
+5031029000,BUILDING RENOVATION SUPPLIES,Operational,"Buildings, Land & Capital Construction"
+5040080000,SHORT TERM RENT-NON STATE OWNED LAND,Operational,"Buildings, Land & Capital Construction"
+5041880000,LEASE LAND - INTEREST,Operational,"Buildings, Land & Capital Construction"
+5070010000,DEPRECIABLE LAND IMPROVEMENTS,Operational,"Buildings, Land & Capital Construction"
+5070020000,LAND,Operational,"Buildings, Land & Capital Construction"
+5070030000,SITE DEVELOPMENT (NON-DEP LAND IMP),Operational,"Buildings, Land & Capital Construction"
+5070710000,LAND EASEMENTS,Operational,"Buildings, Land & Capital Construction"
+5070720000,RIGHT OF WAY & LAND ACQUISITION,Operational,"Buildings, Land & Capital Construction"
+5070750000,RIGHT-OF-WAY & LAND ACQUISITION-CONTRACTUAL,Operational,"Buildings, Land & Capital Construction"
+5071210000,FEE - ARCHITECTURAL ENGINEERING & OTHER,Operational,"Buildings, Land & Capital Construction"
+5071220000,CONSTRUCTION - BUILDINGS & ADDITIONS,Operational,"Buildings, Land & Capital Construction"
+5071230000,RENOVATIONS - BUILDINGS & ADDITIONS INTERIORS,Operational,"Buildings, Land & Capital Construction"
+5071230001,RENOVATIONS-INTERIOR ASBESTOS ABATE,Operational,"Buildings, Land & Capital Construction"
+5071230002,RENOVATIONS-INTERIOR CONST MATERIALS,Operational,"Buildings, Land & Capital Construction"
+5071240000,RENOVATIONS-UTILITIES,Operational,"Buildings, Land & Capital Construction"
+5071250000,ROOFING-REPAIRS & RENOVATIONS,Operational,"Buildings, Land & Capital Construction"
+5071260000,OTHER CONSTRUCTION/RENOV/REPAIR PROJECTS,Operational,"Buildings, Land & Capital Construction"
+5071270000,RENOVATIONS-BUILDING EXTERIORS,Operational,"Buildings, Land & Capital Construction"
+5071280000,LEGAL SERVICES-CONSTRUCTION PROJECTS,Operational,"Buildings, Land & Capital Construction"
+5071300000,ATTORNEY FEES-CONSTRUCTION PROJECTS,Operational,"Buildings, Land & Capital Construction"
+5072210000,OTHER CAPITAL OUTLAY COSTS,Operational,"Buildings, Land & Capital Construction"
+5072220000,CONSTRUCTION PROJECTS-LUMP SUM,Operational,"Buildings, Land & Capital Construction"
+5021330000,CONTRACT AGREEMENTS WITH GOVT/NONPROFIT ENTITIES,Operational,Contracts with Governments & Nonprofits
+5021599104,FOOD SERVICES,Operational,Food & Provisions
+5033010000,FOOD SUPPLIES - FOOD,Operational,Food & Provisions
+5033010001,FOOD SUPPLIES - MILK,Operational,Food & Provisions
+5033019000,FOOD SERVICES - SUPPLIES,Operational,Food & Provisions
+5110010001,PUBLIC ASSISTANCE PAYMENTS AND FOOD,Operational,Food & Provisions
+5020077000,"SRVCS,MAINT&WARR - APPLICATION DEVELOPMENT",Operational,Information Technology
+5020077100,"SRVCS,MAINT&WARR - APPLICATION SUPPORT",Operational,Information Technology
+5020077130,"SRVCS,MAINT&WARR - END-USER COMPUTING",Operational,Information Technology
+5020077170,"SRVCS,MAINT&WARR - PRINT & COPY END USER",Operational,Information Technology
+5020077190,"SRVCS,MAINT&WARR - INFORMATION SECURITY",Operational,Information Technology
+5020077200,"SRVCS,MAINT&WARR - SERVERS",Operational,Information Technology
+5020077230,IT CONTRACTORS,Operational,Information Technology
+5020077240,DP SERVICES – STATE,Operational,Information Technology
+5021469310,FIRE ALARM SYSTEMS,Operational,Information Technology
+5021469316,SECURITY ALARM SYSTEMS SERVICES,Operational,Information Technology
+5021469321,UPS SYSTEMS,Operational,Information Technology
+5030067000,EQUIPMENT & SUPPLIES - APPLICATION DEVELOPMENT,Operational,Information Technology
+5030067001,PROGRAMS & LICENCES - APPLICATION DEVELOPMENT,Operational,Information Technology
+5030067100,EQUIPMENT & SUPPLIES - APPLICATION SUPPORT,Operational,Information Technology
+5030067101,PROGRAMS & LICENCES - APPLICATION SUPPORT,Operational,Information Technology
+5030067121,PROGRAMS & LICENCES - DISASTER RECOVERY,Operational,Information Technology
+5030067130,EQUIPMENT & SUPPLIES - END-USER COMPUTING,Operational,Information Technology
+5030067131,PROGRAMS & LICENCES - END-USER COMPUTING,Operational,Information Technology
+5030067141,PROGRAMS & LICENCES - IT SERVICE DESK,Operational,Information Technology
+5030067151,PROGRAMS & LICENCES - MAINFRAME,Operational,Information Technology
+5030067161,PROGRAMS & LICENCES - MANAGEMENT & ADMIN,Operational,Information Technology
+5030067170,EQUIPMENT & SUPPLIES - PRINT & COPY END USER,Operational,Information Technology
+5030067171,PROGRAMS & LICENCES - PRINT END USER,Operational,Information Technology
+5030067181,PROGRAMS & LICENCES - PRINT ENTERPRISE & MAIL,Operational,Information Technology
+5030067190,EQUIPMENT & SUPPLIES - INFORMATION SECURITY,Operational,Information Technology
+5030067191,PROGRAMS & LICENCES - INFORMATION SECURITY,Operational,Information Technology
+5030067200,EQUIPMENT & SUPPLIES - SERVERS,Operational,Information Technology
+5030067201,PROGRAMS & LICENCES - SERVERS,Operational,Information Technology
+5030067211,PROGRAMS & LICENCES - STORAGE,Operational,Information Technology
+5031469304,FIRE ALARM SYSTEMS SUPPLIES,Operational,Information Technology
+5031469312,UPS SYSTEMS SUPPLIES,Operational,Information Technology
+5031469316,SECURITY ALARM SYSTEMS SUPPLIES,Operational,Information Technology
+5041867010,LEASE IT COPIERS - EXECUTORY COST,Operational,Information Technology
+5041867030,LEASE IT COPIERS - INTEREST,Operational,Information Technology
+5021050001,LEGAL SETTLEMENT TO AN INDIVIDUAL (GROSS PROCEED),Operational,"Insurance, Claims & Risk"
+5021540003,OTHER PROFESSIONAL SERVICES - SCHOOL BUS CLAIMS,Operational,"Insurance, Claims & Risk"
+5040510000,INSURANCE-STATE,Operational,"Insurance, Claims & Risk"
+5040520000,INSURANCE-NON STATE,Operational,"Insurance, Claims & Risk"
+5070720001,RW-Dep of Est-just cmp in crt pend settle of verdi,Operational,"Insurance, Claims & Risk"
+5070720002,R/W-Amicable-Settle for amt of apvl aprl,Operational,"Insurance, Claims & Risk"
+5070720004,RW-Pmt of Admin Settlement - Appraised Value,Operational,"Insurance, Claims & Risk"
+5070720005,RW-Pmt of Excess Amt of Adm Settl over appra value,Operational,"Insurance, Claims & Risk"
+5070720006,R/W-Pmt of Legal Settle -Appraised Value,Operational,"Insurance, Claims & Risk"
+5070720007,RW-Pmt Excess Amt of Lgl Settl over appra value,Operational,"Insurance, Claims & Risk"
+5070720008,R/W-Payment of Jury Verdict - Appraisal,Operational,"Insurance, Claims & Risk"
+5070720009,R/W-Pmt of excess amt of verdict over approv appr,Operational,"Insurance, Claims & Risk"
+5130400000,WORKERS COMPENSATION INSURANCE,Operational,"Insurance, Claims & Risk"
+5140010000,INDEMNITY CLAIMS & AWARDS,Operational,"Insurance, Claims & Risk"
+5140010003,INDEMNITY CLAIMS AND AWARDS - MEDICAL,Operational,"Insurance, Claims & Risk"
+5140010005,Damage Claims - Other,Operational,"Insurance, Claims & Risk"
+5140010021,MILEAGE - MEDICAL CLAIMS,Operational,"Insurance, Claims & Risk"
+5140060000,INDEMNITY CLAIMS & AWARDS-GROSS PROCEEDS,Operational,"Insurance, Claims & Risk"
+5020030000,PRINTING BINDING ADVERTISING,Operational,"Marketing, Promotion & Public Information"
+5020030002,"PRINTING, BINDING, ADVERTISING - COMMERCIAL",Operational,"Marketing, Promotion & Public Information"
+5020030003,"PRINTING, BINDING, ADVERTISING - NEWSPAPER AD",Operational,"Marketing, Promotion & Public Information"
+5020030004,"PRINTING, BINDING, ADVERTISING - PROMOTIONAL",Operational,"Marketing, Promotion & Public Information"
+5021480000,PROMOTIONAL,Operational,"Marketing, Promotion & Public Information"
+5033030000,PROMOTIONAL SUPPLIES,Operational,"Marketing, Promotion & Public Information"
+5033080000,EXHIBIT & COLLECT SUPPLIES,Operational,"Marketing, Promotion & Public Information"
+5021310000,MEDICAL & HEALTH SERVICES,Operational,Medical & Health Services (operational)
+5021310001,MEDICAL & HEALTH SERVICES VETERINARY,Operational,Medical & Health Services (operational)
+5021310003,MEDICAL & HEALTH SERVICES - LABORATORY SERVICES,Operational,Medical & Health Services (operational)
+5021310004,MEDICAL & HEALTH SERVICES-IMAGING & RADIOLOGY SERV,Operational,Medical & Health Services (operational)
+5021310005,MEDICAL & HEALTH SERVICES - NURSING SERVICES,Operational,Medical & Health Services (operational)
+5021310007,MEDICAL & HEALTH SERVICES - PSYCHIATRIC SERVICES,Operational,Medical & Health Services (operational)
+5021310008,MEDICAL & HEALTH SERVICES - DENTAL SERVICES,Operational,Medical & Health Services (operational)
+5021310009,MEDICAL & HEALTH SRV-OPTOMETRIST & OPHTHALMOLOGIST,Operational,Medical & Health Services (operational)
+5021400000,EDUCATION TRAINING - NON STATE,Operational,"Personnel, Training & Memberships"
+5021410000,EDUCATION & TRAINING - STATE,Operational,"Personnel, Training & Memberships"
+5021599109,TRAINING EXPENSES (SERVICES),Operational,"Personnel, Training & Memberships"
+5041010000,DUES & MEMBERSHIP FEES,Operational,"Personnel, Training & Memberships"
+5140010015,LOST WAGES,Operational,"Personnel, Training & Memberships"
+5160870000,Rural Teacher Recruitment,Operational,"Personnel, Training & Memberships"
+1801017000,PRINTING EQUIPMENT - (MA),Operational,"Printing, Postage & Mail"
+5020077180,"SRVCS,MAINT&WARR - PRINT ENTERPRISE & MAIL",Operational,"Printing, Postage & Mail"
+5020080000,FREIGHT EXPRESS DELIVERY,Operational,"Printing, Postage & Mail"
+5030030000,PRINTED ITEMS,Operational,"Printing, Postage & Mail"
+5030030001,PRINTING COMMERCIAL - CONSUMABLE ARTICLE,Operational,"Printing, Postage & Mail"
+5030067180,EQUIPMENT & SUPPLIES - PRINT ENTERPRISE & MAIL,Operational,"Printing, Postage & Mail"
+5030070000,POSTAGE,Operational,"Printing, Postage & Mail"
+5030070001,POSTAGE  - DETAIL A,Operational,"Printing, Postage & Mail"
+5030070003,POSTAGE - SESSION,Operational,"Printing, Postage & Mail"
+5040490008,RENT POSTAGE EQUIPMENT,Operational,"Printing, Postage & Mail"
+5020010001,OFFICE EQUIPMENT SERVICE - NON-IT PLAN REL,Operational,Professional & Contracted Services
+5020030001,"PRINTING, BINDING, ADVERTISING - COMMERCIAL NON-IT",Operational,Professional & Contracted Services
+5020077120,"SRVCS,MAINT&WARR - DISASTER RECOVERY",Operational,Professional & Contracted Services
+5020077140,"SRVCS,MAINT&WARR - IT SERVICE DESK",Operational,Professional & Contracted Services
+5020077150,"SRVCS,MAINT&WARR - MAINFRAME",Operational,Professional & Contracted Services
+5020077160,"SRVCS,MAINT&WARR - MANAGEMENT & ADMIN",Operational,Professional & Contracted Services
+5020077210,"SRVCS,MAINT&WARR - STORAGE",Operational,Professional & Contracted Services
+5021010005,LEGAL SERVICES - COURT REPORTER SERVICES,Operational,Professional & Contracted Services
+5021330001,CONTRACT AGREEMENTS WITH COUNTY/CITY GOVERNMENTS,Operational,Professional & Contracted Services
+5021330003,CONTRACT AGREEMENTS WITH STATE INTERGOVT,Operational,Professional & Contracted Services
+5021490000,AUDIT ACCOUNTING FINANCE,Operational,Professional & Contracted Services
+5021500000,MANAGEMENT CONSULTANTS,Operational,Professional & Contracted Services
+5021500001,ACTUARIAL CONSULTANTS,Operational,Professional & Contracted Services
+5021520000,TEMPORARY SERVICES,Operational,Professional & Contracted Services
+5021540000,NON-IT & NON-REAL ESTATE OTHER PROFESS SERVICES,Operational,Professional & Contracted Services
+5021540001,PROFESSIONAL SERVICES - LANGUAGE INTERPRETERS,Operational,Professional & Contracted Services
+5021540002,PROFESSIONAL SERV - HEARING IMPAIRED INTERPRETERS,Operational,Professional & Contracted Services
+5021540006,PROFESSIONAL SERVICES - COPYING SERVICES,Operational,Professional & Contracted Services
+5021570000,CONTRACTUAL SERVICES,Operational,Professional & Contracted Services
+5024990000,OTHER CONTRACT SERVICES - NON-IT & NON-REAL ESTATE,Operational,Professional & Contracted Services
+5024990001,OTHER CONTRACTUAL SERVICES - NON-IT PLAN REL,Operational,Professional & Contracted Services
+5024990002,OTHER CONTRACTUAL SERVICES - KEY SERVICE,Operational,Professional & Contracted Services
+5024990003,OTHER CONTRACTUAL SERVICES - FIRE EXT SERVICE,Operational,Professional & Contracted Services
+5024990006,Miscellaneous Contractual Services,Operational,Professional & Contracted Services
+5024990009,OTHER CONTRACTUAL SERVICES - SWEEPING,Operational,Professional & Contracted Services
+5024990010,OTHER CONTRACTUAL SERVICES - LITTER REMOVAL,Operational,Professional & Contracted Services
+5030010003,OFFICE SUPPLIES & EQUIPMENT - NON-IT PLAN REL,Operational,Professional & Contracted Services
+5040050000,CONTINGENT RENT PAYMENTS - NON-IT,Operational,Professional & Contracted Services
+5040490000,LEASE - LOW VALUE OTHER NON-IT,Operational,Professional & Contracted Services
+5040490001,SHORT-TERM RENT-OTHER-NON-IT,Operational,Professional & Contracted Services
+5040510001,INSURANCE - STATE - NON-IT PLAN RELATED,Operational,Professional & Contracted Services
+5111010002,MEDICAL SERVICES-IND PROFESSIONAL CONSULTATION,Operational,Professional & Contracted Services
+5112010000,LEGAL FEES,Operational,Professional & Contracted Services
+1801030000,"HOUSEHOLD, LAUNDRY, & JANITORIAL EQUIPMENT - (MA)",Operational,"Rent, Leases & Facilities Operations"
+5021469311,HVAC MAINTENANCE,Operational,"Rent, Leases & Facilities Operations"
+5021479207,JANITORIAL,Operational,"Rent, Leases & Facilities Operations"
+5021479600,GROUNDS MAINTENANCE SERVICES,Operational,"Rent, Leases & Facilities Operations"
+5024990008,OTHER CONTRACTUAL SERVICES - MOWING,Operational,"Rent, Leases & Facilities Operations"
+5031019600,GROUNDS MAINTENANCE SUPPLIES,Operational,"Rent, Leases & Facilities Operations"
+5031469305,HVAC SUPPLIES,Operational,"Rent, Leases & Facilities Operations"
+5031479203,JANITORIAL SUPPLIES,Operational,"Rent, Leases & Facilities Operations"
+5040027000,SHORT-TERM RENT COPIERS EQUIPMENT,Operational,"Rent, Leases & Facilities Operations"
+5040037000,SHORT-TERM RENT DATA PROCESSING EQUIPMENT,Operational,"Rent, Leases & Facilities Operations"
+5040040000,SHORT-TERM RENT - MEDICAL SCIENCE LAB EQUIPMENT,Operational,"Rent, Leases & Facilities Operations"
+5040057000,CONTINGENT RENT PAYMENTS - IT,Operational,"Rent, Leases & Facilities Operations"
+5040057100,CONTINGENT RENT PAYMENTS - SBITA,Operational,"Rent, Leases & Facilities Operations"
+5040060000,SHORT TERM RENT-NON STATE OWNED BUILDING,Operational,"Rent, Leases & Facilities Operations"
+5040070000,RENT-STATE OWNED REAL PROPERTY,Operational,"Rent, Leases & Facilities Operations"
+5040070001,RENT-STATE OWNED-REAL PROP-MAINT & OP/EXCESS ENERG,Operational,"Rent, Leases & Facilities Operations"
+5040490002,RENT-OTHER - MEETING ROOMS & VIDEO EQUIPMENT,Operational,"Rent, Leases & Facilities Operations"
+5040490003,RENT POST OFFICE BOX,Operational,"Rent, Leases & Facilities Operations"
+5040490004,RENT STORAGE TANKS,Operational,"Rent, Leases & Facilities Operations"
+5040490005,SHORT TERM RENT-OTHER-HVY EQUIP-NON REAL ESTATE,Operational,"Rent, Leases & Facilities Operations"
+5040490006,INTERNAL RENT-OTHER-RESEARCH VESSELS,Operational,"Rent, Leases & Facilities Operations"
+5040490007,INTERNAL RENT-OTHER-MOTOR POOL,Operational,"Rent, Leases & Facilities Operations"
+5040490009,RENT PARKING,Operational,"Rent, Leases & Facilities Operations"
+5040490010,RENT STORAGE SPACE,Operational,"Rent, Leases & Facilities Operations"
+5040490011,RENT TOWERS,Operational,"Rent, Leases & Facilities Operations"
+5040490012,RENT TRASH CONTAINERS,Operational,"Rent, Leases & Facilities Operations"
+5040847000,SHORT-TERM RENT - SBITA,Operational,"Rent, Leases & Facilities Operations"
+5041469301,EQUIPMENT RENTAL FOR REPAIR & MAINTENANCE,Operational,"Rent, Leases & Facilities Operations"
+5041850000,LEASE BUILDING - INTEREST,Operational,"Rent, Leases & Facilities Operations"
+5041860000,LEASE BUILDING - EXECUTORY,Operational,"Rent, Leases & Facilities Operations"
+5050019104,IN STATE TRAVEL REGISTRATION-FACILITY MAINTENANCE,Operational,"Rent, Leases & Facilities Operations"
+5050019105,OUT OF STATE TRAVEL - FACILITY MAINTENANCE,Operational,"Rent, Leases & Facilities Operations"
+5070740006,Relocation - Rent Supplement Tenant,Operational,"Rent, Leases & Facilities Operations"
+5112510002,RENTAL ASSISTANCE PAYMENTS-TENANTS-NON-REPORTABLE,Operational,"Rent, Leases & Facilities Operations"
+5113010066,CS SRV OTH RENT/UTIL,Operational,"Rent, Leases & Facilities Operations"
+5113020007,EQUIPMENT RENTED,Operational,"Rent, Leases & Facilities Operations"
+5024990004,Highway Maintenance Contracts,Operational,"Roads, Bridges & Highways"
+5032010000,HIGHWAY MAINTENANCE SUPPLIES,Operational,"Roads, Bridges & Highways"
+5032010003,Asphalt,Operational,"Roads, Bridges & Highways"
+5070730000,HIGHWAY & ROAD IMPROVEMENTS,Operational,"Roads, Bridges & Highways"
+5070730001,Payment to Road and Bridge Contractors:,Operational,"Roads, Bridges & Highways"
+5070730002,Payment to Moving & Adjusting Public Utl,Operational,"Roads, Bridges & Highways"
+5070730003,Pmt to Railroad Comp for Work Performed,Operational,"Roads, Bridges & Highways"
+5021599501,SECURITY CONTRACTS,Operational,Security & Protective Services
+5032010014,Guard Rails/Ends/Bolts/Accessories,Operational,Security & Protective Services
+1801014000,OFFICE EQUIPMENT - (MA),Operational,"Supplies, Equipment & Materials"
+1801015000,PHOTOCOPY & FAX EQUIPMENT - (MA),Operational,"Supplies, Equipment & Materials"
+1801016000,DATA PROCESSING EQUIPMENT - (MA),Operational,"Supplies, Equipment & Materials"
+1801018000,"MEDICAL, SCIENTIFIC & LAB EQUIPMENT - (MA)",Operational,"Supplies, Equipment & Materials"
+1801019000,CLIENT / PATIENT EQUIPMENT - (MA),Operational,"Supplies, Equipment & Materials"
+1801020000,MICROFILM & MICROFICHE EQUIPMENT - (MA),Operational,"Supplies, Equipment & Materials"
+1801021000,PHOTOGRAPHIC / AV EQUIPMENT - (MA),Operational,"Supplies, Equipment & Materials"
+1801022000,TV / RADIO EQUIPMENT - (MA),Operational,"Supplies, Equipment & Materials"
+1801025000,OTHER EQUIPMENT - (MA),Operational,"Supplies, Equipment & Materials"
+1801027000,MAJOR TOOLS / OTHER MOTORIZED EQUIPMENT - (MA),Operational,"Supplies, Equipment & Materials"
+1801029000,AGRICULTURE EQUIPMENT - (MA),Operational,"Supplies, Equipment & Materials"
+1801031000,LAW ENFORCEMENT EQUIPMENT - (MA),Operational,"Supplies, Equipment & Materials"
+1801037000,OFFICE FURNITURE - (MA),Operational,"Supplies, Equipment & Materials"
+1801099000,LOW VALUE ASSETS - (MA),Operational,"Supplies, Equipment & Materials"
+5020010000,OFFICE EQUIPMENT SERVICE,Operational,"Supplies, Equipment & Materials"
+5021469320,UNIFORMS AS A SERVICE,Operational,"Supplies, Equipment & Materials"
+5021479205,FABRIC/FURNITURE CLEANING,Operational,"Supplies, Equipment & Materials"
+5030010000,OFFICE SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5030010001,OFFICE SUPPLIES - NEWS,Operational,"Supplies, Equipment & Materials"
+5030010002,OFFICE SUPPLIES - MINOR OFFICE EQUIPMENT,Operational,"Supplies, Equipment & Materials"
+5030010005,CONTROLLABLE OFFICE SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5030010007,OFFICE SUPPLIES PRINTED FORMS,Operational,"Supplies, Equipment & Materials"
+5030019110,DIRECT USER COSTS SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5030019113,TRAINING EXPENSES (SUPPLIES),Operational,"Supplies, Equipment & Materials"
+5030040000,MICROFILM FILE FICHE SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5030050000,PHOTOGRAPHIC AUDIO-VISUAL SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5030067112,MOBILE HOTSPOT EQUIPMENT,Operational,"Supplies, Equipment & Materials"
+5030067120,EQUIPMENT & SUPPLIES - DISASTER RECOVERY,Operational,"Supplies, Equipment & Materials"
+5030067140,EQUIPMENT & SUPPLIES - IT SERVICE DESK,Operational,"Supplies, Equipment & Materials"
+5030067150,EQUIPMENT & SUPPLIES - MAINFRAME,Operational,"Supplies, Equipment & Materials"
+5030067160,EQUIPMENT & SUPPLIES - MANAGEMENT & ADMIN,Operational,"Supplies, Equipment & Materials"
+5030067210,EQUIPMENT & SUPPLIES - STORAGE,Operational,"Supplies, Equipment & Materials"
+5030077000,EQUIPMENT DISTR PROGRAM - HEARING/SPEECH IMPAIRED,Operational,"Supplies, Equipment & Materials"
+5030080000,TV/RADIO/ENGINEERING MAINTENANCE SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031010000,LAUNDRY SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031010001,FURNISHINGS,Operational,"Supplies, Equipment & Materials"
+5031019002,PEST CONTROL/EXTERMINATOR SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031019602,PARKING/ROADS MAINTENANCE SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031019603,SIGNAGE SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031030003,MAINTENANCE SUPPLIES - DUE TO INMATE ABUSE,Operational,"Supplies, Equipment & Materials"
+5031030008,Welding Supplies,Operational,"Supplies, Equipment & Materials"
+5031030009,Small Tools & Equipment,Operational,"Supplies, Equipment & Materials"
+5031030010,Acetylene & Oxygen Supplies,Operational,"Supplies, Equipment & Materials"
+5031030011,MISCELLANEOUS SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031469300,CARPENTRY (SUPPLIES),Operational,"Supplies, Equipment & Materials"
+5031469301,CAFETERIA EQUIPMENT & SMALL WARES,Operational,"Supplies, Equipment & Materials"
+5031469302,ELECTRICAL SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031469303,ENERGY MANAGEMENT SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031469306,LIGHTING SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031469307,MECHANICAL SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031469308,OTHER MAINTENANCE SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031469309,PLUMBING SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031469310,STRUCTURAL/ROOFING MAINTENANCE SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031469311,UNIFORMS,Operational,"Supplies, Equipment & Materials"
+5031469313,CHILLER & CONT. MAINTENANCE SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031469314,ELEVATOR/ESCALATOR SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031469317,WATER TREATMENT SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031469318,AIR PURIFICATION SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031479200,CARPET SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031479201,FABRIC/FURNITURE CLEANING SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031479204,LOCKSMITH SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031479205,PAINTING (SUPPLIES),Operational,"Supplies, Equipment & Materials"
+5031479206,SPECIALTY SURFACE SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031479207,WINDOW CLEANING SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031479208,WOOD MAINTENANCE SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031479605,SNOW REMOVAL SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5031639500,OTHER SECURITY EXPENSES  SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5032010023,Misc Electric Equipment & Components,Operational,"Supplies, Equipment & Materials"
+5032410000,MED SCIENT & LAB SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5032410001,MED SCIENT & LAB SUPPLIES - PRESC DRUGS,Operational,"Supplies, Equipment & Materials"
+5032410002,MED SCIENT & LAB SUPPLIES - OTC DRUGS,Operational,"Supplies, Equipment & Materials"
+5032410005,MED SURGICAL & OPTICAL SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5032410006,DENTAL SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5032410007,MED SCIENT & LAB MINOR EQUIPMENT,Operational,"Supplies, Equipment & Materials"
+5032430000,CLIENT PATIENT INMATE HYGIENIC SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5032810000,EDUCATIONAL SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5032810001,EDUCATIONAL SUPPLIES - BOOKS,Operational,"Supplies, Equipment & Materials"
+5032810002,EDUCATIONAL SUPPLIES - TEACHING AIDS,Operational,"Supplies, Equipment & Materials"
+5032810003,EDUCATIONAL SUPPLIES - FILMS,Operational,"Supplies, Equipment & Materials"
+5032820000,INSTRUCTIONAL MATERIALS,Operational,"Supplies, Equipment & Materials"
+5032830000,TESTING SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5032910000,MUNITIONS TARGETS LAW ENF SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5032910003,MUNITIONS TARGETS LAW ENF SUPPLIES TARGET,Operational,"Supplies, Equipment & Materials"
+5032910004,MUNITIONS TARGETS LAW ENF SECURITY SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5032910005,MUNITIONS TARGETS LAW ENF SUPPLIES DOGS,Operational,"Supplies, Equipment & Materials"
+5033020000,FEED & VETERIN SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5033040000,AGRI-MARINE-FORESTRY SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5033040001,AGRI-MARINE-FORESTRY SUPPLIES - SEED,Operational,"Supplies, Equipment & Materials"
+5033040002,AGRI-MARINE-FORESTRY SUPPLIES - FERTILIZER,Operational,"Supplies, Equipment & Materials"
+5033040003,AGRI-MARINE-FORESTRY SUPPLIES - LIVESTOCK,Operational,"Supplies, Equipment & Materials"
+5033040004,AGRI-MARINE-FORESTRY SUPPLIES - MINOR EQUIPMENT,Operational,"Supplies, Equipment & Materials"
+5033050000,CLOTHING SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5033070000,ART SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5033130000,FACTORY SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5033130001,MANUFACTURING SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5033130002,MACHINERY SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5033140000,LICENSE PLATE SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5033140001,TITLE & REGISTRATION SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5033140002,CREDENTIAL SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5033150000,PURCHASED RESALE - CONSUMER GOODS,Operational,"Supplies, Equipment & Materials"
+5033150001,PURCHASED RESALE - CONSUMER GOODS-COTTON MILL,Operational,"Supplies, Equipment & Materials"
+5033160000,PURCHASED RESALE - RAW MATERIALS,Operational,"Supplies, Equipment & Materials"
+5033160001,PURCHASED RESALE - RAW MATERIALS-COTTON MILL,Operational,"Supplies, Equipment & Materials"
+5033990000,OTHER SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5033990001,PASTORAL SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5033990002,SHIPPING SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5034020003,INVENTORY- PROCUREMENT,Operational,"Supplies, Equipment & Materials"
+5040067000,LEASE - LOW VALUE COPIER EQUIPMENT,Operational,"Supplies, Equipment & Materials"
+5041620000,UNIFORM MAINTENANCE ALLOWANCE,Operational,"Supplies, Equipment & Materials"
+5041860030,LEASE - MEDICAL SCIENCE LAB EQUIPMENT - INTEREST,Operational,"Supplies, Equipment & Materials"
+5070310000,BASIC EQUIPMENT,Operational,"Supplies, Equipment & Materials"
+5070310001,BASIC EQUIPMENT - NON-CAP,Operational,"Supplies, Equipment & Materials"
+5070310003,BASIC EQUIPMENT - CAPITAL,Operational,"Supplies, Equipment & Materials"
+5113020008,DURABLE MEDICAL SUPPLIES,Operational,"Supplies, Equipment & Materials"
+5113020015,CleintServiceAssesementSupplies/Equip,Operational,"Supplies, Equipment & Materials"
+5113020016,ClientServices Diagn/TreatSupplies/Equip,Operational,"Supplies, Equipment & Materials"
+5113020017,ClientServicesAllOtherSupplies/Equip,Operational,"Supplies, Equipment & Materials"
+5113020019,ClientServicesRehabTechnologySupplies/Eq,Operational,"Supplies, Equipment & Materials"
+5113020020,ClientServicesOtherTrainSupplies/Eq,Operational,"Supplies, Equipment & Materials"
+5113020021,ClientServicesPostTrainSupplies/Eq,Operational,"Supplies, Equipment & Materials"
+5113020022,ClientServicesVocTrainSupplies/Eq,Operational,"Supplies, Equipment & Materials"
+5113020023,ClientServicesMaintSupplies/Eq,Operational,"Supplies, Equipment & Materials"
+1801023000,COMMUNICATIONS EQUIPMENT - (MA),Operational,Telecommunications & Connectivity
+5020077110,"SRVCS,MAINT&WARR - DATA NETWORK",Operational,Telecommunications & Connectivity
+5020077112,"NETWORK, CIRCUIT & VOICE - DATA NETWORK",Operational,Telecommunications & Connectivity
+5020077220,"SRVCS,MAINT&WARR - VOICE NETWORK",Operational,Telecommunications & Connectivity
+5020077222,"NETWORK, CIRCUIT & VOICE - VOICE NETWORK",Operational,Telecommunications & Connectivity
+5020100000,COMM EQUIP SERVICES,Operational,Telecommunications & Connectivity
+5020120000,CELLULAR TELEPHONE SERVICES,Operational,Telecommunications & Connectivity
+5030067110,EQUIPMENT & SUPPLIES - DATA NETWORK,Operational,Telecommunications & Connectivity
+5030067111,PROGRAMS & LICENCES - DATA NETWORK,Operational,Telecommunications & Connectivity
+5030067220,EQUIPMENT & SUPPLIES - VOICE NETWORK,Operational,Telecommunications & Connectivity
+5030067221,PROGRAMS & LICENCES - VOICE NETWORK,Operational,Telecommunications & Connectivity
+5030090000,COMMUNICATION SUPPLIES,Operational,Telecommunications & Connectivity
+5021350000,RESEARCH SURVEY & APPRAISERS,Operational,"Testing, Research & Appraisal"
+5021510000,TESTING SERVICES,Operational,"Testing, Research & Appraisal"
+5021430000,NON-STATE EMPLOYEE - TRAVEL - NON-REPORTABLE,Operational,"Travel, Lodging & Per Diem"
+5021440000,NON-STATE EMPLOYEE - TRAVEL - REPORTABLE,Operational,"Travel, Lodging & Per Diem"
+5021530000,CATERED MEALS,Operational,"Travel, Lodging & Per Diem"
+5050010000,IN STATE - MEALS (NON-REPORTABLE),Operational,"Travel, Lodging & Per Diem"
+5050010001,TRAINING – IN-STATE MEALS,Operational,"Travel, Lodging & Per Diem"
+5050020000,IN STATE - LODGING,Operational,"Travel, Lodging & Per Diem"
+5050020001,TRAINING – IN-STATE LODGING,Operational,"Travel, Lodging & Per Diem"
+5050031000,HR TRAVEL - IN STATE - AIR TRANSPORTATION,Operational,"Travel, Lodging & Per Diem"
+5050040000,IN STATE - AUTO MILEAGE,Operational,"Travel, Lodging & Per Diem"
+5050040001,IN STATE - AUTO MILEAGE REDUCED,Operational,"Travel, Lodging & Per Diem"
+5050040002,TRAINING – IN-STATE MILEAGE,Operational,"Travel, Lodging & Per Diem"
+5050040003,IN STATE - AUTO MILEAGE - SESSION,Operational,"Travel, Lodging & Per Diem"
+5050041000,HR TRAVEL - IN STATE - AUTO MILEAGE,Operational,"Travel, Lodging & Per Diem"
+5050060000,IN STATE - MISCELLANEOUS TRAVEL EXPENSE,Operational,"Travel, Lodging & Per Diem"
+5050060001,TRAINING – IN-STATE MISCELLANEOUS TRAVEL,Operational,"Travel, Lodging & Per Diem"
+5050070000,TRAINING - IN-STATE REGISTRATION FEES,Operational,"Travel, Lodging & Per Diem"
+5050080000,IN STATE - SUBSISTENCE ALLOWANCE,Operational,"Travel, Lodging & Per Diem"
+5050080001,IN STATE - SUBSISTENCE ALLOWANCE - SESSION,Operational,"Travel, Lodging & Per Diem"
+5050510000,OUT OF STATE - MEALS (NON-REPORTABLE),Operational,"Travel, Lodging & Per Diem"
+5050520000,OUT OF STATE - LODGING,Operational,"Travel, Lodging & Per Diem"
+5050531000,HR TRAVEL - OUT OF STATE - AIR TRANSPORTATION,Operational,"Travel, Lodging & Per Diem"
+5050540000,OUT OF STATE - AUTO MILEAGE,Operational,"Travel, Lodging & Per Diem"
+5050540001,OUT OF STATE - AUTO MILEAGE REDUCED,Operational,"Travel, Lodging & Per Diem"
+5050541000,HR TRAVEL - OUT OF STATE - AUTO MILEAGE,Operational,"Travel, Lodging & Per Diem"
+5050560000,OUT OF STATE - MISCELLANEOUS TRAVEL EXPENSE,Operational,"Travel, Lodging & Per Diem"
+5050570000,TRAINING - OUT-OF-STATE REGISTRATION FEES,Operational,"Travel, Lodging & Per Diem"
+5050580000,OUT OF STATE - SUBSISTENCE ALLOWANCE,Operational,"Travel, Lodging & Per Diem"
+5051010000,FOREIGN TRAVEL - MEALS,Operational,"Travel, Lodging & Per Diem"
+5051020000,FOREIGN TRAVEL - LODGING,Operational,"Travel, Lodging & Per Diem"
+5051030000,FOREIGN TRAVEL - AIR TRANSPORTATION,Operational,"Travel, Lodging & Per Diem"
+5051031000,HR - FOREIGN TRAVEL - AIR TRANSPORTATION,Operational,"Travel, Lodging & Per Diem"
+5051040000,FOREIGN TRAVEL - AUTO MILEAGE,Operational,"Travel, Lodging & Per Diem"
+5051041000,HR - FOREIGN TRAVEL - AUTO MILEAGE,Operational,"Travel, Lodging & Per Diem"
+5051050000,FOREIGN TRAVEL - OTHER TRANSPORTATION,Operational,"Travel, Lodging & Per Diem"
+5051060000,FOREIGN TRAVEL - MISCELLANEOUS TRAVEL EXPENSE,Operational,"Travel, Lodging & Per Diem"
+5051070000,FOREIGN TRAVEL - REGISTRATION FEES,Operational,"Travel, Lodging & Per Diem"
+5051520000,REPORTABLE MEALS,Operational,"Travel, Lodging & Per Diem"
+5051990000,OTHER TRAVEL,Operational,"Travel, Lodging & Per Diem"
+5052010000,TRAVEL ADVANCE,Operational,"Travel, Lodging & Per Diem"
+5110010026,CLIENT PAYMENT - RENT/UTILITIES,Operational,Utilities
+5150010000,NON REAL ESTATE - WATER UTILITIES,Operational,Utilities
+5150010006,NON REAL ESTATE - GARBAGE SERVICE,Operational,Utilities
+5150019400,WATER & SEWER,Operational,Utilities
+5150020000,NATURAL GAS - NON-REAL ESTATE,Operational,Utilities
+5150030000,ELECTRICITY - NON-REAL ESTATE,Operational,Utilities
+5150039400,ELECTRICITY,Operational,Utilities
+5150039401,OVERTIME HVAC (ELECTRICITY AFTER HOURS),Operational,Utilities
+1801010000,VEHICLES & TRANSPORTATION - (MA),Operational,"Vehicles, Fuel & Fleet"
+1801010500,LAW ENFORCEMENT  VEHICLES - (MA),Operational,"Vehicles, Fuel & Fleet"
+1801011000,BUSES - (MA),Operational,"Vehicles, Fuel & Fleet"
+1801012000,AIRCRAFT & HELICOPTERS - (MA),Operational,"Vehicles, Fuel & Fleet"
+1801013000,WATERCRAFT & BOATS - (MA),Operational,"Vehicles, Fuel & Fleet"
+5021450000,MOTORIZED VEHICLE SERVICES,Operational,"Vehicles, Fuel & Fleet"
+5021450001,MOTOR VEHICLE REPAIRS - COMMERCIAL,Operational,"Vehicles, Fuel & Fleet"
+5021450002,MOTOR VEHICLE REPAIRS - WRECKED,Operational,"Vehicles, Fuel & Fleet"
+5021450003,MOTORIZED VEHICLE SERVICES INTERNAL,Operational,"Vehicles, Fuel & Fleet"
+5021450004,MOTORIZED VEHICLE CAR WASH SERVICES,Operational,"Vehicles, Fuel & Fleet"
+5021450005,MOTORIZED VEHICLE SVCS - TIRES - RETREAD SERVICES,Operational,"Vehicles, Fuel & Fleet"
+5021469322,VEHICLE MAINTENANCE,Operational,"Vehicles, Fuel & Fleet"
+5024990007,Vehicle Safety Pkg Boxes (by Sign Shop),Operational,"Vehicles, Fuel & Fleet"
+5031469315,VEHICLE MAINTENANCE SUPPLIES,Operational,"Vehicles, Fuel & Fleet"
+5031510000,MOTOR VEHICLE SUPPLIES,Operational,"Vehicles, Fuel & Fleet"
+5031510001,MOTOR VEHICLE SUPPLIES - NON STATE VEHICLE,Operational,"Vehicles, Fuel & Fleet"
+5031510002,MOTOR VEHICLE SUPPLIES - INVENTORY PARTS,Operational,"Vehicles, Fuel & Fleet"
+5031510003,MOTOR VEHICLE SUPPLIES - WORK ORDER PARTS,Operational,"Vehicles, Fuel & Fleet"
+5031510004,MOTOR VEHICLE SUPPLIES - OTHER SUPPLIES,Operational,"Vehicles, Fuel & Fleet"
+5031510005,MOTOR VEHICLE SUPPLIES - TIRES & BATTERIES,Operational,"Vehicles, Fuel & Fleet"
+5031510006,MOTOR VEHICLE TAGS TITLES AND REGISTRATIONS,Operational,"Vehicles, Fuel & Fleet"
+5031510008,MOTOR VEHICLE GREASE AND TRANSMISSION OIL,Operational,"Vehicles, Fuel & Fleet"
+5031510009,MOTOR VEHICLE ANTI FREEZE/WASHING/WAXING SUPPLIES,Operational,"Vehicles, Fuel & Fleet"
+5031510010,MOTOR VEHICLE TIRES & TUBES,Operational,"Vehicles, Fuel & Fleet"
+5031510011,MOTOR VEHICLE AUTO BATTERIES,Operational,"Vehicles, Fuel & Fleet"
+5031510013,MOTOR VEHICLE REPLACEMENT PARTS,Operational,"Vehicles, Fuel & Fleet"
+5031520000,SCHOOL BUS & SUPPORT VEHICLE PARTS,Operational,"Vehicles, Fuel & Fleet"
+5031530000,GASOLINE,Operational,"Vehicles, Fuel & Fleet"
+5031570000,DIESEL FUEL-TRANSPORTATION,Operational,"Vehicles, Fuel & Fleet"
+5031600000,AVIATION FUEL-JET,Operational,"Vehicles, Fuel & Fleet"
+5031610000,AVIATION GASOLINE,Operational,"Vehicles, Fuel & Fleet"
+5033189400,FUEL OIL,Operational,"Vehicles, Fuel & Fleet"
+5040510002,INSURANCE - STATE - MOTOR VEHICLE,Operational,"Vehicles, Fuel & Fleet"
+5051540000,LEASED CAR - STATE OWNED,Operational,"Vehicles, Fuel & Fleet"
+1801004000,INFRASTRUCTURE  - (MA),Unclassified,Unclassified
+1801005000,BUILDINGS - (MA),Unclassified,Unclassified
+1801006000,BUILDING IMPROVEMENTS - (MA),Unclassified,Unclassified
+1801007000,LEASEHOLD IMPROVEMENTS - (MA),Unclassified,Unclassified
+1801035000,INTANGIBLE ASSETS NON-DEPRECIABLE - (MA),Unclassified,Unclassified
+1801036000,INTANGIBLE ASSETS DEPRECIABLE - (MA),Unclassified,Unclassified
+2000060000,ACCOUNTS PAYABLE - CUSTOMER REFUNDS,Unclassified,Unclassified
+2010020000,USE TAX PAYABLE,Unclassified,Unclassified
+2090030000,MASTER LEASE PROGRAM,Unclassified,Unclassified
+5010020000,CHIEF JUSTICE,Unclassified,Unclassified
+5010100000,COMMISSIONER OF BANKING,Unclassified,Unclassified
+5010580000,CLASSIFIED POSITIONS,Unclassified,Unclassified
+5010600000,UNCLASSIFIED POSITIONS,Unclassified,Unclassified
+5010720000,PER DIEM,Unclassified,Unclassified
+5010790000,PATIENT EARNINGS,Unclassified,Unclassified
+5010800000,INMATE EARNINGS,Unclassified,Unclassified
+5020040000,MICROFILM FILE FICHE PROCESSING,Unclassified,Unclassified
+5020050000,PHOTOGRAPHIC & AUDIOVISUAL SERVICES,Unclassified,Unclassified
+5020060000,PRINT PUBLICATION ANNUAL REPORTS,Unclassified,Unclassified
+5020077113,MOBILE HOTSPOT SERVICE,Unclassified,Unclassified
+5021330006,INFRASTRUCTURE FUNDING AGREEMENT EXPENSE,Unclassified,Unclassified
+5021330007,INFRASTRUCTURE FUNDING AGREEMENT REIMBURSEMENT,Unclassified,Unclassified
+5021360000,STATE FED SUPERFUND - HAZARDOUS WASTE,Unclassified,Unclassified
+5021360001,HAZARDOUS INFECTIOUS WASTE,Unclassified,Unclassified
+5021380000,SUBCONTRACT WITH ENTITIES - MATCH FUNDS,Unclassified,Unclassified
+5021390000,CONTRACTUAL AGREEMENTS WITH SCHOOL DISTRICTS,Unclassified,Unclassified
+5021460000,GENERAL REPAIR,Unclassified,Unclassified
+5021469302,CARPENTRY (SERVICES),Unclassified,Unclassified
+5021469303,AIR PURIFICATION SERVICES,Unclassified,Unclassified
+5021469304,CHILLER & CONTROL MAINTENANCE,Unclassified,Unclassified
+5021469305,ELECTRICAL REPAIRS,Unclassified,Unclassified
+5021469306,ELEVATOR/ESCALATOR MAINTENANCE,Unclassified,Unclassified
+5021469307,EMERGENCY GENERATOR SERVICES,Unclassified,Unclassified
+5021469308,ENERGY MANAGEMENT,Unclassified,Unclassified
+5021469309,ENGINEERING SERVICES,Unclassified,Unclassified
+5021469312,LIGHTING/LIGHTING CONTROLS,Unclassified,Unclassified
+5021469313,MECHANICAL REPAIRS,Unclassified,Unclassified
+5021469314,OTHER MAINTENANCE EXPENSES,Unclassified,Unclassified
+5021469315,PLUMBING SERVICES,Unclassified,Unclassified
+5021469317,STRUCTURAL/ROOFING MAINTENANCE,Unclassified,Unclassified
+5021469318,SUPPLEMENTAL A/C,Unclassified,Unclassified
+5021469319,UNDER FLOOR MAINTENANCE,Unclassified,Unclassified
+5021469323,WATER TREATMENT,Unclassified,Unclassified
+5021470000,LAUNDRY SERVICES,Unclassified,Unclassified
+5021479202,CARPET MAINTENANCE,Unclassified,Unclassified
+5021479203,CARPET REPAIR,Unclassified,Unclassified
+5021479204,DIRECT USER CLEANING SERVICES,Unclassified,Unclassified
+5021479206,GLASS REPAIR,Unclassified,Unclassified
+5021479208,LOCKSMITH SERVICES,Unclassified,Unclassified
+5021479209,PAINTING (SERVICES),Unclassified,Unclassified
+5021479210,PEST CONTROL/EXTERMINATING,Unclassified,Unclassified
+5021479211,RUBBISH REMOVAL,Unclassified,Unclassified
+5021479212,SPECIALTY SURFACE MAINTENANCE,Unclassified,Unclassified
+5021479213,WINDOW CLEANING,Unclassified,Unclassified
+5021479214,WINDOW TREATMENT,Unclassified,Unclassified
+5021479215,WOOD MAINTENANCE,Unclassified,Unclassified
+5021479602,PARKING/ROADS MAINTENANCE,Unclassified,Unclassified
+5021479603,PARKING/ROADS SWEEPING,Unclassified,Unclassified
+5021479604,SIGNAGE,Unclassified,Unclassified
+5021479605,SNOW REMOVAL,Unclassified,Unclassified
+5021540004,Other Prof Services 25% Local Share Refund,Unclassified,Unclassified
+5021560000,FACTORY SERVICES,Unclassified,Unclassified
+5021580000,RECOVERY AUDIT SERVICES,Unclassified,Unclassified
+5021599100,BUILDING MANAGEMENT FEE,Unclassified,Unclassified
+5021599103,DIRECT USER COSTS SERVICES,Unclassified,Unclassified
+5021599107,OTHER PROFESSIONAL FEES,Unclassified,Unclassified
+5021599108,REPRODUCTION SERVICES (COPYING),Unclassified,Unclassified
+5021599500,DIRECT USER SECURITY EXPENSES,Unclassified,Unclassified
+5024990005,Highway Retreatment Contracts,Unclassified,Unclassified
+5030010004,SUBSCRIPTIONS,Unclassified,Unclassified
+5030010008,Engineering,Unclassified,Unclassified
+5030010009,Office Machine Repair Parts,Unclassified,Unclassified
+5031010003,KITCHEN UTENSILS,Unclassified,Unclassified
+5031479202,HOLIDAY DECORATIONS,Unclassified,Unclassified
+5031530001,ETHANOL,Unclassified,Unclassified
+5031550000,MOTOR OIL,Unclassified,Unclassified
+5031560000,PROPANE-TRANSPORTATION,Unclassified,Unclassified
+5031590000,GASOHOL,Unclassified,Unclassified
+5032010001,Material Pits,Unclassified,Unclassified
+5032010002,Aggregate,Unclassified,Unclassified
+5032010004,EPOXY PATCHING COMPOUND,Unclassified,Unclassified
+5032010005,Structural Steel,Unclassified,Unclassified
+5032010006,Flat Iron/Steel Bars/Sheets/Angle Iron,Unclassified,Unclassified
+5032010007,Concrete or Cement,Unclassified,Unclassified
+5032010008,Culvert Pipe,Unclassified,Unclassified
+5032010009,Brick or Cement Blocks,Unclassified,Unclassified
+5032010012,"CASTINGS, GRATES & MANHOLE COVERS",Unclassified,Unclassified
+5032010013,Calcium & Sodium Chloride,Unclassified,Unclassified
+5032010015,Traffic Paints & Additives,Unclassified,Unclassified
+5032010016,Signs & Markers,Unclassified,Unclassified
+5032010017,Signals,Unclassified,Unclassified
+5032010018,PAINTS ADDITIVE PRESERVATIVE-NOT TRAFFIC,Unclassified,Unclassified
+5032010019,Crash Attenuators,Unclassified,Unclassified
+5032010020,Signs & Markers - Logo,Unclassified,Unclassified
+5032010021,Guy Cables & Electrical Wire,Unclassified,Unclassified
+5032010022,Bolt/Washer/Fastener/Galvanized Nut Bolt,Unclassified,Unclassified
+5032010025,Lumber,Unclassified,Unclassified
+5032010026,Stakes,Unclassified,Unclassified
+5032010027,"FERTILIZER, SEED AND HERBICIDE",Unclassified,Unclassified
+5032410003,MED SCIENT & LAB PRESCRIPTION DRUGS,Unclassified,Unclassified
+5032410009,Prof & Scien Supp & Materials Not Class,Unclassified,Unclassified
+5032420000,TESTING MATERIAL FOR LABS,Unclassified,Unclassified
+5032910001,MUNITIONS TARGETS LAW ENF WEAPONS AMMO,Unclassified,Unclassified
+5032910002,MUNITIONS TARGETS LAW ENF CHEMICAL MUNIT,Unclassified,Unclassified
+5033050001,CLOTHING - INMATE,Unclassified,Unclassified
+5033050002,CLOTHING  - OFFICER,Unclassified,Unclassified
+5033050003,Prescription Safety Glasses,Unclassified,Unclassified
+5033050004,Safety Boots,Unclassified,Unclassified
+5033060000,STAGE PROPERTIES,Unclassified,Unclassified
+5033090000,EMPLOYEE RECOGNITION AWARDS,Unclassified,Unclassified
+5033110000,PURCHASING CARD EXPENDITURES,Unclassified,Unclassified
+5033120000,REVENUE TAX STAMPS,Unclassified,Unclassified
+5033170000,WOOD,Unclassified,Unclassified
+5033190000,PROPANE - OTHER,Unclassified,Unclassified
+5040077000,LEASE - LOW VALUE DATA PROCESSING,Unclassified,Unclassified
+5040510003,INSURANCE - STATE - REAL PROPERTY,Unclassified,Unclassified
+5040520001,IRF-REINSURANCE,Unclassified,Unclassified
+5040807000,LEASE - LOW VALUE SBITA,Unclassified,Unclassified
+5040810000,CONTRIBUTIONS,Unclassified,Unclassified
+5041020000,FEES AND FINES,Unclassified,Unclassified
+5041020001,FEES AND FINES - BACKGROUND CHECKS,Unclassified,Unclassified
+5041020002,FEES AND FINES - C N A,Unclassified,Unclassified
+5041020003,FEES AND FINES - PENALTY,Unclassified,Unclassified
+5041020004,FEES AND FINES - LICENSING,Unclassified,Unclassified
+5041469300,PERMITS & LICENSES,Unclassified,Unclassified
+5041630000,IN-DISTRICT EXPENSE,Unclassified,Unclassified
+5041810000,LEASE OTHER - EXECUTORY COST,Unclassified,Unclassified
+5041817000,LEASE SBITA - EXECUTORY,Unclassified,Unclassified
+5041830000,LEASE OTHER - INTEREST,Unclassified,Unclassified
+5041837000,LEASE SBITA - INTEREST,Unclassified,Unclassified
+5041867060,LEASE DATA PROCESSING EQUIP - INTEREST,Unclassified,Unclassified
+5042990000,OTHER FIXED CHARGES,Unclassified,Unclassified
+5050030000,IN STATE - AIR TRANSPORTATION,Unclassified,Unclassified
+5050050000,IN STATE - OTHER TRANSPORTATION,Unclassified,Unclassified
+5050530000,OUT OF STATE - AIR TRANSPORTATION,Unclassified,Unclassified
+5050550000,OUT OF STATE - OTHER TRANSPORTATION,Unclassified,Unclassified
+5051550000,AGENCY HEAD BUSINESS EXPENSE,Unclassified,Unclassified
+5070110000,BUILDING PURCHASE,Unclassified,Unclassified
+5070310002,CAP PROJ - CAP EQUIP,Unclassified,Unclassified
+5070740001,Relocation - RHP 180 day owner,Unclassified,Unclassified
+5070740007,Relocation-Down Paymnt 90-180 day owner,Unclassified,Unclassified
+5070740008,Relocation - Down Payment Tenant,Unclassified,Unclassified
+5070740009,Relocation - Last Resort Owner,Unclassified,Unclassified
+5070740010,Relocation - Last Resort Tenant,Unclassified,Unclassified
+5070740011,Relocation-Moving Cost Sched Residential,Unclassified,Unclassified
+5070740012,Relocat-Moving Cost Bus/Farms/Non-Profit,Unclassified,Unclassified
+5070740013,Relocation - Search Expenses,Unclassified,Unclassified
+5070740014,Relocation-Business Re-Establishment Exp,Unclassified,Unclassified
+5070740015,Relocation - Direct Losses,Unclassified,Unclassified
+5070740016,Relocation - In-Lieu of Moving Expenses,Unclassified,Unclassified
+5070740017,Relocation-Miscellaneous Moving Expense,Unclassified,Unclassified
+5070750001,Pmt to Right of Wy Relocation Contractor,Unclassified,Unclassified
+5070750002,Relocation-Moving Cost Actual Residentia,Unclassified,Unclassified
+5070750003,Relocation - Moving Cost Estimate Fee,Unclassified,Unclassified
+5071710000,LABOR COST-CLASSIFIED,Unclassified,Unclassified
+5071730000,LABOR COST-INMATE EARNINGS,Unclassified,Unclassified
+5072010002,RW-Int Pmt on Exc Amt Jury Verd ovr aprl,Unclassified,Unclassified
+5080110000,INTEREST PAYMENTS,Unclassified,Unclassified
+5080140000,INTEREST-LOAN NOTE,Unclassified,Unclassified
+5080150000,INTEREST - MASTER LEASE PROGRAM,Unclassified,Unclassified
+5081220000,OTHER DEBT CHARGES,Unclassified,Unclassified
+5090010000,SALES TAX PAID,Unclassified,Unclassified
+5090020000,PROPERTY TAXES,Unclassified,Unclassified
+5090520000,HOSPITALITY FEE,Unclassified,Unclassified
+5110010002,CleintServiceAssesementClientPay,Unclassified,Unclassified
+5110010004,ClientServicesMaintenanceClientPay,Unclassified,Unclassified
+5110010005,ClientServicesTransportationClientPay,Unclassified,Unclassified
+5110010017,CLIENT PAYMENT - RESPITE CARE,Unclassified,Unclassified
+5110010018,CLIENT PAYMENT - TRANSPORTATION,Unclassified,Unclassified
+5110010024,CLIENT PAYMENT - CHILD CARE,Unclassified,Unclassified
+5110010028,CLIENT PAYMENT - SUPPORT SERVICES,Unclassified,Unclassified
+5110010031,IND LIVING DAILY LIVING SKILLS,Unclassified,Unclassified
+5110010033,IND LIVING EDUCATION SUPPORT,Unclassified,Unclassified
+5110010034,IND LIVING SENIOR EXPENSES,Unclassified,Unclassified
+5110010035,IND LIVING PRE COLLEGE EXPENSES,Unclassified,Unclassified
+5110010036,IND LIVING SPECIAL RECOGNITION,Unclassified,Unclassified
+5110010037,IND LIVING TRANSPORTATION,Unclassified,Unclassified
+5110010038,IND LIVING EMPLOYMENT SERVICES,Unclassified,Unclassified
+5110010039,IND LIVING EMANCIPATION EXPENSES,Unclassified,Unclassified
+5110510000,PROSTHETIC APPLIANCES,Unclassified,Unclassified
+5110510001,PROSTHETIC APPLIANCES - DENTAL,Unclassified,Unclassified
+5110510002,PROSTHETIC APPLIANCES - ORTHOPEDIC,Unclassified,Unclassified
+5111010001,MEDICAL SERVICES-IND PROFESSIONAL MEDICAL EXAM,Unclassified,Unclassified
+5111010003,MEDICAL SERVICES-IND PROFESSIONAL PSYCHIATRY,Unclassified,Unclassified
+5111010004,MEDICAL SERVICES-IND PROFESSIONAL EYE EXAM,Unclassified,Unclassified
+5111010007,MEDICAL SERVICES-IND PROFESSIONAL ENT,Unclassified,Unclassified
+5111010009,MEDICAL SERVICES-IND PROFESSIONAL ANESTHESIA,Unclassified,Unclassified
+5111010010,MEDICAL SERVICES-IND PROFESSIONAL DIAG RADIOLOGY,Unclassified,Unclassified
+5111010012,MEDICAL SERVICES-IND PROFESSIONAL PATHOLOGY/LAB,Unclassified,Unclassified
+5111010062,ClientServicesPersonalAssistanceAllOther,Unclassified,Unclassified
+5111010063,ClientServiceAssessmentIndividualProfher,Unclassified,Unclassified
+5111010064,ClientServicesDiagn/TreatmentIndProf,Unclassified,Unclassified
+5111010065,ClientServicesAllOtherIndividualProfther,Unclassified,Unclassified
+5111010067,ClientServicesRehabTechnologyIndProf,Unclassified,Unclassified
+5111020001,INPATIENT INSTITUTIONAL SERVICES,Unclassified,Unclassified
+5111020002,OUTPATIENT INSTITUTIONAL SERVICES,Unclassified,Unclassified
+5111020004,INFANT INPATIENT,Unclassified,Unclassified
+5111020005,AGENCY CLINICS MEDICAL INSTITUTIONS,Unclassified,Unclassified
+5111020006,PATHOLOGY AND LABORATORY HOSPITAL VENDOR,Unclassified,Unclassified
+5111020007,PHYSICAL AND OCCUPATIONAL THERAPY HOSP,Unclassified,Unclassified
+5111020015,CleintServiceAssesementInstitution,Unclassified,Unclassified
+5111020016,ClientServicesDiagn/TreatmentInstitution,Unclassified,Unclassified
+5111020019,ClientServicesRehabTechnologyInstitution,Unclassified,Unclassified
+5111030000,DUI CHEMICAL TEST,Unclassified,Unclassified
+5112010003,ADOPTION INCENTIVES,Unclassified,Unclassified
+5112510001,PORTABLE HAP PAYMENTS RECEIVED,Unclassified,Unclassified
+5112810001,HUD-EHV-SERVICE FEE - SECURITY/UTILITY DEPOSIT,Unclassified,Unclassified
+5112810003,HUD-EHV-SERVICE FEE - OTHER ELIGIBLE EXPENSES,Unclassified,Unclassified
+5113010031,ClientServicesPersonalAssistanceNonMed,Unclassified,Unclassified
+5113010032,CleintServiceAssesementNonMedical/OthSrv,Unclassified,Unclassified
+5113010033,ClientServicesDiagn/TreatNonMed/OthSrv,Unclassified,Unclassified
+5113010035,ClientServicesMaintenanceNonMedical,Unclassified,Unclassified
+5113010036,ClientServicesTransportationNonMedical,Unclassified,Unclassified
+5113010037,ClientServicesAllOtherNonMed/OthServices,Unclassified,Unclassified
+5113010039,ClientServicesRehabTechNonMed/OthSrv,Unclassified,Unclassified
+5113010051,CS SRV OTHER INMATE MEDICAL TRANS,Unclassified,Unclassified
+5113010053,CS CRV OTHER PRESCRIPTIONS,Unclassified,Unclassified
+5113010054,CS SRV OTHER ORTHOPEDIC SUPP,Unclassified,Unclassified
+5113010055,CS SRV OTHER EYEGLASSES,Unclassified,Unclassified
+5113010056,CS SRV OTHER INMATE BUS TICKETS,Unclassified,Unclassified
+5113010058,CS SRV OTH AUTOPSY,Unclassified,Unclassified
+5113010059,CS SRV OTH COMPONENT RELATED,Unclassified,Unclassified
+5113010060,CS SRV OTH EDUCATION CLIENT,Unclassified,Unclassified
+5113010065,CS SRV OTH EMPLOYMENT RELATED,Unclassified,Unclassified
+5113010068,CS SRV OTH SUPPORT SERVICES,Unclassified,Unclassified
+5113020006,PROSTHETIC APPLIANCES,Unclassified,Unclassified
+5113020009,BIRTH CONTROL PILLS,Unclassified,Unclassified
+5113020010,BIRTH CONTROL CONDOMS,Unclassified,Unclassified
+5113020011,BIRTH CONTROL DEPO PREVARA,Unclassified,Unclassified
+5113020012,BIRTH CONTROL OTHER,Unclassified,Unclassified
+5113020032,SUMMER FEEDING-DHEC INSPECTIONS,Unclassified,Unclassified
+5130220000,PENSIONS - NONEMPLOYER CONTRIBUTION,Unclassified,Unclassified
+5130310000,SOCIAL SECURITY - STATE EMPLOYEES,Unclassified,Unclassified
+5130500000,UNEMPLOYMENT COMPENSATION INSURANCE,Unclassified,Unclassified
+5130610000,HEALTH INSURANCE - STATE EMPLOYEES,Unclassified,Unclassified
+5130670000,DENTAL INSURANCE - STATE EMPLOYEES,Unclassified,Unclassified
+5130750000,ACCIDENTAL DEATH BENEFIT - POLICE OFFICER,Unclassified,Unclassified
+5140010010,MEDICAL COST,Unclassified,Unclassified
+5140010011,DENTAL COST,Unclassified,Unclassified
+5140010012,COUNSELING SERVICES,Unclassified,Unclassified
+5140010014,FUNERAL COST,Unclassified,Unclassified
+5140010016,SAP ACUTE SEXUAL ASSAULT PROTOCOL,Unclassified,Unclassified
+5140010017,SCP CHILD CHRONIC SEXUAL ASSAULT PROTOCOL,Unclassified,Unclassified
+5140010018,ANO ADULT SEXUAL ASSAULT NO REPORTING,Unclassified,Unclassified
+5140010019,FIP CHILD FORENSIC INTERVIEW SEXUAL ASSAULT,Unclassified,Unclassified
+5140010020,CAP CHILD ASSAULT PROTOCOL,Unclassified,Unclassified
+5140010022,LOSS OF SUPPORT,Unclassified,Unclassified
+5140010024,HIV NPEP,Unclassified,Unclassified
+5140040000,LONG-TERM DISABILITY DEATH BENEFITS,Unclassified,Unclassified
+5150029400,GAS,Unclassified,Unclassified
+5150039403,CHILLED/CONDENSER WATER,Unclassified,Unclassified
+5160060100,SCHOOL SAFETY PROGRAM - PERSONNEL,Unclassified,Unclassified
+5160320000,INDUSTRY CERTIFICATIONS/CREDENTIALS,Unclassified,Unclassified
+5160950000,Family Connection South Carolina,Unclassified,Unclassified
+5161060000,THE CONTINUUM (H630),Unclassified,Unclassified
+5161190000,EDUCATION DATA DASHBOARD (A850),Unclassified,Unclassified
+5161290000,TEACHSC,Unclassified,Unclassified
+5170010000,DIST TO SUBDIVISION,Unclassified,Unclassified
+5170840000,DISCUS PROGRAMS,Unclassified,Unclassified
+5170880000,GENERAL FUND TRANSFER,Unclassified,Unclassified
+5170900000,PROJECT HYPE (H630),Unclassified,Unclassified
+5171020000,PROJECT READ,Unclassified,Unclassified
+5180230000,Teacher Supply,Unclassified,Unclassified
+5180250000,Adult Ed,Unclassified,Unclassified
+5180340000,BUS DRIVER'S WORKER'S COMPENSATION,Unclassified,Unclassified
+5180590000,STUDENT LOAN CORP-CAREER CHANGERS,Unclassified,Unclassified
+5180840000,AID CONSERVATION DISTRICTS,Unclassified,Unclassified
+5181030000,INTENSIVE DEVELOPMENTAL EDUCATION & THERAPY,Unclassified,Unclassified
+5181050000,EDUCATIONAL EXPERIENCE PARTNERSHIPS,Unclassified,Unclassified
+5190010000,INTEREST EXPENSE-LATE PAYMENT,Unclassified,Unclassified
+5190310000,STATE GRAND JURY EXPENSES,Unclassified,Unclassified
+5190410000,PURCHASE OF EVIDENCE,Unclassified,Unclassified
+5190510000,OTHER LOSSES,Unclassified,Unclassified
+5230010000,PETTY CASH FUND - ESTABLISH/CHANGE,Unclassified,Unclassified
+5830008000,HOUSING TRUST FUND AWARDS,Unclassified,Unclassified

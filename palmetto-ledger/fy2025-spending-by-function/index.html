@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>South Carolina FY2025 State Spending, Organized by Function — The Palmetto Ledger</title>
+<meta name="description" content="Every FY2025 South Carolina state expenditure transaction — 1.7 million records, $38.24B, 97 agencies — reorganized by function instead of by agency. The Palmetto Ledger, Carolina Redesign.">
+<link rel="icon" type="image/png" href="/cr-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;600;800&family=Source+Sans+3:wght@300;400;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDF0F5; --ink:#101724; --indigo-deep:#17233F; --indigo-mid:#2F4B87;
+  --brass:#C0902F; --brass-soft:#E8D3A0; --muted:#67738A; --rule:#C9D2DF;
+  --display:"Spectral",Georgia,"Times New Roman",serif;
+  --body:"Source Sans 3",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+
+.masthead{background:var(--indigo-deep);color:#fff;padding:24px 0;border-bottom:3px solid var(--brass)}
+.masthead .wrap{display:flex;justify-content:space-between;align-items:baseline;gap:24px;flex-wrap:wrap}
+.mark{font-family:var(--display);font-weight:600;font-size:19px;color:#fff;text-decoration:none}
+.mark:hover span{color:var(--brass)}
+.mark span{color:var(--brass-soft)}
+.meta{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:#A9BBD8}
+
+.notice{background:#F6EFDD;border-bottom:1px solid #D9C89A}
+.notice .wrap{padding:14px 32px;font-size:14px;color:#5A4A1E;max-width:1080px}
+.notice b{color:#3E3211}
+
+.hero{padding:56px 0 48px}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--indigo-mid);margin-bottom:18px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,4.4vw,46px);line-height:1.1;letter-spacing:-.015em;max-width:22ch;margin-bottom:20px}
+.standfirst{font-size:17px;font-weight:300;color:#37445B;max-width:72ch}
+.standfirst p{margin-bottom:14px}
+.standfirst strong{font-weight:600;color:var(--ink)}
+
+.sig{margin:42px 0 0}
+.sig-label{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;gap:16px}
+.bar{display:flex;height:88px;width:100%;border:1px solid var(--indigo-deep);background:var(--indigo-deep);overflow:hidden}
+.seg{position:relative;display:flex;align-items:flex-end;padding:12px 14px;overflow:hidden;width:0;transition:width 1.5s cubic-bezier(.2,.7,.2,1)}
+.seg-inert{background:repeating-linear-gradient(135deg,#243354,#243354 6px,#1C2A47 6px,#1C2A47 12px);color:#9FB1CE}
+.seg-open{background:var(--brass);color:#231903}
+.seg-unk{background:#3C4A66}
+.seg b{font-family:var(--mono);font-size:15px;font-weight:600;display:block;line-height:1.2}
+.seg small{font-size:10.5px;opacity:.88;white-space:normal;line-height:1.3;display:block}
+.sig-foot{font-size:16px;color:#37445B;margin-top:16px;max-width:72ch}
+
+section{padding:56px 0;border-top:1px solid var(--rule)}
+h2{font-family:var(--display);font-weight:600;font-size:27px;letter-spacing:-.01em;margin-bottom:12px;max-width:30ch}
+.lede{font-size:16px;font-weight:300;color:#48566E;max-width:72ch;margin-bottom:28px}
+.lede p{margin-bottom:12px}
+.lede strong{font-weight:600;color:var(--ink)}
+
+/* treemap */
+#tmWrap{position:relative}
+#tmHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;min-height:34px;gap:12px;flex-wrap:wrap}
+#tmCrumb{font-family:var(--mono);font-size:12.5px;color:var(--indigo-mid)}
+#tmBack{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--indigo-mid);color:var(--indigo-mid);background:transparent;padding:7px 14px;cursor:pointer;display:none}
+#tmBack:hover{background:var(--indigo-mid);color:#fff}
+#treemap{position:relative;width:100%;height:560px;background:#E2E7EF;border:1px solid var(--rule)}
+.tmCell{position:absolute;overflow:hidden;cursor:pointer;border:1px solid var(--paper);transition:filter .15s}
+.tmCell:hover{filter:brightness(1.12)}
+.tmCell .tl{position:absolute;top:5px;left:7px;right:7px;color:#fff;text-shadow:0 1px 2px rgba(10,16,30,.45)}
+.tmCell .tl .nm{font-size:12.5px;font-weight:600;line-height:1.25;display:block}
+.tmCell .tl .vl{font-family:var(--mono);font-size:11px;opacity:.92}
+.tmHint{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:10px}
+
+/* function bars */
+.toggle{display:inline-flex;border:1px solid var(--indigo-mid);margin-bottom:26px}
+.toggle button{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;padding:9px 16px;background:transparent;color:var(--indigo-mid);border:0;cursor:pointer;transition:background .2s,color .2s}
+.toggle button[aria-pressed="true"]{background:var(--indigo-mid);color:#fff}
+.frow{display:grid;grid-template-columns:270px 1fr 96px;gap:16px;align-items:center;padding:8px 0;border-bottom:1px solid #DDE3EC}
+.fname{font-size:14px}
+.ftrack{background:#DFE5EE;height:20px}
+.ffill{height:100%;width:0;transition:width .7s cubic-bezier(.2,.7,.2,1)}
+.fval{font-family:var(--mono);font-size:12.5px;text-align:right;color:#37445B}
+.note{font-size:15.5px;color:#48566E;margin-top:24px;max-width:72ch}
+.note p{margin-bottom:12px}
+.note strong{font-weight:600;color:var(--ink)}
+
+/* table */
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);text-align:left;padding:0 10px 9px 0;border-bottom:1px solid var(--indigo-deep);font-weight:500}
+th.r,td.r{text-align:right}
+td{padding:9px 10px 9px 0;border-bottom:1px solid #DDE3EC}
+tbody tr:hover{background:#E4EAF3}
+td.num{font-family:var(--mono);font-size:13.5px}
+td.name{font-weight:600}
+td.fn{font-size:13px;color:var(--muted)}
+.internal{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--brass);border:1px solid var(--brass);padding:1px 4px;margin-left:6px;vertical-align:middle}
+
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:44px}
+.cols h3{font-family:var(--display);font-size:19px;font-weight:600;margin-bottom:12px}
+.cols p{font-size:15.5px;color:#37445B;margin-bottom:13px}
+.cols strong{font-weight:600;color:var(--ink)}
+.caveat{border-left:3px solid var(--brass);padding:16px 20px;background:#E5E9F1;font-size:15px;color:#37445B;margin-top:30px;max-width:76ch}
+.caveat b{font-weight:600;color:var(--ink)}
+.datafiles{margin-top:30px;padding:16px 20px;border:1px solid var(--rule);background:#F7F9FC;font-size:15px;color:#37445B;max-width:76ch}
+.datafiles b{font-weight:600;color:var(--ink)}
+.datafiles ul{margin:12px 0 0 0;padding:0;list-style:none}
+.datafiles li{font-family:var(--mono);font-size:12.5px;padding:5px 0;border-top:1px solid var(--rule);color:var(--muted)}
+.datafiles a{color:var(--indigo-mid);text-decoration:none;border-bottom:1px solid var(--brass-soft)}
+.datafiles a:hover{color:var(--brass)}
+
+footer{background:var(--indigo-deep);color:#A9BBD8;padding:28px 0;font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+@media (max-width:760px){
+  .wrap{padding:0 20px}
+  .frow{grid-template-columns:1fr;gap:5px}
+  .ftrack{height:13px}
+  .cols{grid-template-columns:1fr;gap:30px}
+  .bar{height:auto;flex-direction:column}
+  .seg{width:100%!important;min-height:60px;align-items:center}
+  #treemap{height:480px}
+  table{font-size:13px}
+  td.fn{display:none}
+  th:nth-child(2){display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="wrap">
+    <a class="mark" href="/palmetto-ledger/">&#8592; The Palmetto <span>Ledger</span></a>
+    <div class="meta">Carolina Redesign &middot; Research &middot; August 2026</div>
+  </div>
+</div>
+
+<div class="notice">
+  <div class="wrap">
+    <b>An informal working analysis.</b> This page is a capabilities demonstration built
+    from public data over a few evenings. The category groupings reflect one person's
+    judgment calls, made quickly and documented below. Nothing here is a policy
+    recommendation or suitable for policy argument. It is meant to show what becomes
+    visible when public spending data is reorganized by function — and what a dedicated
+    effort could build if the direction proves valuable.
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow">FY2025 &middot; 1,706,089 transactions &middot; 97 agencies &middot; $38.24B</div>
+    <h1>South Carolina FY2025 State Spending, Organized by Function</h1>
+
+    <div class="standfirst">
+      <p>
+        This is every expenditure transaction South Carolina state government recorded in
+        fiscal year 2025, reorganized to answer a question the budget itself cannot answer:
+        <strong>not which agency spent the money, but what the money was spent on.</strong>
+      </p>
+      <p>
+        <strong>Where the data comes from.</strong> The Comptroller General publishes a
+        spending transparency file every month, covering all agencies that run through the
+        state's central accounting system. All twelve FY2025 monthly files were downloaded
+        and combined — 1,706,089 individual transactions totaling $38.24 billion across 97
+        agencies. This data is public and free. It requires no FOIA request and no special
+        access. Twelve fiscal years are posted, back to FY2014.
+      </p>
+      <p>
+        <strong>What was done to it.</strong> Each transaction carries an expenditure object
+        code — the state uses 960 of them, with labels like "Professional Services" or
+        "Motor Vehicle Maintenance." All 960 codes were run through written, rule-based
+        logic: an ordered list of terms mapped to categories, applied identically to every
+        code, so the same input always produces the same output and any classification can
+        be checked and disputed on the merits. Codes were first sorted into spending that
+        is formula-driven and set in statute versus spending that is operational, then the
+        operational portion was grouped into nineteen function areas. 685 codes matched a
+        rule and carry 99.5% of all dollars; 275 low-value codes did not match and are
+        reported as unclassified.
+      </p>
+      <p>
+        <strong>Why this view may be useful.</strong> The appropriations act is organized by
+        agency, so a function that 90 agencies each buy separately appears as 90 unrelated
+        line items and never as a single number. Reorganizing the same dollars by function
+        makes duplication visible, shows where the state buys the same category of thing
+        many times over, and separates spending that could be changed administratively from
+        spending that would require changing the law.
+      </p>
+    </div>
+
+    <div class="sig">
+      <div class="sig-label">
+        <span>FY2025 total spend, split by whether it is formula-driven or operational</span>
+        <span>0.5% unclassified &middot; $38.24B total</span>
+      </div>
+      <div class="bar" id="bar">
+        <div class="seg seg-inert" data-w="82.2">
+          <div><b>$31.43B &middot; 82.2%</b><small>Formula-driven: Medicaid, school aid, retirement, benefits</small></div>
+        </div>
+        <div class="seg seg-open" data-w="17.3">
+          <div><b>$6.61B &middot; 17.3%</b><small>Operational spend</small></div>
+        </div>
+        <div class="seg seg-unk" data-w="0.5" title="0.5% unclassified"></div>
+      </div>
+      <p class="sig-foot">
+        Four in five dollars are entitlements and formula transfers set in statute. That
+        leaves ~$6.6B of operational spend, examined in the nineteen categories below.
+      </p>
+    </div>
+  </div>
+
+  <section>
+    <h2>The operational $6.6 billion as a map</h2>
+    <div class="lede">
+      <p>
+        Every rectangle below is one of the nineteen operational function areas, sized by
+        FY2025 dollars. <strong>Click any category to open it</strong> and see the individual
+        expenditure object codes inside it, each sized the same way. This is the entire
+        operational side of state spending on one screen — the largest categories are
+        immediately visible, and the long tail of small ones is visible too, in proportion.
+      </p>
+    </div>
+    <div id="tmWrap">
+      <div id="tmHead">
+        <div id="tmCrumb">All operational spending &middot; 19 categories &middot; $6.61B</div>
+        <button id="tmBack">&larr; All categories</button>
+      </div>
+      <div id="treemap"></div>
+      <div class="tmHint">Rectangle area = FY2025 dollars &middot; click a category to see its object codes &middot; codes netting below $10K omitted</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>The same nineteen categories, ranked two ways</h2>
+    <div class="lede">
+      <p>
+        <strong>Toggle to switch what the bars measure.</strong> The first view ranks each
+        function by total dollars spent. The second ranks the same nineteen functions by how
+        many of the state's 97 agencies spend money in that function at all — a count of how
+        widely each category is purchased across government, regardless of size.
+      </p>
+    </div>
+
+    <div class="toggle" role="group" aria-label="Chart measure">
+      <button id="btnSpend" aria-pressed="true">By dollars</button>
+      <button id="btnAgency" aria-pressed="false">By agencies buying it</button>
+    </div>
+
+    <div id="chart"></div>
+    <div class="note" id="chartNote"></div>
+  </section>
+
+  <section>
+    <h2>Payees receiving money from ten or more separate agencies</h2>
+    <div class="lede">
+      <p>
+        This table covers <strong>all operational spending, not any single category</strong> —
+        formula transfers and entitlement payments are excluded, and placeholder entries the
+        state uses for bulk postings (payroll, employer contributions) have been filtered
+        out. Every row is a single payee that received money from at least ten different
+        state agencies during FY2025.
+      </p>
+      <p>
+        <strong>246 payees meet that threshold</strong>, accounting for roughly $964 million —
+        about 14.6% of all operational spending. Sixty-nine of them were paid by twenty or
+        more agencies. The twelve largest are shown below, with the function area that
+        accounts for most of each one's spending.
+      </p>
+      <p>
+        <strong>Why it matters.</strong> Each of these relationships was generally established
+        separately, by a different agency, with its own terms, renewal date and negotiated
+        price. A payee serving 84 agencies through 84 arrangements represents 84 separately
+        made decisions about the same category of thing — and there is no place in the
+        current budget structure where that total appears as one number.
+      </p>
+      <p>
+        Rows marked <span class="internal">STATE</span> are state entities billing other
+        agencies internally rather than outside vendors. They are worth reading separately:
+        they show that shared-service arrangements already operate inside state government
+        in some categories, alongside fully decentralized purchasing in others.
+      </p>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Payee</th>
+          <th>Primary function</th>
+          <th class="r">FY2025 operational spend</th>
+          <th class="r">Agencies</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="name">Department of Administration<span class="internal">STATE</span></td><td class="fn">Information Technology</td><td class="num r">$98.4M</td><td class="num r">69</td></tr>
+        <tr><td class="name">TAPFIN</td><td class="fn">Information Technology</td><td class="num r">$67.0M</td><td class="num r">26</td></tr>
+        <tr><td class="name">Bank of America — P-Card</td><td class="fn">Vehicles, Fuel &amp; Fleet</td><td class="num r">$61.3M</td><td class="num r">84</td></tr>
+        <tr><td class="name">SFAA Administration<span class="internal">STATE</span></td><td class="fn">Insurance, Claims &amp; Risk</td><td class="num r">$46.1M</td><td class="num r">81</td></tr>
+        <tr><td class="name">USC Columbia Campus<span class="internal">STATE</span></td><td class="fn">Contracts with Govts &amp; Nonprofits</td><td class="num r">$45.6M</td><td class="num r">36</td></tr>
+        <tr><td class="name">Mansfield Oil Co</td><td class="fn">Vehicles, Fuel &amp; Fleet</td><td class="num r">$34.8M</td><td class="num r">57</td></tr>
+        <tr><td class="name">SHI International Corp</td><td class="fn">Information Technology</td><td class="num r">$34.0M</td><td class="num r">50</td></tr>
+        <tr><td class="name">AT&amp;T</td><td class="fn">Telecommunications &amp; Connectivity</td><td class="num r">$30.2M</td><td class="num r">41</td></tr>
+        <tr><td class="name">Dominion Energy South Carolina</td><td class="fn">Utilities</td><td class="num r">$28.7M</td><td class="num r">34</td></tr>
+        <tr><td class="name">Clemson University<span class="internal">STATE</span></td><td class="fn">Information Technology</td><td class="num r">$24.8M</td><td class="num r">24</td></tr>
+        <tr><td class="name">KCI Technologies Inc</td><td class="fn">Buildings, Land &amp; Capital Construction</td><td class="num r">$23.5M</td><td class="num r">10</td></tr>
+        <tr><td class="name">Segra</td><td class="fn">Telecommunications &amp; Connectivity</td><td class="num r">$17.7M</td><td class="num r">79</td></tr>
+      </tbody>
+    </table>
+    <div class="note">
+      <p>
+        <strong>Information technology illustrates the pattern.</strong> Eighty-eight of 97
+        agencies spend on IT, through 1,387 separate vendors, and no agency dominates — the
+        five largest IT spenders account for 56% of the total. The median agency spends about
+        $700,000: large enough to matter to that agency, small enough that it carries little
+        leverage on price.
+      </p>
+      <p>
+        <strong>The vendor counts span three orders of magnitude.</strong> Travel and lodging
+        flows to 12,706 distinct payees; personnel training and memberships to 7,570;
+        insurance and claims — nearly universal at 89 agencies — to just 728, in part because
+        the state already runs central insurance arrangements. The same government operates
+        highly centralized and highly fragmented purchasing side by side, category by
+        category. The data shows which is which; it does not say which is right.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>How this was built, what it shows, and what a fuller version would need</h2>
+    <div class="cols">
+      <div>
+        <h3>What was done and what emerged</h3>
+        <p>
+          All twelve FY2025 monthly spending files were pulled from the Comptroller General
+          and combined into a single dataset of 1.7 million transactions, reconciled to
+          $38.24 billion. All 960 expenditure object codes were then run through an ordered
+          list of written rules mapping label terms to categories. Nothing depends on a
+          model's judgment call at classification time — the rules are fixed text, applied
+          identically to every code, and can be reviewed line by line.
+        </p>
+        <p>
+          The rules went through several audit passes, and the audits caught real errors —
+          including roughly $1 billion of general contract spending that an early keyword had
+          misfiled into information technology because "IT" appears at the end of the word
+          "nonprofit." Each pass involved reading the largest codes in every category and the
+          unclassified remainder, correcting the rules, and re-running. That loop is the
+          method; the categories are only as good as the last audit.
+        </p>
+        <p>
+          <strong>Three patterns emerged.</strong> First, the addressable share is far smaller
+          than the headline: 82% of state spending is formula-driven and changes only by
+          changing statute. Second, dollars and breadth live in different places — roads and
+          buildings hold the largest sums but sit in a handful of agencies (95% of highway
+          spending is one agency), while IT, supplies, travel, facilities and training are
+          purchased almost universally and independently. Third, a small set of payees quietly
+          serves most of state government, with no single budget line reflecting it.
+        </p>
+        <p>
+          <strong>How this differs from the usual view.</strong> Budget documents present
+          spending agency by agency — the right structure for accountability, and the wrong
+          one for spotting duplication. A function that 88 agencies each buy appears as 88
+          unrelated items. Reorganizing the same dollars by what they purchased makes the
+          pattern visible without changing a single number.
+        </p>
+      </div>
+      <div>
+        <h3>Looking forward</h3>
+        <p>
+          <strong>From object codes to programs.</strong> The state's chart of accounts and
+          cost-center structure would connect expenditure codes to the programs agencies
+          actually run. Object codes describe what was bought; programs describe what it was
+          bought for. Without that link, this analysis can show that 88 agencies buy IT, but
+          not which functions of government that IT supports.
+        </p>
+        <p>
+          <strong>Connecting funding to purpose.</strong> A program-to-fund crosswalk would
+          show which revenue sources support which programs. Much operational spending is
+          paid from federal or restricted funds that carry their own conditions, so a dollar
+          that looks reducible on paper may not be legally available for redirection.
+        </p>
+        <p>
+          <strong>Personnel below the agency line.</strong> Position and staffing detail by
+          program would show where people are actually assigned — the largest recurring
+          commitment in most agencies, and the one this dataset sees only indirectly.
+        </p>
+        <p>
+          <strong>Contract terms and renewal dates.</strong> The payee concentration above
+          identifies where overlap exists but not when anything can change. Terms and renewal
+          calendars would turn a list of overlaps into a sequence of dated decision points.
+        </p>
+        <p>
+          <strong>A settled taxonomy.</strong> The nineteen categories here were built
+          bottom-up from the object codes in a few evenings. The state already maintains
+          function classifications of its own — including the strategic objectives on its
+          budget request forms and the functional groupings in its annual financial
+          reporting. A fuller version of this work should adopt an established taxonomy
+          rather than invent one.
+        </p>
+      </div>
+    </div>
+
+    <div class="caveat">
+      <b>Three limits worth stating plainly.</b> Santee Cooper, the Education Lottery
+      Commission, JEDA, and the state colleges and universities do not run through the
+      central accounting system, so none of their spending appears anywhere above. 275 of
+      the 960 object codes — about 0.5% of dollars — did not match any rule and remain
+      unclassified. And the category boundaries themselves are judgment calls made quickly:
+      reasonable people could file some codes differently, which is exactly why the rules
+      are written down and auditable.
+    </div>
+
+    <div class="datafiles">
+      <b>The data behind this page.</b> Everything above is reproducible from these files —
+      the classification rules included, so any category boundary can be checked and disputed
+      on the merits.
+      <ul>
+        <li><a href="data/01_addressable_split.csv">01_addressable_split.csv</a> &mdash; formula-driven vs. operational vs. unclassified totals</li>
+        <li><a href="data/02_function_areas.csv">02_function_areas.csv</a> &mdash; the 19 operational categories, with spend, agency and vendor counts</li>
+        <li><a href="data/03_cross_agency_vendors.csv">03_cross_agency_vendors.csv</a> &mdash; payees paid by 10 or more agencies</li>
+        <li><a href="data/04_agency_function_matrix.csv">04_agency_function_matrix.csv</a> &mdash; agency &times; function spend matrix</li>
+        <li><a href="data/05_code_classification.csv">05_code_classification.csv</a> &mdash; all 960 object codes and where each one landed</li>
+        <li><a href="data/taxonomy.py">taxonomy.py</a> &mdash; the ordered classification rules, applied identically to every code</li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div><a href="/palmetto-ledger/" style="color:var(--brass-soft);text-decoration:none">The Palmetto Ledger</a> &middot; a <a href="/" style="color:var(--brass-soft);text-decoration:none">Carolina Redesign</a> research series</div>
+    <div>Source: SC Comptroller General, Monthly State Spending Transparency Files, FY2025</div>
+  </div>
+</footer>
+
+<script>
+var TM = [{"name":"Roads, Bridges & Highways","value":1881093904,"agencies":12,"children":[{"name":"Payment to Road and Bridge Contractors:","value":1663453564},{"name":"Highway Maintenance Contracts","value":159313551},{"name":"HIGHWAY & ROAD IMPROVEMENTS","value":17195175},{"name":"Payment to Moving & Adjusting Public Utl","value":15395871},{"name":"Pmt to Railroad Comp for Work Performed","value":9467084},{"name":"Asphalt","value":8620092},{"name":"HIGHWAY MAINTENANCE SUPPLIES","value":7648567}]},{"name":"Professional & Contracted Services","value":958762817,"agencies":91,"children":[{"name":"OTHER CONTRACT SERVICES - NON-IT & NON-REAL ESTATE","value":366669349},{"name":"NON-IT & NON-REAL ESTATE OTHER PROFESS SERVICES","value":158051148},{"name":"TEMPORARY SERVICES","value":114603557},{"name":"CONTRACT AGREEMENTS WITH STATE INTERGOVT","value":96105053},{"name":"SRVCS,MAINT&WARR - MANAGEMENT & ADMIN","value":54516299},{"name":"SRVCS,MAINT&WARR - IT SERVICE DESK","value":36922294},{"name":"AUDIT ACCOUNTING FINANCE","value":32089771},{"name":"MANAGEMENT CONSULTANTS","value":22344054},{"name":"CONTRACTUAL SERVICES","value":15783341},{"name":"Miscellaneous Contractual Services","value":15479466},{"name":"OTHER CONTRACTUAL SERVICES - LITTER REMOVAL","value":8161300},{"name":"SRVCS,MAINT&WARR - MAINFRAME","value":7017935},{"name":"SRVCS,MAINT&WARR - STORAGE","value":6174335},{"name":"SRVCS,MAINT&WARR - DISASTER RECOVERY","value":6045498},{"name":"OTHER CONTRACTUAL SERVICES - SWEEPING","value":5093812},{"name":"LEASE - LOW VALUE OTHER NON-IT","value":4609412},{"name":"CONTRACT AGREEMENTS WITH COUNTY/CITY GOVERNMENTS","value":1638996},{"name":"PROFESSIONAL SERVICES - LANGUAGE INTERPRETERS","value":1364667},{"name":"ACTUARIAL CONSULTANTS","value":1345131},{"name":"LEGAL FEES","value":1203116},{"name":"CONTINGENT RENT PAYMENTS - NON-IT","value":1106921},{"name":"INSURANCE - STATE - NON-IT PLAN RELATED","value":709849},{"name":"MEDICAL SERVICES-IND PROFESSIONAL CONSULTATION","value":437651},{"name":"SHORT-TERM RENT-OTHER-NON-IT","value":433362},{"name":"PROFESSIONAL SERVICES - COPYING SERVICES","value":385946},{"name":"LEGAL SERVICES - COURT REPORTER SERVICES","value":169807},{"name":"OFFICE SUPPLIES & EQUIPMENT - NON-IT PLAN REL","value":92360},{"name":"OTHER CONTRACTUAL SERVICES - FIRE EXT SERVICE","value":90135},{"name":"PROFESSIONAL SERV - HEARING IMPAIRED INTERPRETERS","value":72881},{"name":"OTHER CONTRACTUAL SERVICES - NON-IT PLAN REL","value":21149},{"name":"PRINTING, BINDING, ADVERTISING - COMMERCIAL NON-IT","value":13575}]},{"name":"Buildings, Land & Capital Construction","value":695560668,"agencies":50,"children":[{"name":"ENGINEERING & ARCHITECTURAL","value":187813722},{"name":"CONSTRUCTION PROJECTS-LUMP SUM","value":87436366},{"name":"CONSTRUCTION - BUILDINGS & ADDITIONS","value":76502063},{"name":"FEE - ARCHITECTURAL ENGINEERING & OTHER","value":74928098},{"name":"LAND EASEMENTS","value":54850958},{"name":"RENOVATIONS - BUILDINGS & ADDITIONS INTERIORS","value":44551473},{"name":"SITE DEVELOPMENT (NON-DEP LAND IMP)","value":38007261},{"name":"OTHER CONSTRUCTION/RENOV/REPAIR PROJECTS","value":32980094},{"name":"LAND","value":27764392},{"name":"UNDERGROUND STORAGE TANKS AND SUPERB","value":19552141},{"name":"RENOVATIONS-UTILITIES","value":16110738},{"name":"OTHER CAPITAL OUTLAY COSTS","value":10318259},{"name":"A AGENCY CAPITAL ASSETS","value":7091076},{"name":"ROOFING-REPAIRS & RENOVATIONS","value":5804503},{"name":"BUILDING RENOVATION","value":3210024},{"name":"RENOVATIONS-BUILDING EXTERIORS","value":2125849},{"name":"RIGHT OF WAY & LAND ACQUISITION","value":1651303},{"name":"SHORT TERM RENT-NON STATE OWNED LAND","value":1126277},{"name":"ATTORNEY FEES-CONSTRUCTION PROJECTS","value":1099669},{"name":"BUILDING RENOVATION SUPPLIES","value":710740},{"name":"DEPRECIABLE LAND IMPROVEMENTS","value":418905},{"name":"RIGHT-OF-WAY & LAND ACQUISITION-CONTRACTUAL","value":400366},{"name":"LEGAL SERVICES-CONSTRUCTION PROJECTS","value":312405},{"name":"RENOVATIONS-INTERIOR CONST MATERIALS","value":194606},{"name":"EQUIPMENT PROCURED FOR CONSTRUCTION - (MA)","value":187180},{"name":"LEASE LAND - INTEREST","value":180757},{"name":"LAND IMPROVEMENTS NON-DEPRECIABLE - (MA)","value":67544},{"name":"LAND IMPROVEMENTS DEPRECIABLE - (MA)","value":66676},{"name":"RENOVATIONS-INTERIOR ASBESTOS ABATE","value":65568},{"name":"INTERIOR LANDSCAPING SERVICES","value":20679},{"name":"INTERIOR LANDSCAPING SUPPLIES","value":10978}]},{"name":"Information Technology","value":501397029,"agencies":88,"children":[{"name":"IT CONTRACTORS","value":94470113},{"name":"SRVCS,MAINT&WARR - APPLICATION SUPPORT","value":60931322},{"name":"SRVCS,MAINT&WARR - APPLICATION DEVELOPMENT","value":58160023},{"name":"SRVCS,MAINT&WARR - INFORMATION SECURITY","value":50806774},{"name":"DP SERVICES \u2013 STATE","value":50066804},{"name":"PROGRAMS & LICENCES - APPLICATION SUPPORT","value":39629057},{"name":"PROGRAMS & LICENCES - END-USER COMPUTING","value":37807923},{"name":"PROGRAMS & LICENCES - SERVERS","value":36687927},{"name":"EQUIPMENT & SUPPLIES - END-USER COMPUTING","value":18601113},{"name":"PROGRAMS & LICENCES - INFORMATION SECURITY","value":10608071},{"name":"EQUIPMENT & SUPPLIES - INFORMATION SECURITY","value":7336114},{"name":"SRVCS,MAINT&WARR - END-USER COMPUTING","value":5601967},{"name":"SRVCS,MAINT&WARR - SERVERS","value":5546906},{"name":"FIRE ALARM SYSTEMS","value":2833552},{"name":"EQUIPMENT & SUPPLIES - PRINT & COPY END USER","value":2775891},{"name":"PROGRAMS & LICENCES - STORAGE","value":2769210},{"name":"SECURITY ALARM SYSTEMS SERVICES","value":2230322},{"name":"PROGRAMS & LICENCES - MANAGEMENT & ADMIN","value":2153584},{"name":"EQUIPMENT & SUPPLIES - APPLICATION SUPPORT","value":2136328},{"name":"SRVCS,MAINT&WARR - PRINT & COPY END USER","value":1913234},{"name":"PROGRAMS & LICENCES - APPLICATION DEVELOPMENT","value":1790304},{"name":"EQUIPMENT & SUPPLIES - APPLICATION DEVELOPMENT","value":1567012},{"name":"EQUIPMENT & SUPPLIES - SERVERS","value":1393679},{"name":"SECURITY ALARM SYSTEMS SUPPLIES","value":1207372},{"name":"PROGRAMS & LICENCES - IT SERVICE DESK","value":928626},{"name":"LEASE IT COPIERS - INTEREST","value":362342},{"name":"FIRE ALARM SYSTEMS SUPPLIES","value":325524},{"name":"UPS SYSTEMS","value":262863},{"name":"PROGRAMS & LICENCES - DISASTER RECOVERY","value":179221},{"name":"PROGRAMS & LICENCES - PRINT END USER","value":143802},{"name":"PROGRAMS & LICENCES - MAINFRAME","value":122224},{"name":"UPS SYSTEMS SUPPLIES","value":41568}]},{"name":"Insurance, Claims & Risk","value":497952570,"agencies":89,"children":[{"name":"INDEMNITY CLAIMS & AWARDS","value":132836714},{"name":"INDEMNITY CLAIMS & AWARDS-GROSS PROCEEDS","value":79058627},{"name":"INSURANCE-NON STATE","value":76950503},{"name":"WORKERS COMPENSATION INSURANCE","value":64059124},{"name":"INSURANCE-STATE","value":48145377},{"name":"RW-Dep of Est-just cmp in crt pend settle of verdi","value":31169427},{"name":"RW-Pmt of Admin Settlement - Appraised Value","value":15607647},{"name":"LEGAL SETTLEMENT TO AN INDIVIDUAL (GROSS PROCEED)","value":11313881},{"name":"INDEMNITY CLAIMS AND AWARDS - MEDICAL","value":9777118},{"name":"RW-Pmt Excess Amt of Lgl Settl over appra value","value":8582690},{"name":"R/W-Pmt of Legal Settle -Appraised Value","value":6678652},{"name":"R/W-Amicable-Settle for amt of apvl aprl","value":5988656},{"name":"R/W-Pmt of excess amt of verdict over approv appr","value":5694702},{"name":"RW-Pmt of Excess Amt of Adm Settl over appra value","value":1378560},{"name":"R/W-Payment of Jury Verdict - Appraisal","value":381290},{"name":"OTHER PROFESSIONAL SERVICES - SCHOOL BUS CLAIMS","value":317989}]},{"name":"Contracts with Governments & Nonprofits","value":436602070,"agencies":65,"children":[{"name":"CONTRACT AGREEMENTS WITH GOVT/NONPROFIT ENTITIES","value":436602070}]},{"name":"Supplies, Equipment & Materials","value":433922627,"agencies":88,"children":[{"name":"INSTRUCTIONAL MATERIALS","value":141043521},{"name":"MED SCIENT & LAB SUPPLIES","value":60391181},{"name":"INVENTORY- PROCUREMENT","value":41964958},{"name":"FURNISHINGS","value":14735608},{"name":"EDUCATIONAL SUPPLIES","value":14608465},{"name":"DATA PROCESSING EQUIPMENT - (MA)","value":13255863},{"name":"MAJOR TOOLS / OTHER MOTORIZED EQUIPMENT - (MA)","value":12160892},{"name":"LOW VALUE ASSETS - (MA)","value":11914209},{"name":"MED SCIENT & LAB SUPPLIES - PRESC DRUGS","value":11047989},{"name":"OTHER EQUIPMENT - (MA)","value":11034746},{"name":"OFFICE SUPPLIES","value":9167290},{"name":"AGRI-MARINE-FORESTRY SUPPLIES","value":8223087},{"name":"MUNITIONS TARGETS LAW ENF SUPPLIES","value":7082961},{"name":"TV/RADIO/ENGINEERING MAINTENANCE SUPPLIES","value":6317024},{"name":"PURCHASED RESALE - CONSUMER GOODS","value":6178629},{"name":"LICENSE PLATE SUPPLIES","value":5670220},{"name":"MEDICAL, SCIENTIFIC & LAB EQUIPMENT - (MA)","value":4948359},{"name":"LAW ENFORCEMENT EQUIPMENT - (MA)","value":3743230},{"name":"OTHER SUPPLIES","value":3528244},{"name":"OTHER MAINTENANCE SUPPLIES","value":3364697},{"name":"CLOTHING SUPPLIES","value":3178058},{"name":"ClientServicesRehabTechnologySupplies/Eq","value":2925185},{"name":"FEED & VETERIN SUPPLIES","value":2891384},{"name":"PHOTOGRAPHIC / AV EQUIPMENT - (MA)","value":2397566},{"name":"Small Tools & Equipment","value":2225741},{"name":"BASIC EQUIPMENT","value":2209212},{"name":"AGRICULTURE EQUIPMENT - (MA)","value":2205453},{"name":"PLUMBING SUPPLIES","value":2108457},{"name":"EDUCATIONAL SUPPLIES - BOOKS","value":1954920},{"name":"MISCELLANEOUS SUPPLIES","value":1807657},{"name":"OFFICE FURNITURE - (MA)","value":1177153},{"name":"TV / RADIO EQUIPMENT - (MA)","value":1136229},{"name":"PHOTOGRAPHIC AUDIO-VISUAL SUPPLIES","value":916769},{"name":"ELECTRICAL SUPPLIES","value":886890},{"name":"OFFICE EQUIPMENT - (MA)","value":819956},{"name":"CAFETERIA EQUIPMENT & SMALL WARES","value":769635},{"name":"EQUIPMENT & SUPPLIES - MAINFRAME","value":720604},{"name":"LIGHTING SUPPLIES","value":700029},{"name":"CLIENT PATIENT INMATE HYGIENIC SUPPLIES","value":651521},{"name":"LAUNDRY SUPPLIES","value":642838},{"name":"EQUIPMENT DISTR PROGRAM - HEARING/SPEECH IMPAIRED","value":611345},{"name":"EQUIPMENT & SUPPLIES - DISASTER RECOVERY","value":604450},{"name":"OFFICE EQUIPMENT SERVICE","value":594434},{"name":"LOCKSMITH SUPPLIES","value":577753},{"name":"EQUIPMENT & SUPPLIES - STORAGE","value":542654},{"name":"PARKING/ROADS MAINTENANCE SUPPLIES","value":525505},{"name":"CARPENTRY (SUPPLIES)","value":445557},{"name":"EQUIPMENT & SUPPLIES - IT SERVICE DESK","value":397265},{"name":"ClientServices Diagn/TreatSupplies/Equip","value":366441},{"name":"OFFICE SUPPLIES - MINOR OFFICE EQUIPMENT","value":364758},{"name":"FACTORY SUPPLIES","value":361236},{"name":"MECHANICAL SUPPLIES","value":343326},{"name":"UNIFORMS AS A SERVICE","value":312643},{"name":"AGRI-MARINE-FORESTRY SUPPLIES - SEED","value":311423},{"name":"LEASE - LOW VALUE COPIER EQUIPMENT","value":305511},{"name":"PAINTING (SUPPLIES)","value":303571},{"name":"PURCHASED RESALE - CONSUMER GOODS-COTTON MILL","value":280031},{"name":"ClientServicesMaintSupplies/Eq","value":262542},{"name":"PHOTOCOPY & FAX EQUIPMENT - (MA)","value":213179},{"name":"MICROFILM & MICROFICHE EQUIPMENT - (MA)","value":206795},{"name":"SIGNAGE SUPPLIES","value":196878},{"name":"TESTING SUPPLIES","value":193074},{"name":"UNIFORMS","value":193040},{"name":"DURABLE MEDICAL SUPPLIES","value":153525},{"name":"DENTAL SUPPLIES","value":151406},{"name":"MED SCIENT & LAB SUPPLIES - OTC DRUGS","value":144089},{"name":"CHILLER & CONT. MAINTENANCE SUPPLIES","value":138132},{"name":"ClientServicesAllOtherSupplies/Equip","value":132248},{"name":"MED SCIENT & LAB MINOR EQUIPMENT","value":131850},{"name":"CARPET SUPPLIES","value":115076},{"name":"PURCHASED RESALE - RAW MATERIALS","value":107912},{"name":"Misc Electric Equipment & Components","value":98823},{"name":"AGRI-MARINE-FORESTRY SUPPLIES - LIVESTOCK","value":92328},{"name":"OTHER SECURITY EXPENSES  SUPPLIES","value":91558},{"name":"PEST CONTROL/EXTERMINATOR SUPPLIES","value":90835},{"name":"ClientServicesPostTrainSupplies/Eq","value":87913},{"name":"STRUCTURAL/ROOFING MAINTENANCE SUPPLIES","value":87841},{"name":"EDUCATIONAL SUPPLIES - TEACHING AIDS","value":84038},{"name":"AIR PURIFICATION SUPPLIES","value":69151},{"name":"MANUFACTURING SUPPLIES","value":63770},{"name":"EQUIPMENT & SUPPLIES - MANAGEMENT & ADMIN","value":59569},{"name":"MACHINERY SUPPLIES","value":54350},{"name":"AGRI-MARINE-FORESTRY SUPPLIES - MINOR EQUIPMENT","value":53080},{"name":"CREDENTIAL SUPPLIES","value":48197},{"name":"SHIPPING SUPPLIES","value":42049},{"name":"ClientServicesVocTrainSupplies/Eq","value":38733},{"name":"Acetylene & Oxygen Supplies","value":38463},{"name":"MAINTENANCE SUPPLIES - DUE TO INMATE ABUSE","value":38444},{"name":"CLIENT / PATIENT EQUIPMENT - (MA)","value":37667},{"name":"Welding Supplies","value":35616},{"name":"WATER TREATMENT SUPPLIES","value":32960},{"name":"SNOW REMOVAL SUPPLIES","value":31331},{"name":"ENERGY MANAGEMENT SUPPLIES","value":28239},{"name":"BASIC EQUIPMENT - CAPITAL","value":27501},{"name":"ART SUPPLIES","value":27144},{"name":"WOOD MAINTENANCE SUPPLIES","value":27030},{"name":"AGRI-MARINE-FORESTRY SUPPLIES - FERTILIZER","value":23588},{"name":"TRAINING EXPENSES (SUPPLIES)","value":23418},{"name":"MUNITIONS TARGETS LAW ENF SUPPLIES DOGS","value":23311},{"name":"SPECIALTY SURFACE SUPPLIES","value":20791},{"name":"BASIC EQUIPMENT - NON-CAP","value":19415},{"name":"TITLE & REGISTRATION SUPPLIES","value":16138},{"name":"MUNITIONS TARGETS LAW ENF SECURITY SUPPLIES","value":13514},{"name":"OFFICE SUPPLIES PRINTED FORMS","value":13300},{"name":"MUNITIONS TARGETS LAW ENF SUPPLIES TARGET","value":12936},{"name":"DIRECT USER COSTS SUPPLIES","value":12464},{"name":"CONTROLLABLE OFFICE SUPPLIES","value":10872}]},{"name":"Vehicles, Fuel & Fleet","value":341295758,"agencies":75,"children":[{"name":"BUSES - (MA)","value":90331150},{"name":"VEHICLES & TRANSPORTATION - (MA)","value":53611672},{"name":"DIESEL FUEL-TRANSPORTATION","value":36489264},{"name":"MOTOR VEHICLE SUPPLIES","value":26879650},{"name":"GASOLINE","value":26495861},{"name":"LEASED CAR - STATE OWNED","value":24485022},{"name":"MOTOR VEHICLE REPAIRS - COMMERCIAL","value":15626076},{"name":"SCHOOL BUS & SUPPORT VEHICLE PARTS","value":13621600},{"name":"LAW ENFORCEMENT  VEHICLES - (MA)","value":12138387},{"name":"MOTOR VEHICLE REPLACEMENT PARTS","value":10231560},{"name":"MOTORIZED VEHICLE SERVICES","value":9785044},{"name":"AIRCRAFT & HELICOPTERS - (MA)","value":6227278},{"name":"INSURANCE - STATE - MOTOR VEHICLE","value":3614138},{"name":"MOTOR VEHICLE TIRES & TUBES","value":3038061},{"name":"WATERCRAFT & BOATS - (MA)","value":2463531},{"name":"MOTORIZED VEHICLE SERVICES INTERNAL","value":1523877},{"name":"FUEL OIL","value":902148},{"name":"MOTORIZED VEHICLE SVCS - TIRES - RETREAD SERVICES","value":676548},{"name":"VEHICLE MAINTENANCE SUPPLIES","value":506206},{"name":"VEHICLE MAINTENANCE","value":388507},{"name":"MOTOR VEHICLE TAGS TITLES AND REGISTRATIONS","value":351888},{"name":"MOTORIZED VEHICLE CAR WASH SERVICES","value":324545},{"name":"MOTOR VEHICLE SUPPLIES - TIRES & BATTERIES","value":281719},{"name":"MOTOR VEHICLE GREASE AND TRANSMISSION OIL","value":269659},{"name":"AVIATION FUEL-JET","value":257328},{"name":"MOTOR VEHICLE SUPPLIES - OTHER SUPPLIES","value":223940},{"name":"AVIATION GASOLINE","value":199988},{"name":"MOTOR VEHICLE ANTI FREEZE/WASHING/WAXING SUPPLIES","value":132935},{"name":"MOTOR VEHICLE SUPPLIES - WORK ORDER PARTS","value":77345},{"name":"MOTOR VEHICLE AUTO BATTERIES","value":75712},{"name":"MOTOR VEHICLE SUPPLIES - INVENTORY PARTS","value":25526},{"name":"MOTOR VEHICLE SUPPLIES - NON STATE VEHICLE","value":18257},{"name":"MOTOR VEHICLE REPAIRS - WRECKED","value":17184}]},{"name":"Telecommunications & Connectivity","value":200610299,"agencies":86,"children":[{"name":"SRVCS,MAINT&WARR - DATA NETWORK","value":83189009},{"name":"NETWORK, CIRCUIT & VOICE - DATA NETWORK","value":47174252},{"name":"NETWORK, CIRCUIT & VOICE - VOICE NETWORK","value":18233666},{"name":"CELLULAR TELEPHONE SERVICES","value":12440532},{"name":"EQUIPMENT & SUPPLIES - DATA NETWORK","value":11061099},{"name":"SRVCS,MAINT&WARR - VOICE NETWORK","value":9957467},{"name":"COMM EQUIP SERVICES","value":9027346},{"name":"COMMUNICATIONS EQUIPMENT - (MA)","value":3495540},{"name":"COMMUNICATION SUPPLIES","value":2976857},{"name":"PROGRAMS & LICENCES - DATA NETWORK","value":2588539},{"name":"EQUIPMENT & SUPPLIES - VOICE NETWORK","value":331972},{"name":"PROGRAMS & LICENCES - VOICE NETWORK","value":134020}]},{"name":"Utilities","value":192406830,"agencies":46,"children":[{"name":"NON REAL ESTATE - GARBAGE SERVICE","value":126644612},{"name":"ELECTRICITY","value":44536802},{"name":"WATER & SEWER","value":16743865},{"name":"ELECTRICITY - NON-REAL ESTATE","value":3775615},{"name":"NATURAL GAS - NON-REAL ESTATE","value":294648},{"name":"CLIENT PAYMENT - RENT/UTILITIES","value":240067},{"name":"NON REAL ESTATE - WATER UTILITIES","value":112561},{"name":"OVERTIME HVAC (ELECTRICITY AFTER HOURS)","value":58660}]},{"name":"Rent, Leases & Facilities Operations","value":114723040,"agencies":89,"children":[{"name":"OTHER CONTRACTUAL SERVICES - MOWING","value":21209851},{"name":"JANITORIAL","value":19524511},{"name":"RENT-STATE OWNED REAL PROPERTY","value":17284138},{"name":"LEASE BUILDING - INTEREST","value":16423833},{"name":"SHORT TERM RENT-OTHER-HVY EQUIP-NON REAL ESTATE","value":7331769},{"name":"HVAC MAINTENANCE","value":6504836},{"name":"GROUNDS MAINTENANCE SERVICES","value":4984781},{"name":"JANITORIAL SUPPLIES","value":3674643},{"name":"CONTINGENT RENT PAYMENTS - IT","value":3139830},{"name":"HVAC SUPPLIES","value":2054005},{"name":"GROUNDS MAINTENANCE SUPPLIES","value":1712919},{"name":"SHORT TERM RENT-NON STATE OWNED BUILDING","value":1671464},{"name":"RENT-STATE OWNED-REAL PROP-MAINT & OP/EXCESS ENERG","value":1651337},{"name":"EQUIPMENT RENTAL FOR REPAIR & MAINTENANCE","value":1122563},{"name":"RENT PARKING","value":954245},{"name":"INTERNAL RENT-OTHER-RESEARCH VESSELS","value":840650},{"name":"RENT-OTHER - MEETING ROOMS & VIDEO EQUIPMENT","value":821608},{"name":"SHORT-TERM RENT - MEDICAL SCIENCE LAB EQUIPMENT","value":693352},{"name":"HOUSEHOLD, LAUNDRY, & JANITORIAL EQUIPMENT - (MA)","value":520405},{"name":"SHORT-TERM RENT DATA PROCESSING EQUIPMENT","value":491495},{"name":"RENT TOWERS","value":450066},{"name":"SHORT-TERM RENT COPIERS EQUIPMENT","value":410554},{"name":"INTERNAL RENT-OTHER-MOTOR POOL","value":259829},{"name":"RENT STORAGE SPACE","value":193437},{"name":"SHORT-TERM RENT - SBITA","value":146342},{"name":"CS SRV OTH RENT/UTIL","value":140120},{"name":"CONTINGENT RENT PAYMENTS - SBITA","value":120393},{"name":"RENT STORAGE TANKS","value":107599},{"name":"RENT POST OFFICE BOX","value":86517},{"name":"RENT TRASH CONTAINERS","value":78367},{"name":"LEASE BUILDING - EXECUTORY","value":54369},{"name":"EQUIPMENT RENTED","value":50943}]},{"name":"Medical & Health Services (operational)","value":67708915,"agencies":39,"children":[{"name":"MEDICAL & HEALTH SERVICES","value":42726821},{"name":"MEDICAL & HEALTH SERVICES - PSYCHIATRIC SERVICES","value":19692886},{"name":"MEDICAL & HEALTH SERVICES - NURSING SERVICES","value":4584524},{"name":"MEDICAL & HEALTH SERVICES VETERINARY","value":599869},{"name":"MEDICAL & HEALTH SERVICES - LABORATORY SERVICES","value":45532},{"name":"MEDICAL & HEALTH SERVICES-IMAGING & RADIOLOGY SERV","value":26075},{"name":"MEDICAL & HEALTH SRV-OPTOMETRIST & OPHTHALMOLOGIST","value":17988},{"name":"MEDICAL & HEALTH SERVICES - DENTAL SERVICES","value":15219}]},{"name":"Personnel, Training & Memberships","value":65864958,"agencies":87,"children":[{"name":"EDUCATION TRAINING - NON STATE","value":39478680},{"name":"DUES & MEMBERSHIP FEES","value":15239387},{"name":"Rural Teacher Recruitment","value":9748392},{"name":"LOST WAGES","value":595903},{"name":"EDUCATION & TRAINING - STATE","value":467616},{"name":"TRAINING EXPENSES (SERVICES)","value":334979}]},{"name":"Testing, Research & Appraisal","value":48093561,"agencies":43,"children":[{"name":"TESTING SERVICES","value":31234073},{"name":"RESEARCH SURVEY & APPRAISERS","value":16859488}]},{"name":"Marketing, Promotion & Public Information","value":45550344,"agencies":79,"children":[{"name":"PROMOTIONAL","value":37208242},{"name":"PRINTING BINDING ADVERTISING","value":4117074},{"name":"PROMOTIONAL SUPPLIES","value":3051872},{"name":"EXHIBIT & COLLECT SUPPLIES","value":402115},{"name":"PRINTING, BINDING, ADVERTISING - COMMERCIAL","value":333231},{"name":"PRINTING, BINDING, ADVERTISING - NEWSPAPER AD","value":296967},{"name":"PRINTING, BINDING, ADVERTISING - PROMOTIONAL","value":140844}]},{"name":"Food & Provisions","value":43078078,"agencies":37,"children":[{"name":"FOOD SUPPLIES - FOOD","value":37157667},{"name":"FOOD SERVICES","value":2663080},{"name":"PUBLIC ASSISTANCE PAYMENTS AND FOOD","value":1659629},{"name":"FOOD SERVICES - SUPPLIES","value":1165104},{"name":"FOOD SUPPLIES - MILK","value":432598}]},{"name":"Travel, Lodging & Per Diem","value":33059319,"agencies":88,"children":[{"name":"IN STATE - LODGING","value":5453998},{"name":"IN STATE - AUTO MILEAGE","value":4626276},{"name":"TRAINING - IN-STATE REGISTRATION FEES","value":3772435},{"name":"OUT OF STATE - LODGING","value":3457379},{"name":"NON-STATE EMPLOYEE - TRAVEL - NON-REPORTABLE","value":2911773},{"name":"TRAINING - OUT-OF-STATE REGISTRATION FEES","value":2038854},{"name":"HR TRAVEL - IN STATE - AUTO MILEAGE","value":1925228},{"name":"CATERED MEALS","value":1892506},{"name":"IN STATE - SUBSISTENCE ALLOWANCE","value":1555414},{"name":"IN STATE - SUBSISTENCE ALLOWANCE - SESSION","value":1137188},{"name":"IN STATE - MEALS (NON-REPORTABLE)","value":979157},{"name":"OUT OF STATE - MEALS (NON-REPORTABLE)","value":796908},{"name":"IN STATE - AUTO MILEAGE REDUCED","value":681974},{"name":"IN STATE - AUTO MILEAGE - SESSION","value":342733},{"name":"OUT OF STATE - MISCELLANEOUS TRAVEL EXPENSE","value":270676},{"name":"REPORTABLE MEALS","value":232760},{"name":"OUT OF STATE - AUTO MILEAGE","value":174838},{"name":"TRAINING \u2013 IN-STATE LODGING","value":130507},{"name":"HR TRAVEL - OUT OF STATE - AIR TRANSPORTATION","value":101628},{"name":"FOREIGN TRAVEL - AIR TRANSPORTATION","value":84371},{"name":"FOREIGN TRAVEL - LODGING","value":79155},{"name":"IN STATE - MISCELLANEOUS TRAVEL EXPENSE","value":75896},{"name":"NON-STATE EMPLOYEE - TRAVEL - REPORTABLE","value":73560},{"name":"HR TRAVEL - OUT OF STATE - AUTO MILEAGE","value":64856},{"name":"FOREIGN TRAVEL - MEALS","value":42069},{"name":"HR - FOREIGN TRAVEL - AIR TRANSPORTATION","value":32214},{"name":"OUT OF STATE - AUTO MILEAGE REDUCED","value":21628},{"name":"TRAINING \u2013 IN-STATE MILEAGE","value":18497},{"name":"TRAVEL ADVANCE","value":17850},{"name":"TRAINING \u2013 IN-STATE MEALS","value":16667},{"name":"FOREIGN TRAVEL - OTHER TRANSPORTATION","value":14906},{"name":"FOREIGN TRAVEL - REGISTRATION FEES","value":12414},{"name":"FOREIGN TRAVEL - MISCELLANEOUS TRAVEL EXPENSE","value":11633}]},{"name":"Printing, Postage & Mail","value":30635616,"agencies":85,"children":[{"name":"POSTAGE","value":16985255},{"name":"FREIGHT EXPRESS DELIVERY","value":5727246},{"name":"PRINTED ITEMS","value":5434799},{"name":"EQUIPMENT & SUPPLIES - PRINT ENTERPRISE & MAIL","value":1261904},{"name":"PRINTING EQUIPMENT - (MA)","value":870651},{"name":"RENT POSTAGE EQUIPMENT","value":239759},{"name":"POSTAGE - SESSION","value":61683},{"name":"SRVCS,MAINT&WARR - PRINT ENTERPRISE & MAIL","value":46186}]},{"name":"Security & Protective Services","value":18415094,"agencies":42,"children":[{"name":"SECURITY CONTRACTS","value":18411287}]}];
+
+/* ---- palette: 19 category colors, indigo/brass institutional family ---- */
+var PAL = ["#2F4B87","#C0902F","#3E7C6F","#8A4A3B","#54648C","#7A6A2E","#2E6E8E",
+           "#9C5A2B","#4E5D3A","#6B4A7A","#37667B","#A97B32","#5C7A54","#84545E",
+           "#41597E","#8E6E3A","#2F6D5D","#75543B","#5A6B44"];
+var COLOR = {};
+TM.forEach(function(c,i){ COLOR[c.name] = PAL[i % PAL.length]; });
+
+/* ---- intro bar ---- */
+window.addEventListener("load", function(){
+  document.querySelectorAll("#bar .seg").forEach(function(s){ s.style.width = s.dataset.w+"%"; });
+  render("spend");
+  drawTreemap(null);
+});
+window.addEventListener("resize", function(){ drawTreemap(currentCat); });
+
+/* ---- squarified treemap (vanilla) ---- */
+function squarify(items, x, y, w, h, out){
+  if (!items.length) return;
+  var total = items.reduce(function(a,b){return a+b.value;},0);
+  if (total <= 0) return;
+  var i = 0;
+  while (i < items.length){
+    var row = [], rowSum = 0, best = Infinity;
+    var horiz = w >= h, side = horiz ? h : w;
+    for (var j = i; j < items.length; j++){
+      var trial = rowSum + items[j].value;
+      var frac = trial / total, len = horiz ? w*frac : h*frac;
+      var worst = 0;
+      for (var k = i; k <= j; k++){
+        var cell = horiz ? {w:len, h:side*items[k].value/trial}
+                         : {w:side*items[k].value/trial, h:len};
+        worst = Math.max(worst, Math.max(cell.w/cell.h, cell.h/cell.w));
+      }
+      if (worst <= best){ best = worst; row.push(items[j]); rowSum = trial; }
+      else break;
+    }
+    var frac2 = rowSum/total, off = 0;
+    if (horiz){
+      var rw = w*frac2;
+      row.forEach(function(it){
+        var ih = h*it.value/rowSum;
+        out.push({item:it, x:x, y:y+off, w:rw, h:ih}); off += ih;
+      });
+      x += rw; w -= rw;
+    } else {
+      var rh = h*frac2;
+      row.forEach(function(it){
+        var iw = w*it.value/rowSum;
+        out.push({item:it, x:x+off, y:y, w:iw, h:rh}); off += iw;
+      });
+      y += rh; h -= rh;
+    }
+    total -= rowSum; i += row.length;
+  }
+}
+
+var currentCat = null;
+function money(v){ return v>=1e9 ? "$"+(v/1e9).toFixed(2)+"B" : v>=1e6 ? "$"+(v/1e6).toFixed(1)+"M" : "$"+Math.round(v/1e3)+"K"; }
+
+function drawTreemap(cat){
+  currentCat = cat;
+  var box = document.getElementById("treemap");
+  var W = box.clientWidth, H = box.clientHeight;
+  var items = cat ? cat.children.map(function(c){return {name:c.name, value:c.value};})
+                  : TM.map(function(c){return {name:c.name, value:c.value, ref:c};});
+  items = items.filter(function(d){return d.value>0;});
+  var cells = [];
+  squarify(items.slice(), 0, 0, W, H, cells);
+  box.innerHTML = "";
+  cells.forEach(function(c){
+    var d = document.createElement("div");
+    d.className = "tmCell";
+    d.style.left = c.x+"px"; d.style.top = c.y+"px";
+    d.style.width = Math.max(0,c.w-1)+"px"; d.style.height = Math.max(0,c.h-1)+"px";
+    var base = cat ? COLOR[cat.name] : COLOR[c.item.name];
+    d.style.background = base;
+    if (cat){ d.style.opacity = (0.55 + 0.45*Math.min(1, c.item.value/items[0].value)).toFixed(2); }
+    d.title = c.item.name + " — " + money(c.item.value);
+    if (c.w > 78 && c.h > 40){
+      d.innerHTML = '<div class="tl"><span class="nm">'+c.item.name+
+        '</span><span class="vl">'+money(c.item.value)+'</span></div>';
+    }
+    if (!cat){
+      d.addEventListener("click", function(){
+        drawTreemap(c.item.ref);
+        document.getElementById("tmBack").style.display = "inline-block";
+        document.getElementById("tmCrumb").textContent =
+          c.item.ref.name + " · " + c.item.ref.children.length + " object codes · " + money(c.item.ref.value);
+      });
+    }
+    box.appendChild(d);
+  });
+}
+document.getElementById("tmBack").addEventListener("click", function(){
+  drawTreemap(null);
+  this.style.display = "none";
+  document.getElementById("tmCrumb").textContent = "All operational spending · 19 categories · $6.61B";
+});
+
+/* ---- category bars ---- */
+var FUNCS = TM.map(function(c){ return {name:c.name, spend:c.value, agencies:c.agencies}; });
+
+var NOTES = {
+  spend:
+    '<p>This view breaks out the $6.61 billion of operational spend by function area, ranked '+
+    'by total dollars. <strong>Roads, bridges and highways is the largest at $1.88 billion</strong>, '+
+    'and it behaves differently from everything below it: 95% of it sits in a single agency and '+
+    'it is tied to named projects rather than recurring overhead. Professional and contracted '+
+    'services is second at $959 million and is its opposite — purchased by 91 of 97 agencies. '+
+    'The remaining categories step down from there; together, the routine costs of running an '+
+    'organization — technology, supplies, insurance, vehicles, buildings, utilities, travel, '+
+    'training, phones — account for roughly $3.8 billion.</p>',
+  agencies:
+    '<p>This view shows the same nineteen functions ranked by <strong>how many of the state\'s '+
+    '97 agencies spend money in each one</strong>, regardless of amount. The ordering changes '+
+    'sharply, and the change is the point.</p>'+
+    '<p>Professional services reaches 91 agencies. Insurance and facilities each reach 89; '+
+    'IT, supplies and travel 88; personnel training 87; telecom 86. <strong>These are functions '+
+    'that essentially all of state government purchases independently</strong> — roughly ninety '+
+    'separate decisions about the same category of thing, with ninety sets of terms. Roads '+
+    'falls from first to the bottom third at 12 agencies, and utilities to 46, confirming both '+
+    'as concentrated rather than universal costs.</p>'+
+    '<p>Neither view alone identifies waste. Together they narrow the search: categories that '+
+    'rank high on both dollars and breadth are where large sums and wide duplication overlap.</p>'
+};
+
+function render(mode){
+  var rows = FUNCS.slice().sort(function(a,b){ return b[mode]-a[mode]; });
+  var max = Math.max.apply(null, rows.map(function(r){return r[mode];}));
+  var chart = document.getElementById("chart");
+  chart.innerHTML = rows.map(function(r){
+    var val = mode==="spend" ? money(r.spend) : r.agencies+" of 97";
+    return '<div class="frow"><div class="fname">'+r.name+'</div>'+
+      '<div class="ftrack"><div class="ffill" data-pct="'+(r[mode]/max*100).toFixed(1)+
+      '" style="background:'+COLOR[r.name]+'"></div></div>'+
+      '<div class="fval">'+val+'</div></div>';
+  }).join("");
+  requestAnimationFrame(function(){
+    chart.querySelectorAll(".ffill").forEach(function(f){ f.style.width = f.dataset.pct+"%"; });
+  });
+  document.getElementById("chartNote").innerHTML = NOTES[mode];
+}
+var bS=document.getElementById("btnSpend"), bA=document.getElementById("btnAgency");
+bS.addEventListener("click",function(){bS.setAttribute("aria-pressed","true");bA.setAttribute("aria-pressed","false");render("spend");});
+bA.addEventListener("click",function(){bA.setAttribute("aria-pressed","true");bS.setAttribute("aria-pressed","false");render("agencies");});
+</script>
+</body>
+</html>
