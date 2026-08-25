@@ -10,12 +10,14 @@
 | **Project** | Carolina Redesign |
 | **One-liner** | Columbia SC editorial site + AI Opportunity Assessment service (Vapi intake → webhook → Airtable queue → Claude Code report) |
 | **Status** | building |
-| **Last Active** | 2026-08-04 |
+| **Last Active** | 2026-08-25 |
 | **Stall Threshold** | 7 days |
 | **Repo** | https://github.com/jimmyardis/carolina-redesign |
 | **Stack** | Static HTML/CSS, GitHub Pages |
 
 ## Current State
+
+**Palmetto Ledger Issue 3 shipped 2026-08-25**: "South Carolina FY2025 State Spending, Organized by Function" is live at `/palmetto-ledger/fy2025-spending-by-function/`, with its six data files (five CSVs + `taxonomy.py`) published and linked from the page. Built from the Comptroller General's monthly spending transparency files — a second data source for the series alongside the ZBB/appropriations path.
 
 The assessment is now **publicly sellable end to end**: the redesigned checkout-first sales page at `/assessment/` (live 2026-07-31) → $999 Stripe payment link → `/assessment/start/` post-checkout page → Reese intake line → webhook/Airtable/auto-draft pipeline (unchanged since 07-16: `carolina-intake` Railway webhook queues intakes, `report_gen.py` auto-drafts via Claude Opus 4.8, human reviews before emailing). Page promises 48-hour delivery, a 45-min walkthrough, and a 5-hrs/week-or-refund guarantee. Stripe checkout currently runs on the user's single Stripe account (also hosts Secursion products); a per-brand second account was recommended, decision pending.
 
@@ -35,6 +37,14 @@ Run one real test purchase through the live flow (checkout → redirect → star
 ## Session Log
 
 <!-- Append-only. Most recent session on top. Claude Code adds an entry at the end of each work session. -->
+
+### 2026-08-25
+
+- **Published Palmetto Ledger Issue 3** — "South Carolina FY2025 State Spending, Organized by Function." Source folder came in from `~/Downloads/palmetto-ledger-repo/ledger-repo/`; copied to `palmetto-ledger/fy2025-spending-by-function/` (self-contained `index.html` + `data/`).
+- Wired it into the series without touching its own visual identity (it uses its own Spectral/indigo palette, not the Playfair/gold ledger theme): masthead mark and footer now link back to `/palmetto-ledger/`, favicon and meta description added, and a "The data behind this page" block links all six data files — they shipped with the page but nothing referenced them.
+- Added the Issue 3 card to `/palmetto-ledger/` (newest first) and updated the research-index chips. **The Match Trap renumbered 3 → 4** so the published issues stay sequential.
+- Broadened the ledger method note: it claimed every figure came from the appropriations acts via the ZBB Suite, which isn't true of this issue. It now names the Comptroller General spending files as the second source. The hero blurb still describes only the ZBB path — worth revisiting if more expenditure-data issues follow.
+- Headline figures checked against the shipped CSVs before publishing: 82.2% formula-driven, $6.606B operational, 19 function areas. Verified live at www.carolinaredesign.com after the Pages build (~40s).
 
 ### 2026-08-04
 
