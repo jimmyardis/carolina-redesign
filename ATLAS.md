@@ -10,12 +10,14 @@
 | **Project** | Carolina Redesign |
 | **One-liner** | Columbia SC editorial site + AI Opportunity Assessment service (Vapi intake → webhook → Airtable queue → Claude Code report) |
 | **Status** | building |
-| **Last Active** | 2026-08-25 |
+| **Last Active** | 2026-09-02 |
 | **Stall Threshold** | 7 days |
 | **Repo** | https://github.com/jimmyardis/carolina-redesign |
 | **Stack** | Static HTML/CSS, GitHub Pages |
 
 ## Current State
+
+**Palmetto Ledger Issue 4 shipped 2026-09-02**: "Department of Agriculture, FY2025" is live at `/palmetto-ledger/agriculture.html` — the first single-agency study in the series, and the second built on the Comptroller General's spending files. All $42.6M of the Department's FY2025 transactions, split pass-through vs. operational, with a fund lens (All/General/Federal/Restricted/Earmarked) that redraws every chart, and the Section 44 appropriation set beside the actuals.
 
 **Palmetto Ledger Issue 3 shipped 2026-08-25**: "South Carolina FY2025 State Spending, Organized by Function" is live at `/palmetto-ledger/fy2025-spending-by-function/`, with its six data files (five CSVs + `taxonomy.py`) published and linked from the page. Built from the Comptroller General's monthly spending transparency files — a second data source for the series alongside the ZBB/appropriations path.
 
@@ -37,6 +39,16 @@ Run one real test purchase through the live flow (checkout → redirect → star
 ## Session Log
 
 <!-- Append-only. Most recent session on top. Claude Code adds an entry at the end of each work session. -->
+
+### 2026-09-02
+
+- **Published Palmetto Ledger Issue 4** — "Department of Agriculture, FY2025." Standalone page arrived from `~/Downloads/palmetto-ledger-agriculture.html`; copied to `palmetto-ledger/agriculture.html` (fully self-contained — data inlined as a `DATA` object, no CDN scripts, Google Fonts only).
+- Same integration treatment as Issue 3, again without touching its visual identity (it shares Issue 3's Spectral/pine/brass family): pine masthead with a `← The Palmetto Ledger` mark, favicon, meta description, and footer links back to the series and the site root.
+- **Renumbered:** the file arrived labelled "No. 2 in a series" — it predates the current numbering. Published as **Issue 4**, and The Match Trap moved **4 → 5**, same precedent as last session.
+- Issue 4 card added to `/palmetto-ledger/` (newest first) and the research-index chips updated (Issue 4: Agriculture; Issue 5: Coming soon).
+- Card figures computed from the page's own embedded data before publishing: $42.6M recorded spend, 7,389 transactions, 807 payees, 44.4% pass-through. Headless render check: 17 treemap cells, 14 rank rows, 15 aid rows, 12 budget rows, 50 payee rows, fund-lens switching recomputes correctly (Federal = $10.2M / 23.8%), zero console errors.
+- Verified live at www.carolinaredesign.com after the Pages build (~45s).
+- **Note for the next agency study:** the page's own method block flags that ~$20.7M of appropriated personnel spending never appears in the transaction files, and that mapping transactions to program areas needs the Department's internal cost-center structure. Same limits will hit every single-agency issue.
 
 ### 2026-08-25
 
