@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Department of Agriculture, FY2025 — The Palmetto Ledger</title>
+<meta name="description" content="Every expenditure transaction the South Carolina Department of Agriculture recorded in FY2025 — $42.6M across 7,389 transactions and 807 payees — organized by what the money bought, who received it, and which fund it drew from. The Palmetto Ledger, Carolina Redesign.">
+<link rel="icon" type="image/png" href="/cr-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F6F1; --ink:#22231E; --muted:#6B6A60; --line:#DDDACE;
+  --pine:#1B4D3E; --pine-deep:#123528; --brass:#8C6D2F; --wheat:#C9A55C;
+  --field:#3E7A54; --moss:#6E8F5E; --clay:#A46B4A; --card:#FFFFFF;
+}
+*{box-sizing:border-box; margin:0; padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper); color:var(--ink); font-family:"Source Sans 3",sans-serif; font-size:17px; line-height:1.6}
+.serif{font-family:"Spectral",serif}
+.mono{font-family:"IBM Plex Mono",monospace}
+.wrap{max-width:980px; margin:0 auto; padding:0 20px}
+
+/* site masthead */
+.masthead{background:var(--pine-deep); padding:15px 0}
+.masthead .wrap{display:flex; justify-content:space-between; align-items:baseline; gap:20px; flex-wrap:wrap}
+.mark{font-family:"Spectral",serif; font-weight:600; font-size:18px; color:#F3F1E6; text-decoration:none}
+.mark span{color:var(--wheat)}
+.mark:hover span{color:#fff}
+.mhmeta{font-family:"IBM Plex Mono",monospace; font-size:11.5px; letter-spacing:.09em; text-transform:uppercase; color:#9FB6A9}
+
+/* masthead */
+header{border-bottom:3px double var(--pine); padding:42px 0 30px; background:linear-gradient(180deg,#F2F1E9,var(--paper))}
+.series{font-family:"IBM Plex Mono",monospace; font-size:13px; letter-spacing:.14em; color:var(--brass)}
+h1{font-family:"Spectral",serif; font-size:clamp(40px,7vw,64px); font-weight:700; color:var(--pine); line-height:1.05; margin:10px 0 6px}
+.stand{font-family:"Spectral",serif; font-style:italic; font-size:clamp(17px,2.6vw,21px); color:var(--muted); max-width:64ch}
+.banner{background:var(--pine); color:#EFEDE2; font-size:14.5px; padding:9px 14px; border-radius:4px; margin-top:22px}
+.banner b{color:var(--wheat)}
+
+/* stat strip */
+.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:6px; overflow:hidden; margin:30px 0 8px}
+.stat{background:var(--card); padding:16px 14px}
+.stat .v{font-family:"IBM Plex Mono",monospace; font-size:clamp(19px,3vw,26px); font-weight:500; color:var(--pine)}
+.stat .l{font-size:13.5px; color:var(--muted); margin-top:2px}
+@media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* fund lens */
+.lensbar{position:sticky; top:0; z-index:40; background:rgba(247,246,241,.96); backdrop-filter:blur(4px); border-bottom:1px solid var(--line); padding:10px 0; margin-top:26px}
+.lensrow{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+.lenslabel{font-size:13.5px; color:var(--muted); margin-right:2px}
+.pill{border:1.5px solid var(--pine); color:var(--pine); background:transparent; font:600 14px "Source Sans 3",sans-serif; padding:5px 13px; border-radius:99px; cursor:pointer; transition:background .15s,color .15s}
+.pill:hover{background:#E6EFE9}
+.pill.on{background:var(--pine); color:#F3F1E6}
+.pill:focus-visible{outline:3px solid var(--wheat); outline-offset:2px}
+.lensnote{font-size:13px; color:var(--muted); width:100%; margin-top:2px}
+
+section{padding:44px 0 8px}
+h2{font-family:"Spectral",serif; font-size:clamp(25px,4vw,32px); font-weight:600; color:var(--pine); margin-bottom:6px}
+.kick{font-size:15.5px; color:var(--muted); max-width:70ch; margin-bottom:20px}
+
+/* split bar */
+.split{display:flex; height:58px; border-radius:6px; overflow:hidden; border:1px solid var(--line)}
+.seg{transition:width .5s cubic-bezier(.4,0,.2,1); position:relative; min-width:0}
+.seg span{position:absolute; left:10px; top:7px; color:#F5F3E8; font-size:13px; font-weight:600; white-space:nowrap; text-shadow:0 1px 2px rgba(0,0,0,.25)}
+.seg small{position:absolute; left:10px; bottom:6px; color:rgba(245,243,232,.85); font-family:"IBM Plex Mono",monospace; font-size:12px}
+.legend{display:flex; gap:18px; flex-wrap:wrap; margin-top:10px; font-size:13.5px; color:var(--muted)}
+.sw{display:inline-block; width:11px; height:11px; border-radius:2px; margin-right:6px; vertical-align:-1px}
+
+/* treemap */
+.tmHead{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:10px}
+#tmCrumb{font-family:"IBM Plex Mono",monospace; font-size:13px; color:var(--muted)}
+#tmBack{display:none; border:1.5px solid var(--brass); background:transparent; color:var(--brass); font:600 13.5px "Source Sans 3"; padding:4px 12px; border-radius:99px; cursor:pointer}
+#tmBack:hover{background:#F3ECDD}
+#treemap{position:relative; width:100%; height:460px; border-radius:6px; overflow:hidden; background:var(--card); border:1px solid var(--line)}
+@media(max-width:640px){#treemap{height:360px}}
+.tmCell{position:absolute; overflow:hidden; cursor:pointer; transition:filter .12s}
+.tmCell:hover{filter:brightness(1.12)}
+.tl{padding:7px 8px}
+.tl .nm{display:block; color:#F6F4EA; font-size:12.5px; font-weight:600; line-height:1.25; text-shadow:0 1px 2px rgba(0,0,0,.3)}
+.tl .vl{display:block; color:rgba(246,244,234,.9); font-family:"IBM Plex Mono",monospace; font-size:11.5px; margin-top:2px}
+
+/* rank bars */
+.toggle{display:inline-flex; border:1.5px solid var(--pine); border-radius:99px; overflow:hidden; margin-bottom:18px}
+.toggle button{border:none; background:transparent; color:var(--pine); font:600 14px "Source Sans 3"; padding:6px 15px; cursor:pointer}
+.toggle button.on{background:var(--pine); color:#F3F1E6}
+.rank{display:flex; flex-direction:column; gap:9px}
+.rrow{display:grid; grid-template-columns:220px 1fr 92px; gap:12px; align-items:center}
+@media(max-width:640px){.rrow{grid-template-columns:120px 1fr 74px}}
+.rname{font-size:14px; line-height:1.25; text-align:right; color:var(--ink)}
+.rtrack{background:#ECEAE0; border-radius:3px; height:20px; overflow:hidden}
+.rbar{height:100%; border-radius:3px; transition:width .5s cubic-bezier(.4,0,.2,1)}
+.rval{font-family:"IBM Plex Mono",monospace; font-size:13px; color:var(--muted); text-align:left}
+
+/* aid */
+.gov{display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:10.5px; background:#E8E2CF; color:var(--brass); border-radius:3px; padding:1px 6px; margin-left:7px; vertical-align:1px}
+
+/* budget */
+.bud{display:flex; flex-direction:column; gap:10px}
+.brow{display:grid; grid-template-columns:230px 1fr 96px; gap:12px; align-items:center}
+@media(max-width:640px){.brow{grid-template-columns:125px 1fr 78px}}
+.bstack{display:flex; height:20px; border-radius:3px; overflow:hidden; background:#ECEAE0}
+.recon{display:grid; grid-template-columns:130px 1fr; gap:10px 14px; align-items:center; margin-top:26px}
+.rlab{font-size:14px; color:var(--muted); text-align:right}
+.rbarwrap{display:flex; height:34px; border-radius:5px; overflow:hidden; border:1px solid var(--line)}
+.rseg{display:flex; align-items:center; justify-content:center; color:#F5F3E8; font-size:12.5px; font-weight:600; white-space:nowrap; overflow:hidden}
+@media(max-width:640px){.recon{grid-template-columns:86px 1fr}.rlab{font-size:12.5px}}
+
+/* vendors */
+.vsearch{width:100%; max-width:380px; font:15px "Source Sans 3"; padding:9px 13px; border:1.5px solid var(--line); border-radius:6px; background:var(--card); margin-bottom:14px}
+.vsearch:focus{outline:2px solid var(--pine)}
+table{width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--line); border-radius:6px; overflow:hidden}
+th{background:var(--pine); color:#F1EFE3; text-align:left; font-size:13px; padding:9px 12px; font-weight:600}
+th.num,td.num{text-align:right}
+td{padding:8px 12px; font-size:14.5px; border-top:1px solid #EFEDE3}
+tr:nth-child(even) td{background:#FBFAF6}
+td.num{font-family:"IBM Plex Mono",monospace; font-size:13.5px}
+.sttag{font-family:"IBM Plex Mono",monospace; font-size:10.5px; background:#DFE8E1; color:var(--pine); border-radius:3px; padding:1px 6px; margin-left:7px}
+
+/* method */
+.method{background:var(--card); border:1px solid var(--line); border-left:4px solid var(--brass); border-radius:6px; padding:22px 24px; margin:34px 0 8px}
+.method h3{font-family:"Spectral",serif; color:var(--pine); font-size:20px; margin-bottom:8px}
+.method p{font-size:15px; color:#4A4A42; margin-bottom:10px}
+footer{padding:36px 0 46px; color:var(--muted); font-size:13.5px; border-top:1px solid var(--line); margin-top:44px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="masthead"><div class="wrap">
+  <a class="mark" href="/palmetto-ledger/">&#8592; The Palmetto <span>Ledger</span></a>
+  <div class="mhmeta">Carolina Redesign &middot; Research &middot; September 2026</div>
+</div></div>
+
+<header><div class="wrap">
+  <div class="series">THE PALMETTO LEDGER · ISSUE 4 · SEPTEMBER 2026</div>
+  <h1>Agriculture</h1>
+  <p class="stand">Every expenditure transaction the Department of Agriculture recorded in FY2025 — organized by what the money bought, who received it, and which fund it drew from.</p>
+  <div class="banner"><b>Informal analysis.</b> Built entirely from public data: the Comptroller General&rsquo;s monthly spending files and the FY2025-26 Appropriations Act. One analyst&rsquo;s categories, openly auditable. A conversation starter, not an official accounting.</div>
+</div></header>
+
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="v" id="sTotal"></div><div class="l">recorded spend</div></div>
+    <div class="stat"><div class="v" id="sTx"></div><div class="l">transactions</div></div>
+    <div class="stat"><div class="v" id="sPay"></div><div class="l">distinct payees</div></div>
+    <div class="stat"><div class="v" id="sShare"></div><div class="l" id="sShareL">of department total</div></div>
+  </div>
+</div>
+
+<div class="lensbar"><div class="wrap"><div class="lensrow">
+  <span class="lenslabel">View through:</span>
+  <button class="pill on" data-lens="All funds">All funds</button>
+  <button class="pill" data-lens="General">General Fund</button>
+  <button class="pill" data-lens="Federal">Federal</button>
+  <button class="pill" data-lens="Restricted">Restricted</button>
+  <button class="pill" data-lens="Earmarked">Earmarked</button>
+  <span class="lensnote" id="lensNote"></span>
+</div></div></div>
+
+<div class="wrap">
+
+<section id="secSplit">
+  <h2>Two kinds of dollars</h2>
+  <p class="kick">Pass-through money is forwarded to counties, food banks, and institutions; operational money buys goods and services. Zero-based review asks a different question of each.</p>
+  <div class="split" id="splitBar"></div>
+  <div class="legend" id="splitLegend"></div>
+</section>
+
+<section id="secTree">
+  <h2>The operational map</h2>
+  <p class="kick">Rectangle size is FY2025 dollars. Tap any category to open its individual object codes; the picture redraws as you change funds above.</p>
+  <div class="tmHead">
+    <button id="tmBack">&#8592; All categories</button>
+    <span id="tmCrumb"></span>
+  </div>
+  <div id="treemap"></div>
+</section>
+
+<section id="secRank">
+  <h2>Three ways to rank a category</h2>
+  <p class="kick">Dollars show where the money is. Transactions and payee counts show where the <em>decisions</em> are — fragmentation an agency-by-agency budget never reveals.</p>
+  <div class="toggle" role="tablist">
+    <button class="on" data-mode="amt">By dollars</button>
+    <button data-mode="n">By transactions</button>
+    <button data-mode="payees">By payees</button>
+  </div>
+  <div class="rank" id="rankRows"></div>
+</section>
+
+<section id="secAid">
+  <h2>Where the pass-through goes</h2>
+  <p class="kick">The fifteen largest recipients of aid and transfer dollars under the current fund view. Each line is a policy relationship, not a procurement.</p>
+  <div class="rank" id="aidRows"></div>
+</section>
+
+<section id="secBudget">
+  <h2>The budget side</h2>
+  <p class="kick">Section 44 of the FY2025-26 Appropriations Act already organizes the Department into named program areas — the natural skeleton for mission-mapping. Personnel in deep pine; operating and aid in wheat. (The fund lens does not apply here: this is the plan, not the spending.)</p>
+  <div class="bud" id="budRows"></div>
+  <div class="legend" style="margin-top:12px">
+    <span><span class="sw" style="background:var(--pine-deep)"></span>Personnel &amp; benefits</span>
+    <span><span class="sw" style="background:var(--wheat)"></span>Operating, program &amp; aid</span>
+  </div>
+  <div class="recon" id="recon"></div>
+  <p class="kick" style="margin-top:14px" id="reconNote"></p>
+</section>
+
+<section id="secVendors">
+  <h2>Top payees</h2>
+  <p class="kick">The fifty largest payees under the current fund view. Payments to other public entities are tagged.</p>
+  <input class="vsearch" id="vq" type="search" placeholder="Filter payees&hellip;" aria-label="Filter payees">
+  <table>
+    <thead><tr><th>Payee</th><th class="num">FY25 paid</th><th class="num">Txns</th></tr></thead>
+    <tbody id="vbody"></tbody>
+  </table>
+</section>
+
+<div class="method">
+  <h3>How this was built &mdash; and what it can&rsquo;t show</h3>
+  <p>Source one: the Comptroller General&rsquo;s monthly expenditure transparency files, twelve months of FY2025 &mdash; public, free, no records request required. Source two: H.4025, the FY2025-26 General Appropriations Act, Section 44. Every figure on this page traces to one of the two.</p>
+  <p>Salaries and payroll do not appear in the transaction files; roughly $20.7M of appropriated personnel spending is visible only in the budget section. Categories were assigned by a written, deterministic rule set &mdash; the same taxonomy as the statewide Ledger &mdash; and about 2.6% of dollars remain unclassified. Actuals are FY2025; the appropriation shown is the adjacent budget year.</p>
+  <p>The data shows what was bought, not which program it served. Connecting each transaction to a program area requires the Department&rsquo;s internal cost-center structure &mdash; the natural next step for this work.</p>
+</div>
+
+<footer><a href="/palmetto-ledger/" style="color:var(--brass);text-decoration:none">The Palmetto Ledger</a> &middot; Agriculture &middot; a <a href="/" style="color:var(--brass);text-decoration:none">Carolina Redesign</a> research series &middot; prepared for the Palmetto ZBB working group &middot; September 2026. Figures are informal reorganizations of public data and carry no official standing.</footer>
+</div>
+
+<script>
+var DATA = {"All funds":{"total":42602501,"txns":7389,"payees":807,"tiers":{"Formula & Transfers":18908887,"Operational":22572481,"Unclassified":1121133},"cats":[{"tier":"Formula & Transfers","cat":"Aid to Schools, Local Governments & Districts","amt":18682375,"n":499,"payees":152,"codes":[{"name":"ALLOC PRIVATE SECTOR","amt":14929375},{"name":"AID ENTITIES","amt":3753000}]},{"tier":"Operational","cat":"Contracts with Governments & Nonprofits","amt":7218213,"n":570,"payees":60,"codes":[{"name":"CONTRACT AGREEMENTS WITH GOVT/NONPROFIT ENTITIES","amt":7218213}]},{"tier":"Operational","cat":"Marketing, Promotion & Public Information","amt":5894847,"n":438,"payees":111,"codes":[{"name":"PROMOTIONAL","amt":5427282},{"name":"PROMOTIONAL SUPPLIES","amt":260124},{"name":"PRINTING BINDING ADVERTISING","amt":190145},{"name":"PRINTING, BINDING, ADVERTISING - PROMOTIONAL","amt":11217},{"name":"PRINTING, BINDING, ADVERTISING - NEWSPAPER AD","amt":6078}]},{"tier":"Operational","cat":"Buildings, Land & Capital Construction","amt":2487566,"n":77,"payees":17,"codes":[{"name":"RENOVATIONS - BUILDINGS & ADDITIONS INTERIORS","amt":1583787},{"name":"RENOVATIONS-BUILDING EXTERIORS","amt":586913},{"name":"RENOVATIONS-UTILITIES","amt":162349},{"name":"FEE - ARCHITECTURAL ENGINEERING & OTHER","amt":76781},{"name":"ENGINEERING & ARCHITECTURAL","amt":46936},{"name":"LAND IMPROVEMENTS DEPRECIABLE - (MA)","amt":29250},{"name":"INTERIOR LANDSCAPING SERVICES","amt":1535},{"name":"INTERIOR LANDSCAPING SUPPLIES","amt":15}]},{"tier":"Operational","cat":"Vehicles, Fuel & Fleet","amt":1643531,"n":301,"payees":24,"codes":[{"name":"LEASED CAR - STATE OWNED","amt":950075},{"name":"VEHICLES & TRANSPORTATION - (MA)","amt":360676},{"name":"GASOLINE","amt":121570},{"name":"MOTOR VEHICLE SUPPLIES","amt":71526},{"name":"MOTORIZED VEHICLE SERVICES","amt":54356},{"name":"INSURANCE - STATE - MOTOR VEHICLE","amt":50391},{"name":"DIESEL FUEL-TRANSPORTATION","amt":21532},{"name":"MOTOR VEHICLE SUPPLIES - NON STATE VEHICLE","amt":4653}]},{"tier":"Operational","cat":"Information Technology","amt":1328240,"n":296,"payees":33,"codes":[{"name":"DP SERVICES \u2013 STATE","amt":564540},{"name":"SRVCS,MAINT&WARR - APPLICATION DEVELOPMENT","amt":374914},{"name":"PROGRAMS & LICENCES - APPLICATION SUPPORT","amt":169856},{"name":"SRVCS,MAINT&WARR - APPLICATION SUPPORT","amt":101627},{"name":"EQUIPMENT & SUPPLIES - PRINT & COPY END USER","amt":48392},{"name":"EQUIPMENT & SUPPLIES - END-USER COMPUTING","amt":33073},{"name":"PROGRAMS & LICENCES - APPLICATION DEVELOPMENT","amt":20102},{"name":"FIRE ALARM SYSTEMS","amt":6079}]},{"tier":"Unclassified","cat":"Unclassified","amt":1121133,"n":1019,"payees":147,"codes":[{"name":"FEES AND FINES","amt":181287},{"name":"INSURANCE - STATE - REAL PROPERTY","amt":155959},{"name":"STATE FED SUPERFUND - HAZARDOUS WASTE","amt":101856},{"name":"RUBBISH REMOVAL","amt":83559},{"name":"GAS","amt":74724},{"name":"OTHER MAINTENANCE EXPENSES","amt":69360},{"name":"OUT OF STATE - AIR TRANSPORTATION","amt":59616},{"name":"CLASSIFIED POSITIONS","amt":54000}]},{"tier":"Operational","cat":"Supplies, Equipment & Materials","amt":1070686,"n":920,"payees":70,"codes":[{"name":"MEDICAL, SCIENTIFIC & LAB EQUIPMENT - (MA)","amt":414700},{"name":"MED SCIENT & LAB SUPPLIES","amt":191778},{"name":"OTHER EQUIPMENT - (MA)","amt":140616},{"name":"CLOTHING SUPPLIES","amt":55402},{"name":"OFFICE SUPPLIES","amt":55174},{"name":"FURNISHINGS","amt":47640},{"name":"MED SCIENT & LAB MINOR EQUIPMENT","amt":34778},{"name":"MISCELLANEOUS SUPPLIES","amt":19482}]},{"tier":"Operational","cat":"Rent, Leases & Facilities Operations","amt":670359,"n":523,"payees":36,"codes":[{"name":"RENT-STATE OWNED REAL PROPERTY","amt":327357},{"name":"HVAC MAINTENANCE","amt":145259},{"name":"JANITORIAL SUPPLIES","amt":35598},{"name":"GROUNDS MAINTENANCE SERVICES","amt":30207},{"name":"RENT-STATE OWNED-REAL PROP-MAINT & OP/EXCESS ENERG","amt":24612},{"name":"RENT-OTHER - MEETING ROOMS & VIDEO EQUIPMENT","amt":23059},{"name":"LEASE BUILDING - INTEREST","amt":22387},{"name":"GROUNDS MAINTENANCE SUPPLIES","amt":22034}]},{"tier":"Operational","cat":"Utilities","amt":652193,"n":309,"payees":8,"codes":[{"name":"ELECTRICITY","amt":525149},{"name":"WATER & SEWER","amt":92517},{"name":"ELECTRICITY - NON-REAL ESTATE","amt":33448},{"name":"NON REAL ESTATE - WATER UTILITIES","amt":1029},{"name":"NATURAL GAS - NON-REAL ESTATE","amt":50}]},{"tier":"Operational","cat":"Professional & Contracted Services","amt":423764,"n":262,"payees":56,"codes":[{"name":"NON-IT & NON-REAL ESTATE OTHER PROFESS SERVICES","amt":169450},{"name":"Miscellaneous Contractual Services","amt":95914},{"name":"MANAGEMENT CONSULTANTS","amt":73792},{"name":"TEMPORARY SERVICES","amt":37442},{"name":"OTHER CONTRACT SERVICES - NON-IT & NON-REAL ESTATE","amt":17800},{"name":"LEASE - LOW VALUE OTHER NON-IT","amt":9102},{"name":"AUDIT ACCOUNTING FINANCE","amt":5809},{"name":"SRVCS,MAINT&WARR - STORAGE","amt":5800}]},{"tier":"Operational","cat":"Travel, Lodging & Per Diem","amt":383013,"n":1140,"payees":240,"codes":[{"name":"OUT OF STATE - LODGING","amt":100684},{"name":"TRAINING - OUT-OF-STATE REGISTRATION FEES","amt":47206},{"name":"IN STATE - AUTO MILEAGE","amt":45304},{"name":"CATERED MEALS","amt":42498},{"name":"IN STATE - LODGING","amt":39357},{"name":"OUT OF STATE - MEALS (NON-REPORTABLE)","amt":23691},{"name":"TRAINING - IN-STATE REGISTRATION FEES","amt":21291},{"name":"NON-STATE EMPLOYEE - TRAVEL - NON-REPORTABLE","amt":13328}]},{"tier":"Operational","cat":"Telecommunications & Connectivity","amt":273995,"n":454,"payees":11,"codes":[{"name":"CELLULAR TELEPHONE SERVICES","amt":151461},{"name":"EQUIPMENT & SUPPLIES - DATA NETWORK","amt":52392},{"name":"NETWORK, CIRCUIT & VOICE - VOICE NETWORK","amt":39225},{"name":"NETWORK, CIRCUIT & VOICE - DATA NETWORK","amt":25000},{"name":"SRVCS,MAINT&WARR - VOICE NETWORK","amt":4805},{"name":"COMMUNICATION SUPPLIES","amt":616},{"name":"SRVCS,MAINT&WARR - DATA NETWORK","amt":427},{"name":"EQUIPMENT & SUPPLIES - VOICE NETWORK","amt":69}]},{"tier":"Formula & Transfers","cat":"Debt Service & Financial Obligations","amt":226012,"n":23,"payees":4,"codes":[{"name":"LEASE BUILDING - PRINCIPAL","amt":161838},{"name":"LEASE SBITA - PRINCIPAL","amt":62023},{"name":"LEASE IT COPIERS - PRINCIPAL","amt":1636},{"name":"SURETY BOND PAYMENTS","amt":516}]},{"tier":"Operational","cat":"Printing, Postage & Mail","amt":197068,"n":347,"payees":19,"codes":[{"name":"POSTAGE","amt":112101},{"name":"PRINTED ITEMS","amt":67065},{"name":"FREIGHT EXPRESS DELIVERY","amt":16503},{"name":"PRINTING COMMERCIAL - CONSUMABLE ARTICLE","amt":1399}]},{"tier":"Operational","cat":"Personnel, Training & Memberships","amt":148938,"n":60,"payees":19,"codes":[{"name":"EDUCATION TRAINING - NON STATE","amt":98900},{"name":"DUES & MEMBERSHIP FEES","amt":49550},{"name":"TRAINING EXPENSES (SERVICES)","amt":487}]},{"tier":"Operational","cat":"Security & Protective Services","amt":69217,"n":117,"payees":7,"codes":[{"name":"SECURITY CONTRACTS","amt":69217}]},{"tier":"Operational","cat":"Insurance, Claims & Risk","amt":57261,"n":4,"payees":2,"codes":[{"name":"WORKERS COMPENSATION INSURANCE","amt":55867},{"name":"INSURANCE-NON STATE","amt":1394}]},{"tier":"Operational","cat":"Medical & Health Services (operational)","amt":27213,"n":19,"payees":2,"codes":[{"name":"MEDICAL & HEALTH SERVICES","amt":27101},{"name":"MEDICAL & HEALTH SERVICES - LABORATORY SERVICES","amt":112}]},{"tier":"Operational","cat":"Testing, Research & Appraisal","amt":26166,"n":6,"payees":5,"codes":[{"name":"RESEARCH SURVEY & APPRAISERS","amt":25335},{"name":"TESTING SERVICES","amt":831}]}],"aid":[{"v":"ANDERSON COUNTY","amt":3238956,"gov":true},{"v":"FM BUILDING C","amt":2861838,"gov":false},{"v":"EDGEFIELD COUNTY","amt":1474453,"gov":true},{"v":"COLLETON COUNTY GOVERNMENT","amt":1154995,"gov":true},{"v":"THE FOOTHILLS AGRICULTURE RESOURCE","amt":985000,"gov":false},{"v":"CALHOUN COUNTY","amt":855548,"gov":true},{"v":"ORANGEBURG COUNTY","amt":650000,"gov":true},{"v":"BEAUFORT COUNTY COUNCIL","amt":640985,"gov":true},{"v":"SENN BROTHERS INC","amt":505765,"gov":false},{"v":"SPARTANBURG COUNTY","amt":376778,"gov":true},{"v":"TAYLOR BOYS PRODUCE INC","amt":342196,"gov":false},{"v":"SUMTER COUNTY","amt":337036,"gov":true},{"v":"GULLAH FARMERS COOPERATIVE ASSOCIAT","amt":317306,"gov":false},{"v":"LOWCOUNTRY STREET GROCERY LLC","amt":299609,"gov":false},{"v":"SWAMP RABBIT CAFE AND GROCERY LLC","amt":285844,"gov":false}],"vendors":[{"v":"CHERNOFF NEWMAN LLC","amt":3868770,"n":33,"st":false},{"v":"ANDERSON COUNTY","amt":3238956,"n":6,"st":false},{"v":"FM BUILDING C","amt":2906393,"n":5,"st":false},{"v":"CLEMSON UNIVERSITY - GEN DEPOSIT","amt":1746552,"n":284,"st":true},{"v":"GW LILES CONSTRUCTION CO INC","amt":1489472,"n":6,"st":false},{"v":"EDGEFIELD COUNTY","amt":1474453,"n":2,"st":false},{"v":"HARVEST HOPE FOOD BANK","amt":1441472,"n":27,"st":false},{"v":"COLLETON COUNTY GOVERNMENT","amt":1339964,"n":9,"st":false},{"v":"LOWCOUNTRY FOOD BANK","amt":1204745,"n":33,"st":false},{"v":"ADMN GS STATE FLEET MGT & IMS","amt":1065559,"n":112,"st":true},{"v":"THE FOOTHILLS AGRICULTURE RESOURCE","amt":986500,"n":2,"st":false},{"v":"CALHOUN COUNTY","amt":855548,"n":2,"st":false},{"v":"SECOND HARVEST FOOD BANK OF","amt":714021,"n":16,"st":false},{"v":"ORANGEBURG COUNTY","amt":650000,"n":2,"st":false},{"v":"BEAUFORT COUNTY COUNCIL","amt":640985,"n":7,"st":false},{"v":"BANK OF AMERICA-P CARD","amt":602813,"n":1361,"st":false},{"v":"SOUTHERN VISTAS INC","amt":598389,"n":11,"st":false},{"v":"DOMINION ENERGY SOUTH CAROLINA INC","amt":551522,"n":179,"st":false},{"v":"SENN BROTHERS INC","amt":505765,"n":138,"st":false},{"v":"NOVER ENGELSTEIN & ASSOC INC","amt":492752,"n":12,"st":false},{"v":"ADMN DIVISION OF TECHNOLOGY","amt":489619,"n":22,"st":true},{"v":"SOUTH CAROLINA SOYBEAN BOARD","amt":480000,"n":1,"st":false},{"v":"GOLDEN HARVEST FOOD BANK","amt":419505,"n":19,"st":false},{"v":"UNITED SOYBEAN BOARD","amt":397885,"n":7,"st":false},{"v":"SPARTANBURG COUNTY","amt":376778,"n":1,"st":false},{"v":"FRESHLIST LLC","amt":364301,"n":43,"st":false},{"v":"TAYLOR BOYS PRODUCE INC","amt":342196,"n":7,"st":false},{"v":"SUMTER COUNTY","amt":337036,"n":7,"st":false},{"v":"ALAN JAY FLEET SALES","amt":326492,"n":3,"st":false},{"v":"GULLAH FARMERS COOPERATIVE ASSOCIAT","amt":317306,"n":6,"st":false},{"v":"AGRICULTURE DEPARTMENT","amt":309836,"n":101,"st":false},{"v":"LOWCOUNTRY STREET GROCERY LLC","amt":299609,"n":11,"st":false},{"v":"DEPARTMENT OF ADMINISTRATION","amt":297278,"n":15,"st":false},{"v":"SWAMP RABBIT CAFE AND GROCERY LLC","amt":285844,"n":9,"st":false},{"v":"GROW FOOD CAROLINA","amt":263210,"n":14,"st":false},{"v":"FRANCIS PRODUCE CO","amt":263150,"n":9,"st":false},{"v":"GAMECOCK SPORTS PROPERTIES LLC","amt":253750,"n":3,"st":false},{"v":"SC BLACK FARMERS LLC","amt":240257,"n":5,"st":false},{"v":"NC SOYBEAN PRODUCERS ASSOC INC","amt":209205,"n":2,"st":false},{"v":"CATAWBA INDIAN NATION","amt":206546,"n":7,"st":false},{"v":"SFAA INSURANCE RESERVE FUND","amt":206349,"n":6,"st":true},{"v":"NATIONAL COTTON COUNCIL OF AMERICA","amt":204682,"n":1,"st":false},{"v":"FISHER SCIENTIFIC CO","amt":203041,"n":75,"st":false},{"v":"GREENVILLE COUNTY","amt":200000,"n":1,"st":false},{"v":"CITY ROOTS LLC","amt":199097,"n":4,"st":false},{"v":"SC CORN & SOYBEAN ASSOC","amt":181449,"n":30,"st":false},{"v":"BONITA GLOBAL LLC","amt":177151,"n":6,"st":false},{"v":"FEED & SEED CO.","amt":176863,"n":8,"st":false},{"v":"PICK 42 FOUNDATION INC","amt":176092,"n":3,"st":false},{"v":"IMAGE GROUP INK","amt":156680,"n":5,"st":false}]},"General":{"total":18137916,"txns":2287,"payees":361,"tiers":{"Formula & Transfers":6663606,"Operational":10880860,"Unclassified":593451},"cats":[{"tier":"Formula & Transfers","cat":"Aid to Schools, Local Governments & Districts","amt":6499616,"n":84,"payees":70,"codes":[{"name":"AID ENTITIES","amt":3753000},{"name":"ALLOC PRIVATE SECTOR","amt":2746616}]},{"tier":"Operational","cat":"Marketing, Promotion & Public Information","amt":5102556,"n":187,"payees":70,"codes":[{"name":"PROMOTIONAL","amt":4828932},{"name":"PROMOTIONAL SUPPLIES","amt":162067},{"name":"PRINTING BINDING ADVERTISING","amt":107719},{"name":"PRINTING, BINDING, ADVERTISING - PROMOTIONAL","amt":3387},{"name":"PRINTING, BINDING, ADVERTISING - NEWSPAPER AD","amt":451}]},{"tier":"Operational","cat":"Vehicles, Fuel & Fleet","amt":1500473,"n":110,"payees":12,"codes":[{"name":"LEASED CAR - STATE OWNED","amt":901992},{"name":"VEHICLES & TRANSPORTATION - (MA)","amt":360676},{"name":"GASOLINE","amt":113399},{"name":"INSURANCE - STATE - MOTOR VEHICLE","amt":50391},{"name":"MOTOR VEHICLE SUPPLIES","amt":24644},{"name":"MOTORIZED VEHICLE SERVICES","amt":21088},{"name":"DIESEL FUEL-TRANSPORTATION","amt":18065},{"name":"MOTOR VEHICLE SUPPLIES - NON STATE VEHICLE","amt":4653}]},{"tier":"Operational","cat":"Information Technology","amt":1056768,"n":99,"payees":18,"codes":[{"name":"DP SERVICES \u2013 STATE","amt":564540},{"name":"SRVCS,MAINT&WARR - APPLICATION DEVELOPMENT","amt":366914},{"name":"PROGRAMS & LICENCES - APPLICATION SUPPORT","amt":35046},{"name":"EQUIPMENT & SUPPLIES - PRINT & COPY END USER","amt":25008},{"name":"SRVCS,MAINT&WARR - APPLICATION SUPPORT","amt":23698},{"name":"PROGRAMS & LICENCES - APPLICATION DEVELOPMENT","amt":20102},{"name":"EQUIPMENT & SUPPLIES - END-USER COMPUTING","amt":18817},{"name":"PROGRAMS & LICENCES - IT SERVICE DESK","amt":1199}]},{"tier":"Operational","cat":"Supplies, Equipment & Materials","amt":794573,"n":437,"payees":40,"codes":[{"name":"MEDICAL, SCIENTIFIC & LAB EQUIPMENT - (MA)","amt":388700},{"name":"MED SCIENT & LAB SUPPLIES","amt":142798},{"name":"OTHER EQUIPMENT - (MA)","amt":128139},{"name":"CLOTHING SUPPLIES","amt":44999},{"name":"MED SCIENT & LAB MINOR EQUIPMENT","amt":31628},{"name":"OFFICE SUPPLIES","amt":22306},{"name":"FURNISHINGS","amt":17698},{"name":"OTHER SUPPLIES","amt":4265}]},{"tier":"Operational","cat":"Contracts with Governments & Nonprofits","amt":721436,"n":36,"payees":16,"codes":[{"name":"CONTRACT AGREEMENTS WITH GOVT/NONPROFIT ENTITIES","amt":721436}]},{"tier":"Unclassified","cat":"Unclassified","amt":593451,"n":262,"payees":64,"codes":[{"name":"FEES AND FINES","amt":157421},{"name":"INSURANCE - STATE - REAL PROPERTY","amt":155959},{"name":"GAS","amt":58654},{"name":"OTHER MAINTENANCE EXPENSES","amt":38427},{"name":"DIST TO SUBDIVISION","amt":29661},{"name":"OUT OF STATE - AIR TRANSPORTATION","amt":27738},{"name":"GENERAL REPAIR","amt":27408},{"name":"USE TAX PAYABLE","amt":16354}]},{"tier":"Operational","cat":"Rent, Leases & Facilities Operations","amt":486740,"n":188,"payees":21,"codes":[{"name":"RENT-STATE OWNED REAL PROPERTY","amt":303357},{"name":"HVAC MAINTENANCE","amt":70125},{"name":"RENT-STATE OWNED-REAL PROP-MAINT & OP/EXCESS ENERG","amt":24612},{"name":"LEASE BUILDING - INTEREST","amt":22387},{"name":"CONTINGENT RENT PAYMENTS - IT","amt":15287},{"name":"GROUNDS MAINTENANCE SERVICES","amt":15177},{"name":"RENT-OTHER - MEETING ROOMS & VIDEO EQUIPMENT","amt":15108},{"name":"SHORT-TERM RENT - MEDICAL SCIENCE LAB EQUIPMENT","amt":7115}]},{"tier":"Operational","cat":"Utilities","amt":387989,"n":80,"payees":3,"codes":[{"name":"ELECTRICITY","amt":323073},{"name":"ELECTRICITY - NON-REAL ESTATE","amt":32931},{"name":"WATER & SEWER","amt":30957},{"name":"NON REAL ESTATE - WATER UTILITIES","amt":1029}]},{"tier":"Operational","cat":"Travel, Lodging & Per Diem","amt":187377,"n":451,"payees":72,"codes":[{"name":"CATERED MEALS","amt":38264},{"name":"OUT OF STATE - LODGING","amt":34373},{"name":"TRAINING - OUT-OF-STATE REGISTRATION FEES","amt":20075},{"name":"IN STATE - LODGING","amt":17617},{"name":"IN STATE - AUTO MILEAGE","amt":15394},{"name":"NON-STATE EMPLOYEE - TRAVEL - NON-REPORTABLE","amt":12429},{"name":"TRAINING - IN-STATE REGISTRATION FEES","amt":10707},{"name":"FOREIGN TRAVEL - AIR TRANSPORTATION","amt":9052}]},{"tier":"Formula & Transfers","cat":"Debt Service & Financial Obligations","amt":163990,"n":12,"payees":3,"codes":[{"name":"LEASE BUILDING - PRINCIPAL","amt":161838},{"name":"LEASE IT COPIERS - PRINCIPAL","amt":1636},{"name":"SURETY BOND PAYMENTS","amt":516}]},{"tier":"Operational","cat":"Telecommunications & Connectivity","amt":157647,"n":99,"payees":9,"codes":[{"name":"CELLULAR TELEPHONE SERVICES","amt":61466},{"name":"EQUIPMENT & SUPPLIES - DATA NETWORK","amt":52392},{"name":"NETWORK, CIRCUIT & VOICE - VOICE NETWORK","amt":29550},{"name":"NETWORK, CIRCUIT & VOICE - DATA NETWORK","amt":9978},{"name":"SRVCS,MAINT&WARR - VOICE NETWORK","amt":4173},{"name":"EQUIPMENT & SUPPLIES - VOICE NETWORK","amt":48},{"name":"COMMUNICATION SUPPLIES","amt":41}]},{"tier":"Operational","cat":"Professional & Contracted Services","amt":125938,"n":51,"payees":30,"codes":[{"name":"MANAGEMENT CONSULTANTS","amt":66686},{"name":"NON-IT & NON-REAL ESTATE OTHER PROFESS SERVICES","amt":23481},{"name":"OTHER CONTRACT SERVICES - NON-IT & NON-REAL ESTATE","amt":17800},{"name":"Miscellaneous Contractual Services","amt":9812},{"name":"LEASE - LOW VALUE OTHER NON-IT","amt":4826},{"name":"SRVCS,MAINT&WARR - MANAGEMENT & ADMIN","amt":1273},{"name":"AUDIT ACCOUNTING FINANCE","amt":1059},{"name":"SHORT-TERM RENT-OTHER-NON-IT","amt":1002}]},{"tier":"Operational","cat":"Personnel, Training & Memberships","amt":123038,"n":23,"payees":13,"codes":[{"name":"EDUCATION TRAINING - NON STATE","amt":86326},{"name":"DUES & MEMBERSHIP FEES","amt":36423},{"name":"TRAINING EXPENSES (SERVICES)","amt":288}]},{"tier":"Operational","cat":"Printing, Postage & Mail","amt":101672,"n":144,"payees":13,"codes":[{"name":"POSTAGE","amt":80898},{"name":"PRINTED ITEMS","amt":13491},{"name":"FREIGHT EXPRESS DELIVERY","amt":6267},{"name":"PRINTING COMMERCIAL - CONSUMABLE ARTICLE","amt":1016}]},{"tier":"Operational","cat":"Insurance, Claims & Risk","amt":57261,"n":4,"payees":2,"codes":[{"name":"WORKERS COMPENSATION INSURANCE","amt":55867},{"name":"INSURANCE-NON STATE","amt":1394}]},{"tier":"Operational","cat":"Buildings, Land & Capital Construction","amt":37212,"n":2,"payees":2,"codes":[{"name":"LAND IMPROVEMENTS DEPRECIABLE - (MA)","amt":29250},{"name":"ENGINEERING & ARCHITECTURAL","amt":7962}]},{"tier":"Operational","cat":"Testing, Research & Appraisal","amt":21166,"n":4,"payees":3,"codes":[{"name":"RESEARCH SURVEY & APPRAISERS","amt":20335},{"name":"TESTING SERVICES","amt":831}]},{"tier":"Operational","cat":"Security & Protective Services","amt":15782,"n":10,"payees":2,"codes":[{"name":"SECURITY CONTRACTS","amt":15782}]},{"tier":"Operational","cat":"Medical & Health Services (operational)","amt":3163,"n":2,"payees":2,"codes":[{"name":"MEDICAL & HEALTH SERVICES","amt":3051},{"name":"MEDICAL & HEALTH SERVICES - LABORATORY SERVICES","amt":112}]}],"aid":[{"v":"FM BUILDING C","amt":2861838,"gov":false},{"v":"THE FOOTHILLS AGRICULTURE RESOURCE","amt":985000,"gov":false},{"v":"ORANGEBURG COUNTY","amt":650000,"gov":true},{"v":"SPARTANBURG COUNTY","amt":376778,"gov":true},{"v":"SUMTER COUNTY","amt":337036,"gov":true},{"v":"ANDERSON COUNTY","amt":238956,"gov":true},{"v":"GREENVILLE COUNTY","amt":200000,"gov":true},{"v":"EDGEFIELD COUNTY","amt":100000,"gov":true},{"v":"GEORGETOWN COUNTY","amt":78325,"gov":true},{"v":"LANCASTER COUNTY","amt":75797,"gov":true},{"v":"SANTEE COOPER COUNTIES PROMOTION","amt":68000,"gov":false},{"v":"CHARLESTON COUNTY","amt":50000,"gov":true},{"v":"BAMBERG COUNTY","amt":50000,"gov":true},{"v":"BERKELEY COUNTY","amt":50000,"gov":true},{"v":"SAMOHT ENTERPRISES LLC","amt":30000,"gov":false}],"vendors":[{"v":"CHERNOFF NEWMAN LLC","amt":3699086,"n":29,"st":false},{"v":"FM BUILDING C","amt":2884225,"n":4,"st":false},{"v":"THE FOOTHILLS AGRICULTURE RESOURCE","amt":986500,"n":2,"st":false},{"v":"ADMN GS STATE FLEET MGT & IMS","amt":948552,"n":43,"st":true},{"v":"CLEMSON UNIVERSITY - GEN DEPOSIT","amt":872125,"n":28,"st":true},{"v":"ORANGEBURG COUNTY","amt":650000,"n":2,"st":false},{"v":"ADMN DIVISION OF TECHNOLOGY","amt":488233,"n":20,"st":true},{"v":"DOMINION ENERGY SOUTH CAROLINA INC","amt":414658,"n":60,"st":false},{"v":"NOVER ENGELSTEIN & ASSOC INC","amt":388746,"n":2,"st":false},{"v":"SPARTANBURG COUNTY","amt":376778,"n":1,"st":false},{"v":"SUMTER COUNTY","amt":337036,"n":7,"st":false},{"v":"ALAN JAY FLEET SALES","amt":326492,"n":3,"st":false},{"v":"DEPARTMENT OF ADMINISTRATION","amt":297167,"n":14,"st":false},{"v":"ANDERSON COUNTY","amt":238956,"n":1,"st":false},{"v":"BANK OF AMERICA-P CARD","amt":236619,"n":363,"st":false},{"v":"GAMECOCK SPORTS PROPERTIES LLC","amt":225750,"n":2,"st":false},{"v":"SFAA INSURANCE RESERVE FUND","amt":206349,"n":6,"st":true},{"v":"FISHER SCIENTIFIC CO","amt":203041,"n":75,"st":false},{"v":"GREENVILLE COUNTY","amt":200000,"n":1,"st":false},{"v":"IMAGE GROUP INK","amt":156680,"n":5,"st":false},{"v":"MANSFIELD OIL CO","amt":131366,"n":26,"st":false},{"v":"DIVERSIFIED SIGNS & GRAPHICS","amt":128139,"n":2,"st":false},{"v":"PEMBERTON FABRICATORS INC","amt":110197,"n":2,"st":false},{"v":"AGILENT TECHNOLOGIES INC","amt":109402,"n":24,"st":false},{"v":"GEORGETOWN COUNTY","amt":107986,"n":3,"st":false},{"v":"AGRICULTURE DEPARTMENT","amt":106866,"n":37,"st":false},{"v":"SUN INC","amt":104487,"n":8,"st":false},{"v":"EDGEFIELD COUNTY","amt":100000,"n":1,"st":false},{"v":"GREENE SCIENTIFIC LLC","amt":86326,"n":2,"st":false},{"v":"US POSTAL SERVICE","amt":76381,"n":16,"st":false},{"v":"LANCASTER COUNTY","amt":75797,"n":1,"st":false},{"v":"ABSOLUTE EXHIBITS INC","amt":70786,"n":3,"st":false},{"v":"BOB REDFERNS OUTDOOR MAGAZINE INC","amt":70000,"n":1,"st":false},{"v":"SANTEE COOPER COUNTIES PROMOTION","amt":68000,"n":1,"st":false},{"v":"W B GUIMARIN & COMPANY INC","amt":64870,"n":32,"st":false},{"v":"SOUTHEASTERN WILDLIFE EXPOSITION","amt":62500,"n":1,"st":false},{"v":"VERIZON WIRELESS","amt":61466,"n":12,"st":false},{"v":"EMPLOYER CONTRIBUTIONS","amt":57925,"n":3,"st":false},{"v":"BERKELEY COUNTY","amt":50000,"n":1,"st":false},{"v":"BAMBERG COUNTY","amt":50000,"n":1,"st":false},{"v":"CHARLESTON COUNTY","amt":50000,"n":1,"st":false},{"v":"PERCIVAL SCIENTIFIC INC","amt":45480,"n":1,"st":false},{"v":"EUPHORIA","amt":43560,"n":1,"st":false},{"v":"CLEMSON UNIVERSITY FOUNDATION","amt":42000,"n":2,"st":true},{"v":"GLOBAL FENCE AND SUPPLY LLC","amt":41123,"n":3,"st":false},{"v":"MATSON CONSULTING LLC","amt":36000,"n":7,"st":false},{"v":"SOUTHERN WAY CATERING","amt":35175,"n":1,"st":false},{"v":"BEAUTIFUL PLACES ALLIANCE","amt":34320,"n":1,"st":false},{"v":"DICK SMITH FORD","amt":34184,"n":1,"st":false},{"v":"NASDA","amt":33150,"n":6,"st":false}]},"Federal":{"total":10150480,"txns":1233,"payees":158,"tiers":{"Formula & Transfers":5088683,"Operational":5023985,"Unclassified":37811},"cats":[{"tier":"Formula & Transfers","cat":"Aid to Schools, Local Governments & Districts","amt":5026660,"n":385,"payees":82,"codes":[{"name":"ALLOC PRIVATE SECTOR","amt":5026660}]},{"tier":"Operational","cat":"Contracts with Governments & Nonprofits","amt":4494813,"n":302,"payees":15,"codes":[{"name":"CONTRACT AGREEMENTS WITH GOVT/NONPROFIT ENTITIES","amt":4494813}]},{"tier":"Operational","cat":"Professional & Contracted Services","amt":130965,"n":32,"payees":8,"codes":[{"name":"NON-IT & NON-REAL ESTATE OTHER PROFESS SERVICES","amt":115660},{"name":"MANAGEMENT CONSULTANTS","amt":7106},{"name":"SRVCS,MAINT&WARR - STORAGE","amt":5800},{"name":"PROFESSIONAL SERVICES - LANGUAGE INTERPRETERS","amt":1900},{"name":"Miscellaneous Contractual Services","amt":500}]},{"tier":"Operational","cat":"Information Technology","amt":104790,"n":37,"payees":4,"codes":[{"name":"PROGRAMS & LICENCES - APPLICATION SUPPORT","amt":89534},{"name":"EQUIPMENT & SUPPLIES - PRINT & COPY END USER","amt":5101},{"name":"EQUIPMENT & SUPPLIES - END-USER COMPUTING","amt":3889},{"name":"PROGRAMS & LICENCES - END-USER COMPUTING","amt":3016},{"name":"SRVCS,MAINT&WARR - APPLICATION SUPPORT","amt":1649},{"name":"SRVCS,MAINT&WARR - APPLICATION DEVELOPMENT","amt":1600}]},{"tier":"Operational","cat":"Travel, Lodging & Per Diem","amt":73296,"n":206,"payees":39,"codes":[{"name":"OUT OF STATE - LODGING","amt":26356},{"name":"TRAINING - OUT-OF-STATE REGISTRATION FEES","amt":13661},{"name":"IN STATE - LODGING","amt":8085},{"name":"OUT OF STATE - MEALS (NON-REPORTABLE)","amt":7890},{"name":"TRAINING - IN-STATE REGISTRATION FEES","amt":6344},{"name":"IN STATE - AUTO MILEAGE","amt":3477},{"name":"OUT OF STATE - AUTO MILEAGE","amt":2520},{"name":"OUT OF STATE - MISCELLANEOUS TRAVEL EXPENSE","amt":2238}]},{"tier":"Formula & Transfers","cat":"Debt Service & Financial Obligations","amt":62023,"n":11,"payees":1,"codes":[{"name":"LEASE SBITA - PRINCIPAL","amt":62023}]},{"tier":"Operational","cat":"Supplies, Equipment & Materials","amt":59089,"n":47,"payees":6,"codes":[{"name":"MEDICAL, SCIENTIFIC & LAB EQUIPMENT - (MA)","amt":26000},{"name":"INSTRUCTIONAL MATERIALS","amt":9432},{"name":"MED SCIENT & LAB SUPPLIES","amt":7888},{"name":"MISCELLANEOUS SUPPLIES","amt":7055},{"name":"OFFICE SUPPLIES","amt":3383},{"name":"MED SCIENT & LAB MINOR EQUIPMENT","amt":2466},{"name":"CLOTHING SUPPLIES","amt":2105},{"name":"OTHER SUPPLIES","amt":715}]},{"tier":"Operational","cat":"Marketing, Promotion & Public Information","amt":44136,"n":16,"payees":8,"codes":[{"name":"PROMOTIONAL SUPPLIES","amt":25073},{"name":"PROMOTIONAL","amt":14476},{"name":"PRINTING, BINDING, ADVERTISING - PROMOTIONAL","amt":2561},{"name":"PRINTING BINDING ADVERTISING","amt":2026}]},{"tier":"Unclassified","cat":"Unclassified","amt":37811,"n":58,"payees":19,"codes":[{"name":"LEASE SBITA - INTEREST","amt":18593},{"name":"OUT OF STATE - AIR TRANSPORTATION","amt":14336},{"name":"USE TAX PAYABLE","amt":2923},{"name":"OUT OF STATE - OTHER TRANSPORTATION","amt":1248},{"name":"TESTING MATERIAL FOR LABS","amt":451},{"name":"FEES AND FINES","amt":200},{"name":"FEES AND FINES - BACKGROUND CHECKS","amt":43},{"name":"SUBSCRIPTIONS","amt":16}]},{"tier":"Operational","cat":"Buildings, Land & Capital Construction","amt":37430,"n":7,"payees":1,"codes":[{"name":"ENGINEERING & ARCHITECTURAL","amt":37430}]},{"tier":"Operational","cat":"Medical & Health Services (operational)","amt":24050,"n":17,"payees":1,"codes":[{"name":"MEDICAL & HEALTH SERVICES","amt":24050}]},{"tier":"Operational","cat":"Vehicles, Fuel & Fleet","amt":16242,"n":30,"payees":3,"codes":[{"name":"LEASED CAR - STATE OWNED","amt":14670},{"name":"GASOLINE","amt":1231},{"name":"MOTORIZED VEHICLE CAR WASH SERVICES","amt":215},{"name":"MOTORIZED VEHICLE SERVICES","amt":69},{"name":"MOTOR VEHICLE SUPPLIES","amt":56}]},{"tier":"Operational","cat":"Personnel, Training & Memberships","amt":13647,"n":14,"payees":3,"codes":[{"name":"EDUCATION TRAINING - NON STATE","amt":12574},{"name":"DUES & MEMBERSHIP FEES","amt":1073}]},{"tier":"Operational","cat":"Printing, Postage & Mail","amt":13542,"n":18,"payees":4,"codes":[{"name":"PRINTED ITEMS","amt":12960},{"name":"PRINTING COMMERCIAL - CONSUMABLE ARTICLE","amt":383},{"name":"FREIGHT EXPRESS DELIVERY","amt":199}]},{"tier":"Operational","cat":"Rent, Leases & Facilities Operations","amt":6319,"n":12,"payees":1,"codes":[{"name":"RENT-OTHER - MEETING ROOMS & VIDEO EQUIPMENT","amt":6319}]},{"tier":"Operational","cat":"Telecommunications & Connectivity","amt":5592,"n":40,"payees":4,"codes":[{"name":"CELLULAR TELEPHONE SERVICES","amt":2929},{"name":"NETWORK, CIRCUIT & VOICE - DATA NETWORK","amt":2247},{"name":"NETWORK, CIRCUIT & VOICE - VOICE NETWORK","amt":363},{"name":"COMMUNICATION SUPPLIES","amt":53}]}],"aid":[{"v":"SENN BROTHERS INC","amt":505765,"gov":false},{"v":"TAYLOR BOYS PRODUCE INC","amt":342196,"gov":false},{"v":"GULLAH FARMERS COOPERATIVE ASSOCIAT","amt":317306,"gov":false},{"v":"LOWCOUNTRY STREET GROCERY LLC","amt":299609,"gov":false},{"v":"FRESHLIST LLC","amt":279718,"gov":false},{"v":"SWAMP RABBIT CAFE AND GROCERY LLC","amt":270844,"gov":false},{"v":"GROW FOOD CAROLINA","amt":263210,"gov":false},{"v":"FRANCIS PRODUCE CO","amt":263150,"gov":false},{"v":"LOWCOUNTRY FOOD BANK","amt":247673,"gov":false},{"v":"SC BLACK FARMERS LLC","amt":235257,"gov":false},{"v":"CATAWBA INDIAN NATION","amt":206546,"gov":false},{"v":"CITY ROOTS LLC","amt":199097,"gov":false},{"v":"BONITA GLOBAL LLC","amt":177151,"gov":false},{"v":"FEED & SEED CO.","amt":176863,"gov":false},{"v":"PICK 42 FOUNDATION INC","amt":171092,"gov":false}],"vendors":[{"v":"HARVEST HOPE FOOD BANK","amt":1441472,"n":27,"st":false},{"v":"LOWCOUNTRY FOOD BANK","amt":1204745,"n":33,"st":false},{"v":"SECOND HARVEST FOOD BANK OF","amt":714021,"n":16,"st":false},{"v":"CLEMSON UNIVERSITY - GEN DEPOSIT","amt":602435,"n":168,"st":true},{"v":"SENN BROTHERS INC","amt":505765,"n":138,"st":false},{"v":"GOLDEN HARVEST FOOD BANK","amt":419505,"n":19,"st":false},{"v":"FRESHLIST LLC","amt":364301,"n":43,"st":false},{"v":"TAYLOR BOYS PRODUCE INC","amt":342196,"n":7,"st":false},{"v":"GULLAH FARMERS COOPERATIVE ASSOCIAT","amt":317306,"n":6,"st":false},{"v":"LOWCOUNTRY STREET GROCERY LLC","amt":299609,"n":11,"st":false},{"v":"SWAMP RABBIT CAFE AND GROCERY LLC","amt":270844,"n":8,"st":false},{"v":"GROW FOOD CAROLINA","amt":263210,"n":14,"st":false},{"v":"FRANCIS PRODUCE CO","amt":263150,"n":9,"st":false},{"v":"SC BLACK FARMERS LLC","amt":240257,"n":5,"st":false},{"v":"CATAWBA INDIAN NATION","amt":206546,"n":7,"st":false},{"v":"CITY ROOTS LLC","amt":199097,"n":4,"st":false},{"v":"BONITA GLOBAL LLC","amt":177151,"n":6,"st":false},{"v":"FEED & SEED CO.","amt":176863,"n":8,"st":false},{"v":"PICK 42 FOUNDATION INC","amt":176092,"n":3,"st":false},{"v":"AGRICULTURE DEPARTMENT","amt":123833,"n":48,"st":false},{"v":"SUMMERS ESTATES","amt":101907,"n":2,"st":false},{"v":"WW RUSH FARMS LLC","amt":101444,"n":3,"st":false},{"v":"RIDGEVILLE OKRA CO","amt":99822,"n":1,"st":false},{"v":"BANK OF AMERICA-P CARD","amt":98514,"n":161,"st":false},{"v":"GROWING GREEN FAMILY FARMS LLC","amt":91622,"n":4,"st":false},{"v":"NOVER ENGELSTEIN & ASSOC INC","amt":89406,"n":6,"st":false},{"v":"WEAVER HERITAGE FARM LLC","amt":87000,"n":1,"st":false},{"v":"LINK2FEED USA INC","amt":80616,"n":22,"st":false},{"v":"SAKHAR JAMS","amt":79768,"n":1,"st":false},{"v":"CAROLINA FARM STEWARDSHIP ASSOCIATI","amt":78514,"n":4,"st":false},{"v":"CATAWBA FARM AND FOOD COALITION","amt":69900,"n":1,"st":false},{"v":"FIRE ANT FARMS LLC","amt":65174,"n":1,"st":false},{"v":"BARRIER ISLAND OYSTER COMPANY LLC","amt":65000,"n":2,"st":false},{"v":"THE ROBINHOOD GROUP","amt":62500,"n":1,"st":false},{"v":"MATSON CONSULTING LLC","amt":51281,"n":9,"st":false},{"v":"ST. JOHN FOUNDATION OF HOPKINS","amt":47262,"n":1,"st":false},{"v":"COTTON HILLS FARM LLC","amt":44174,"n":4,"st":false},{"v":"CHARLESTON COUNTY SCHOOL DISTRICT","amt":39621,"n":6,"st":false},{"v":"S&ME INC","amt":37430,"n":7,"st":false},{"v":"CAROLINA PLANTATION RICE","amt":35216,"n":2,"st":false},{"v":"SC STATE UNIVERSITY - GEN DEPOSIT","amt":31911,"n":3,"st":false},{"v":"ADVENT INNOVATIONS LIMITED COMPANY","amt":31903,"n":4,"st":false},{"v":"ANKOM TECHNOLOGY CORPORATION","amt":26000,"n":1,"st":false},{"v":"MEDICAL AND HEALTH SERVICE","amt":24050,"n":17,"st":false},{"v":"THE BRADFORD WATERMELON COMPANY LLC","amt":18964,"n":1,"st":false},{"v":"SUN INC","amt":15317,"n":5,"st":false},{"v":"ADMN GS STATE FLEET MGT & IMS","amt":14777,"n":11,"st":true},{"v":"IPROMOTEU","amt":13723,"n":4,"st":false},{"v":"CHERNOFF NEWMAN LLC","amt":13200,"n":1,"st":false},{"v":"SOUTH CAROLINA AGRITOURISM","amt":12613,"n":2,"st":false}]},"Restricted":{"total":7331343,"txns":26,"payees":7,"tiers":{"Formula & Transfers":7122374,"Operational":208969},"cats":[{"tier":"Formula & Transfers","cat":"Aid to Schools, Local Governments & Districts","amt":7122374,"n":24,"payees":6,"codes":[{"name":"ALLOC PRIVATE SECTOR","amt":7122374}]},{"tier":"Operational","cat":"Contracts with Governments & Nonprofits","amt":208969,"n":2,"payees":2,"codes":[{"name":"CONTRACT AGREEMENTS WITH GOVT/NONPROFIT ENTITIES","amt":208969}]}],"aid":[{"v":"ANDERSON COUNTY","amt":3000000,"gov":true},{"v":"EDGEFIELD COUNTY","amt":1374453,"gov":true},{"v":"COLLETON COUNTY GOVERNMENT","amt":1154995,"gov":true},{"v":"CALHOUN COUNTY","amt":855548,"gov":true},{"v":"BEAUFORT COUNTY COUNCIL","amt":640985,"gov":true},{"v":"COLLETON COUNTY","amt":96392,"gov":true}],"vendors":[{"v":"ANDERSON COUNTY","amt":3000000,"n":5,"st":false},{"v":"EDGEFIELD COUNTY","amt":1374453,"n":1,"st":false},{"v":"COLLETON COUNTY GOVERNMENT","amt":1339964,"n":9,"st":false},{"v":"CALHOUN COUNTY","amt":855548,"n":2,"st":false},{"v":"BEAUFORT COUNTY COUNCIL","amt":640985,"n":7,"st":false},{"v":"COLLETON COUNTY","amt":96392,"n":1,"st":false},{"v":"PORTS A:WFARGO BANK-CONCNTRATION AC","amt":24000,"n":1,"st":false}]},"Earmarked":{"total":6982763,"txns":3843,"payees":400,"tiers":{"Formula & Transfers":34225,"Operational":6458667,"Unclassified":489871},"cats":[{"tier":"Operational","cat":"Buildings, Land & Capital Construction","amt":2412924,"n":68,"payees":14,"codes":[{"name":"RENOVATIONS - BUILDINGS & ADDITIONS INTERIORS","amt":1583787},{"name":"RENOVATIONS-BUILDING EXTERIORS","amt":586913},{"name":"RENOVATIONS-UTILITIES","amt":162349},{"name":"FEE - ARCHITECTURAL ENGINEERING & OTHER","amt":76781},{"name":"ENGINEERING & ARCHITECTURAL","amt":1545},{"name":"INTERIOR LANDSCAPING SERVICES","amt":1535},{"name":"INTERIOR LANDSCAPING SUPPLIES","amt":15}]},{"tier":"Operational","cat":"Contracts with Governments & Nonprofits","amt":1792995,"n":230,"payees":31,"codes":[{"name":"CONTRACT AGREEMENTS WITH GOVT/NONPROFIT ENTITIES","amt":1792995}]},{"tier":"Operational","cat":"Marketing, Promotion & Public Information","amt":748155,"n":235,"payees":54,"codes":[{"name":"PROMOTIONAL","amt":583873},{"name":"PRINTING BINDING ADVERTISING","amt":80401},{"name":"PROMOTIONAL SUPPLIES","amt":72984},{"name":"PRINTING, BINDING, ADVERTISING - NEWSPAPER AD","amt":5627},{"name":"PRINTING, BINDING, ADVERTISING - PROMOTIONAL","amt":5270}]},{"tier":"Unclassified","cat":"Unclassified","amt":489871,"n":699,"payees":79,"codes":[{"name":"STATE FED SUPERFUND - HAZARDOUS WASTE","amt":89508},{"name":"RUBBISH REMOVAL","amt":83559},{"name":"CLASSIFIED POSITIONS","amt":54000},{"name":"OTHER MAINTENANCE EXPENSES","amt":30933},{"name":"CARPET REPAIR","amt":26750},{"name":"FEES AND FINES","amt":23666},{"name":"PROPERTY TAXES","amt":22168},{"name":"OUT OF STATE - AIR TRANSPORTATION","amt":17543}]},{"tier":"Operational","cat":"Utilities","amt":264203,"n":229,"payees":8,"codes":[{"name":"ELECTRICITY","amt":202076},{"name":"WATER & SEWER","amt":61560},{"name":"ELECTRICITY - NON-REAL ESTATE","amt":517},{"name":"NATURAL GAS - NON-REAL ESTATE","amt":50}]},{"tier":"Operational","cat":"Supplies, Equipment & Materials","amt":217024,"n":436,"payees":34,"codes":[{"name":"MED SCIENT & LAB SUPPLIES","amt":41092},{"name":"FURNISHINGS","amt":29943},{"name":"OFFICE SUPPLIES","amt":29485},{"name":"PHOTOGRAPHIC / AV EQUIPMENT - (MA)","amt":12936},{"name":"OTHER EQUIPMENT - (MA)","amt":12477},{"name":"MISCELLANEOUS SUPPLIES","amt":10047},{"name":"LOW VALUE ASSETS - (MA)","amt":9994},{"name":"BASIC EQUIPMENT","amt":9677}]},{"tier":"Operational","cat":"Rent, Leases & Facilities Operations","amt":177301,"n":323,"payees":22,"codes":[{"name":"HVAC MAINTENANCE","amt":75134},{"name":"JANITORIAL SUPPLIES","amt":29548},{"name":"RENT-STATE OWNED REAL PROPERTY","amt":24000},{"name":"GROUNDS MAINTENANCE SUPPLIES","amt":20829},{"name":"GROUNDS MAINTENANCE SERVICES","amt":15030},{"name":"CONTINGENT RENT PAYMENTS - IT","amt":4669},{"name":"RENT TRASH CONTAINERS","amt":2179},{"name":"SHORT TERM RENT-OTHER-HVY EQUIP-NON REAL ESTATE","amt":2095}]},{"tier":"Operational","cat":"Professional & Contracted Services","amt":166861,"n":179,"payees":23,"codes":[{"name":"Miscellaneous Contractual Services","amt":85602},{"name":"TEMPORARY SERVICES","amt":37442},{"name":"NON-IT & NON-REAL ESTATE OTHER PROFESS SERVICES","amt":30310},{"name":"AUDIT ACCOUNTING FINANCE","amt":4750},{"name":"LEASE - LOW VALUE OTHER NON-IT","amt":4276},{"name":"SHORT-TERM RENT-OTHER-NON-IT","amt":3268},{"name":"SRVCS,MAINT&WARR - MANAGEMENT & ADMIN","amt":613},{"name":"CONTINGENT RENT PAYMENTS - NON-IT","amt":332}]},{"tier":"Operational","cat":"Information Technology","amt":166682,"n":160,"payees":21,"codes":[{"name":"SRVCS,MAINT&WARR - APPLICATION SUPPORT","amt":76281},{"name":"PROGRAMS & LICENCES - APPLICATION SUPPORT","amt":45276},{"name":"EQUIPMENT & SUPPLIES - PRINT & COPY END USER","amt":18282},{"name":"EQUIPMENT & SUPPLIES - END-USER COMPUTING","amt":10366},{"name":"SRVCS,MAINT&WARR - APPLICATION DEVELOPMENT","amt":6400},{"name":"FIRE ALARM SYSTEMS","amt":5232},{"name":"SECURITY ALARM SYSTEMS SERVICES","amt":3984},{"name":"FIRE ALARM SYSTEMS SUPPLIES","amt":775}]},{"tier":"Operational","cat":"Vehicles, Fuel & Fleet","amt":126816,"n":161,"payees":17,"codes":[{"name":"MOTOR VEHICLE SUPPLIES","amt":46826},{"name":"LEASED CAR - STATE OWNED","amt":33412},{"name":"MOTORIZED VEHICLE SERVICES","amt":33200},{"name":"GASOLINE","amt":6940},{"name":"DIESEL FUEL-TRANSPORTATION","amt":3467},{"name":"MOTOR VEHICLE TAGS TITLES AND REGISTRATIONS","amt":1534},{"name":"FUEL OIL","amt":505},{"name":"MOTORIZED VEHICLE CAR WASH SERVICES","amt":453}]},{"tier":"Operational","cat":"Travel, Lodging & Per Diem","amt":122340,"n":483,"payees":155,"codes":[{"name":"OUT OF STATE - LODGING","amt":39955},{"name":"IN STATE - AUTO MILEAGE","amt":26433},{"name":"IN STATE - LODGING","amt":13655},{"name":"TRAINING - OUT-OF-STATE REGISTRATION FEES","amt":13470},{"name":"OUT OF STATE - MEALS (NON-REPORTABLE)","amt":8069},{"name":"OUT OF STATE - AUTO MILEAGE","amt":6104},{"name":"TRAINING - IN-STATE REGISTRATION FEES","amt":4239},{"name":"CATERED MEALS","amt":3158}]},{"tier":"Operational","cat":"Telecommunications & Connectivity","amt":110756,"n":315,"payees":8,"codes":[{"name":"CELLULAR TELEPHONE SERVICES","amt":87066},{"name":"NETWORK, CIRCUIT & VOICE - DATA NETWORK","amt":12775},{"name":"NETWORK, CIRCUIT & VOICE - VOICE NETWORK","amt":9312},{"name":"SRVCS,MAINT&WARR - VOICE NETWORK","amt":632},{"name":"COMMUNICATION SUPPLIES","amt":523},{"name":"SRVCS,MAINT&WARR - DATA NETWORK","amt":427},{"name":"EQUIPMENT & SUPPLIES - VOICE NETWORK","amt":22}]},{"tier":"Operational","cat":"Printing, Postage & Mail","amt":81855,"n":185,"payees":14,"codes":[{"name":"PRINTED ITEMS","amt":40615},{"name":"POSTAGE","amt":31203},{"name":"FREIGHT EXPRESS DELIVERY","amt":10037}]},{"tier":"Operational","cat":"Security & Protective Services","amt":53434,"n":107,"payees":5,"codes":[{"name":"SECURITY CONTRACTS","amt":53434}]},{"tier":"Formula & Transfers","cat":"Aid to Schools, Local Governments & Districts","amt":33725,"n":6,"payees":6,"codes":[{"name":"ALLOC PRIVATE SECTOR","amt":33725}]},{"tier":"Operational","cat":"Personnel, Training & Memberships","amt":12253,"n":23,"payees":7,"codes":[{"name":"DUES & MEMBERSHIP FEES","amt":12054},{"name":"TRAINING EXPENSES (SERVICES)","amt":199}]},{"tier":"Operational","cat":"Testing, Research & Appraisal","amt":5000,"n":2,"payees":2,"codes":[{"name":"RESEARCH SURVEY & APPRAISERS","amt":5000}]}],"aid":[{"v":"MISSION LEXINGTON","amt":13725,"gov":false},{"v":"ROOTS AND RAIN LLC","amt":10000,"gov":false},{"v":"1ST FRUITS LLC","amt":2500,"gov":false},{"v":"MAD LOVE FARMS LLC","amt":2500,"gov":false},{"v":"NATIONAL VETERANS AGRICULTURE ASSOC","amt":2500,"gov":false},{"v":"RICKY ATKINSON LLC","amt":2500,"gov":false},{"v":"SCHOLARSHIPS AND LOANS","amt":500,"gov":false}],"vendors":[{"v":"GW LILES CONSTRUCTION CO INC","amt":1489472,"n":6,"st":false},{"v":"SOUTHERN VISTAS INC","amt":595941,"n":10,"st":false},{"v":"SOUTH CAROLINA SOYBEAN BOARD","amt":480000,"n":1,"st":false},{"v":"UNITED SOYBEAN BOARD","amt":397885,"n":7,"st":false},{"v":"CLEMSON UNIVERSITY - GEN DEPOSIT","amt":271993,"n":88,"st":true},{"v":"BANK OF AMERICA-P CARD","amt":267680,"n":837,"st":false},{"v":"NC SOYBEAN PRODUCERS ASSOC INC","amt":209205,"n":2,"st":false},{"v":"NATIONAL COTTON COUNCIL OF AMERICA","amt":204682,"n":1,"st":false},{"v":"SC CORN & SOYBEAN ASSOC","amt":181449,"n":30,"st":false},{"v":"CHERNOFF NEWMAN LLC","amt":156484,"n":3,"st":false},{"v":"DOMINION ENERGY SOUTH CAROLINA INC","amt":136865,"n":119,"st":false},{"v":"REFRIGERATION SPECIALTIES COMPANY","amt":117189,"n":6,"st":false},{"v":"KELLY REGISTRATION SYSTEMS INC","amt":109260,"n":28,"st":false},{"v":"ADMN GS STATE FLEET MGT & IMS","amt":102230,"n":58,"st":true},{"v":"LAMAR COMPANIES","amt":94722,"n":26,"st":false},{"v":"NORTH WARD ENVIRONMENTAL SVS","amt":89508,"n":2,"st":false},{"v":"VERIZON WIRELESS","amt":87066,"n":82,"st":false},{"v":"AGRICULTURE DEPARTMENT","amt":79137,"n":16,"st":false},{"v":"DUKE ENERGY PROGRESS","amt":78316,"n":68,"st":false},{"v":"CINDERELLA PARTNERS INC","amt":67089,"n":4,"st":false},{"v":"PAYROLL","amt":61900,"n":152,"st":false},{"v":"STREAMLINK SOFTWARE INC","amt":61275,"n":1,"st":false},{"v":"REPUBLIC SERVICES #743","amt":57344,"n":103,"st":false},{"v":"CATTLEMENS BEEF PROMOTION &","amt":57029,"n":11,"st":false},{"v":"GREGORY ELECTRIC COMPANY INC","amt":56500,"n":1,"st":false},{"v":"SOUTHERN COTTON GROWERS INC","amt":55822,"n":1,"st":false},{"v":"PROFESSIONAL PRINTERS INC","amt":48673,"n":8,"st":false},{"v":"CHIEF SERVICES & SECURITY SOLUTIONS","amt":48619,"n":102,"st":false},{"v":"JBG SPORTS GROUP LLC","amt":43000,"n":2,"st":false},{"v":"W B GUIMARIN & COMPANY INC","amt":41943,"n":37,"st":false},{"v":"COOK COMFORT SYSTEMS LLC","amt":40681,"n":14,"st":false},{"v":"FLORIDA SUN PRINTING","amt":37986,"n":29,"st":false},{"v":"SC ANIMAL CARE & CONTROL ASSOC","amt":33940,"n":1,"st":false},{"v":"US POSTAL SERVICE","amt":32525,"n":66,"st":false},{"v":"CARPET PLUS LLC","amt":30000,"n":3,"st":false},{"v":"CITY OF FLORENCE","amt":29584,"n":23,"st":false},{"v":"BOWMAN CONSULTING GROUP LTD","amt":29268,"n":13,"st":false},{"v":"DIGITAL IGNITE LLC","amt":28220,"n":7,"st":false},{"v":"GAMECOCK SPORTS PROPERTIES LLC","amt":28000,"n":1,"st":false},{"v":"HIREQUEST LLC","amt":27634,"n":105,"st":false},{"v":"CITY OF CAYCE","amt":27627,"n":42,"st":false},{"v":"GRACE CONSTRUCTION GROUP LLC","amt":27225,"n":2,"st":false},{"v":"SOUTH CAROLINA WATERMELON","amt":24928,"n":3,"st":false},{"v":"DP3 ARCHITECTS LTD","amt":23897,"n":9,"st":false},{"v":"FSI OFFICE","amt":22236,"n":39,"st":false},{"v":"FM BUILDING C","amt":22168,"n":1,"st":false},{"v":"GMK ASSOCIATES INC","amt":18956,"n":12,"st":false},{"v":"JAYSON CALHOUN","amt":18592,"n":1,"st":false},{"v":"RECCO INTERNATIONAL INC","amt":17728,"n":5,"st":false},{"v":"W B GUIMARIN & CO INC","amt":15591,"n":13,"st":false}]},"_budget":{"programs":[{"prog":"A. OPERATIONS","tf":7474526,"gf":2726079,"Personnel & Benefits":1405531,"Operating":6068995,"Aid & Grants":0},{"prog":"B. MARKET SERVICES","tf":1831698,"gf":924056,"Personnel & Benefits":953798,"Operating":877900,"Aid & Grants":0},{"prog":"A. CONSUMER PROTECTION","tf":10322685,"gf":5029998,"Personnel & Benefits":2673225,"Operating":7649460,"Aid & Grants":0},{"prog":"B. INSPECTION SERVICES","tf":3384163,"gf":0,"Personnel & Benefits":1587963,"Operating":1796200,"Aid & Grants":0},{"prog":"C. RETAIL FOOD SAFETY","tf":9387948,"gf":5049298,"Personnel & Benefits":6919236,"Operating":2303861,"Aid & Grants":164851},{"prog":"A. MARKETING & PROMOTIONS","tf":13571518,"gf":6009214,"Personnel & Benefits":1140873,"Operating":12430645,"Aid & Grants":0},{"prog":"B. COMMODITY BOARDS","tf":2575680,"gf":0,"Personnel & Benefits":89600,"Operating":2486080,"Aid & Grants":0},{"prog":"C. MARKET BULLETIN","tf":161730,"gf":0,"Personnel & Benefits":50230,"Operating":111500,"Aid & Grants":0},{"prog":"D. AGRIBUSINESS DEVELOPMENT","tf":2369000,"gf":669000,"Personnel & Benefits":188000,"Operating":2181000,"Aid & Grants":0},{"prog":"E. AGRICULTURAL CENTER FOR RESEARCH & ENTREPRENEURSHIP","tf":1424000,"gf":1424000,"Personnel & Benefits":74000,"Operating":1350000,"Aid & Grants":0},{"prog":"F. INFRASTRUCTURE GRANTS","tf":2500000,"gf":2500000,"Personnel & Benefits":0,"Operating":0,"Aid & Grants":2500000},{"prog":"IV. EMPLOYEE BENEFITS","tf":5617709,"gf":3502042,"Personnel & Benefits":5617709,"Operating":0,"Aid & Grants":0}],"totals":{"tf":60620657.0,"gf":27833687.0,"personnel":20700165,"act":"H.4025, ratified May 28, 2025","fy":"2025-26","section":"Section 44"}}};
+var LENS = "All funds";
+var DEPT_TOTAL = DATA["All funds"].total;
+
+var CAT_COLORS = {};
+var PALETTE = ["#1B4D3E","#3E7A54","#8C6D2F","#5B7F71","#A46B4A","#6E8F5E","#2E5E4E","#B08D3E","#4A6B47","#7A5C33","#35695B","#93A167","#556B2F","#8A7B4F","#274E3B","#C9A55C","#446B5A","#9C7A45","#5E8468","#726A45"];
+(function(){
+  var i=0;
+  DATA["All funds"].cats.forEach(function(c){ if(!(c.cat in CAT_COLORS)){CAT_COLORS[c.cat]=PALETTE[i%PALETTE.length]; i++;} });
+  ["General","Federal","Restricted","Earmarked"].forEach(function(f){
+    DATA[f].cats.forEach(function(c){ if(!(c.cat in CAT_COLORS)){CAT_COLORS[c.cat]=PALETTE[i%PALETTE.length]; i++;} });
+  });
+})();
+var TIER_COLORS = {"Formula & Transfers":"#8C6D2F","Operational":"#1B4D3E","Unclassified":"#9A968A"};
+
+function money(v){ return v>=1e6 ? "$"+(v/1e6).toFixed(v>=1e7?1:2)+"M" : v>=1e3 ? "$"+Math.round(v/1e3).toLocaleString()+"K" : "$"+Math.round(v); }
+function full(v){ return "$"+Math.round(v).toLocaleString(); }
+
+/* ---- stat strip ---- */
+function renderStats(){
+  var d = DATA[LENS];
+  document.getElementById("sTotal").textContent = money(d.total);
+  document.getElementById("sTx").textContent = d.txns.toLocaleString();
+  document.getElementById("sPay").textContent = d.payees.toLocaleString();
+  var sh = (100*d.total/DEPT_TOTAL);
+  document.getElementById("sShare").textContent = LENS==="All funds" ? "4 funds" : sh.toFixed(1)+"%";
+  document.getElementById("sShareL").textContent = LENS==="All funds" ? "sources of money" : "of department total";
+  var notes = {
+    "All funds":"Everything the Department recorded in FY2025.",
+    "General":"Appropriated state tax dollars — the most discretionary money.",
+    "Federal":"Grant-funded — spent under federal award rules.",
+    "Restricted":"Dedicated revenue — in FY25, almost entirely pass-through aid.",
+    "Earmarked":"Fees and assessments the Department collects and spends."
+  };
+  document.getElementById("lensNote").textContent = notes[LENS];
+}
+
+/* ---- split bar ---- */
+function renderSplit(){
+  var d = DATA[LENS], bar=document.getElementById("splitBar"), lg=document.getElementById("splitLegend");
+  var order=["Formula & Transfers","Operational","Unclassified"];
+  var labels={"Formula & Transfers":"Pass-through aid & transfers","Operational":"Operational","Unclassified":"Unclassified"};
+  bar.innerHTML=""; lg.innerHTML="";
+  order.forEach(function(t){
+    var v=d.tiers[t]||0; if(!v) return;
+    var p=100*v/d.total;
+    var s=document.createElement("div");
+    s.className="seg"; s.style.width=p+"%"; s.style.background=TIER_COLORS[t];
+    if(p>17) s.innerHTML="<span>"+labels[t]+" · "+p.toFixed(1)+"%</span><small>"+money(v)+"</small>";
+    s.title=labels[t]+" — "+full(v)+" ("+p.toFixed(1)+"%)";
+    bar.appendChild(s);
+    lg.innerHTML+='<span><span class="sw" style="background:'+TIER_COLORS[t]+'"></span>'+labels[t]+' · '+money(v)+'</span>';
+  });
+}
+
+/* ---- treemap ---- */
+function squarify(items, x, y, w, h, out){
+  if (!items.length) return;
+  var total = items.reduce(function(a,b){return a+b.value;},0);
+  if (total <= 0) return;
+  var i = 0;
+  while (i < items.length){
+    var row = [], rowSum = 0, best = Infinity;
+    var horiz = w >= h, side = horiz ? h : w;
+    for (var j = i; j < items.length; j++){
+      var trial = rowSum + items[j].value;
+      var frac = trial / total, len = horiz ? w*frac : h*frac;
+      var worst = 0;
+      for (var k = i; k <= j; k++){
+        var cell = horiz ? {w:len, h:side*items[k].value/trial}
+                         : {w:side*items[k].value/trial, h:len};
+        worst = Math.max(worst, Math.max(cell.w/cell.h, cell.h/cell.w));
+      }
+      if (worst <= best){ best = worst; row.push(items[j]); rowSum = trial; }
+      else break;
+    }
+    var frac2 = rowSum/total, off = 0;
+    if (horiz){
+      var rw = w*frac2;
+      row.forEach(function(it){
+        var ih = h*it.value/rowSum;
+        out.push({item:it, x:x, y:y+off, w:rw, h:ih}); off += ih;
+      });
+      x += rw; w -= rw;
+    } else {
+      var rh = h*frac2;
+      row.forEach(function(it){
+        var iw = w*it.value/rowSum;
+        out.push({item:it, x:x+off, y:y, w:iw, h:rh}); off += iw;
+      });
+      y += rh; h -= rh;
+    }
+    total -= rowSum; i += row.length;
+  }
+}
+
+
+var currentCat=null;
+function tmData(){
+  return DATA[LENS].cats.filter(function(c){return c.tier==="Operational";})
+    .map(function(c){return {name:c.cat, value:c.amt, children:c.codes.map(function(k){return {name:k.name, value:k.amt};})};});
+}
+function drawTreemap(cat){
+  currentCat=cat;
+  var box=document.getElementById("treemap");
+  var W=box.clientWidth, H=box.clientHeight;
+  var TM=tmData();
+  var items = cat ? cat.children.map(function(c){return {name:c.name, value:c.value};})
+                  : TM.map(function(c){return {name:c.name, value:c.value, ref:c};});
+  items=items.filter(function(d){return d.value>0;});
+  var cells=[]; squarify(items.slice(),0,0,W,H,cells);
+  box.innerHTML="";
+  cells.forEach(function(c){
+    var d=document.createElement("div");
+    d.className="tmCell";
+    d.style.left=c.x+"px"; d.style.top=c.y+"px";
+    d.style.width=Math.max(0,c.w-1)+"px"; d.style.height=Math.max(0,c.h-1)+"px";
+    var base = cat ? CAT_COLORS[cat.name] : CAT_COLORS[c.item.name];
+    d.style.background=base||"#557";
+    if(cat){ d.style.opacity=(0.55+0.45*Math.min(1,c.item.value/items[0].value)).toFixed(2); }
+    d.title=c.item.name+" — "+full(c.item.value);
+    if(c.w>78 && c.h>40){
+      d.innerHTML='<div class="tl"><span class="nm">'+c.item.name+'</span><span class="vl">'+money(c.item.value)+'</span></div>';
+    }
+    if(!cat && c.item.ref){
+      d.addEventListener("click", function(){
+        drawTreemap(c.item.ref);
+        document.getElementById("tmBack").style.display="inline-block";
+        document.getElementById("tmCrumb").textContent=c.item.ref.name+" · "+c.item.ref.children.length+" object codes · "+money(c.item.ref.value);
+      });
+    }
+    box.appendChild(d);
+  });
+  if(!cat){
+    var op=DATA[LENS].tiers["Operational"]||0;
+    document.getElementById("tmCrumb").textContent="All operational spending · "+TM.length+" categories · "+money(op);
+  }
+}
+document.getElementById("tmBack").addEventListener("click", function(){
+  drawTreemap(null); this.style.display="none";
+});
+window.addEventListener("resize", function(){ drawTreemap(currentCat); });
+
+/* ---- rank bars ---- */
+var RANK_MODE="amt";
+function renderRank(){
+  var host=document.getElementById("rankRows"); host.innerHTML="";
+  var cats=DATA[LENS].cats.filter(function(c){return c.tier!=="Unclassified";}).slice();
+  cats.sort(function(a,b){return b[RANK_MODE]-a[RANK_MODE];});
+  cats=cats.slice(0,14);
+  var max=cats[0]?cats[0][RANK_MODE]:1;
+  cats.forEach(function(c){
+    var row=document.createElement("div"); row.className="rrow";
+    var val = RANK_MODE==="amt"?money(c.amt):c[RANK_MODE].toLocaleString();
+    row.innerHTML='<div class="rname">'+c.cat+'</div>'+
+      '<div class="rtrack"><div class="rbar" style="width:'+(100*c[RANK_MODE]/max)+'%; background:'+(CAT_COLORS[c.cat]||"#1B4D3E")+'"></div></div>'+
+      '<div class="rval">'+val+'</div>';
+    host.appendChild(row);
+  });
+}
+document.querySelectorAll(".toggle button").forEach(function(b){
+  b.addEventListener("click", function(){
+    document.querySelectorAll(".toggle button").forEach(function(x){x.classList.remove("on");});
+    b.classList.add("on"); RANK_MODE=b.dataset.mode; renderRank();
+  });
+});
+
+/* ---- aid ---- */
+function renderAid(){
+  var host=document.getElementById("aidRows"); host.innerHTML="";
+  var aid=DATA[LENS].aid;
+  if(!aid.length){ host.innerHTML='<p class="kick">No pass-through spending under this fund view.</p>'; return; }
+  var max=aid[0].amt;
+  aid.forEach(function(a){
+    var row=document.createElement("div"); row.className="rrow";
+    row.innerHTML='<div class="rname">'+a.v+(a.gov?'<span class="gov">PUBLIC</span>':'')+'</div>'+
+      '<div class="rtrack"><div class="rbar" style="width:'+(100*a.amt/max)+'%; background:var(--brass)"></div></div>'+
+      '<div class="rval">'+money(a.amt)+'</div>';
+    host.appendChild(row);
+  });
+}
+
+/* ---- budget ---- */
+function renderBudget(){
+  var b=DATA._budget, host=document.getElementById("budRows"); host.innerHTML="";
+  var progs=b.programs.slice().sort(function(x,y){return y.tf-x.tf;});
+  var max=progs[0].tf;
+  progs.forEach(function(p){
+    var name=p.prog.replace(/^[IVX]+\. /,"").replace(/^[A-Z]\. /,"");
+    var pers=p["Personnel & Benefits"], rest=p.tf-pers;
+    var row=document.createElement("div"); row.className="brow";
+    row.innerHTML='<div class="rname">'+name+'</div>'+
+      '<div class="bstack" title="'+full(p.tf)+' total — '+full(pers)+' personnel, '+full(rest)+' operating & aid">'+
+        '<div style="width:'+(100*pers/max)+'%; background:var(--pine-deep)"></div>'+
+        '<div style="width:'+(100*rest/max)+'%; background:var(--wheat)"></div></div>'+
+      '<div class="rval">'+money(p.tf)+'</div>';
+    host.appendChild(row);
+  });
+  var t=b.totals, host2=document.getElementById("recon"); host2.innerHTML="";
+  var pers=t.personnel, other=t.tf-pers;
+  host2.innerHTML =
+    '<div class="rlab">Budgeted FY26</div>'+
+    '<div class="rbarwrap">'+
+      '<div class="rseg" style="width:'+(100*pers/t.tf)+'%; background:var(--pine-deep)">Personnel '+money(pers)+'</div>'+
+      '<div class="rseg" style="width:'+(100*other/t.tf)+'%; background:var(--wheat); color:#4A3D1E">Everything else '+money(other)+'</div></div>'+
+    '<div class="rlab">Actual FY25</div>'+
+    '<div class="rbarwrap" style="width:'+(100*DEPT_TOTAL/t.tf)+'%">'+
+      '<div class="rseg" style="width:100%; background:var(--pine)">Recorded vendor transactions '+money(DEPT_TOTAL)+'</div></div>';
+  document.getElementById("reconNote").textContent =
+    "The two public sources agree: set the "+money(pers)+" personnel appropriation aside (payroll never appears in vendor files) and the remaining "+money(other)+" budget sits close to the "+money(DEPT_TOTAL)+" in observed transactions — one consistent story, one fiscal year apart.";
+}
+
+/* ---- vendors ---- */
+function renderVendors(){
+  var q=document.getElementById("vq").value.trim().toUpperCase();
+  var tb=document.getElementById("vbody"); tb.innerHTML="";
+  DATA[LENS].vendors.forEach(function(v){
+    if(q && v.v.toUpperCase().indexOf(q)===-1) return;
+    var tr=document.createElement("tr");
+    tr.innerHTML='<td>'+v.v+(v.st?'<span class="sttag">STATE</span>':'')+'</td>'+
+      '<td class="num">'+full(v.amt)+'</td><td class="num">'+v.n.toLocaleString()+'</td>';
+    tb.appendChild(tr);
+  });
+}
+document.getElementById("vq").addEventListener("input", renderVendors);
+
+/* ---- lens switch ---- */
+document.querySelectorAll(".pill").forEach(function(b){
+  b.addEventListener("click", function(){
+    document.querySelectorAll(".pill").forEach(function(x){x.classList.remove("on");});
+    b.classList.add("on"); LENS=b.dataset.lens;
+    document.getElementById("tmBack").style.display="none";
+    renderStats(); renderSplit(); drawTreemap(null); renderRank(); renderAid(); renderVendors();
+  });
+});
+
+renderStats(); renderSplit(); drawTreemap(null); renderRank(); renderAid(); renderBudget(); renderVendors();
+</script>
+</body>
+</html>
