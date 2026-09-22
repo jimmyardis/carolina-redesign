@@ -47,6 +47,7 @@ Run one real test purchase through the live flow (checkout → redirect → star
 - **Published "Which Agency Next?" to the Palmetto Ledger.** A standalone page from `~/Downloads/agency-index.html`, copied to `palmetto-ledger/agency-index/index.html`. Only changes: a Ledger-style `<title>`, a meta description, the cr-logo favicon, and a "← The Palmetto Ledger" back link. The tool itself is unchanged.
 - Added a card to `palmetto-ledger/index.html` above Issue 4, tagged "Working Tool · September 2026" rather than an issue number, so that The Match Trap stays Issue 5.
 - Checked in headless Chromium (107 agencies ranked, no JS errors), pushed as 181636e, and confirmed live on www.carolinaredesign.com.
+- Added `<meta name="robots" content="noindex">` to the tool page at the user's request, to keep it out of search results. The Ledger index card still links to it.
 
 ### 2026-09-02
 
