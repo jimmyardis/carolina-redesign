@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Which Agency Next? — The Palmetto Ledger</title>
+<meta name="description" content="An interactive index ranking South Carolina state agencies as candidates for the next Palmetto ZBB study. Weight seven factors drawn from the FY 2026-27 appropriations act, the FY 2016-17 act, and audit and oversight reports. The Palmetto Ledger, Carolina Redesign.">
+<link rel="icon" type="image/png" href="/cr-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+[hidden]{display:none!important}
+
+:root{
+  --bg:#EEF1F0;--surface:#FFFFFF;--ink:#17202E;--muted:#5B6573;--line:#D6DCDA;--track:#E3E8E6;
+  --accent:#22386F;--accent-ink:#FFFFFF;--up:#2E7D4F;--down:#B03A48;--note:#FFF6DC;--note-line:#E6CF8A;
+  --c0:#22386F;--c1:#2A8C82;--c2:#C28A2C;--c3:#7D4A7A;--c4:#5E7F3A;--c5:#B5525C;--c6:#8A6D3B;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121720;--surface:#1A212D;--ink:#E7EBF0;--muted:#9AA4B2;--line:#2C3645;--track:#252E3C;
+    --accent:#8FA8E8;--accent-ink:#0F1522;--up:#6FCF97;--down:#F08A95;--note:#2A2718;--note-line:#5C5230;
+    --c0:#8FA8E8;--c1:#5CC2B6;--c2:#E2B45A;--c3:#C08CC0;--c4:#9BC06B;--c5:#E68A92;--c6:#D1B07A;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121720;--surface:#1A212D;--ink:#E7EBF0;--muted:#9AA4B2;--line:#2C3645;--track:#252E3C;
+  --accent:#8FA8E8;--accent-ink:#0F1522;--up:#6FCF97;--down:#F08A95;--note:#2A2718;--note-line:#5C5230;
+  --c0:#8FA8E8;--c1:#5CC2B6;--c2:#E2B45A;--c3:#C08CC0;--c4:#9BC06B;--c5:#E68A92;--c6:#D1B07A;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Public Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+img{max-width:100%}
+.wrap{max-width:1240px;margin:0 auto;padding:40px 24px 64px}
+header{max-width:720px;margin-bottom:28px}
+h1{font-size:clamp(34px,5vw,52px);line-height:1.02;letter-spacing:-0.025em;font-weight:800;margin:0 0 14px}
+.lede{font-size:17px;color:var(--muted);margin:0;max-width:62ch}
+.draft{margin-top:18px;background:var(--note);border:1px solid var(--note-line);border-radius:6px;padding:10px 14px;font-size:14px;max-width:70ch}
+.layout{display:grid;grid-template-columns:330px minmax(0,1fr);gap:28px;align-items:start}
+aside{position:sticky;top:20px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px}
+aside h2{font-size:15px;font-weight:700;margin:0 0 4px}
+aside .hint{font-size:13px;color:var(--muted);margin:0 0 14px}
+.presets{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.presets button,.chips button{font:inherit;font-size:13px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:5px 11px;cursor:pointer}
+.presets button:hover,.chips button:hover{border-color:var(--accent)}
+.presets button[aria-pressed="true"],.chips button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.crit{padding:12px 0;border-top:1px solid var(--line)}
+.crit-top{display:flex;align-items:center;gap:8px}
+.crit-top label.name{flex:1;font-weight:600;font-size:14px;display:flex;align-items:center;gap:8px;cursor:pointer}
+.sw{width:10px;height:10px;border-radius:2px;flex:none}
+.crit .val{font-weight:700;font-size:14px;min-width:2ch;text-align:right}
+.crit p{margin:2px 0 6px 26px;font-size:12.5px;color:var(--muted);line-height:1.4}
+.crit input[type=range]{width:calc(100% - 26px);margin-left:26px;accent-color:var(--swc)}
+.crit.off .name,.crit.off p,.crit.off .val{opacity:.45}
+.crit input[type=checkbox]{width:16px;height:16px;margin:0;accent-color:var(--accent)}
+.tools{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.tools button{font:inherit;font-size:13px;background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:6px;padding:6px 10px;cursor:pointer}
+.tools button:hover{border-color:var(--accent)}
+main{min-width:0}
+.filters{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.search{font:inherit;font-size:14px;padding:8px 12px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);width:100%;max-width:340px}
+.meta{font-size:13px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+ol.list{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.row{border-top:1px solid var(--line);position:relative;background:var(--surface)}
+.row:first-child{border-top:0}
+.row.cut{border-bottom:2px solid var(--accent)}
+.rowbtn{all:unset;box-sizing:border-box;width:100%;display:grid;grid-template-columns:40px minmax(0,1fr) minmax(140px,34%) 44px 44px;gap:12px;align-items:center;padding:10px 14px;cursor:pointer}
+.rowbtn:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.rowbtn:hover{background:color-mix(in srgb,var(--accent) 5%,transparent)}
+.rank{font-weight:800;font-size:15px;color:var(--muted);text-align:right}
+.row.short .rank{color:var(--accent)}
+.who{min-width:0}
+.nm{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sec{display:block;font-size:12px;color:var(--muted)}
+.bar{display:flex;height:12px;border-radius:3px;background:var(--track);overflow:hidden}
+.bar i{display:block;height:100%;transition:width .35s ease}
+.tot{font-weight:800;text-align:right;font-size:16px}
+.delta{font-size:12px;font-weight:700;text-align:left;opacity:0;transition:opacity .3s}
+.delta.show{opacity:1}
+.delta.up{color:var(--up)}.delta.down{color:var(--down)}
+.detail{padding:4px 14px 16px 66px;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px 20px}
+.detail div{font-size:13px}
+.detail .l{color:var(--muted);display:flex;align-items:center;gap:6px}
+.pips{display:flex;gap:3px;margin-top:4px}
+.pips span{width:18px;height:6px;border-radius:2px;background:var(--track)}
+.cutlabel{font-size:12px;color:var(--accent);font-weight:600;padding:0 14px 8px 66px;margin-top:-4px}
+.empty{padding:28px;color:var(--muted);text-align:center}
+.method{margin-top:40px;max-width:72ch;font-size:14px;color:var(--muted)}
+.method h2{color:var(--ink);font-size:17px;margin:0 0 6px}
+.method p{margin:0 0 10px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:6px;font-size:13px;opacity:0;transition:opacity .25s;pointer-events:none}
+.toast.show{opacity:1}
+@media (max-width:880px){
+  .layout{grid-template-columns:1fr}
+  aside{position:static}
+}
+@media (max-width:560px){
+  .wrap{padding:28px 14px 48px}
+  .rowbtn{grid-template-columns:30px minmax(0,1fr) 40px 36px;row-gap:6px;padding:10px}
+  .bar{grid-column:2 / 5;grid-row:2}
+  .detail{padding-left:50px}
+  .cutlabel{padding-left:50px}
+}
+@media (prefers-reduced-motion:reduce){
+  .bar i,.delta{transition:none}
+}
+
+.source{margin-top:18px;border-left:3px solid var(--accent);padding:4px 0 4px 14px;font-size:14px;color:var(--muted);max-width:70ch}
+.source strong{color:var(--ink)}
+.kind{font-size:11.5px;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 5px;margin-left:auto}
+.crit-top .val{margin-left:8px}
+.detail{grid-template-columns:1fr;gap:14px}
+.facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px 20px;font-size:13px}
+.facts dt{color:var(--muted)}
+.facts dd{margin:0;font-weight:600}
+.facts .note{grid-column:1/-1;font-size:12.5px;color:var(--muted);font-weight:400}
+.fscores{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px 20px}
+.fscores .l{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.meter{height:6px;border-radius:3px;background:var(--track);margin-top:5px;overflow:hidden}
+.meter i{display:block;height:100%}
+.pips button{all:unset;cursor:pointer;width:22px;height:8px;border-radius:2px;background:var(--track)}
+.pips button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.pips{gap:4px}
+.edited{font-size:11.5px;color:var(--accent);font-weight:600;margin-left:6px}
+.method ul{margin:0 0 10px;padding-left:20px}
+.method li{margin-bottom:4px}
+.method a{color:var(--accent)}
+.tools .ghost{border-style:dashed}
+.backlink{display:inline-block;margin-bottom:18px;font-size:13px;font-weight:600;color:var(--accent);text-decoration:none}
+.backlink:hover{text-decoration:underline}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="backlink" href="/palmetto-ledger/">&#8592; The Palmetto Ledger</a>
+  <header>
+    <h1>Which agency next?</h1>
+    <p class="lede">A working tool for the Palmetto ZBB group. Set how much each factor matters, and South Carolina's state agencies reorder to match. The top eight form the shortlist.</p>
+    <div class="source"><strong>Built from public records.</strong> Five factors are computed from the FY 2026-27 appropriations act, the FY 2016-17 act, and published audit and oversight reports. Two are judgment ratings, marked as such, and you can change them for yourself.</div>
+  </header>
+
+  <div class="layout">
+    <aside aria-label="Weights">
+      <h2>What matters most?</h2>
+      <p class="hint">Start from a preset, then drag. Uncheck a factor to leave it out.</p>
+      <div class="presets" id="presets"></div>
+      <div id="crits"></div>
+      <div class="tools">
+        <button type="button" id="copy">Copy link to this view</button>
+        <button type="button" id="resetj" class="ghost" hidden>Reset my ratings</button>
+      </div>
+    </aside>
+
+    <main>
+      <div class="filters">
+        <input class="search" id="search" type="search" placeholder="Find an agency" aria-label="Find an agency">
+        <div class="chips" id="chips" aria-label="Filter by area"></div>
+      </div>
+      <div class="meta"><span id="count"></span><span>Select a row for its numbers</span></div>
+      <ol class="list" id="list"></ol>
+
+      <section class="method">
+        <h2>How each factor is measured</h2>
+        <ul>
+          <li><strong>Budget size.</strong> Total FY 2026-27 appropriation, all fund sources, ranked against every other agency on a log scale.</li>
+          <li><strong>Executive discretion.</strong> General funds minus general funds passed through to local governments and other entities, as a share of the total. Federal and earmarked other funds count as non-discretionary. Legislative and judicial branch budgets score zero, since the executive branch doesn't control them.</li>
+          <li><strong>Simplicity.</strong> The inverse of complexity, averaged across six ranked measures: line items, programs, provisos in Part IB, special line items, federal share, and number of meaningful fund sources.</li>
+          <li><strong>Existing reviews.</strong> Half for a posted House Legislative Oversight Committee study, half for Legislative Audit Council reports since 2014 (two or more earns full credit). Prior reviews give a new analysis something to build on.</li>
+          <li><strong>10-year growth.</strong> Growth in total funds from FY 2016-17 to FY 2026-27, relative to the whole budget's growth, ranked. Agencies created or restructured without a clean predecessor get a neutral middle score.</li>
+          <li><strong>Public relatability and template value.</strong> Judgment ratings from 1 to 5. Relatability asks how directly taxpayers see and use the agency's services. Template value asks how many similar agencies the method would carry over to. Open a row and click the bars to set your own.</li>
+        </ul>
+        <p>Each factor is scaled 0 to 1, multiplied by its weight, and divided by the total weight, so scores run 0 to 100. Rank is always across all agencies; filters and search only hide rows.</p>
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://www.scstatehouse.gov/sess126_2025-2026/appropriations2026/gab5126.php">FY 2026-27 General Appropriations Act (H. 5126), as ratified</a>, Parts IA and IB</li>
+          <li><a href="https://www.scstatehouse.gov/CommitteeInfo/Ways&amp;MeansBudgetDocuments/FY2026-27/HWM%20-%20SCD%20FY27%20Committee%20Recommendations_Adopted%202.18.26.pdf">House Ways &amp; Means FY27 committee recommendations</a>, for each agency's split between federal and other funds</li>
+          <li><a href="https://www.scstatehouse.gov/sess121_2015-2016/appropriations2016/tap1a.htm">FY 2016-17 General Appropriations Act, Part IA</a></li>
+          <li><a href="https://lac.sc.gov/reports">Legislative Audit Council reports by agency</a> and <a href="https://www.scstatehouse.gov/CommitteeInfo/HouseLegislativeOversightCommittee.php">House Legislative Oversight Committee studies</a></li>
+        </ul>
+        <p>Not included: pass-through accounts that aren't agencies (lottery expenditure account, capital reserve fund, debt service, statewide employee benefits, aid to subdivisions, county transportation funds). Federal and other splits come from the FY 2025-26 base and are applied to FY 2026-27 non-general totals. The Department of Transportation's federal highway money is carried as other funds in that source.</p>
+      </section>
+    </main>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const RAW = [["1","Department of Education","K-12 & culture","exec",7899647846,4592943064,1926734758,1379970024,0.284,127,7,189,91,1.073,"",[2025],false,[0.991,0.527,0.069,0.25,0.49],5,2],["2","First Steps to School Readiness","K-12 & culture","exec",91733780,20599694,7989212,63144874,0.0,17,3,0,4,null,"",[],true,[0.613,0.225,0.458,0.5,0.5],4,3],["4","Education Oversight Committee","K-12 & culture","exec",2187264,0,0,2187264,0.0,6,2,0,2,0.752,"",[],false,[0.038,0.0,0.8,0.0,0.11],2,4],["5","Wil Lou Gray Opportunity School","K-12 & culture","exec",10685658,9808437,172500,704721,0.0,19,5,6,0,0.925,"",[],true,[0.179,0.918,0.494,0.5,0.3],3,4],["6","School for the Deaf and the Blind","K-12 & culture","exec",31430499,20619144,1432300,9379055,0.002,32,7,10,1,0.771,"",[],true,[0.443,0.654,0.356,0.5,0.13],4,4],["7","Governor's School for Agriculture at John de la Howe","K-12 & culture","exec",12174773,11214599,176127,784047,0.0,23,3,4,0,1.308,"",[],true,[0.217,0.921,0.586,0.5,0.8],3,4],["8","SC Educational Television (SCETV)","K-12 & culture","exec",36418404,12123404,80000,24215000,0.0,15,3,6,0,1.171,"",[],true,[0.453,0.333,0.595,0.5,0.66],4,3],["9","Governor's School for the Arts & Humanities","K-12 & culture","exec",14965004,13960233,0,1004771,0.0,5,2,6,0,null,"",[],false,[0.274,0.933,0.752,0.0,0.5],3,5],["10","Governor's School for Science & Mathematics","K-12 & culture","exec",20264886,19018386,0,1246500,0.0,6,2,6,1,null,"",[],false,[0.349,0.938,0.691,0.0,0.5],3,5],["11","Commission on Higher Education","Higher education","exec",50585216,43413528,439415,6732273,0.0,21,7,18,11,0.695,"",[],false,[0.481,0.858,0.318,0.0,0.06],3,3],["12","Higher Education Tuition Grants Commission","Higher education","exec",58869921,28619921,0,30250000,0.0,5,3,0,0,1.162,"",[],false,[0.5,0.486,0.78,0.0,0.63],3,2],["13","The Citadel","Higher education","exec",209534826,33253568,42112389,134168869,0.0,12,3,0,0,0.88,"",[2017],false,[0.84,0.159,0.545,0.25,0.21],4,5],["14","Clemson University","Higher education","exec",1971410024,242605521,256209888,1472594615,0.0,27,4,1,9,1.282,"",[],false,[0.972,0.123,0.328,0.0,0.78],4,4],["15","College of Charleston","Higher education","exec",305272360,62709594,19500000,223062766,0.0,12,3,0,2,0.728,"",[],false,[0.868,0.205,0.51,0.0,0.08],4,5],["16","Coastal Carolina University","Higher education","exec",341029722,39715078,24307536,277007108,0.0,23,3,0,2,1.043,"",[],false,[0.887,0.116,0.471,0.0,0.45],4,5],["17","Francis Marion University","Higher education","exec",106081407,40423944,12988495,52668968,0.0,13,3,0,0,1.013,"",[],false,[0.642,0.381,0.557,0.0,0.41],3,5],["18","Lander University","Higher education","exec",126553835,28306669,11660090,86587076,0.0,10,3,0,0,1.063,"",[],false,[0.689,0.224,0.584,0.0,0.47],3,5],["19","South Carolina State University","Higher education","exec",159088793,37032746,65000000,57056047,0.0,16,3,2,3,0.821,"",[],false,[0.764,0.233,0.392,0.0,0.18],4,4],["20A","University of South Carolina, Columbia","Higher education","exec",1868915538,374782564,240841992,1253290982,0.0,41,4,6,10,1.04,"",[2024],false,[0.962,0.201,0.241,0.25,0.44],4,4],["20B","USC Aiken","Higher education","exec",85869252,29911890,12963329,42994033,0.0,13,3,0,0,0.923,"",[],false,[0.585,0.348,0.543,0.0,0.29],3,5],["20C","USC Upstate","Higher education","exec",133075450,41048470,19970786,72056194,0.0,12,3,0,0,0.875,"",[],false,[0.698,0.308,0.554,0.0,0.2],3,5],["20D","USC Beaufort","Higher education","exec",54761679,17976753,8317065,28467861,0.0,10,3,0,0,1.052,"",[],false,[0.491,0.328,0.565,0.0,0.46],3,5],["20E","USC Lancaster","Higher education","exec",29865753,11691252,4390048,13784453,0.0,10,3,0,0,0.919,"",[],false,[0.425,0.391,0.57,0.0,0.26],2,5],["20F","USC Salkehatchie","Higher education","exec",18991248,6737249,3880454,8373545,0.0,13,3,0,1,0.841,"",[],false,[0.321,0.355,0.485,0.0,0.19],2,5],["20G","USC Sumter","Higher education","exec",25791636,11165533,3441710,11184393,0.0,11,3,0,0,1.021,"",[],false,[0.358,0.433,0.566,0.0,0.42],2,5],["20H","USC Union","Higher education","exec",16891506,7302193,2152753,7436560,0.0,12,3,0,0,1.513,"",[],false,[0.292,0.432,0.565,0.0,0.87],2,5],["21","Winthrop University","Higher education","exec",194368054,41853999,51197500,101316555,0.02,11,3,0,0,0.785,"",[],false,[0.811,0.215,0.541,0.0,0.14],3,5],["23","Medical University of South Carolina","Higher education","exec",1015949578,187656949,210642514,617650115,0.0,24,3,3,10,0.965,"",[],false,[0.934,0.185,0.34,0.0,0.32],4,2],["24","Area Health Education Consortium","Higher education","exec",18299397,14645770,844700,2808927,0.0,13,3,0,1,0.814,"",[],false,[0.302,0.8,0.602,0.0,0.16],2,3],["25","Technical College System (SBTCE)","Higher education","exec",834633079,279888213,52614581,502130285,0.0,39,4,9,14,0.708,"",[],false,[0.925,0.335,0.234,0.0,0.07],4,3],["26","Department of Archives & History","K-12 & culture","exec",14197170,12678029,597183,921958,0.001,20,5,1,3,1.846,"",[],true,[0.255,0.893,0.459,0.5,0.9],3,4],["27","State Library","K-12 & culture","exec",28586335,26650189,1775946,160200,0.606,16,5,8,1,1.169,"",[],true,[0.406,0.333,0.421,0.5,0.65],3,4],["28","Arts Commission","K-12 & culture","exec",11636316,10953268,534341,148707,0.762,5,3,6,0,1.579,"",[],true,[0.198,0.184,0.688,0.5,0.89],4,4],["29","State Museum Commission","K-12 & culture","exec",13371981,11210381,0,2161600,0.0,13,3,6,0,1.263,"",[],false,[0.245,0.838,0.631,0.0,0.77],4,4],["30","Confederate Relic Room & Military Museum","K-12 & culture","exec",2061709,1642457,0,419252,0.0,7,2,1,1,1.022,"",[],false,[0.028,0.797,0.741,0.0,0.43],3,4],["31","Department of Public Health","Health & human services","exec",510424782,141698431,230818278,137908073,0.075,75,3,50,7,0.74,"Compared as DPH + DES combined vs. former DHEC",[2015,2022,2023],true,[0.906,0.267,0.175,1.0,0.095],5,2],["32","Vocational Rehabilitation","Health & human services","exec",170973034,20501326,118346799,32124909,0.0,22,5,5,3,0.632,"",[],false,[0.792,0.12,0.271,0.0,0.03],3,3],["33","Department of Health & Human Services (Medicaid)","Health & human services","exec",13402056913,2475663553,8977455660,1948937700,0.0,55,3,33,39,1.124,"",[2019],true,[1.0,0.185,0.156,0.75,0.61],5,1],["34","Dept. of Behavioral Health & Developmental Disabilities","Health & human services","exec",1138185204,535751597,94387816,508045791,0.054,120,7,34,9,0.566,"Compared with predecessor agencies combined",[2014,2016,2022,2023],true,[0.943,0.462,0.132,1.0,0.02],5,2],["38","Department of Social Services","Health & human services","exec",1148702031,381192907,636267776,131241348,0.013,100,4,28,4,0.993,"",[2014,2017,2021,2026],true,[0.953,0.33,0.14,1.0,0.36],5,2],["39","Commission for the Blind","Health & human services","exec",91350664,7671393,17014887,66664384,0.723,31,6,5,0,4.596,"",[],true,[0.594,0.084,0.345,0.5,1.0],3,4],["40","Department on Aging","Health & human services","exec",91372561,42534676,44072584,4765301,0.566,27,3,12,6,1.103,"FY17 figure is the Lieutenant Governor's Office, which then housed Aging",[2020],true,[0.604,0.382,0.258,0.75,0.57],4,4],["41","Department of Children's Advocacy","Health & human services","exec",27727348,15502883,327964,11896501,0.0,27,3,3,2,null,"",[],false,[0.387,0.559,0.513,0.0,0.5],4,3],["42","SC Housing (Housing Finance & Development Authority)","Economic development & regulation","exec",298652000,0,255327318,43324682,0.092,41,4,7,0,1.012,"",[],true,[0.858,0.0,0.366,0.5,0.4],4,2],["43","Forestry Commission","Natural resources & agriculture","exec",61603893,36868220,9822988,14912685,0.069,22,5,7,1,1.254,"",[],false,[0.519,0.596,0.301,0.0,0.75],4,4],["44","Department of Agriculture","Natural resources & agriculture","exec",63929751,31142781,19033266,13753704,0.003,30,4,15,2,2.323,"",[2015],true,[0.547,0.487,0.236,0.75,0.95],5,3],["45","Clemson University Public Service Activities","Natural resources & agriculture","exec",122384426,71613858,27375000,23395568,0.0,25,5,11,0,0.988,"",[],false,[0.66,0.585,0.317,0.0,0.33],4,2],["46","SC State University Public Service Activities","Natural resources & agriculture","exec",16548209,11047814,5500395,0,0.0,11,4,1,0,1.346,"",[],false,[0.283,0.668,0.539,0.0,0.82],3,3],["47","Department of Natural Resources","Natural resources & agriculture","exec",197107153,92982070,36657917,67467166,0.028,91,3,21,2,1.227,"",[],true,[0.821,0.463,0.248,0.5,0.72],5,3],["48","Sea Grant Consortium","Natural resources & agriculture","exec",6168372,1548672,4365900,253800,0.459,7,2,2,0,0.694,"",[],false,[0.113,0.246,0.645,0.0,0.05],3,3],["49","Parks, Recreation & Tourism","Natural resources & agriculture","exec",167354502,75643823,4514086,87196593,0.171,51,3,23,11,1.093,"",[],true,[0.783,0.452,0.329,0.5,0.53],5,3],["50","Department of Commerce","Economic development & regulation","exec",141492092,73170062,12813289,55508741,0.467,55,3,24,13,0.801,"",[2015,2016,2020],true,[0.717,0.495,0.222,1.0,0.15],4,2],["51","Jobs-Economic Development Authority","Economic development & regulation","exec",1041150,0,36000,1005150,0.0,4,2,0,0,1.518,"",[],false,[0.009,0.0,0.84,0.0,0.88],2,3],["52","Patriots Point Development Authority","Economic development & regulation","exec",20000000,0,0,20000000,0.0,7,2,1,2,0.892,"",[],true,[0.34,0.0,0.769,0.5,0.23],4,3],["53","Conservation Bank","Natural resources & agriculture","exec",61803960,26603960,5200000,30000000,0.0,9,2,2,4,2.542,"",[2017],false,[0.528,0.43,0.521,0.25,0.97],4,3],["54","Rural Infrastructure Authority","Economic development & regulation","exec",61309684,38202666,720098,22386920,0.0,12,4,7,4,0.89,"",[],true,[0.509,0.623,0.443,0.5,0.22],4,3],["55","Department of Environmental Services","Natural resources & agriculture","exec",217266760,109985100,54352949,52928711,0.044,44,3,27,4,0.74,"Compared as DPH + DES combined vs. former DHEC",[2015,2022,2023],true,[0.849,0.488,0.22,1.0,0.095],4,2],["57","Judicial Department","Courts & legal","jud",138742193,119648900,617993,18475300,0.0,59,8,20,6,1.204,"",[],false,[0.708,0.0,0.27,0.0,0.7],3,2],["58","Administrative Law Court","Courts & legal","exec",7526468,5870482,0,1655986,0.0,5,2,4,0,1.181,"",[],false,[0.142,0.78,0.78,0.0,0.69],2,3],["59","Attorney General's Office","Courts & legal","exec",100802968,34884703,42807554,23110711,0.335,18,3,17,1,2.242,"",[],true,[0.632,0.346,0.326,0.5,0.93],4,3],["60","Commission on Prosecution Coordination","Courts & legal","exec",63640563,55004180,311383,8325000,0.0,29,4,13,21,1.1,"",[],true,[0.538,0.864,0.34,0.5,0.56],3,3],["61","Commission on Indigent Defense","Courts & legal","exec",70463281,54166409,0,16296872,0.0,26,5,14,14,0.997,"",[],true,[0.566,0.769,0.362,0.5,0.37],4,3],["62","State Law Enforcement Division (SLED)","Public safety","exec",172616565,121697120,25000000,25919445,0.075,47,4,27,9,1.115,"",[2024],false,[0.802,0.705,0.171,0.25,0.6],4,3],["63","Department of Public Safety","Public safety","exec",307633818,226952871,29789808,50891139,0.038,31,3,9,2,1.109,"",[],true,[0.877,0.738,0.333,0.5,0.59],4,3],["64","Law Enforcement Training Council (Criminal Justice Academy)","Public safety","exec",19881219,11450821,704155,7726243,0.0,8,3,3,0,0.921,"",[],true,[0.33,0.576,0.652,0.5,0.28],3,4],["65","Department of Corrections","Public safety","exec",693588826,634721531,2252585,56614710,0.0,25,3,31,1,0.921,"",[2019],true,[0.915,0.915,0.451,0.75,0.27],5,2],["66","Probation, Parole & Pardon Services","Public safety","exec",95047649,74166658,726100,20154891,0.0,28,3,6,2,1.07,"",[],true,[0.623,0.78,0.48,0.5,0.48],4,3],["67","Department of Juvenile Justice","Public safety","exec",202009200,179952101,3835300,18221799,0.0,44,4,16,4,0.993,"",[2017,2021],true,[0.83,0.891,0.329,1.0,0.35],5,3],["70","Human Affairs Commission","Health & human services","exec",6190613,4709040,455417,1026156,0.0,10,4,3,0,1.228,"",[2014],true,[0.123,0.761,0.498,0.75,0.73],2,4],["71","Commission for Community Advancement & Engagement","Health & human services","exec",4272583,4053269,0,219314,0.117,6,2,6,0,2.092,"",[],true,[0.075,0.832,0.74,0.5,0.92],2,4],["72","Public Service Commission","Economic development & regulation","exec",8251779,543614,0,7708165,0.0,8,2,4,0,1.081,"",[],false,[0.17,0.066,0.751,0.0,0.51],3,3],["73","Office of Regulatory Staff","Economic development & regulation","exec",26002801,3196686,1085527,21720588,0.005,28,7,10,1,1.205,"",[],false,[0.368,0.123,0.373,0.0,0.71],3,3],["74","Workers' Compensation Commission","Economic development & regulation","exec",11704174,6096329,0,5607845,0.0,17,5,3,1,1.084,"",[],false,[0.208,0.521,0.535,0.0,0.52],2,4],["75","State Accident Fund","Economic development & regulation","exec",12254625,0,0,12254625,0.0,7,3,2,1,0.759,"",[],true,[0.226,0.0,0.724,0.5,0.12],2,3],["78","Department of Insurance","Economic development & regulation","exec",31392584,16220139,0,15172445,0.069,47,4,3,0,1.095,"",[],false,[0.434,0.517,0.546,0.0,0.54],3,4],["79","State Board of Financial Institutions","Economic development & regulation","exec",7708164,0,0,7708164,0.0,10,4,1,0,1.105,"",[],false,[0.16,0.0,0.715,0.0,0.58],2,4],["80","Department of Consumer Affairs","Economic development & regulation","exec",5494909,2527059,0,2967850,0.0,17,7,4,0,1.005,"",[],false,[0.094,0.46,0.562,0.0,0.39],3,4],["81","Labor, Licensing & Regulation","Economic development & regulation","exec",77629124,14853836,4713952,58061336,0.0,32,3,16,2,1.166,"",[2018],true,[0.575,0.191,0.325,0.75,0.64],3,4],["82","Department of Motor Vehicles","Transportation","exec",146534108,128286512,1292048,16955548,0.0,31,3,15,3,0.993,"",[],true,[0.736,0.875,0.417,0.5,0.34],5,3],["83","Department of Employment & Workforce","Economic development & regulation","exec",147091829,14690683,115402395,16998751,0.202,36,9,6,0,0.476,"",[2014,2019],false,[0.745,0.1,0.27,0.5,0.01],4,2],["84","Department of Transportation","Transportation","exec",3210714246,123807270,0,3086906976,0.011,31,5,20,8,1.098,"",[2016],true,[0.981,0.039,0.395,0.75,0.55],5,2],["85","Transportation Infrastructure Bank","Transportation","exec",125269870,0,0,125269870,0.0,6,2,1,1,0.286,"",[2016],true,[0.67,0.0,0.8,0.75,0.0],4,1],["87","Division of Aeronautics","Transportation","exec",29504242,13273375,1833067,14397800,0.769,9,2,6,0,2.009,"",[2025],true,[0.415,0.082,0.578,0.75,0.91],2,3],["91A","Legislative Dept: The Senate","Legislative branch","leg",27062645,26587645,0,475000,0.0,6,2,5.2,2,1.175,"",[],false,[0.377,0.0,0.733,0.0,0.68],3,2],["91B","Legislative Dept: House of Representatives","Legislative branch","leg",38359895,38359895,0,0,0.0,6,2,5.2,2,1.079,"",[],false,[0.472,0.0,0.733,0.0,0.5],3,2],["91C","Legislative Dept: Legislative Council","Legislative branch","leg",7658182,7358182,0,300000,0.0,7,3,5.2,1,1.148,"",[],false,[0.151,0.0,0.693,0.0,0.62],1,2],["91D","Legislative Dept: Legislative Services Agency","Legislative branch","leg",12680863,12680863,0,0,0.0,8,2,5.2,1,1.354,"",[],false,[0.236,0.0,0.738,0.0,0.83],1,2],["91E","Legislative Dept: Legislative Audit Council","Legislative branch","leg",2925188,2765188,0,160000,0.0,5,2,5.2,0,0.816,"",[],false,[0.066,0.0,0.767,0.0,0.17],2,3],["92A","Governor's Office: Executive Control of State","Government operations","exec",4750268,4750268,0,0,0.0,6,2,2.0,0,1.483,"",[],false,[0.085,1.0,0.836,0.0,0.86],2,2],["92C","Governor's Office: Mansion & Grounds","Government operations","exec",1147909,947909,0,200000,0.0,4,2,2.0,0,1.381,"",[],false,[0.019,0.826,0.807,0.0,0.84],3,2],["92D","Office of Resilience","Natural resources & agriculture","exec",144973476,9625192,134954370,393914,0.01,9,3,6,0,null,"",[],false,[0.726,0.066,0.524,0.0,0.5],4,2],["93","Department of Administration","Government operations","exec",405546314,125135841,93592173,186818300,0.246,73,4,17,5,0.895,"",[],false,[0.896,0.309,0.171,0.0,0.24],3,3],["94","Office of the Inspector General","Government operations","exec",2635292,2635292,0,0,0.0,9,2,2,1,2.562,"",[],false,[0.047,1.0,0.763,0.0,0.98],3,4],["96","Secretary of State","Government operations","exec",5542857,1663606,0,3879251,0.0,5,2,5,0,1.261,"",[],true,[0.104,0.3,0.774,0.5,0.76],3,4],["97","Comptroller General","Government operations","exec",7177091,6091657,0,1085434,0.0,12,3,6,0,1.428,"",[],true,[0.132,0.849,0.64,0.5,0.85],3,4],["98","State Treasurer","Government operations","exec",14511130,2804321,0,11706809,0.0,8,3,14,0,0.999,"",[],true,[0.264,0.193,0.634,0.5,0.38],3,4],["99","Retirement System Investment Commission","Government operations","exec",18503000,0,0,18503000,0.0,5,2,1,0,0.659,"",[],false,[0.311,0.0,0.861,0.0,0.04],3,2],["100","Adjutant General (incl. Emergency Management)","Public safety","exec",125826085,22280512,96993148,6552425,0.105,41,10,24,5,1.309,"",[],true,[0.679,0.177,0.105,0.5,0.81],4,2],["101","Department of Veterans' Affairs","Health & human services","exec",161923827,96812899,0,65110928,0.0,31,4,5,4,null,"",[],false,[0.774,0.598,0.458,0.0,0.5],5,3],["102","Election Commission","Government operations","exec",27773871,22589094,3544077,1640700,0.03,18,8,12,5,2.321,"",[2024],true,[0.396,0.783,0.234,0.75,0.94],5,3],["103","Revenue & Fiscal Affairs Office","Government operations","exec",65980354,7406506,1004574,57569274,0.0,8,3,6,3,3.815,"",[],false,[0.557,0.112,0.539,0.0,0.99],2,3],["104","State Fiscal Accountability Authority","Government operations","exec",37498185,5009275,0,32488910,0.0,25,5,10,0,1.286,"",[],false,[0.462,0.134,0.502,0.0,0.79],2,3],["105","State Auditor's Office","Government operations","exec",11154273,7376634,0,3777639,0.0,10,4,8,0,1.172,"",[],false,[0.189,0.661,0.588,0.0,0.67],2,4],["108","Public Employee Benefit Authority (PEBA)","Government operations","exec",158398830,112368739,0,46030091,0.0,22,4,16,11,2.472,"",[],false,[0.755,0.709,0.395,0.0,0.96],3,1],["109","Department of Revenue","Government operations","exec",122024390,61847297,0,60177093,0.0,13,3,18,0,0.912,"",[],true,[0.651,0.507,0.582,0.5,0.25],4,3],["110","State Ethics Commission","Government operations","exec",2850040,2250080,0,599960,0.0,5,2,1,0,1.236,"",[],false,[0.057,0.789,0.811,0.0,0.74],3,4],["111","Procurement Review Panel","Government operations","exec",243451,240917,0,2534,0.0,4,2,1,0,0.932,"",[],false,[0.0,0.99,0.869,0.0,0.31],1,3]];
+const C = [
+  {k:"size", name:"Budget size", desc:"Total dollars at stake.", color:"var(--c0)", kind:"data"},
+  {k:"disc", name:"Executive discretion", desc:"Share of the budget in general funds the executive can direct.", color:"var(--c1)", kind:"data"},
+  {k:"simp", name:"Simplicity", desc:"Fewer line items, programs, provisos, and fund sources.", color:"var(--c2)", kind:"data"},
+  {k:"rev",  name:"Existing reviews", desc:"Audits and oversight studies already on the record.", color:"var(--c3)", kind:"data"},
+  {k:"grow", name:"10-year growth", desc:"Growth since FY 2016-17, relative to the whole budget.", color:"var(--c6)", kind:"data"},
+  {k:"rel",  name:"Public relatability", desc:"How directly taxpayers see and use its services.", color:"var(--c4)", kind:"judgment"},
+  {k:"tmpl", name:"Template value", desc:"How many similar agencies the method would carry over to.", color:"var(--c5)", kind:"judgment"}
+];
+const SECTORS = [...new Set(RAW.map(r=>r[2]))].sort();
+const A = RAW.map((r,i)=>({id:i, sec:r[0], name:r[1], sector:r[2], branch:r[3], total:r[4], gen:r[5], fed:r[6], oth:r[7],
+  pt:r[8], li:r[9], progs:r[10], prov:r[11], spec:r[12], growth:r[13], gnote:r[14], lac:r[15], hloc:r[16],
+  comp:r[17], rel0:r[18], tmpl0:r[19]}));
+
+const PRESETS = [
+  {name:"Balanced",          w:[5,5,5,5,5,5,5]},
+  {name:"Quick win",         w:[2,6,9,9,3,5,6]},
+  {name:"Biggest impact",    w:[10,8,2,4,6,5,3]},
+  {name:"Public story",      w:[5,5,3,5,7,10,2]},
+  {name:"Repeatable method", w:[3,5,6,6,3,3,10]}
+];
+const SHORTLIST = 8;
+let W = PRESETS[0].w.slice(), ON = C.map(()=>true);
+let sector = "all", query = "";
+let prevRank = new Map(), deltaTimer = null;
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// ---- viewer's own judgment ratings (kept in this browser only)
+const JKEY = "zbb-agency-judgments-v1";
+let J = {};
+try{ J = JSON.parse(localStorage.getItem(JKEY) || "{}") || {}; }catch(e){ J = {}; }
+function saveJ(){ try{ localStorage.setItem(JKEY, JSON.stringify(J)); }catch(e){} syncReset(); }
+const relOf = a => (J[a.sec] && J[a.sec].rel) || a.rel0;
+const tmplOf = a => (J[a.sec] && J[a.sec].tmpl) || a.tmpl0;
+function scoresOf(a){ return [...a.comp, (relOf(a)-1)/4, (tmplOf(a)-1)/4]; }
+
+// ---- URL hash state for sharing a view
+function readHash(){
+  try{
+    const p = new URLSearchParams(location.hash.slice(1));
+    const w = (p.get("w")||"").split(".").map(Number);
+    if(w.length===C.length && w.every(n=>n>=0&&n<=10)) W = w;
+    const on = p.get("on");
+    if(on && new RegExp("^[01]{"+C.length+"}$").test(on)) ON = on.split("").map(c=>c==="1");
+    const s = p.get("s"); if(s && SECTORS.includes(s)) sector = s;
+  }catch(e){}
+}
+function writeHash(){
+  const h = "w="+W.join(".")+"&on="+ON.map(b=>b?1:0).join("")+(sector!=="all"?"&s="+encodeURIComponent(sector):"");
+  try{ history.replaceState(null,"","#"+h); }catch(e){}
+}
+
+// ---- formatting
+const money = v => v>=1e9 ? "$"+(v/1e9).toFixed(2)+" billion" : v>=1e6 ? "$"+(v/1e6).toFixed(1)+" million" : "$"+Math.round(v/1e3).toLocaleString()+" thousand";
+const pctf = v => Math.round(v*100)+"%";
+
+// ---- controls
+const critsEl = document.getElementById("crits");
+const critEls = C.map((c,i)=>{
+  const d = document.createElement("div");
+  d.className = "crit";
+  d.style.setProperty("--swc", c.color);
+  d.innerHTML = `<div class="crit-top">
+      <label class="name"><input type="checkbox" checked aria-label="Include ${c.name}"><span class="sw" style="background:${c.color}"></span>${c.name}</label>
+      <span class="kind">${c.kind==="data"?"Data":"Judgment"}</span><span class="val"></span></div>
+    <p>${c.desc}</p>
+    <input type="range" min="0" max="10" step="1" aria-label="${c.name} weight">`;
+  const cb = d.querySelector("input[type=checkbox]"), rg = d.querySelector("input[type=range]");
+  cb.addEventListener("change",()=>{ON[i]=cb.checked; syncControls(); schedule();});
+  rg.addEventListener("input",()=>{W[i]=+rg.value; ON[i]=true; syncControls(); schedule();});
+  critsEl.appendChild(d);
+  return {d,cb,rg,val:d.querySelector(".val")};
+});
+const presetsEl = document.getElementById("presets");
+const presetBtns = PRESETS.map(p=>{
+  const b = document.createElement("button");
+  b.type="button"; b.textContent=p.name;
+  b.addEventListener("click",()=>{W=p.w.slice(); ON=ON.map(()=>true); syncControls(); render(true);});
+  presetsEl.appendChild(b); return b;
+});
+function syncControls(){
+  critEls.forEach((e,i)=>{
+    e.cb.checked = ON[i]; e.rg.value = W[i]; e.val.textContent = ON[i] ? W[i] : "off";
+    e.d.classList.toggle("off", !ON[i]);
+  });
+  PRESETS.forEach((p,j)=>{
+    presetBtns[j].setAttribute("aria-pressed", ON.every(Boolean) && p.w.every((v,i)=>v===W[i]) ? "true":"false");
+  });
+}
+const chipsEl = document.getElementById("chips");
+const chipBtns = [["all","All areas"],...SECTORS.map(s=>[s,s])].map(([k,label])=>{
+  const b = document.createElement("button");
+  b.type="button"; b.textContent=label; b.dataset.k=k;
+  b.addEventListener("click",()=>{sector=k; syncChips(); render(false);});
+  chipsEl.appendChild(b); return b;
+});
+function syncChips(){ chipBtns.forEach(b=>b.setAttribute("aria-pressed", b.dataset.k===sector?"true":"false")); }
+document.getElementById("search").addEventListener("input",e=>{query=e.target.value.trim().toLowerCase(); render(false);});
+const resetBtn = document.getElementById("resetj");
+function syncReset(){ resetBtn.hidden = Object.keys(J).length===0; }
+resetBtn.addEventListener("click",()=>{ J = {}; saveJ(); A.forEach(a=>fillDetail(a)); render(true); say("Your ratings were reset"); });
+
+// ---- rows
+const listEl = document.getElementById("list");
+const rows = new Map();
+function factsHTML(a){
+  const g = a.growth==null ? "No comparable FY17 agency" : (a.growth>=1 ? (a.growth).toFixed(2)+"× the budget's pace" : (a.growth).toFixed(2)+"× the budget's pace");
+  return `<dl class="facts">
+    <div><dt>FY 2026-27 total</dt><dd>${money(a.total)}</dd></div>
+    <div><dt>General / federal / other</dt><dd>${pctf(a.gen/a.total)} / ${pctf(a.fed/a.total)} / ${pctf(a.oth/a.total)}</dd></div>
+    <div><dt>Passed through to others</dt><dd>${pctf(a.pt)}</dd></div>
+    <div><dt>Line items / programs</dt><dd>${a.li} / ${a.progs}</dd></div>
+    <div><dt>Provisos (Part IB)</dt><dd>${Math.round(a.prov)}</dd></div>
+    <div><dt>10-year growth</dt><dd>${g}</dd></div>
+    <div><dt>Audit Council reports since 2014</dt><dd>${a.lac.length ? a.lac.length+" ("+a.lac.join(", ")+")" : "None"}</dd></div>
+    <div><dt>House Oversight study posted</dt><dd>${a.hloc?"Yes":"No"}</dd></div>
+    ${a.gnote?`<div class="note">${a.gnote}.</div>`:""}
+    ${a.branch!=="exec"?`<div class="note">${a.branch==="leg"?"Legislative":"Judicial"} branch budget, so executive discretion is set to zero.</div>`:""}
+  </dl>`;
+}
+function scoresHTML(a){
+  const s = scoresOf(a);
+  return `<div class="fscores">${C.map((c,i)=>{
+    if(c.kind==="judgment"){
+      const key = c.k, val = key==="rel"?relOf(a):tmplOf(a), base = key==="rel"?a.rel0:a.tmpl0;
+      return `<div><span class="l"><span class="sw" style="background:${c.color}"></span>${c.name}${val!==base?'<span class="edited">yours</span>':''}</span>
+        <div class="pips" role="radiogroup" aria-label="${c.name} rating">${[1,2,3,4,5].map(n=>`<button type="button" role="radio" aria-checked="${n===val}" aria-label="${n} of 5" data-k="${key}" data-n="${n}" style="${n<=val?`background:${c.color}`:""}"></button>`).join("")}</div></div>`;
+    }
+    return `<div><span class="l"><span class="sw" style="background:${c.color}"></span>${c.name} <strong style="margin-left:auto;color:var(--ink)">${Math.round(s[i]*100)}</strong></span>
+      <div class="meter"><i style="width:${s[i]*100}%;background:${c.color}"></i></div></div>`;
+  }).join("")}</div>`;
+}
+function fillDetail(a){
+  const r = rows.get(a.id); if(!r) return;
+  r.det.innerHTML = factsHTML(a) + scoresHTML(a);
+  r.det.querySelectorAll(".pips button").forEach(b=>b.addEventListener("click",ev=>{
+    ev.stopPropagation();
+    const k = b.dataset.k, n = +b.dataset.n;
+    J[a.sec] = Object.assign({}, J[a.sec], {[k]:n});
+    const base = k==="rel"?a.rel0:a.tmpl0; if(n===base){ delete J[a.sec][k]; if(!Object.keys(J[a.sec]).length) delete J[a.sec]; }
+    saveJ(); fillDetail(a); render(true);
+  }));
+}
+A.forEach(a=>{
+  const li = document.createElement("li");
+  li.className = "row";
+  li.innerHTML = `<button type="button" class="rowbtn" aria-expanded="false">
+      <span class="rank"></span>
+      <span class="who"><span class="nm"></span><span class="sec"></span></span>
+      <span class="bar" aria-hidden="true">${C.map(c=>`<i style="background:${c.color}"></i>`).join("")}</span>
+      <span class="tot"></span>
+      <span class="delta"></span>
+    </button>
+    <div class="cutlabel" hidden>Shortlist cutoff</div>
+    <div class="detail" hidden></div>`;
+  li.querySelector(".nm").textContent = a.name;
+  li.querySelector(".sec").textContent = a.sector;
+  const btn = li.querySelector(".rowbtn"), det = li.querySelector(".detail");
+  rows.set(a.id, {li, det, rank:li.querySelector(".rank"), tot:li.querySelector(".tot"), delta:li.querySelector(".delta"),
+    segs:[...li.querySelectorAll(".bar i")], cut:li.querySelector(".cutlabel")});
+  btn.addEventListener("click",()=>{
+    const open = det.hidden;
+    if(open && !det.innerHTML) fillDetail(a);
+    det.hidden = !open; btn.setAttribute("aria-expanded", open?"true":"false");
+  });
+  listEl.appendChild(li);
+});
+const emptyEl = document.createElement("li");
+emptyEl.className = "empty";
+emptyEl.textContent = "No agencies match. Clear the search or choose another area.";
+
+function compute(){
+  const w = W.map((v,i)=>ON[i]?v:0), tw = w.reduce((x,y)=>x+y,0);
+  return A.map(a=>{
+    const s = scoresOf(a);
+    const parts = s.map((v,i)=> tw ? w[i]*v/tw*100 : 0);
+    return {a, parts, total: parts.reduce((x,y)=>x+y,0)};
+  }).sort((x,y)=> y.total-x.total || y.a.total-x.a.total);
+}
+let pending = false;
+function schedule(){ if(pending) return; pending = true; requestAnimationFrame(()=>{pending=false; render(true);}); }
+
+function render(showDelta){
+  const ranked = compute();
+  const first = new Map();
+  rows.forEach((r,id)=>{ if(!r.li.hidden) first.set(id, r.li.getBoundingClientRect().top); });
+  let visible = 0, anyMoved = false;
+  const newRank = new Map();
+  ranked.forEach((x,idx)=>{
+    const r = rows.get(x.a.id), rank = idx+1;
+    newRank.set(x.a.id, rank);
+    listEl.appendChild(r.li);
+    const show = (sector==="all" || x.a.sector===sector) && (!query || x.a.name.toLowerCase().includes(query));
+    r.li.hidden = !show; if(show) visible++;
+    r.rank.textContent = rank;
+    r.tot.textContent = Math.round(x.total);
+    x.parts.forEach((p,i)=> r.segs[i].style.width = p + "%");
+    r.li.classList.toggle("short", rank<=SHORTLIST);
+    const isCut = rank===SHORTLIST && sector==="all" && !query;
+    r.li.classList.toggle("cut", isCut); r.cut.hidden = !isCut;
+    const prev = prevRank.get(x.a.id);
+    if(showDelta && prev && prev!==rank){
+      const d = prev-rank; anyMoved = true;
+      r.delta.textContent = (d>0?"▲":"▼")+Math.abs(d);
+      r.delta.className = "delta show "+(d>0?"up":"down");
+      r.delta.setAttribute("aria-label",(d>0?"up ":"down ")+Math.abs(d));
+    }
+  });
+  if(visible===0) listEl.appendChild(emptyEl); else if(emptyEl.parentNode) emptyEl.remove();
+  prevRank = newRank;
+  if(anyMoved){ clearTimeout(deltaTimer); deltaTimer = setTimeout(()=>rows.forEach(r=>r.delta.classList.remove("show")), 2200); }
+  if(!reduceMotion){
+    rows.forEach((r,id)=>{
+      if(r.li.hidden || !first.has(id)) return;
+      const dy = first.get(id) - r.li.getBoundingClientRect().top;
+      if(Math.abs(dy) < 1) return;
+      r.li.style.transition = "none"; r.li.style.transform = `translateY(${dy}px)`; r.li.style.zIndex = dy>0 ? 2 : 1;
+    });
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      rows.forEach(r=>{
+        if(!r.li.style.transform) return;
+        r.li.style.transition = "transform .5s cubic-bezier(.2,.75,.2,1)"; r.li.style.transform = "";
+        setTimeout(()=>{r.li.style.zIndex="";},520);
+      });
+    }));
+  }
+  document.getElementById("count").textContent = visible===A.length ? `Ranking all ${A.length} agencies` : `Showing ${visible} of ${A.length} agencies`;
+  writeHash();
+}
+
+const toast = document.getElementById("toast");
+function say(t){ toast.textContent=t; toast.classList.add("show"); setTimeout(()=>toast.classList.remove("show"),1800); }
+document.getElementById("copy").addEventListener("click",async()=>{
+  try{ await navigator.clipboard.writeText(location.href); say("Link copied"); }
+  catch(e){ say("Copy the address bar to share this view"); }
+});
+readHash(); syncControls(); syncChips(); syncReset(); render(false);
+</script>
+</body>
+</html>
