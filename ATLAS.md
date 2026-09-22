@@ -10,12 +10,14 @@
 | **Project** | Carolina Redesign |
 | **One-liner** | Columbia SC editorial site + AI Opportunity Assessment service (Vapi intake → webhook → Airtable queue → Claude Code report) |
 | **Status** | building |
-| **Last Active** | 2026-09-02 |
+| **Last Active** | 2026-09-22 |
 | **Stall Threshold** | 7 days |
 | **Repo** | https://github.com/jimmyardis/carolina-redesign |
 | **Stack** | Static HTML/CSS, GitHub Pages |
 
 ## Current State
+
+**Palmetto Ledger "Which Agency Next?" tool shipped 2026-09-22**: an interactive agency index at `/palmetto-ledger/agency-index/` that ranks 107 SC agencies as candidates for the next single-agency study, using seven weighted factors (five from the FY27/FY17 appropriations acts and audit/oversight reports, two judgment ratings that viewers can override in their own browser). Linked from the Ledger index as a "Working Tool" card, not a numbered issue.
 
 **Palmetto Ledger Issue 4 shipped 2026-09-02**: "Department of Agriculture, FY2025" is live at `/palmetto-ledger/agriculture.html` — the first single-agency study in the series, and the second built on the Comptroller General's spending files. All $42.6M of the Department's FY2025 transactions, split pass-through vs. operational, with a fund lens (All/General/Federal/Restricted/Earmarked) that redraws every chart, and the Section 44 appropriation set beside the actuals.
 
@@ -39,6 +41,12 @@ Run one real test purchase through the live flow (checkout → redirect → star
 ## Session Log
 
 <!-- Append-only. Most recent session on top. Claude Code adds an entry at the end of each work session. -->
+
+### 2026-09-22
+
+- **Published "Which Agency Next?" to the Palmetto Ledger.** A standalone page from `~/Downloads/agency-index.html`, copied to `palmetto-ledger/agency-index/index.html`. Only changes: a Ledger-style `<title>`, a meta description, the cr-logo favicon, and a "← The Palmetto Ledger" back link. The tool itself is unchanged.
+- Added a card to `palmetto-ledger/index.html` above Issue 4, tagged "Working Tool · September 2026" rather than an issue number, so that The Match Trap stays Issue 5.
+- Checked in headless Chromium (107 agencies ranked, no JS errors), pushed as 181636e, and confirmed live on www.carolinaredesign.com.
 
 ### 2026-09-02
 
