@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "cod-commons",
+    "title": "The Cod Commons",
+    "collection": ["field-notes"],
+    "format": "model",
+    "number": 1,
+    "path": "/research/field-notes/models/cod-commons/",
+    "summary": "A playable model of the Northern cod collapse, checked against the published record.",
+    "place": "elsewhere",
+    "themes": ["fisheries"],
+    "status": "live",
+    "published": "2026-09"
+  },
+  {
+    "slug": "breathing-marsh",
+    "title": "The Breathing Marsh",
+    "collection": ["field-notes"],
+    "format": "model",
+    "number": 2,
+    "path": "/research/field-notes/models/breathing-marsh/",
+    "summary": "A salt marsh at Edisto Beach, drawn at the real height of the tide.",
+    "place": "coast",
+    "themes": ["tides-coast"],
+    "status": "live",
+    "published": "2026-09"
+  },
+  {
+    "slug": "redfish-slot",
+    "title": "The Redfish Slot",
+    "collection": ["field-notes"],
+    "format": "model",
+    "number": 3,
+    "path": "/research/field-notes/models/redfish-slot/",
+    "summary": "Set South Carolina's red drum rules yourself and watch what happens to the spawners.",
+    "place": "coast",
+    "themes": ["fisheries"],
+    "status": "live",
+    "published": "2026-09"
+  },
+  {
+    "slug": "coastal-time-machine",
+    "title": "Coastal Time Machine",
+    "collection": ["field-notes"],
+    "format": "atlas",
+    "number": 1,
+    "path": null,
+    "summary": "How South Carolina's shoreline and marshes have moved since the 1850s.",
+    "place": "coast",
+    "themes": ["tides-coast"],
+    "status": "in-progress",
+    "published": null
+  },
+  {
+    "slug": "conservation-ledger",
+    "title": "Conservation Ledger",
+    "collection": ["field-notes", "palmetto-ledger"],
+    "format": "ledger",
+    "number": 1,
+    "path": null,
+    "summary": "What South Carolina has paid to conserve, and what it protects.",
+    "place": "statewide",
+    "themes": ["forests", "water", "tides-coast"],
+    "status": "in-progress",
+    "published": null
+  },
+  {
+    "slug": "soundscape",
+    "title": "Soundscape Observatory",
+    "collection": ["field-notes"],
+    "format": "observatory",
+    "number": 1,
+    "path": null,
+    "summary": "Listening to South Carolina's habitats, starting at Botany Bay.",
+    "place": "coast",
+    "themes": ["wildlife"],
+    "status": "planned",
+    "published": null
+  }
+]

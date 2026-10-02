@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Carolina Redesign Research — original analysis on South Carolina cities, land use, and public finance.">
+<meta name="description" content="Carolina Redesign Research: independent research on South Carolina's public money and natural resources.">
 <title>Research — Carolina Redesign</title>
 <link rel="icon" type="image/png" href="/cr-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -74,6 +74,25 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
 }
 .coming-soon strong { color: var(--ink); }
 
+
+/* COLLECTIONS */
+.collections { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 1.25rem; margin-bottom: 1.25rem; }
+.collection-card { display: flex; flex-direction: column; gap: 0.35rem; border-radius: 20px; padding: 2.25rem 2.25rem 2rem; text-decoration: none; min-height: 300px; transition: transform .25s ease, box-shadow .25s ease; }
+.collection-card:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.14); }
+.collection-card:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+.collection-card.ledger { background: linear-gradient(135deg, #071018, #0D1F2D); }
+.collection-card.field { background: linear-gradient(135deg, #14261f, #1f3a2e); }
+.collection-tag { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+.collection-card h3 { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3.5vw, 2.2rem); font-weight: 900; color: #FAF7F2; line-height: 1.1; margin-top: 0.4rem; }
+.collection-line { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.1rem; color: rgba(250,247,242,0.85); }
+.collection-desc { font-size: 0.9rem; line-height: 1.6; color: rgba(250,247,242,0.6); flex: 1; margin-top: 0.5rem; }
+.collection-card .series-arrow { color: var(--gold); margin-top: 1rem; }
+.also-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1rem; background: var(--bg2); border-radius: 14px; padding: 1.1rem 1.5rem; text-decoration: none; color: inherit; margin-bottom: 1.25rem; border: 1px solid rgba(0,0,0,0.05); }
+.also-row:hover { background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+.also-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.also-title { font-weight: 600; flex: 1; }
+@media (max-width: 600px) { .collection-card .series-arrow { display: inline; } .collection-card { padding: 1.75rem 1.5rem; min-height: 0; } }
+
 /* FOOTER */
 footer { border-top: 1px solid var(--line); padding: 2rem; margin-top: 4rem; font-size: 0.82rem; color: var(--muted); text-align: center; }
 footer a { color: var(--muted); text-decoration: none; }
@@ -100,56 +119,42 @@ footer a:hover { color: var(--ink); }
     <p class="eyebrow">Carolina Redesign · Research</p>
     <h1>Original analysis.<br><em>Public data.</em></h1>
     <p class="hero-sub">
-      We publish independent research on South Carolina cities, land use, and public finance —
-      using the same data pipelines we build for clients, open to anyone.
-      Real parcel records. Real sales. Real demographics.
+      Independent research on South Carolina's public money and natural resources.
     </p>
   </div>
 </section>
 
 <section class="series">
   <div class="series-inner">
-    <p class="series-label">Active Series</p>
-    <h2>Research series</h2>
-    <p class="series-intro">Each series is a sustained body of work applying a consistent methodology across multiple cities or geographies. New studies are added as data becomes available.</p>
+    <p class="series-label">Collections</p>
+    <h2>Two collections</h2>
+    <p class="series-intro">Each collection holds several formats, from issue-length budget analysis to playable models. Everything starts from public records and shows its sources.</p>
 
-    <a class="series-card" href="/urban-productivity/">
-      <div class="series-icon" style="background: linear-gradient(135deg, #003B5C, #0D2137); color: #C9A227;">¶</div>
-      <div class="series-body">
-        <p class="series-tag" style="color: #C9A227;">Urban Productivity · 2026</p>
-        <h3>Who pays, per acre</h3>
-        <p>Per-acre property tax productivity analysis for SC cities — using the Strong Towns / Urban3 framework applied to real parcel data from all 46 SC counties. Includes assessment equity breakdowns, investor ownership maps, and demographic analysis.</p>
-        <div class="series-studies">
-          <span class="study-chip">Charleston — Walled City</span>
-          <span class="study-chip">Charleston — Metro</span>
-          <span class="study-chip">Columbia, SC</span>
-        </div>
-      </div>
-      <span class="series-arrow">Explore →</span>
-    </a>
+    <div class="collections">
+      <a class="collection-card ledger" href="/palmetto-ledger/">
+        <p class="collection-tag">Public finance and budgets</p>
+        <h3>The Palmetto Ledger</h3>
+        <p class="collection-line">Following the state's money.</p>
+        <p class="collection-desc">Original analysis of South Carolina's state budget: fiscal dependency, agency structure, revenue, and the mechanics of appropriations.</p>
+        <span class="series-arrow">Read the Ledger →</span>
+      </a>
+      <a class="collection-card field" href="/research/field-notes/">
+        <p class="collection-tag">Environment and natural resources</p>
+        <h3>Palmetto Field Notes</h3>
+        <p class="collection-line">Notes from the land and water.</p>
+        <p class="collection-desc">Living models, atlases and ledgers about South Carolina's coast, rivers and forests, built from published data you can check.</p>
+        <span class="series-arrow">Open the field notes →</span>
+      </a>
+    </div>
 
-    <a class="series-card" href="/palmetto-ledger/">
-      <div class="series-icon" style="background: linear-gradient(135deg, #071018, #0D1F2D); color: #C9A227; font-size: 1.1rem; letter-spacing: -0.03em;">$</div>
-      <div class="series-body">
-        <p class="series-tag" style="color: #C9A227;">The Palmetto Ledger · 2026</p>
-        <h3>SC budget, by the numbers</h3>
-        <p>Original analysis of South Carolina's $39.2 billion state budget using the Palmetto Zero-Based Budgeting Suite — examining fiscal dependency, agency structure, revenue composition, and the mechanics of state appropriations.</p>
-        <div class="series-studies">
-          <span class="study-chip">Issue 1: The Federal Floor</span>
-          <span class="study-chip">Issue 2: The Incremental State</span>
-          <span class="study-chip">Issue 3: Spending by Function</span>
-          <span class="study-chip">Issue 4: Agriculture</span>
-          <span class="study-chip" style="color: #aaa; background: #f0f0f0;">Issue 5: Coming soon</span>
-        </div>
-      </div>
+    <a class="also-row" href="/urban-productivity/">
+      <span class="also-label">Also from our research</span>
+      <span class="also-title">Urban Productivity: who pays, per acre</span>
       <span class="series-arrow">Explore →</span>
     </a>
 
     <div class="coming-soon">
-      <strong>More series in development.</strong><br>
-      Future research areas include housing affordability, municipal fiscal health, and SC infrastructure investment patterns.
-      <br><br>
-      Interested in sponsoring a study or requesting a city analysis?
+      Interested in sponsoring a study or requesting an analysis?
       <a href="/#contact" style="color: var(--blue); font-weight: 600;"> Get in touch →</a>
     </div>
   </div>

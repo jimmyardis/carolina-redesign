@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Palmetto Field Notes: environment and natural resources research from Carolina Redesign. Living models, atlases and ledgers built from published data.">
+<title>Palmetto Field Notes — Carolina Redesign Research</title>
+<link rel="icon" type="image/png" href="/cr-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #ffffff; --bg2: #f4f6f2; --ink: #1d1f1c; --muted: #6b7268; --line: #d6dbd2;
+  --gold: #C9A227; --marsh: #14261f; --marsh2: #1f3a2e; --grass: #7f8f3a; --water: #2f6470; --blue: #0071e3;
+}
+html { scroll-behavior: smooth; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+/* NAV (matches /research/) */
+.navbar { background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.05); height: 68px; display: flex; align-items: center; padding: 0 2rem; justify-content: space-between; }
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+.nav-logo img { height: 38px; }
+.nav-logo-text { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; }
+.nav-back { font-size: 0.82rem; color: var(--muted); text-decoration: none; }
+.nav-back:hover { color: var(--ink); }
+
+/* HERO */
+.hero { background: linear-gradient(180deg, var(--marsh) 0%, var(--marsh2) 100%); padding: 4.5rem 2rem 3.5rem; position: relative; overflow: hidden; }
+.hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 46px; opacity: .5;
+  background: repeating-linear-gradient(90deg, transparent 0 7px, rgba(127,143,58,.55) 7px 8px, transparent 8px 13px, rgba(127,143,58,.35) 13px 14px);
+  -webkit-mask: linear-gradient(0deg, #000 0%, transparent 100%); mask: linear-gradient(0deg, #000 0%, transparent 100%); }
+.hero-inner { max-width: 780px; margin: 0 auto; position: relative; z-index: 1; }
+.eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+.eyebrow a { color: inherit; text-decoration: none; }
+.hero h1 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 900; line-height: 1.08; color: #F4F1E6; margin-bottom: 1rem; text-wrap: balance; }
+.hero h1 em { font-style: italic; color: #cbd5a0; font-weight: 400; }
+.hero-sub { font-size: 1rem; line-height: 1.72; color: rgba(244,241,230,0.72); max-width: 600px; border-top: 1px solid rgba(201,162,39,0.25); padding-top: 1.25rem; }
+
+main { max-width: 1000px; margin: 0 auto; padding: 3rem 2rem 1rem; }
+.featured-label, .rc-group-title { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.9rem; }
+.rc-group { margin-top: 2.75rem; }
+.rc-coming { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 1.5rem 0 0.75rem; }
+.rc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 1rem; }
+.rc-card { display: flex; flex-direction: column; background: var(--bg2); border: 1px solid rgba(0,0,0,0.05); border-radius: 18px; padding: 1.5rem 1.6rem; text-decoration: none; color: inherit; transition: all .25s ease; }
+a.rc-card:hover { background: #fff; box-shadow: 0 12px 36px rgba(0,0,0,0.08); transform: translateY(-3px); }
+a.rc-card:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+.rc-card.rc-muted { background: transparent; border: 1px dashed var(--line); }
+.rc-card.rc-muted .rc-title, .rc-card.rc-muted .rc-summary { color: var(--muted); }
+.rc-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--water); margin-bottom: 0.35rem; }
+.rc-title { font-family: 'Playfair Display', Georgia, serif; font-size: 1.3rem; font-weight: 700; line-height: 1.25; margin-bottom: 0.4rem; }
+.rc-summary { font-size: 0.92rem; line-height: 1.55; color: var(--muted); margin-bottom: 0.9rem; flex: 1; }
+.rc-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.rc-badge { font-size: 0.7rem; font-weight: 600; padding: 0.18rem 0.6rem; border-radius: 20px; border: 1px solid var(--line); color: var(--muted); background: #fff; }
+.rc-place-elsewhere { border-color: #d9b75c; color: #7a5d10; background: #fbf5e3; }
+.rc-live { border-color: #9fbf8f; color: #2f5a22; background: #eef6ea; }
+.rc-prototype { border-color: #c7b98a; color: #6d5a1f; }
+.rc-also { border-style: dashed; }
+.rc-card.rc-featured { background: var(--marsh); color: #F4F1E6; padding: 2rem 2.25rem; border: 0; }
+.rc-card.rc-featured .rc-title { font-size: clamp(1.6rem, 4vw, 2.2rem); }
+.rc-card.rc-featured .rc-summary { color: rgba(244,241,230,0.72); font-size: 1rem; max-width: 60ch; }
+.rc-card.rc-featured .rc-label { color: var(--gold); }
+.rc-card.rc-featured .rc-badge { background: transparent; color: rgba(244,241,230,0.8); border-color: rgba(244,241,230,0.3); }
+a.rc-card.rc-featured:hover { background: var(--marsh2); }
+.load-error { color: var(--muted); font-size: 0.9rem; }
+
+footer { border-top: 1px solid var(--line); padding: 2rem; margin-top: 4rem; font-size: 0.82rem; color: var(--muted); text-align: center; }
+footer a { color: var(--muted); text-decoration: none; }
+footer a:hover { color: var(--ink); }
+@media (max-width: 600px) { .navbar { padding: 0 1rem; } .hero { padding: 3.5rem 1rem 3rem; } main { padding: 2rem 1rem 1rem; } .nav-logo-text { display: none; } }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a class="nav-logo" href="/">
+    <img src="/cr-logo.png" alt="Carolina Redesign">
+    <span class="nav-logo-text">Carolina Redesign</span>
+  </a>
+  <a class="nav-back" href="/research/">← All research</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow"><a href="/research/">Carolina Redesign Research</a> · Palmetto Field Notes</p>
+    <h1>Palmetto Field Notes<br><em>Notes from the land and water.</em></h1>
+    <p class="hero-sub">
+      We go out to the marshes, rivers and fishing grounds and come back with notes you can play with.
+      Each piece starts from published records, like NOAA's tide tables and the state's own stock assessments,
+      and shows where every number came from, so you can check our work and argue with it.
+    </p>
+  </div>
+</section>
+
+<main>
+  <div id="featured"></div>
+  <div id="groups"><p class="load-error">Loading the collection…</p></div>
+  <noscript><p class="load-error">This list needs JavaScript. The living models are at
+    <a href="/research/field-notes/models/cod-commons/">The Cod Commons</a>,
+    <a href="/research/field-notes/models/breathing-marsh/">The Breathing Marsh</a> and
+    <a href="/research/field-notes/models/redfish-slot/">The Redfish Slot</a>.</p></noscript>
+</main>
+
+<footer>
+  <a href="/">Carolina Redesign</a> &nbsp;·&nbsp; <a href="/research/">Research</a> &nbsp;·&nbsp; Palmetto Field Notes &nbsp;·&nbsp; Chapin, SC
+</footer>
+
+<script src="/research/catalog.js"></script>
+<script>
+(async function () {
+  const C = window.ResearchCatalog;
+  try {
+    const items = (await C.load()).filter((e) => e.collection.includes("field-notes"));
+    const top = C.newestLive(items);
+    if (top) document.getElementById("featured").innerHTML = `<p class="featured-label">Newest</p>${C.card(top, "field-notes", true)}`;
+    document.getElementById("groups").innerHTML = C.groups(items, "field-notes");
+  } catch (err) {
+    document.getElementById("groups").innerHTML = `<p class="load-error">The collection didn't load (${err.message}). Reload the page to try again.</p>`;
+  }
+})();
+</script>
+</body>
+</html>

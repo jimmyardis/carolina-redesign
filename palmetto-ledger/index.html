@@ -72,6 +72,7 @@ body { font-family: 'Source Serif 4', Georgia, serif; background: var(--cream-lt
 .istat-l { font-family: 'Inter', sans-serif; font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
 .issue-arrow { font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 600; color: var(--gold); }
 
+#crosslist { padding-top: 0; }
 .issue-card.upcoming {
   border-left-color: var(--line); background: transparent; cursor: default;
 }
@@ -204,6 +205,29 @@ body { font-family: 'Source Serif 4', Georgia, serif; background: var(--cream-lt
     match requirements.</p>
   </div>
 </main>
+
+<section class="issues" id="crosslist" hidden>
+  <span class="issues-label">Cross-listed with Palmetto Field Notes</span>
+  <div id="crosslist-items"></div>
+</section>
+<script src="/research/catalog.js"></script>
+<script>
+(async function () {
+  try {
+    const C = window.ResearchCatalog, STATUS = { live: "Live", prototype: "Prototype", "in-progress": "In development", planned: "Planned" };
+    const FMT = { model: "Living Models", atlas: "Atlases", observatory: "Observatories", ledger: "Ledgers" };
+    const items = (await C.load()).filter((e) => e.collection.includes("palmetto-ledger"));
+    if (!items.length) return;
+    const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    document.getElementById("crosslist-items").innerHTML = items.map((e) => {
+      const tag = `${FMT[e.format]}, No. ${e.number} · ${STATUS[e.status]} · Also in Field Notes`;
+      const inner = `<span class="issue-tag">${tag}</span><h2>${esc(e.title)}</h2><p>${esc(e.summary)}</p>`;
+      return C.LINKABLE(e) ? `<a class="issue-card" href="${e.path}">${inner}<span class="issue-arrow">Open →</span></a>` : `<div class="issue-card upcoming">${inner}</div>`;
+    }).join("");
+    document.getElementById("crosslist").hidden = false;
+  } catch (err) { /* the cross-list is an extra; the Ledger page stands without it */ }
+})();
+</script>
 
 <div class="method-note">
   <div class="method-note-inner">

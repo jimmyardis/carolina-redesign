@@ -1,0 +1,27 @@
+# Carolina Redesign Research
+
+Two collections live here: **Palmetto Ledger** (public money; its issues stay at `/palmetto-ledger/`,
+and `/research/palmetto-ledger/` redirects there) and **Palmetto Field Notes** (environment and natural resources).
+
+## Adding a project
+Add one entry to `catalog.json`. The Field Notes landing (`field-notes/index.html`) and the Ledger's
+cross-list section (`/palmetto-ledger/index.html`) both render from it through `catalog.js`.
+Only `live` and `prototype` entries link. Numbers appear in labels, never in URLs.
+
+## Living Models pages
+`field-notes/models/<slug>/index.html` are generated. Do not edit them here. Their source, data pipelines,
+fits and tests live in the `commons-models` repo (`/home/wner/commons-models`):
+
+```bash
+cd /home/wner/commons-models && source /home/wner/venv/bin/activate
+python execution/build_model.py          # builds all three, runs the citation gate
+python execution/export_site.py          # writes them into this folder
+```
+
+## TODO: refresh the Breathing Marsh tides by 2027-11-01
+Its NOAA predictions run through 2027-12-31. Before then, set a new `END` in
+`commons-models/execution/fetch_noaa_tides.py`, then run it, `build_model.py marsh` and `export_site.py`.
+
+## Portability (possible move to Trellis)
+Everything is under `/research/`. Model pages link to nothing on the site except `/research/field-notes/`.
+A move is a folder copy, a `/research/*` redirect, and a byline edit.

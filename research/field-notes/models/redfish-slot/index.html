@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Redfish Slot | Living Models No. 3 | Palmetto Field Notes</title>
+<meta name="description" content="Set South Carolina's red drum rules yourself and watch what happens to the spawners. Calibrated to SCDNR's 2025 assessment.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,700&family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f1f2ee;--panel:#fbfbf8;--ink:#1f2a2c;--muted:#5d6a6b;--line:#cfd6d3;
+  --copper:#b65a28;--copperSoft:#e7b58f;--teal:#2f6f73;--gold:#c9962a;--spot:#1b1b1b;--board:#efe6d2;--boardInk:#6b5b3e;
+  --display:"Newsreader",Georgia,"Times New Roman",serif;--sans:"Libre Franklin","Helvetica Neue",Arial,sans-serif;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121718;--panel:#1a2123;--ink:#e4ebea;--muted:#9aa8a8;--line:#2f3a3c;
+  --copper:#e07c45;--copperSoft:#7a4526;--teal:#5fb0b4;--gold:#e0b44a;--spot:#0a0a0a;--board:#2a2519;--boardInk:#c9b88f;}}
+:root[data-theme="dark"]{
+  --bg:#121718;--panel:#1a2123;--ink:#e4ebea;--muted:#9aa8a8;--line:#2f3a3c;
+  --copper:#e07c45;--copperSoft:#7a4526;--teal:#5fb0b4;--gold:#e0b44a;--spot:#0a0a0a;--board:#2a2519;--boardInk:#c9b88f;}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55}
+main{max-width:780px;margin:0 auto;padding:20px 16px 48px}
+.series{font-size:.95rem;color:var(--muted);margin:0 0 6px;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.series b{color:var(--ink);font-weight:600}
+.series .no{border:1px solid var(--line);border-radius:999px;padding:1px 10px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(2.3rem,8vw,3.5rem);line-height:1;margin:6px 0 8px}
+.dek{color:var(--muted);margin:0 0 12px;max-width:60ch}
+.note{font-size:.92rem;color:var(--muted);border-left:3px solid var(--line);padding-left:10px;margin:0 0 16px;max-width:62ch}
+h2{font-family:var(--display);font-weight:700;font-size:1.5rem;margin:30px 0 4px}
+.sub{color:var(--muted);margin:0 0 10px;font-size:.95rem;max-width:62ch}
+.fish{display:block;width:100%;max-width:520px;height:auto;margin:4px 0 8px}
+.presets{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:6px 0 10px}
+@media (max-width:560px){.presets{grid-template-columns:1fr 1fr}}
+.presets button{font-family:var(--sans);font-size:.9rem;font-weight:500;padding:8px 6px;border:1.5px solid var(--line);background:var(--panel);color:var(--ink);border-radius:8px;cursor:pointer;line-height:1.2}
+.presets button small{display:block;color:var(--muted);font-size:.78rem;margin-top:2px}
+.presets button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.presets button[aria-pressed="true"] small{color:var(--bg);opacity:.8}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.controls{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:4px 18px}
+@media (max-width:560px){.controls{grid-template-columns:1fr}}
+.ctl{display:grid;grid-template-columns:1fr auto;gap:0 8px;padding:6px 0}
+.ctl label{font-size:.92rem}
+.ctl output{font-weight:700}
+.ctl input[type=range]{grid-column:1/-1;width:100%;accent-color:var(--copper)}
+.ctl small{grid-column:1/-1;color:var(--muted);font-size:.8rem}
+.toggles{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.92rem;padding-top:4px}
+.toggles label{display:flex;gap:6px;align-items:center}
+.gauge{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:14px 0}
+.gauge .big{font-family:var(--display);font-weight:700;font-size:3rem;line-height:1}
+.gauge .verdict{font-weight:600;margin-left:6px}
+.track{position:relative;height:14px;background:var(--line);border-radius:7px;margin:12px 0 22px}
+.track i{position:absolute;left:0;top:0;bottom:0;border-radius:7px;background:var(--copper);transition:width .25s}
+.track .mk{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+.track .mk span{position:absolute;top:22px;transform:translateX(-50%);font-size:.75rem;color:var(--muted);white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.stats div{background:var(--panel);padding:8px 10px}
+.stats b{display:block;font-size:1.15rem}
+.stats span{font-size:.8rem;color:var(--muted)}
+.delta{font-size:.8rem;font-weight:600}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 8px}
+svg text{font-family:var(--sans)}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.82rem;color:var(--muted);padding:2px 6px 6px}
+.legend i{display:inline-block;width:14px;height:10px;border-radius:2px;vertical-align:-1px;margin-right:5px}
+.fates{display:flex;height:34px;border-radius:8px;overflow:hidden;margin:8px 6px}
+.fates div{height:100%;transition:flex-grow .25s}
+.fatelist{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px;margin:6px 8px;font-size:.92rem}
+.fatelist b{font-size:1.05rem}
+details{margin-top:24px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;font-weight:600}
+details p,details li{font-size:.93rem;color:var(--muted);max-width:68ch}
+a{color:var(--teal)}
+footer.credit{margin-top:28px;padding-top:12px;border-top:1px solid var(--line);font-size:.9rem;color:var(--muted)}
+footer.credit p{margin:4px 0}
+.series a{color:var(--ink);font-weight:600;text-decoration:none}
+.series a:hover{text-decoration:underline}
+.tag{display:inline-block;font-size:.66rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:0 5px;border-radius:3px;border:1px solid var(--line);color:var(--muted);vertical-align:2px;margin-left:6px}
+.tablewrap{overflow-x:auto;margin:8px 0}
+table{border-collapse:collapse;font-size:.9rem;width:100%;font-variant-numeric:tabular-nums}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-weight:600;color:var(--muted);font-size:.8rem}
+td.num,th.num{text-align:right}
+.cite{border-bottom:1px dotted var(--muted)}
+sup.ref a{font-size:.72rem;text-decoration:none;margin-left:1px}
+ol.sources{font-size:.9rem;padding-left:1.6em}
+ol.sources li{margin:4px 0}
+details h3{font-family:var(--display);font-size:1.15rem;margin:18px 0 4px;color:var(--ink)}
+.stats b,.gauge .big,.fatelist b{font-variant-numeric:tabular-nums}
+
+</style>
+</head>
+<body>
+<main>
+<p class="series"><a href="/research/field-notes/">Palmetto Field Notes</a><span class="no" data-ui>Living Models, No. 3</span></p>
+<h1>The Redfish Slot</h1>
+<p class="dek">South Carolina changed its red drum rules on <span data-src="live5_2026">July 1, 2026</span>. Anglers can now keep <span class="cite" data-src="live5_2026" title="Live 5 News, June 2026: “Recreational anglers may harvest one red drum per person per day.”">one fish</span><sup class="ref" data-src="live5_2026"><a href="#src-live5_2026" title="Live 5 News, June 2026">3</a></sup> between <span class="cite" data-src="live5_2026" title="Live 5 News, June 2026: “Only red drum measuring 18 to 25 inches may be harvested.”">18 and 25 inches</span><sup class="ref" data-src="live5_2026"><a href="#src-live5_2026" title="Live 5 News, June 2026">3</a></sup>, down from <span class="cite" data-src="live5_2026" title="Live 5 News, June 2026: “The previous limit was two fish per person per day.”">two</span><sup class="ref" data-src="live5_2026"><a href="#src-live5_2026" title="Live 5 News, June 2026">3</a></sup> between <span class="cite" data-src="live5_2026" title="Live 5 News, June 2026: “The previous slot size was 15 to 23 inches.”">15 and 23 inches</span><sup class="ref" data-src="live5_2026"><a href="#src-live5_2026" title="Live 5 News, June 2026">3</a></sup>. Set the rules yourself and see what happens to the fish that live long enough to spawn.</p>
+<p class="note">This is an illustrative model, fitted to the numbers in SCDNR's 2025 South Carolina red drum assessment<sup class="ref" data-src="scdnr_sar_2025"><a href="#src-scdnr_sar_2025" title="SCDNR SAR-2025-01">1</a></sup>. It is not the agency's projection. Its assumptions, fit and sources are at the bottom.</p>
+
+<svg class="fish" viewBox="0 0 520 120" role="img" aria-label="Drawing of a red drum with its black tail spot">
+  <path d="M40 62 C90 20 250 14 380 40 C420 48 440 52 458 58 L505 24 L492 62 L505 100 L458 68 C440 74 420 80 380 86 C250 108 90 102 40 62 Z" fill="var(--copper)"/>
+  <path d="M60 64 C120 88 260 96 380 82" stroke="var(--copperSoft)" stroke-width="3" fill="none" opacity=".7"/>
+  <circle cx="442" cy="58" r="11" fill="var(--spot)"/><circle cx="442" cy="58" r="14" fill="none" stroke="var(--copperSoft)" stroke-width="2" opacity=".8"/>
+  <circle cx="72" cy="56" r="5" fill="var(--spot)"/>
+  <path d="M170 34 C200 10 250 8 290 28" fill="var(--copper)" opacity=".85"/>
+</svg>
+
+<div class="presets" role="group" aria-label="Rule presets" id="presets"></div>
+
+<div class="controls">
+  <div class="ctl"><label for="lo">Smallest fish you can keep</label><output id="oLo" data-ui></output><input id="lo" type="range" min="12" max="30" step="1"></div>
+  <div class="ctl"><label for="hi">Largest fish you can keep</label><output id="oHi" data-ui></output><input id="hi" type="range" min="14" max="36" step="1"><small>Atlantic states must keep this at <span class="cite" data-src="asmfc_red_drum" title="ASMFC red drum: “The Amendment requires states to implement recreational creel and size limits to achieve the fishing mortality target, including a maximum size limit of 27 inches”">27 inches</span><sup class="ref" data-src="asmfc_red_drum"><a href="#src-asmfc_red_drum" title="ASMFC red drum">2</a></sup> or less.</small></div>
+  <div class="ctl"><label for="keep">Anglers keep this share of legal fish</label><output id="oKeep" data-ui></output><input id="keep" type="range" min="0" max="100" step="1"><small>Set by the bag limit. Fitted to past seasons; see below.</small></div>
+  <div class="ctl"><label for="rel">Released fish that die</label><output id="oRel" data-ui></output><input id="rel" type="range" min="0" max="20" step="1"><small>The assessment assumes <span class="cite" data-src="scdnr_sar_2025" title="SCDNR SAR-2025-01: “We calculated recreational dead discards assuming an 8% discard mortality rate, consistent with previous research and assessments.”">8%</span><sup class="ref" data-src="scdnr_sar_2025"><a href="#src-scdnr_sar_2025" title="SCDNR SAR-2025-01">1</a></sup>. The new circle-hook rule for hooks <span class="cite" data-src="live5_2026" title="Live 5 News, June 2026: “If fishing for gamefish (including red drum, cobia and tarpon) with large hooks (4/0 or larger) and natural bait, non-offset, non-stainless circle hooks are required.”">4/0 or larger</span><sup class="ref" data-src="live5_2026"><a href="#src-live5_2026" title="Live 5 News, June 2026">3</a></sup> aims to lower it.</small></div>
+  <div class="ctl"><label for="eff">Fishing effort (<span data-ui>2021–23 = 100</span>)</label><output id="oEff" data-ui></output><input id="eff" type="range" min="40" max="250" step="5"></div>
+  <div class="toggles">
+    <label><input type="checkbox" id="grow"> <span id="growLbl">Effort keeps rising at its 1998–2023 pace</span></label>
+    <label><input type="checkbox" id="luck"> Good and bad spawning years</label>
+  </div>
+</div>
+
+<div class="gauge" aria-live="polite">
+  <div><span class="big" id="spr" data-model>–</span><span class="verdict" id="verdict"></span><span class="tag">Model</span></div>
+  <div style="color:var(--muted);font-size:.92rem">Spawning potential: how much spawning the stock does compared with a stock nobody fishes, in the long run under these rules.</div>
+  <div class="track"><i id="bar"></i><div class="mk" style="left:30%"><span data-src="scdnr_sar_2025">30%</span></div><div class="mk" style="left:40%"><span data-src="scdnr_sar_2025">40%</span></div></div>
+  <div style="font-size:.8rem;color:var(--muted);margin:-6px 0 10px">The overfishing line and the management target, <span class="cite" data-src="scdnr_sar_2025" title="SCDNR SAR-2025-01: “reference points for the model include F30%, SPR30%, and SSB30% as thresholds and F40%, SPR40%, and SSB40% as targets”">30% and 40%</span><sup class="ref" data-src="scdnr_sar_2025"><a href="#src-scdnr_sar_2025" title="SCDNR SAR-2025-01">1</a></sup>.</div>
+  <div class="stats">
+    <div><b id="sKept" data-model>–</b><span>Fish kept per year</span><div class="delta" id="dKept" data-model></div></div>
+    <div><b id="sDead" data-model>–</b><span>Released fish that die</span><div class="delta" id="dDead" data-model></div></div>
+    <div><b id="sCatch" data-model>–</b><span>Fish caught per year</span><div class="delta" id="dCatch" data-model></div></div>
+  </div>
+  <p style="font-size:.8rem;color:var(--muted);margin:8px 0 0">Changes are compared with the 2018–2026 rules. Yearly counts are for South Carolina, scaled to the assessment's average of <span class="cite" data-src="scdnr_sar_2025" title="SCDNR SAR-2025-01: “The model estimated recruitment suggests variation around the time series average of 1.43 million recruits in SC”">1.43 million</span><sup class="ref" data-src="scdnr_sar_2025"><a href="#src-scdnr_sar_2025" title="SCDNR SAR-2025-01">1</a></sup> young fish a year.</p>
+</div>
+
+<h2>Where the slot sits</h2>
+<p class="sub">Each hump is one year's class of fish in the water, by length. The shaded window is what you can keep. Half of females are mature at <span class="cite" data-src="scdnr_sar_2025" title="SCDNR SAR-2025-01: “Table 2.3: Length, Female, n = 1,132, 50% Maturity 766 (753 – 778)”">766 mm (about 30 inches)</span><sup class="ref" data-src="scdnr_sar_2025"><a href="#src-scdnr_sar_2025" title="SCDNR SAR-2025-01">1</a></sup>.</p>
+<div class="box">
+  <div class="legend"><span><i style="background:var(--copper);opacity:.35"></i>Fish you can keep</span><span><i style="background:var(--teal)"></i>Fish in the water</span><span><i style="background:var(--gold)"></i>Share of females mature</span></div>
+  <svg id="board" viewBox="0 0 420 210" width="100%" role="img" aria-label="Length distribution of red drum with slot window and maturity curve"></svg>
+</div>
+
+<h2>Follow <span data-model>1,000</span> one-year-olds</h2>
+<p class="sub" id="fatesSub">What becomes of a thousand redfish in their second year of life before they reach the age where most are spawning?</p>
+<div class="box">
+  <div class="fates" id="fates"></div>
+  <div class="fatelist" id="fatelist" data-model></div>
+</div>
+
+<h2>The next <span data-model>30</span> years</h2>
+<p class="sub">Spawning stock compared with an unfished stock, starting from where the 2018–2026 rules left it. Spawners take years to build up, so the effect of a change shows up slowly.</p>
+<div class="box">
+  <div class="legend"><span><i style="background:var(--copper)"></i>Your rules</span><span><i style="background:var(--muted)"></i>If the 2018–2026 rules had stayed</span></div>
+  <svg id="future" viewBox="0 0 420 220" width="100%" role="img" aria-label="Spawning stock over 30 years"></svg>
+</div>
+
+<h2>Checked against the record</h2>
+<p class="sub">For every season from 1981 to 2023, the model took that season's rules and SCDNR's estimate of how hard red drum were fished, and predicted two things the assessment also reports. Dots are SCDNR. Lines are the model.</p>
+<div class="box">
+  <div class="legend"><span><i style="background:var(--ink);border-radius:50%;width:8px;height:8px"></i>SCDNR estimate</span><span><i style="background:var(--copper);height:3px"></i>Model</span></div>
+  <svg id="checkSpr" viewBox="0 0 420 200" width="100%" role="img" aria-label="Spawning potential each season, SCDNR versus model"></svg>
+  <svg id="checkKept" viewBox="0 0 420 170" width="100%" role="img" aria-label="Share of caught fish kept each season, survey versus model"></svg>
+  <p class="sub" id="checkNote" style="margin:6px"></p>
+</div>
+
+<details>
+  <summary>How the model works, and what it can't tell you</summary>
+  <h3>The fish</h3>
+  <p>The model follows red drum from their first autumn to old age, one year at a time, using the life history in SCDNR's 2025 South Carolina assessment<sup class="ref" data-src="scdnr_sar_2025"><a href="#src-scdnr_sar_2025" title="SCDNR SAR-2025-01">1</a></sup>. That means an age-varying growth curve toward a maximum length of <span class="cite" data-src="scdnr_sar_2025" title="SCDNR SAR-2025-01: “Table 2.2: L∞ 1,132 Asymptotic length”">113 cm</span><sup class="ref" data-src="scdnr_sar_2025"><a href="#src-scdnr_sar_2025" title="SCDNR SAR-2025-01">1</a></sup>, fish living up to <span class="cite" data-src="scdnr_sar_2025" title="SCDNR SAR-2025-01: “Table 4.2: Maximum age 41”">41 years</span><sup class="ref" data-src="scdnr_sar_2025"><a href="#src-scdnr_sar_2025" title="SCDNR SAR-2025-01">1</a></sup>, and half of females spawning by <span class="cite" data-src="scdnr_sar_2025" title="SCDNR SAR-2025-01: “Table 4.7: Age_@_Mat50% Fixed 4.2”">4.2 years</span><sup class="ref" data-src="scdnr_sar_2025"><a href="#src-scdnr_sar_2025" title="SCDNR SAR-2025-01">1</a></sup>. Small fish die of natural causes more often than big ones, scaled to body length as the assessment does. As in the assessment, the number of young fish each year doesn't depend on how many spawners there are. That is a modeling choice with real uncertainty behind it.</p>
+  <h3>The fishing</h3>
+  <p>Anglers catch fish of all sizes, mostly juveniles in the estuaries. They keep a share of the fish inside the slot and release everything else. Released fish die at the rate you set, <span class="cite" data-src="scdnr_sar_2025" title="SCDNR SAR-2025-01: “We calculated recreational dead discards assuming an 8% discard mortality rate, consistent with previous research and assessments.”">8%</span><sup class="ref" data-src="scdnr_sar_2025"><a href="#src-scdnr_sar_2025" title="SCDNR SAR-2025-01">1</a></sup> by default, the assessment's assumption.</p>
+  <h3>How it was fitted</h3>
+  <p>Nine settings were fitted to SCDNR's own numbers for <span data-model>43</span> seasons: the size range anglers catch most, and the share of legal fish they keep under each bag limit. For each season the model took the assessment's estimate of fishing pressure on two-year-olds and that season's rules, and was scored on the assessment's spawning potential and on the survey's share of caught fish that were kept.</p>
+  <div class="tablewrap"><table><thead><tr><th>Fitted setting</th><th class="num">Value</th></tr></thead><tbody><tr><td>Length caught half as often as the most-caught size</td><td class="num" data-model>30 cm</td></tr><tr><td>Length where big fish are caught half as often again</td><td class="num" data-model>80 cm</td></tr><tr><td>Share of the biggest fish still caught</td><td class="num" data-model>0%</td></tr><tr><td>Keep share, <span data-src="scdnr_sar_2025">No limits (to 1985)</span></td><td class="num" data-model>94%</td></tr><tr><td>Keep share, <span data-src="scdnr_sar_2025">Summer minimum (1986–89)</span></td><td class="num" data-model>88%</td></tr><tr><td>Keep share, <span data-src="scdnr_sar_2025">20-fish bag (1990)</span></td><td class="num" data-model>91%</td></tr><tr><td>Keep share, <span data-src="scdnr_sar_2025">5-fish bag (1991–2000)</span></td><td class="num" data-model>60%</td></tr><tr><td>Keep share, <span data-src="scdnr_sar_2025">3-fish bag (2007–17)</span></td><td class="num" data-model>33%</td></tr><tr><td>Keep share, <span data-src="scdnr_sar_2025">2-fish bag (2001–06, 2018–25)</span></td><td class="num" data-model>31%</td></tr><tr><td>Fit to spawning potential, R²</td><td class="num" data-model>0.91</td></tr><tr><td>Fit to share of catch kept, R²</td><td class="num" data-model>0.94</td></tr></tbody></table></div>
+  <p><b>The biggest assumption is the new one-fish bag.</b> No season has been fished under it yet. Across the <span data-src="scdnr_sar_2025">5-, 3- and 2-fish</span> years, the share kept fell as the bag shrank, and the presets extend that trend to one fish: <span id="extrap" data-model></span>. If you think anglers will adapt differently, move the slider.</p>
+  <p>The model also predicts a number it was not fitted to: dead released fish as a share of all fish killed. <span id="ddCheck" data-model></span> The assessment reports <span class="cite" data-src="scdnr_sar_2025" title="SCDNR SAR-2025-01: “dead discards accounting ... greater than 30% of removals annually since 2017.”">more than 30%</span><sup class="ref" data-src="scdnr_sar_2025"><a href="#src-scdnr_sar_2025" title="SCDNR SAR-2025-01">1</a></sup> since 2017.</p>
+  <h3>Status, in the assessment's own terms</h3>
+  <p>SCDNR judges overfishing on a three-season average of spawning potential. For 2021–2023 that average was <span class="cite" data-src="scdnr_sar_2025" title="SCDNR SAR-2025-01: “The 3-yr terminal average SPR (2021-2023) was 0.303, higher than the SPR30% threshold”">0.303</span><sup class="ref" data-src="scdnr_sar_2025"><a href="#src-scdnr_sar_2025" title="SCDNR SAR-2025-01">1</a></sup>, just above the line, helped by strong year classes. The single 2023 season was <span class="cite" data-src="scdnr_sar_2025" title="SCDNR SAR-2025-01: “the terminal year SPR estimate was 0.137, the lowest recorded value since 1987.”">0.137</span><sup class="ref" data-src="scdnr_sar_2025"><a href="#src-scdnr_sar_2025" title="SCDNR SAR-2025-01">1</a></sup>. The regional southern-stock figure that drove the new rules is <span class="cite" data-src="scdnr_sar_2025" title="SCDNR SAR-2025-01: “terminal year spawning potential ratios (SPR 2019−2021 = 0.207) below the defined SPR30% threshold”">0.207</span><sup class="ref" data-src="scdnr_sar_2025"><a href="#src-scdnr_sar_2025" title="SCDNR SAR-2025-01">1</a></sup>.</p>
+  <h3>The rules, season by season</h3>
+  <div class="tablewrap"><table><thead><tr><th>Seasons</th><th>Rules</th><th>Source</th></tr></thead><tbody><tr data-src="scdnr_sar_2025"><td>1981–1985</td><td>No size or bag limits</td><td><a href="#src-scdnr_sar_2025" title="Pre-1986 No Regulations">SCDNR SAR-2025-01, Table 3.2</a></td></tr><tr data-src="scdnr_sar_2025"><td>1986–1989</td><td>14&quot; minimum in summer only, one fish over 32&quot;<br><small>The 14&quot; minimum applied only in summer; the fitted keep share for this era absorbs the rest of the year. The 20-fish bag began in 1988.</small></td><td><a href="#src-scdnr_sar_2025" title="14” (36 cm) TL MLL from June 1- Sept.1; 1 fish &gt; 32” (81 cm) person-1 day-1">SCDNR SAR-2025-01, Table 3.2</a></td></tr><tr data-src="scdnr_sar_2025"><td>1990–1990</td><td>14–32&quot;, 20 fish<br><small>The one fish allowed over 32&quot; is ignored.</small></td><td><a href="#src-scdnr_sar_2025" title="14” (36 cm) TL MLL; 20 fish person-1day-1 and 1 fish &gt;32” (81 cm) TL person-1 day-1">SCDNR SAR-2025-01, Table 3.2</a></td></tr><tr data-src="scdnr_sar_2025"><td>1991–1992</td><td>14–32&quot;, 5 fish<br><small>The one fish allowed over 32&quot; is ignored.</small></td><td><a href="#src-scdnr_sar_2025" title="14” (36 cm) TL MLL; 5 fish person-1day-1 and 1 fish 1 fish &gt;32” (81 cm) TL person-1 day-1">SCDNR SAR-2025-01, Table 3.2</a></td></tr><tr data-src="scdnr_sar_2025"><td>1993–2000</td><td>14–27&quot;, 5 fish</td><td><a href="#src-scdnr_sar_2025" title="14-27” (36-69 cm) TL slot limit; 5 fish person-1day-1">SCDNR SAR-2025-01, Table 3.2</a></td></tr><tr data-src="scdnr_sar_2025"><td>2001–2006</td><td>15–24&quot;, 2 fish</td><td><a href="#src-scdnr_sar_2025" title="15-24” (38-61 cm) TL slot limit; 2 fish person-1day-1">SCDNR SAR-2025-01, Table 3.2</a></td></tr><tr data-src="scdnr_sar_2025"><td>2007–2017</td><td>15–23&quot;, 3 fish</td><td><a href="#src-scdnr_sar_2025" title="15-23” (38-58 cm) TL slot limit; 3 fish person-1day-1">SCDNR SAR-2025-01, Table 3.2</a></td></tr><tr data-src="scdnr_sar_2025"><td>2018–2025</td><td>15–23&quot;, 2 fish, 6 per boat</td><td><a href="#src-scdnr_sar_2025" title="15-23” (38-58 cm) TL slot limit; 2 fish person-1day-1 and 6 fish boat-1 day-1">SCDNR SAR-2025-01, Table 3.2</a></td></tr><tr data-src="live5_2026"><td>2026 on</td><td>18–25&quot;, 1 fish, 2 per boat<br><small>No catch data exist yet under a 1-fish bag; its keep share is extrapolated (see the fit).</small></td><td><a href="#src-live5_2026" title="Only red drum measuring 18 to 25 inches may be harvested. Recreational anglers may harvest one red drum per person per day.">Live 5 News, June 2026, article text</a></td></tr></tbody></table></div>
+  <h3>What it can't tell you</h3>
+  <ul>
+    <li>Where fish are caught, environmental effects on spawning success, and changes in angler behavior beyond the keep share.</li>
+    <li>Uncertainty in the recreational catch surveys. SCDNR notes pilot studies suggesting the effort survey may be <span class="cite" data-src="scdnr_sar_2025" title="SCDNR SAR-2025-01: “pilot studies indicated FES could potentially be skewed based on the way questions were asked during the interview process, resulting in effort estimates being underestimated up to 32% or overestimated up to 40%”">overestimated up to 40%</span><sup class="ref" data-src="scdnr_sar_2025"><a href="#src-scdnr_sar_2025" title="SCDNR SAR-2025-01">1</a></sup>.</li>
+    <li>Each season is replayed as if the fishing pattern had been in place long enough to settle. Real year classes carry the past forward.</li>
+    <li>Good and bad spawning years use the assessment's recruitment variability (<span class="cite" data-src="scdnr_sar_2025" title="SCDNR SAR-2025-01: “Table 4.8: σR Fixed 0.367”">0.37</span><sup class="ref" data-src="scdnr_sar_2025"><a href="#src-scdnr_sar_2025" title="SCDNR SAR-2025-01">1</a></sup>) but a fixed random sequence, not a forecast.</li>
+  </ul>
+  <h3>Sources</h3>
+  <ol class="sources"><li id="src-scdnr_sar_2025" data-src="scdnr_sar_2025"><a href="https://saltwaterfishing.sc.gov/pdf/RedDrumSCReport.pdf" rel="noopener">Stock Assessment Report on the Red Drum Sciaenops ocellatus South Carolina Sub-Stock, 1981–2023 (Ballenger &amp; Schlick, revised September 15, 2025)</a>. South Carolina Department of Natural Resources, Marine Resources Research Institute.</li><li id="src-asmfc_red_drum" data-src="asmfc_red_drum"><a href="https://asmfc.org/species/red-drum/" rel="noopener">Red drum: management under Amendment 2 to the Interstate Fishery Management Plan</a>. Atlantic States Marine Fisheries Commission.</li><li id="src-live5_2026" data-src="live5_2026"><a href="https://www.live5news.com/2026/06/28/new-red-drum-rules-take-effect-july-1-south-carolina/" rel="noopener">New red drum rules take effect July 1 in South Carolina (June 28, 2026)</a>. Live 5 News (WCSC).</li></ol>
+</details>
+
+<footer class="credit"><p>The Redfish Slot is <span data-ui>No. 3</span> in Living Models, part of Palmetto Field Notes from Carolina Redesign Research.</p><p>By Jimmy Ardis. Published September 2026.</p></footer>
+</main>
+
+<script>
+// Unit discipline: the engine works in centimetres (total length) and kilograms. Inches only at the UI edge.
+(function (RF) {
+  const CM_PER_IN = 2.54;
+  RF.units = { CM_PER_IN, cm: (inch) => inch * CM_PER_IN, inch: (cm) => cm / CM_PER_IN };
+})(globalThis.RF = globalThis.RF || {});
+
+// Red drum life history from SCDNR SAR-2025-01 (data/life_history.json):
+//  growth  von Bertalanffy with age-varying k (Table 2.2), starting at L_Amin at 5 months (Table 4.7)
+//  weight  W = a·L^b (Table 4.7)       maturity  female, by age for spawning (Table 4.7), by length for display (Table 2.3)
+//  deaths  Lorenzen natural mortality: M(L) = M_age2 · L_age2 / L (Table 4.7)
+//  spread  length-at-age CV falls linearly from CV_young at L_Amin to CV_old at L_Amax (Table 4.7)
+(function (RF) {
+  function create(lh) {
+    const A = lh.max_age;
+    const kAt = (t) => (t < lh.k_breaks[0] ? lh.k[0] : t < lh.k_breaks[1] ? lh.k[1] : lh.k[2]);
+    // Exact piecewise solution of dL/dt = k(t)·(Linf − L) from (a_min, L_Amin).
+    function lenAt(t) {
+      if (t <= lh.a_min_years) return lh.l_amin_cm * Math.max(t, 0.05) / lh.a_min_years;
+      let L = lh.l_amin_cm, a = lh.a_min_years;
+      for (const b of [...lh.k_breaks, Infinity]) {
+        if (t <= a) break;
+        const end = Math.min(t, b);
+        if (end > a) { L = lh.linf_cm - (lh.linf_cm - L) * Math.exp(-kAt(a) * (end - a)); a = end; }
+      }
+      return L;
+    }
+    const ages = [...Array(A + 1).keys()];
+    const Lst = ages.map((a) => lenAt(Math.max(a, lh.a_min_years)));   // length at the start of each age
+    const Lmid = ages.map((a) => lenAt(a + 0.5));                       // length in the middle of the year
+    const weight = (L) => lh.wt_a * L ** lh.wt_b;
+    const matAge = (a) => 1 / (1 + Math.exp(lh.mat_slope * (a - lh.mat_age50)));
+    const matLen = (Lcm) => { const z = lh.mat_len_a + lh.mat_len_b_per_mm * Lcm * 10; return Math.exp(z) / (1 + Math.exp(z)); };
+    const M = Lmid.map((L) => (lh.m_lorenzen_age2 * Lmid[2]) / L);
+    const cv = (L) => {
+      const f = Math.min(1, Math.max(0, (L - lh.l_amin_cm) / (lh.l_amax_cm - lh.l_amin_cm)));
+      return lh.cv_young + f * (lh.cv_old - lh.cv_young);
+    };
+    const sdMid = Lmid.map((L) => cv(L) * L);
+    const eggs = ages.map((a) => matAge(a) * weight(Lst[a]));           // spawning output per fish alive at age a
+    return { A, ages, lenAt, Lst, Lmid, sdMid, weight, matAge, matLen, M, cv, eggs };
+  }
+  RF.biology = { create };
+})(globalThis.RF = globalThis.RF || {});
+
+// What fishing does to each age under a set of rules.
+//   encounter  e(a) = E · sel(L)                     anglers catch fish of every size they select
+//   kept       e(a) · s(a) · keep                    s = share of the age inside the slot
+//   dead       e(a) · (1 − s(a)·keep) · rel          everything else is released; a share dies
+// sel(L) is a dome: a logistic rise and a partial fall for big fish, which leave the estuaries.
+// Its shape (asc50, desc50, floor) is fitted by execution/fit_redfish.py.
+(function (RF) {
+  const ASC_SLOPE = 3, DESC_SLOPE = 4;   // cm; fixed shape, only the inflection points are fitted
+
+  const sel = (L, p) => (1 / (1 + Math.exp(-(L - p.asc50) / ASC_SLOPE))) *
+    (p.floor + (1 - p.floor) / (1 + Math.exp((L - p.desc50) / DESC_SLOPE)));
+
+  function erf(x) {
+    const s = Math.sign(x); x = Math.abs(x);
+    const t = 1 / (1 + 0.3275911 * x);
+    return s * (1 - ((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x));
+  }
+  const Phi = (x) => 0.5 * (1 + erf(x / Math.SQRT2));
+
+  function slotShare(bio, a, loIn, hiIn) {
+    if (!(hiIn > loIn)) return 0;
+    const L = bio.Lmid[a], sd = bio.sdMid[a];
+    return Math.max(0, Phi((RF.units.cm(hiIn) - L) / sd) - Phi((RF.units.cm(loIn) - L) / sd));
+  }
+
+  // rule: {lo, hi, keep, rel}; E: encounter effort; p: selectivity params
+  function rates(bio, rule, E, p) {
+    return bio.ages.map((a) => {
+      const e = E * sel(bio.Lmid[a], p), s = slotShare(bio, a, rule.lo, rule.hi);
+      return { catch: e, kept: e * s * rule.keep, dead: e * (1 - s * rule.keep) * rule.rel };
+    });
+  }
+
+  // The encounter effort that produces a given removal F at age 2 under a rule.
+  function effortForF2(bio, rule, F2, p) {
+    const s = slotShare(bio, 2, rule.lo, rule.hi);
+    return F2 / (sel(bio.Lmid[2], p) * (s * rule.keep + (1 - s * rule.keep) * rule.rel));
+  }
+
+  RF.fishery = { ASC_SLOPE, DESC_SLOPE, sel, slotShare, rates, effortForF2, Phi };
+})(globalThis.RF = globalThis.RF || {});
+
+// Per-recruit accounting, cohort fates and forward projections (Baranov catch equation).
+(function (RF) {
+  // Static spawning potential ratio and yearly kept / dead-released / caught fish per recruit.
+  function perRecruit(bio, f) {
+    let N = 1, N0 = 1, ssb = 0, ssb0 = 0, kept = 0, dead = 0, cat = 0;
+    for (const a of bio.ages) {
+      const F = f[a].kept + f[a].dead, Z = bio.M[a] + F;
+      ssb += N * bio.eggs[a]; ssb0 += N0 * bio.eggs[a];
+      const caught = ((1 - Math.exp(-Z)) / Z) * N;
+      kept += f[a].kept * caught; dead += f[a].dead * caught; cat += f[a].catch * caught;
+      N *= Math.exp(-Z); N0 *= Math.exp(-bio.M[a]);
+    }
+    return { spr: ssb / ssb0, kept, dead, catch: cat };
+  }
+
+  // Follow n fish from age `from` up to age `to`: how many are kept, die after release, die naturally, survive.
+  function fates(bio, f, n = 1000, from = 1, to = 5) {
+    let N = n, kept = 0, dead = 0, nat = 0;
+    for (let a = from; a < to; a++) {
+      const F = f[a].kept + f[a].dead, Z = bio.M[a] + F, die = N * (1 - Math.exp(-Z));
+      kept += (die * f[a].kept) / Z; dead += (die * f[a].dead) / Z; nat += (die * bio.M[a]) / Z; N -= die;
+    }
+    return { kept, dead, nat, alive: N };
+  }
+
+  // Spawning output relative to unfished, year by year. Starts from equilibrium under `start` rates.
+  // Age 41 is the last age (no plus group), the same as in perRecruit, so the two agree.
+  // recruit(y) gives that year's recruitment multiplier; ratesAt(y) the fishing rates in year y.
+  function project(bio, start, ratesAt, years, recruit) {
+    let ssb0 = 0, n = 1;
+    for (const a of bio.ages) { ssb0 += n * bio.eggs[a]; n *= Math.exp(-bio.M[a]); }
+    let N = [], m = 1;
+    for (const a of bio.ages) { N.push(m); m *= Math.exp(-(bio.M[a] + start[a].kept + start[a].dead)); }
+    const out = [];
+    for (let y = 0; y <= years; y++) {
+      out.push(bio.ages.reduce((s, a) => s + N[a] * bio.eggs[a], 0) / ssb0);
+      const f = ratesAt(y), nx = new Array(bio.A + 1).fill(0);
+      nx[0] = recruit(y);
+      for (let a = 0; a < bio.A; a++) nx[a + 1] = N[a] * Math.exp(-(bio.M[a] + f[a].kept + f[a].dead));
+      N = nx;
+    }
+    return out;
+  }
+
+  // Repeatable lognormal recruitment deviations with the assessment's sigma, mean 1.
+  function deviations(sigma, count, seed = 20260701) {
+    let s = seed;
+    const rnd = () => (s = (s * 1664525 + 1013904223) % 4294967296) / 4294967296;
+    return [...Array(count)].map(() => {
+      const u = rnd() || 1e-9, v = rnd();
+      return Math.exp(sigma * Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v) - (sigma * sigma) / 2);
+    });
+  }
+
+  RF.stock = { perRecruit, fates, project, deviations };
+})(globalThis.RF = globalThis.RF || {});
+
+// Replay the assessment years: each year's published age-2 F and that year's rules give the model's
+// static SPR and the share of caught fish that were kept. execution/fit_redfish.py scores these
+// against SCDNR's Table 4.14 SPR and Table 3.1 harvest / catch.
+(function (RF) {
+  const eraFor = (rules, year) => rules.eras.find((e) => year >= e.years[0] && year <= e.years[1]);
+
+  function keepFor(era, fit) {
+    if (era.keep_group) return fit.keep[era.keep_group];
+    return fit.keep_extrapolated[String(era.bag)];
+  }
+
+  function ruleFor(era, fit, rel) {
+    return { lo: era.lo, hi: era.hi, keep: keepFor(era, fit), rel };
+  }
+
+  function replay(bio, rules, assessment, fit, rel) {
+    return assessment.series.map((row) => {
+      const era = eraFor(rules, row.year), rule = ruleFor(era, fit, rel);
+      const E = RF.fishery.effortForF2(bio, rule, row.f_age2, fit.sel);
+      const pr = RF.stock.perRecruit(bio, RF.fishery.rates(bio, rule, E, fit.sel));
+      return { year: row.year, era: era.id, E, spr: pr.spr, keptShare: pr.kept / pr.catch,
+        deadShareOfRemovals: pr.dead / (pr.kept + pr.dead) };
+    });
+  }
+
+  RF.history = { eraFor, keepFor, ruleFor, replay };
+})(globalThis.RF = globalThis.RF || {});
+
+window.CC_DATA = {"lh":{"meta":{"source":"scdnr_sar_2025"},"linf_cm":113.2,"k":[0.296,0.216,0.041],"k_breaks":[1,6],"l_amin_cm":21.325,"a_min_years":0.4166666666666667,"wt_a":1.36e-05,"wt_b":2.92,"m_lorenzen_age2":0.233,"max_age":41,"mat_age50":4.2,"mat_slope":-1.546,"cv_young":0.186,"cv_old":0.021,"l_amax_cm":107.465,"mat_len_a":-16.282,"mat_len_b_per_mm":0.021265,"mat_len50_mm":766,"sigma_r":0.367,"discard_mortality":0.08,"mean_recruits_millions":1.43,"locators":{"linf_cm, k":"Table 2.2 (ASMFC 2024b values)","l_amin_cm, wt_a, wt_b, m_lorenzen_age2, mat_age50, mat_slope, cv_young, cv_old, l_amax_cm":"Table 4.7","max_age":"Table 4.2","mat_len_*":"Table 2.3 (female, length)","sigma_r":"Table 4.8","discard_mortality":"Table 4.3","mean_recruits_millions":"Executive summary, Recruitment"},"source":"scdnr_sar_2025"},"assessment":{"meta":{"source":"scdnr_sar_2025","assessment":"SCDNR SAR-2025-01, SC sub-stock, Stock Synthesis 3, fishing years 1981–2023","fishing_year":"September 1 – August 31","locator":"Table 4.14"},"series":[{"year":1981,"f30":0.335,"f_age2":0.918,"spr30":0.3,"spr":0.03,"spr_3yr":null,"status":null,"source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":1982,"f30":0.335,"f_age2":0.6,"spr30":0.3,"spr":0.1,"spr_3yr":null,"status":null,"source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":1983,"f30":0.335,"f_age2":0.499,"spr30":0.3,"spr":0.147,"spr_3yr":0.093,"status":"Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":1984,"f30":0.335,"f_age2":0.527,"spr30":0.3,"spr":0.132,"spr_3yr":0.126,"status":"Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":1985,"f30":0.335,"f_age2":0.759,"spr30":0.3,"spr":0.055,"spr_3yr":0.111,"status":"Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":1986,"f30":0.335,"f_age2":0.275,"spr30":0.3,"spr":0.345,"spr_3yr":0.177,"status":"Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":1987,"f30":0.335,"f_age2":0.522,"spr30":0.3,"spr":0.135,"spr_3yr":0.178,"status":"Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":1988,"f30":0.335,"f_age2":0.333,"spr30":0.3,"spr":0.277,"spr_3yr":0.252,"status":"Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":1989,"f30":0.335,"f_age2":0.271,"spr30":0.3,"spr":0.35,"spr_3yr":0.254,"status":"Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":1990,"f30":0.335,"f_age2":0.273,"spr30":0.3,"spr":0.381,"spr_3yr":0.336,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":1991,"f30":0.335,"f_age2":0.243,"spr30":0.3,"spr":0.423,"spr_3yr":0.385,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":1992,"f30":0.335,"f_age2":0.156,"spr30":0.3,"spr":0.576,"spr_3yr":0.46,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":1993,"f30":0.335,"f_age2":0.128,"spr30":0.3,"spr":0.603,"spr_3yr":0.534,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":1994,"f30":0.335,"f_age2":0.133,"spr30":0.3,"spr":0.59,"spr_3yr":0.59,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":1995,"f30":0.335,"f_age2":0.222,"spr30":0.3,"spr":0.416,"spr_3yr":0.536,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":1996,"f30":0.335,"f_age2":0.327,"spr30":0.3,"spr":0.275,"spr_3yr":0.427,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":1997,"f30":0.335,"f_age2":0.133,"spr30":0.3,"spr":0.591,"spr_3yr":0.427,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":1998,"f30":0.335,"f_age2":0.142,"spr30":0.3,"spr":0.57,"spr_3yr":0.479,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":1999,"f30":0.335,"f_age2":0.14,"spr30":0.3,"spr":0.574,"spr_3yr":0.578,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2000,"f30":0.335,"f_age2":0.082,"spr30":0.3,"spr":0.722,"spr_3yr":0.622,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2001,"f30":0.335,"f_age2":0.106,"spr30":0.3,"spr":0.704,"spr_3yr":0.667,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2002,"f30":0.335,"f_age2":0.106,"spr30":0.3,"spr":0.703,"spr_3yr":0.71,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2003,"f30":0.335,"f_age2":0.134,"spr30":0.3,"spr":0.642,"spr_3yr":0.683,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2004,"f30":0.335,"f_age2":0.121,"spr30":0.3,"spr":0.671,"spr_3yr":0.672,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2005,"f30":0.335,"f_age2":0.202,"spr30":0.3,"spr":0.512,"spr_3yr":0.608,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2006,"f30":0.335,"f_age2":0.266,"spr30":0.3,"spr":0.415,"spr_3yr":0.533,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2007,"f30":0.335,"f_age2":0.157,"spr30":0.3,"spr":0.581,"spr_3yr":0.503,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2008,"f30":0.335,"f_age2":0.224,"spr30":0.3,"spr":0.462,"spr_3yr":0.486,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2009,"f30":0.335,"f_age2":0.236,"spr30":0.3,"spr":0.445,"spr_3yr":0.496,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2010,"f30":0.335,"f_age2":0.378,"spr30":0.3,"spr":0.274,"spr_3yr":0.394,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2011,"f30":0.335,"f_age2":0.213,"spr30":0.3,"spr":0.481,"spr_3yr":0.4,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2012,"f30":0.335,"f_age2":0.289,"spr30":0.3,"spr":0.37,"spr_3yr":0.375,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2013,"f30":0.335,"f_age2":0.289,"spr30":0.3,"spr":0.371,"spr_3yr":0.407,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2014,"f30":0.335,"f_age2":0.47,"spr30":0.3,"spr":0.201,"spr_3yr":0.314,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2015,"f30":0.335,"f_age2":0.407,"spr30":0.3,"spr":0.249,"spr_3yr":0.274,"status":"Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2016,"f30":0.335,"f_age2":0.423,"spr30":0.3,"spr":0.236,"spr_3yr":0.229,"status":"Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2017,"f30":0.335,"f_age2":0.473,"spr30":0.3,"spr":0.199,"spr_3yr":0.228,"status":"Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2018,"f30":0.335,"f_age2":0.369,"spr30":0.3,"spr":0.266,"spr_3yr":0.233,"status":"Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2019,"f30":0.335,"f_age2":0.513,"spr30":0.3,"spr":0.16,"spr_3yr":0.208,"status":"Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2020,"f30":0.335,"f_age2":0.381,"spr30":0.3,"spr":0.255,"spr_3yr":0.227,"status":"Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2021,"f30":0.335,"f_age2":0.29,"spr30":0.3,"spr":0.352,"spr_3yr":0.256,"status":"Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2022,"f30":0.335,"f_age2":0.24,"spr30":0.3,"spr":0.42,"spr_3yr":0.342,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"},{"year":2023,"f30":0.335,"f_age2":0.558,"spr30":0.3,"spr":0.137,"spr_3yr":0.303,"status":"Not Overfishing","source":"scdnr_sar_2025","locator":"Table 4.14"}]},"catch":{"meta":{"source":"scdnr_sar_2025","assessment":"SCDNR SAR-2025-01, SC sub-stock, Stock Synthesis 3, fishing years 1981–2023","fishing_year":"September 1 – August 31","locator":"Table 3.1","notes":"MRIP estimates. Dead discards = 8% of live releases. 2023 is preliminary."},"series":[{"year":1981,"harvest":190749,"harvest_pse":0.399,"released":8250,"released_pse":0.683,"dead_discards":660,"catch":198998,"removals":191409,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":1982,"harvest":278714,"harvest_pse":0.34,"released":16276,"released_pse":0.578,"dead_discards":1302,"catch":294990,"removals":280016,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":1983,"harvest":478431,"harvest_pse":0.671,"released":11368,"released_pse":0.694,"dead_discards":909,"catch":489799,"removals":479340,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":1984,"harvest":371253,"harvest_pse":0.346,"released":60672,"released_pse":0.683,"dead_discards":4854,"catch":431924,"removals":376107,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":1985,"harvest":936790,"harvest_pse":0.182,"released":105595,"released_pse":0.391,"dead_discards":8448,"catch":1042385,"removals":945238,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":1986,"harvest":322742,"harvest_pse":0.223,"released":72401,"released_pse":0.283,"dead_discards":5792,"catch":395144,"removals":328534,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":1987,"harvest":731584,"harvest_pse":0.177,"released":197706,"released_pse":0.265,"dead_discards":15816,"catch":929289,"removals":747400,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":1988,"harvest":391156,"harvest_pse":0.264,"released":132208,"released_pse":0.279,"dead_discards":10577,"catch":523365,"removals":401733,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":1989,"harvest":291995,"harvest_pse":0.205,"released":129298,"released_pse":0.337,"dead_discards":10344,"catch":421293,"removals":302339,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":1990,"harvest":413518,"harvest_pse":0.308,"released":142824,"released_pse":0.425,"dead_discards":11426,"catch":556342,"removals":424944,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":1991,"harvest":341090,"harvest_pse":0.246,"released":210954,"released_pse":0.394,"dead_discards":16876,"catch":552044,"removals":357966,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":1992,"harvest":287175,"harvest_pse":0.22,"released":131613,"released_pse":0.285,"dead_discards":10529,"catch":418788,"removals":297704,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":1993,"harvest":287908,"harvest_pse":0.265,"released":388095,"released_pse":0.305,"dead_discards":31048,"catch":676003,"removals":318956,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":1994,"harvest":122373,"harvest_pse":0.241,"released":651377,"released_pse":0.211,"dead_discards":52110,"catch":773750,"removals":174483,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":1995,"harvest":511541,"harvest_pse":0.36,"released":773679,"released_pse":0.208,"dead_discards":61894,"catch":1285220,"removals":573435,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":1996,"harvest":376764,"harvest_pse":0.254,"released":877556,"released_pse":0.412,"dead_discards":70204,"catch":1254320,"removals":446968,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":1997,"harvest":262624,"harvest_pse":0.174,"released":220327,"released_pse":0.193,"dead_discards":17626,"catch":482951,"removals":280250,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":1998,"harvest":191353,"harvest_pse":0.168,"released":268826,"released_pse":0.2,"dead_discards":21506,"catch":460179,"removals":212859,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":1999,"harvest":137131,"harvest_pse":0.257,"released":304859,"released_pse":0.228,"dead_discards":24389,"catch":441990,"removals":161520,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2000,"harvest":91930,"harvest_pse":0.235,"released":206949,"released_pse":0.232,"dead_discards":16556,"catch":298879,"removals":108486,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2001,"harvest":171745,"harvest_pse":0.181,"released":474572,"released_pse":0.192,"dead_discards":37966,"catch":646317,"removals":209711,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2002,"harvest":194054,"harvest_pse":0.2,"released":614351,"released_pse":0.201,"dead_discards":49148,"catch":808405,"removals":243202,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2003,"harvest":266136,"harvest_pse":0.252,"released":859112,"released_pse":0.191,"dead_discards":68729,"catch":1125248,"removals":334865,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2004,"harvest":176804,"harvest_pse":0.187,"released":721043,"released_pse":0.195,"dead_discards":57683,"catch":897847,"removals":234487,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2005,"harvest":255953,"harvest_pse":0.251,"released":953098,"released_pse":0.144,"dead_discards":76248,"catch":1209050,"removals":332201,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2006,"harvest":138470,"harvest_pse":0.272,"released":1181791,"released_pse":0.166,"dead_discards":94543,"catch":1320261,"removals":233013,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2007,"harvest":169646,"harvest_pse":0.261,"released":785016,"released_pse":0.175,"dead_discards":62801,"catch":954663,"removals":232447,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2008,"harvest":222174,"harvest_pse":0.294,"released":1476917,"released_pse":0.181,"dead_discards":118153,"catch":1699091,"removals":340327,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2009,"harvest":303117,"harvest_pse":0.183,"released":1541421,"released_pse":0.148,"dead_discards":123314,"catch":1844538,"removals":426431,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2010,"harvest":495529,"harvest_pse":0.159,"released":2303042,"released_pse":0.146,"dead_discards":184243,"catch":2798571,"removals":679772,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2011,"harvest":216037,"harvest_pse":0.209,"released":1314782,"released_pse":0.131,"dead_discards":105183,"catch":1530818,"removals":321220,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2012,"harvest":388883,"harvest_pse":0.272,"released":1553512,"released_pse":0.119,"dead_discards":124281,"catch":1942395,"removals":513164,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2013,"harvest":214357,"harvest_pse":0.148,"released":1394642,"released_pse":0.087,"dead_discards":111571,"catch":1608999,"removals":325928,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2014,"harvest":385279,"harvest_pse":0.158,"released":1875949,"released_pse":0.129,"dead_discards":150076,"catch":2261228,"removals":535355,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2015,"harvest":266713,"harvest_pse":0.265,"released":1537668,"released_pse":0.179,"dead_discards":123013,"catch":1804381,"removals":389726,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2016,"harvest":382327,"harvest_pse":0.201,"released":1531860,"released_pse":0.158,"dead_discards":122549,"catch":1914187,"removals":504876,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2017,"harvest":359495,"harvest_pse":0.18,"released":2047330,"released_pse":0.169,"dead_discards":163786,"catch":2406825,"removals":523281,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2018,"harvest":273897,"harvest_pse":0.156,"released":1750990,"released_pse":0.157,"dead_discards":140079,"catch":2024887,"removals":413976,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2019,"harvest":309624,"harvest_pse":0.245,"released":2816141,"released_pse":0.206,"dead_discards":225291,"catch":3125766,"removals":534915,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2020,"harvest":203177,"harvest_pse":0.18,"released":1849158,"released_pse":0.157,"dead_discards":147933,"catch":2052335,"removals":351110,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2021,"harvest":231865,"harvest_pse":0.155,"released":1496345,"released_pse":0.165,"dead_discards":119708,"catch":1728211,"removals":351573,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2022,"harvest":218917,"harvest_pse":0.164,"released":1373790,"released_pse":0.143,"dead_discards":109903,"catch":1592707,"removals":328820,"preliminary":false,"source":"scdnr_sar_2025","locator":"Table 3.1"},{"year":2023,"harvest":506526,"harvest_pse":0.158,"released":3218423,"released_pse":0.15,"dead_discards":257474,"catch":3724949,"removals":794000,"preliminary":true,"source":"scdnr_sar_2025","locator":"Table 3.1"}]},"rules":{"meta":{"source":"scdnr_sar_2025"},"eras":[{"id":"none","years":[1981,1985],"lo":0,"hi":99,"bag":null,"keep_group":"none","label":"No size or bag limits","source":"scdnr_sar_2025","locator":"Table 3.2","quote":"Pre-1986 No Regulations","approx":null},{"id":"seasonal","years":[1986,1989],"lo":14,"hi":99,"bag":20,"keep_group":"seasonal","label":"14\" minimum in summer only, one fish over 32\"","source":"scdnr_sar_2025","locator":"Table 3.2","quote":"14” (36 cm) TL MLL from June 1- Sept.1; 1 fish > 32” (81 cm) person-1 day-1","approx":"The 14\" minimum applied only in summer; the fitted keep share for this era absorbs the rest of the year. The 20-fish bag began in 1988."},{"id":"b20","years":[1990,1990],"lo":14,"hi":32,"bag":20,"keep_group":"b20","label":"14–32\", 20 fish","source":"scdnr_sar_2025","locator":"Table 3.2","quote":"14” (36 cm) TL MLL; 20 fish person-1day-1 and 1 fish >32” (81 cm) TL person-1 day-1","approx":"The one fish allowed over 32\" is ignored."},{"id":"b5","years":[1991,1992],"lo":14,"hi":32,"bag":5,"keep_group":"b5","label":"14–32\", 5 fish","source":"scdnr_sar_2025","locator":"Table 3.2","quote":"14” (36 cm) TL MLL; 5 fish person-1day-1 and 1 fish 1 fish >32” (81 cm) TL person-1 day-1","approx":"The one fish allowed over 32\" is ignored."},{"id":"slot1993","years":[1993,2000],"lo":14,"hi":27,"bag":5,"keep_group":"b5","label":"14–27\", 5 fish","source":"scdnr_sar_2025","locator":"Table 3.2","quote":"14-27” (36-69 cm) TL slot limit; 5 fish person-1day-1","approx":null},{"id":"slot2001","years":[2001,2006],"lo":15,"hi":24,"bag":2,"keep_group":"b2","label":"15–24\", 2 fish","source":"scdnr_sar_2025","locator":"Table 3.2","quote":"15-24” (38-61 cm) TL slot limit; 2 fish person-1day-1","approx":null},{"id":"slot2007","years":[2007,2017],"lo":15,"hi":23,"bag":3,"keep_group":"b3","label":"15–23\", 3 fish","source":"scdnr_sar_2025","locator":"Table 3.2","quote":"15-23” (38-58 cm) TL slot limit; 3 fish person-1day-1","approx":null},{"id":"slot2018","years":[2018,2025],"lo":15,"hi":23,"bag":2,"keep_group":"b2","label":"15–23\", 2 fish, 6 per boat","source":"scdnr_sar_2025","locator":"Table 3.2","quote":"15-23” (38-58 cm) TL slot limit; 2 fish person-1day-1 and 6 fish boat-1 day-1","approx":null},{"id":"slot2026","years":[2026,2099],"lo":18,"hi":25,"bag":1,"keep_group":null,"label":"18–25\", 1 fish, 2 per boat","source":"live5_2026","locator":"article text","quote":"Only red drum measuring 18 to 25 inches may be harvested. Recreational anglers may harvest one red drum per person per day.","approx":"No catch data exist yet under a 1-fish bag; its keep share is extrapolated (see the fit)."}]},"fit":{"meta":{"target_source":"scdnr_sar_2025","targets":"Table 4.14 annual static SPR; Table 3.1 harvest / catch","years":[1981,2023],"objective":"sum of squared logit residuals, both series weighted equally","method":"differential evolution (seed 11, vectorised through the JS engine) then bounded Powell","fitted":"2026-10-02","free_parameters":["asc50","desc50","floor","k_none","k_seasonal","k_b20","k_b5","k_b3","k_b2"],"bounds":{"asc50":[20,60],"desc50":[60,110],"floor":[0.0,1.0],"k_none":[0.01,0.99],"k_seasonal":[0.01,0.99],"k_b20":[0.01,0.99],"k_b5":[0.01,0.99],"k_b3":[0.01,0.99],"k_b2":[0.01,0.99]}},"sel":{"asc50":29.63,"desc50":79.766,"floor":0.0},"keep":{"none":0.9395,"seasonal":0.882,"b20":0.91,"b5":0.5953,"b3":0.3315,"b2":0.3148},"keep_extrapolated":{"1":0.1364,"method":"logit(keep) linear in log(bag), fitted to the 2-, 3- and 5-fish groups","slope":1.3066},"at_bound":["floor"],"effort":{"recent_years":[2021,2023],"E_recent":1.49435,"growth_per_year":0.0901,"growth_years":[1998,2023],"growth_note":"trend in the fitted yearly effort (from SCDNR's age-2 F), log-linear"},"stats":{"n":43,"spr_r2":0.914,"kept_share_r2":0.936,"spr_rmse":0.0559,"dead_share_2017_2023":{"observed_mean":0.356,"model_mean":0.303,"fitted":false}},"residuals":[{"year":1981,"spr_obs":0.03,"spr_model":0.0223,"kept_obs":0.9585,"kept_model":0.9395,"E":0.97571},{"year":1982,"spr_obs":0.1,"spr_model":0.0803,"kept_obs":0.9448,"kept_model":0.9395,"E":0.63772},{"year":1983,"spr_obs":0.147,"spr_model":0.1218,"kept_obs":0.9768,"kept_model":0.9395,"E":0.53037},{"year":1984,"spr_obs":0.132,"spr_model":0.1085,"kept_obs":0.8595,"kept_model":0.9395,"E":0.56013},{"year":1985,"spr_obs":0.055,"spr_model":0.042,"kept_obs":0.8987,"kept_model":0.9395,"E":0.80672},{"year":1986,"spr_obs":0.345,"spr_model":0.3275,"kept_obs":0.8168,"kept_model":0.7718,"E":0.30982},{"year":1987,"spr_obs":0.135,"spr_model":0.1223,"kept_obs":0.7873,"kept_model":0.7421,"E":0.58809},{"year":1988,"spr_obs":0.277,"spr_model":0.2594,"kept_obs":0.7474,"kept_model":0.7648,"E":0.37516},{"year":1989,"spr_obs":0.35,"spr_model":0.3329,"kept_obs":0.6931,"kept_model":0.7723,"E":0.30531},{"year":1990,"spr_obs":0.381,"spr_model":0.3873,"kept_obs":0.7433,"kept_model":0.7432,"E":0.29896},{"year":1991,"spr_obs":0.423,"spr_model":0.4262,"kept_obs":0.6179,"kept_model":0.4864,"E":0.38882},{"year":1992,"spr_obs":0.576,"spr_model":0.5781,"kept_obs":0.6857,"kept_model":0.4861,"E":0.24961},{"year":1993,"spr_obs":0.603,"spr_model":0.7028,"kept_obs":0.4259,"kept_model":0.3866,"E":0.21339},{"year":1994,"spr_obs":0.59,"spr_model":0.6932,"kept_obs":0.1582,"kept_model":0.3871,"E":0.22172},{"year":1995,"spr_obs":0.416,"spr_model":0.5425,"kept_obs":0.398,"kept_model":0.3953,"E":0.37009},{"year":1996,"spr_obs":0.275,"spr_model":0.4064,"kept_obs":0.3004,"kept_model":0.4037,"E":0.54513},{"year":1997,"spr_obs":0.591,"spr_model":0.6932,"kept_obs":0.5438,"kept_model":0.3871,"E":0.22172},{"year":1998,"spr_obs":0.57,"spr_model":0.6762,"kept_obs":0.4158,"kept_model":0.388,"E":0.23672},{"year":1999,"spr_obs":0.574,"spr_model":0.68,"kept_obs":0.3103,"kept_model":0.3878,"E":0.23339},{"year":2000,"spr_obs":0.722,"spr_model":0.7978,"kept_obs":0.3076,"kept_model":0.382,"E":0.1367},{"year":2001,"spr_obs":0.704,"spr_model":0.7369,"kept_obs":0.2657,"kept_model":0.1507,"E":0.37408},{"year":2002,"spr_obs":0.703,"spr_model":0.7369,"kept_obs":0.24,"kept_model":0.1507,"E":0.37408},{"year":2003,"spr_obs":0.642,"spr_model":0.6799,"kept_obs":0.2365,"kept_model":0.1525,"E":0.4729},{"year":2004,"spr_obs":0.671,"spr_model":0.7058,"kept_obs":0.1969,"kept_model":0.1517,"E":0.42702},{"year":2005,"spr_obs":0.512,"spr_model":0.559,"kept_obs":0.2117,"kept_model":0.1567,"E":0.71288},{"year":2006,"spr_obs":0.415,"spr_model":0.4651,"kept_obs":0.1049,"kept_model":0.1605,"E":0.93874},{"year":2007,"spr_obs":0.581,"spr_model":0.6157,"kept_obs":0.1777,"kept_model":0.1468,"E":0.62468},{"year":2008,"spr_obs":0.462,"spr_model":0.5007,"kept_obs":0.1308,"kept_model":0.1516,"E":0.89126},{"year":2009,"spr_obs":0.445,"spr_model":0.4825,"kept_obs":0.1643,"kept_model":0.1524,"E":0.93901},{"year":2010,"spr_obs":0.274,"spr_model":0.3115,"kept_obs":0.1771,"kept_model":0.1616,"E":1.50401},{"year":2011,"spr_obs":0.481,"spr_model":0.518,"kept_obs":0.1411,"kept_model":0.1508,"E":0.8475},{"year":2012,"spr_obs":0.37,"spr_model":0.4098,"kept_obs":0.2002,"kept_model":0.156,"E":1.14989},{"year":2013,"spr_obs":0.371,"spr_model":0.4098,"kept_obs":0.1332,"kept_model":0.156,"E":1.14989},{"year":2014,"spr_obs":0.201,"spr_model":0.2346,"kept_obs":0.1704,"kept_model":0.1668,"E":1.87006},{"year":2015,"spr_obs":0.249,"spr_model":0.2849,"kept_obs":0.1478,"kept_model":0.1633,"E":1.61939},{"year":2016,"spr_obs":0.236,"spr_model":0.2712,"kept_obs":0.1997,"kept_model":0.1642,"E":1.68305},{"year":2017,"spr_obs":0.199,"spr_model":0.2325,"kept_obs":0.1494,"kept_model":0.167,"E":1.882},{"year":2018,"spr_obs":0.266,"spr_model":0.318,"kept_obs":0.1353,"kept_model":0.1531,"E":1.52045},{"year":2019,"spr_obs":0.16,"spr_model":0.2036,"kept_obs":0.0991,"kept_model":0.1607,"E":2.1138},{"year":2020,"spr_obs":0.255,"spr_model":0.3063,"kept_obs":0.099,"kept_model":0.1537,"E":1.5699},{"year":2021,"spr_obs":0.352,"spr_model":0.4062,"kept_obs":0.1342,"kept_model":0.1483,"E":1.19493},{"year":2022,"spr_obs":0.42,"spr_model":0.4744,"kept_obs":0.1374,"kept_model":0.1451,"E":0.98891},{"year":2023,"spr_obs":0.137,"spr_model":0.1771,"kept_obs":0.136,"kept_model":0.1627,"E":2.29922}]},"sources":{"scdnr_sar_2025":{"short":"SCDNR SAR-2025-01","title":"Stock Assessment Report on the Red Drum Sciaenops ocellatus South Carolina Sub-Stock, 1981–2023 (Ballenger & Schlick, revised September 15, 2025)","publisher":"South Carolina Department of Natural Resources, Marine Resources Research Institute","url":"https://saltwaterfishing.sc.gov/pdf/RedDrumSCReport.pdf","kind":"assessment"},"asmfc_red_drum":{"short":"ASMFC red drum","title":"Red drum: management under Amendment 2 to the Interstate Fishery Management Plan","publisher":"Atlantic States Marine Fisheries Commission","url":"https://asmfc.org/species/red-drum/","kind":"rule"},"live5_2026":{"short":"Live 5 News, June 2026","title":"New red drum rules take effect July 1 in South Carolina (June 28, 2026)","publisher":"Live 5 News (WCSC)","url":"https://www.live5news.com/2026/06/28/new-red-drum-rules-take-effect-july-1-south-carolina/","kind":"rule"}},"facts":{"rule_new_slot":{"value":"18 and 25 inches","source":"live5_2026","quote":"Only red drum measuring 18 to 25 inches may be harvested."},"rule_new_bag":{"value":"one fish","source":"live5_2026","quote":"Recreational anglers may harvest one red drum per person per day."},"rule_new_boat":{"value":"two per boat","source":"live5_2026","quote":"The boat limit is two fish per boat per day."},"rule_old_slot":{"value":"15 and 23 inches","source":"live5_2026","quote":"The previous slot size was 15 to 23 inches."},"rule_old_bag":{"value":"two","source":"live5_2026","quote":"The previous limit was two fish per person per day."},"circle_hooks":{"value":"4/0 or larger","source":"live5_2026","quote":"If fishing for gamefish (including red drum, cobia and tarpon) with large hooks (4/0 or larger) and natural bait, non-offset, non-stainless circle hooks are required."},"asmfc_27":{"value":"27 inches","source":"asmfc_red_drum","quote":"The Amendment requires states to implement recreational creel and size limits to achieve the fishing mortality target, including a maximum size limit of 27 inches"},"discard_mort":{"value":"8%","source":"scdnr_sar_2025","quote":"We calculated recreational dead discards assuming an 8% discard mortality rate, consistent with previous research and assessments."},"mat_len50":{"value":"766 mm (about 30 inches)","source":"scdnr_sar_2025","quote":"Table 2.3: Length, Female, n = 1,132, 50% Maturity 766 (753 – 778)"},"mat_age50":{"value":"4.2 years","source":"scdnr_sar_2025","quote":"Table 4.7: Age_@_Mat50% Fixed 4.2"},"max_age":{"value":"41 years","source":"scdnr_sar_2025","quote":"Table 4.2: Maximum age 41"},"linf":{"value":"113 cm","source":"scdnr_sar_2025","quote":"Table 2.2: L∞ 1,132 Asymptotic length"},"recruits":{"value":"1.43 million","source":"scdnr_sar_2025","quote":"The model estimated recruitment suggests variation around the time series average of 1.43 million recruits in SC"},"spr_terminal":{"value":"0.137","source":"scdnr_sar_2025","quote":"the terminal year SPR estimate was 0.137, the lowest recorded value since 1987."},"spr_3yr":{"value":"0.303","source":"scdnr_sar_2025","quote":"The 3-yr terminal average SPR (2021-2023) was 0.303, higher than the SPR30% threshold"},"spr_regional":{"value":"0.207","source":"scdnr_sar_2025","quote":"terminal year spawning potential ratios (SPR 2019−2021 = 0.207) below the defined SPR30% threshold"},"catch_2023":{"value":"3,724,949","source":"scdnr_sar_2025","quote":"peaking at 3,724,949 fish caught in fishing year 2023 across SC."},"harvest_2023":{"value":"506,526","source":"scdnr_sar_2025","quote":"Table 3.1: 2023* Harvest (A + B1) 506,526"},"dd_share":{"value":"more than 30%","source":"scdnr_sar_2025","quote":"dead discards accounting ... greater than 30% of removals annually since 2017."},"mrip_pilot":{"value":"overestimated up to 40%","source":"scdnr_sar_2025","quote":"pilot studies indicated FES could potentially be skewed based on the way questions were asked during the interview process, resulting in effort estimates being underestimated up to 32% or overestimated up to 40%"},"sigma_r":{"value":"0.37","source":"scdnr_sar_2025","quote":"Table 4.8: σR Fixed 0.367"},"spr_thresholds":{"value":"30% and 40%","source":"scdnr_sar_2025","quote":"reference points for the model include F30%, SPR30%, and SSB30% as thresholds and F40%, SPR40%, and SSB40% as targets"}}};
+// The Redfish Slot — page controller. Real numbers come from CC_DATA (sourced); everything else is the engine.
+(function () {
+  const D = window.CC_DATA, { biology, fishery, stock, history, units } = RF;
+  const bio = biology.create(D.lh);
+  const FIT = D.fit, SEL = FIT.sel, E100 = FIT.effort.E_recent, R0 = D.lh.mean_recruits_millions * 1e6;
+  const REL = D.lh.discard_mortality;
+  const era = (id) => D.rules.eras.find((e) => e.id === id);
+  const keepOf = (id) => history.keepFor(era(id), FIT);
+  const PRESETS = {
+    p1990: { label: "1990s rules", era: "slot1993", note: "today's effort" },
+    old: { label: "2018–2026", era: "slot2018" },
+    new: { label: "New rules", era: "slot2026" },
+    release: { label: "Release only", note: "no harvest" },
+  };
+  const presetRule = (k) => {
+    const p = PRESETS[k];
+    if (!p.era) return { lo: 18, hi: 18, keep: 0, rel: REL, eff: 100 };
+    const e = era(p.era);
+    return { lo: e.lo, hi: e.hi, keep: keepOf(p.era), rel: REL, eff: 100 };
+  };
+  let R = presetRule("new");
+  const $ = (id) => document.getElementById(id);
+  const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const engineRule = (r) => ({ lo: r.lo, hi: r.hi, keep: r.keep, rel: r.rel });
+  const ratesFor = (r, mult = 1) => fishery.rates(bio, engineRule(r), E100 * (r.eff / 100) * mult, SEL);
+
+  // ---------- presets & controls ----------
+  $("presets").innerHTML = Object.entries(PRESETS).map(([k, p]) => {
+    const e = p.era && era(p.era);
+    const sub = e ? `${e.lo}–${e.hi}", ${e.bag} fish${p.note ? ", " + p.note : ""}` : p.note;
+    return `<button data-p="${k}" aria-pressed="false">${p.label}<small ${e ? `data-src="${e.source}"` : "data-ui"}>${sub}</small></button>`;
+  }).join("");
+  function syncInputs() { $("lo").value = R.lo; $("hi").value = R.hi; $("keep").value = Math.round(R.keep * 100); $("rel").value = Math.round(R.rel * 100); $("eff").value = R.eff; }
+  function readInputs() { R.lo = +$("lo").value; R.hi = +$("hi").value; R.keep = $("keep").value / 100; R.rel = $("rel").value / 100; R.eff = +$("eff").value; }
+  function markPreset() {
+    document.querySelectorAll("#presets button").forEach((b) => {
+      const p = presetRule(b.dataset.p);
+      const same = p.lo === R.lo && p.hi === R.hi && Math.abs(p.keep - R.keep) < 0.006 && Math.abs(p.rel - R.rel) < 0.006 && p.eff === R.eff;
+      b.setAttribute("aria-pressed", same);
+    });
+  }
+  document.querySelectorAll("#presets button").forEach((b) => (b.onclick = () => { R = presetRule(b.dataset.p); syncInputs(); markPreset(); render(); }));
+  ["lo", "hi", "keep", "rel", "eff"].forEach((id) => ($(id).oninput = () => { readInputs(); markPreset(); render(); }));
+  ["grow", "luck"].forEach((id) => ($(id).onchange = render));
+  const growPct = Math.round(FIT.effort.growth_per_year * 100);
+  $("growLbl").innerHTML = `Effort keeps rising at its 1998–2023 pace (<span data-model>${growPct}%</span> a year)`;
+
+  const fmt = (n) => (n >= 1e6 ? (n / 1e6).toFixed(2) + "M" : Math.round(n / 1000) + "k");
+  function delta(el, now, base) {
+    const d = ((now - base) / base) * 100;
+    el.textContent = Math.abs(d) < 0.5 ? "no change" : (d > 0 ? "+" : "") + Math.round(d) + "% vs. 2018–26";
+    el.style.color = d < 0 ? css("--teal") : css("--copper");
+  }
+
+  function render() {
+    $("oLo").textContent = R.lo + '"'; $("oHi").textContent = R.hi + '"';
+    $("oKeep").textContent = Math.round(R.keep * 100) + "%"; $("oRel").textContent = Math.round(R.rel * 100) + "%"; $("oEff").textContent = R.eff;
+    const p = stock.perRecruit(bio, ratesFor(R)), b = stock.perRecruit(bio, ratesFor(presetRule("old")));
+    const s = p.spr * 100;
+    $("spr").textContent = Math.round(s) + "%";
+    $("verdict").textContent = s >= 40 ? "at or above the target" : s >= 30 ? "between the overfishing line and the target" : "below the overfishing line";
+    $("verdict").style.color = s >= 40 ? css("--teal") : s >= 30 ? css("--gold") : css("--copper");
+    $("bar").style.width = Math.min(100, s) + "%";
+    $("sKept").textContent = R.hi <= R.lo ? "0" : fmt(p.kept * R0); $("sDead").textContent = fmt(p.dead * R0); $("sCatch").textContent = fmt(p.catch * R0);
+    delta($("dKept"), p.kept + 1e-9, b.kept); delta($("dDead"), p.dead, b.dead); delta($("dCatch"), p.catch, b.catch);
+    drawBoard(); drawFates(); drawFuture();
+  }
+
+  // ---------- measuring-board chart ----------
+  function drawBoard() {
+    const svg = $("board"), W0 = 420, H = 210, L = 14, Rr = 10, T = 12, B = 40;
+    const x = (inch) => L + ((inch - 8) / (46 - 8)) * (W0 - L - Rr);
+    const board = css("--board"), bInk = css("--boardInk"), copper = css("--copper"), teal = css("--teal"), gold = css("--gold"), ink = css("--ink");
+    let s = `<rect x="${L}" y="${T}" width="${W0 - L - Rr}" height="${H - T - B}" fill="${board}" rx="4"/>`;
+    if (R.hi > R.lo) s += `<rect x="${x(R.lo)}" y="${T}" width="${x(R.hi) - x(R.lo)}" height="${H - T - B}" fill="${copper}" opacity=".28"/>`;
+    const f = ratesFor(R), bins = [];
+    for (let i = 8; i <= 46; i += 0.5) bins.push(0);
+    let N = 1;
+    for (const a of bio.ages) {
+      const Lm = units.inch(bio.Lmid[a]), sd = units.inch(bio.sdMid[a]);
+      bins.forEach((_, j) => { const li = 8 + j * 0.5; bins[j] += (N * Math.exp(-0.5 * ((li - Lm) / sd) ** 2)) / (sd * Math.sqrt(2 * Math.PI)) * 0.5; });
+      N *= Math.exp(-(bio.M[a] + f[a].kept + f[a].dead));
+    }
+    const mx = Math.max(...bins.slice(8)), y = (v) => H - B - Math.min(1, v / mx) * (H - T - B - 14);
+    let path = `M${x(8)},${H - B}`;
+    bins.forEach((v, j) => (path += ` L${x(8 + j * 0.5)},${y(v)}`));
+    s += `<path d="${path} L${x(46)},${H - B} Z" fill="${teal}" opacity=".85"/>`;
+    let mp = "";
+    for (let i = 8; i <= 46; i += 0.5) mp += (mp ? " L" : "M") + x(i) + "," + (H - B - bio.matLen(units.cm(i)) * (H - T - B - 14));
+    s += `<path d="${mp}" fill="none" stroke="${gold}" stroke-width="2.5"/>`;
+    const half = units.inch(D.lh.mat_len50_mm / 10);
+    s += `<line x1="${x(half)}" x2="${x(half)}" y1="${T}" y2="${H - B}" stroke="${gold}" stroke-dasharray="3 3"/><text x="${x(half) + 4}" y="${T + 14}" font-size="12" fill="${ink}">half mature ≈${Math.round(half)}"</text>`;
+    for (let i = 8; i <= 46; i++) {
+      const big = i % 5 === 0;
+      s += `<line x1="${x(i)}" x2="${x(i)}" y1="${H - B}" y2="${H - B + (big ? 10 : 5)}" stroke="${bInk}"/>`;
+      if (big) s += `<text x="${x(i)}" y="${H - B + 23}" text-anchor="middle" font-size="12" fill="${bInk}">${i}"</text>`;
+    }
+    if (R.hi > R.lo) s += `<text x="${(x(R.lo) + x(R.hi)) / 2}" y="${H - 4}" text-anchor="middle" font-size="12" font-weight="600" fill="${copper}">keep ${R.lo}–${R.hi}"</text>`;
+    svg.innerHTML = s;
+  }
+
+  // ---------- cohort fates ----------
+  function drawFates() {
+    const f = stock.fates(bio, ratesFor(R), 1000, 1, 5);
+    const cols = [["alive", "Reach age 5 (most spawning)", css("--teal")], ["kept", "Kept by anglers", css("--copper")], ["dead", "Die after release", css("--gold")], ["nat", "Natural deaths", css("--muted")]];
+    $("fates").innerHTML = cols.map(([k, , c]) => `<div style="flex-grow:${f[k]};background:${c}"></div>`).join("");
+    $("fatelist").innerHTML = cols.map(([k, l, c]) => `<div><b style="color:${c}">${Math.round(f[k])}</b> ${l}</div>`).join("");
+    $("fatesSub").textContent = `What becomes of 1,000 redfish in their second year, about ${Math.round(units.inch(bio.Lmid[1]))} inches long, before they reach the age when most females spawn (age 5)? Model output.`;
+  }
+
+  // ---------- 30-year projection ----------
+  const DEV = stock.deviations(D.lh.sigma_r, 80);
+  function drawFuture() {
+    const svg = $("future"), W0 = 420, H = 220, L = 36, Rr = 10, T = 12, B = 26, Y = 30;
+    const grow = $("grow").checked, luck = $("luck").checked, g = FIT.effort.growth_per_year;
+    const run = (r) => stock.project(bio, ratesFor(presetRule("old")), (y) => ratesFor(r, grow ? (1 + g) ** y : 1), Y, (y) => (luck ? DEV[y] : 1));
+    const mine = run(R), base = run(presetRule("old"));
+    const mx = Math.max(0.5, ...mine, ...base) * 1.05;
+    const x = (i) => L + (i / Y) * (W0 - L - Rr), y = (v) => T + (1 - v / mx) * (H - T - B);
+    const muted = css("--muted"), copper = css("--copper"), teal = css("--teal"), gold = css("--gold");
+    let s = "";
+    [[0.3, "overfishing line"], [0.4, "target"]].forEach(([v, l]) => (s += `<line x1="${L}" x2="${W0 - Rr}" y1="${y(v)}" y2="${y(v)}" stroke="${v === 0.4 ? teal : gold}" stroke-dasharray="4 4"/><text x="${W0 - Rr}" y="${y(v) - 4}" text-anchor="end" font-size="11" fill="${muted}">${l}</text>`));
+    for (let v = 0; v <= mx; v += 0.1) s += `<text x="${L - 6}" y="${y(v) + 4}" text-anchor="end" font-size="11" fill="${muted}">${Math.round(v * 100)}%</text>`;
+    for (let i = 0; i <= Y; i += 10) s += `<text x="${x(i)}" y="${H - 6}" text-anchor="middle" font-size="11" fill="${muted}">${2026 + i}</text>`;
+    const pl = (a) => a.map((v, i) => `${x(i)},${y(v)}`).join(" ");
+    s += `<polyline points="${pl(base)}" fill="none" stroke="${muted}" stroke-width="2" stroke-dasharray="5 4"/>`;
+    s += `<polyline points="${pl(mine)}" fill="none" stroke="${copper}" stroke-width="3"/>`;
+    svg.innerHTML = s;
+  }
+
+  // ---------- fit check ----------
+  function drawCheck() {
+    const rows = FIT.residuals, y0 = rows[0].year, y1 = rows[rows.length - 1].year;
+    const ink = css("--ink"), muted = css("--muted"), line = css("--line"), copper = css("--copper"), gold = css("--gold");
+    function panel(id, H, key, top, ticks, label, thresh) {
+      const W0 = 420, L = 36, Rr = 10, T = 16, B = 24;
+      const x = (yr) => L + ((yr - y0) / (y1 - y0)) * (W0 - L - Rr), y = (v) => T + (1 - v / top) * (H - T - B);
+      let s = `<text x="${L}" y="11" font-size="11" fill="${muted}">${label}</text>`;
+      ticks.forEach((v) => (s += `<line x1="${L}" x2="${W0 - Rr}" y1="${y(v)}" y2="${y(v)}" stroke="${line}"/><text x="${L - 5}" y="${y(v) + 4}" text-anchor="end" font-size="11" fill="${muted}">${Math.round(v * 100)}%</text>`));
+      if (thresh) s += `<line x1="${L}" x2="${W0 - Rr}" y1="${y(thresh)}" y2="${y(thresh)}" stroke="${gold}" stroke-dasharray="4 4"/>`;
+      for (let yr = 1985; yr <= y1; yr += 10) s += `<text x="${x(yr)}" y="${H - 6}" text-anchor="middle" font-size="11" fill="${muted}">${yr}</text>`;
+      s += `<polyline points="${rows.map((r) => `${x(r.year)},${y(r[key + "_model"])}`).join(" ")}" fill="none" stroke="${copper}" stroke-width="2.5"/>`;
+      s += rows.map((r) => `<circle cx="${x(r.year)}" cy="${y(r[key + "_obs"])}" r="2.8" fill="${ink}"><title>${r.year}: SCDNR ${Math.round(r[key + "_obs"] * 100)}%, model ${Math.round(r[key + "_model"] * 100)}%</title></circle>`).join("");
+      $(id).innerHTML = s;
+    }
+    panel("checkSpr", 200, "spr", 0.85, [0, 0.2, 0.4, 0.6, 0.8], "Spawning potential (SCDNR Table 4.14)", 0.3);
+    panel("checkKept", 170, "kept", 1, [0, 0.5, 1], "Share of caught fish kept (MRIP, Table 3.1)");
+    const st = FIT.stats;
+    $("checkNote").textContent = `The model explains ${Math.round(100 * st.spr_r2)}% of the season-to-season variation in spawning potential and ${Math.round(100 * st.kept_share_r2)}% of the variation in the share kept. Model outputs; the assessment's figures are estimates too.`;
+    const ex = FIT.keep_extrapolated["1"];
+    $("extrap").textContent = `anglers keep about ${Math.round(100 * ex)}% of legal fish, compared with ${Math.round(100 * FIT.keep.b2)}% under the 2-fish bag`;
+    const dd = st.dead_share_2017_2023;
+    $("ddCheck").textContent = `For 2017–2023 the model puts it at ${Math.round(100 * dd.model_mean)}%, against ${Math.round(100 * dd.observed_mean)}% in the survey estimates.`;
+  }
+
+  syncInputs(); markPreset(); render(); drawCheck();
+  window.addEventListener("resize", () => { render(); drawCheck(); });
+})();
+
+</script>
+</body>
+</html>
