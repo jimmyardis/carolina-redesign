@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="How the beach at Botany Bay Heritage Preserve on Edisto Island has moved since the 1852 survey, with lidar, Landsat, Sentinel-2 and NAIP imagery.">
+<title>Botany Bay | Atlases No. 1 | Palmetto Field Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=Spectral:wght@500;600&display=swap">
+<style>
+.leaflet-image-layer,.leaflet-layer,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-pane,.leaflet-pane>canvas,.leaflet-pane>svg,.leaflet-tile,.leaflet-tile-container,.leaflet-zoom-box{position:absolute;left:0;top:0}.leaflet-container{overflow:hidden}.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-tile{-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-user-drag:none}.leaflet-tile::selection{background:0 0}.leaflet-safari .leaflet-tile{image-rendering:-webkit-optimize-contrast}.leaflet-safari .leaflet-tile-container{width:1600px;height:1600px;-webkit-transform-origin:0 0}.leaflet-marker-icon,.leaflet-marker-shadow{display:block}.leaflet-container .leaflet-overlay-pane svg{max-width:none!important;max-height:none!important}.leaflet-container .leaflet-marker-pane img,.leaflet-container .leaflet-shadow-pane img,.leaflet-container .leaflet-tile,.leaflet-container .leaflet-tile-pane img,.leaflet-container img.leaflet-image-layer{max-width:none!important;max-height:none!important;width:auto;padding:0}.leaflet-container img.leaflet-tile{mix-blend-mode:plus-lighter}.leaflet-container.leaflet-touch-zoom{-ms-touch-action:pan-x pan-y;touch-action:pan-x pan-y}.leaflet-container.leaflet-touch-drag{-ms-touch-action:pinch-zoom;touch-action:none;touch-action:pinch-zoom}.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom{-ms-touch-action:none;touch-action:none}.leaflet-container{-webkit-tap-highlight-color:transparent}.leaflet-container a{-webkit-tap-highlight-color:rgba(51,181,229,.4)}.leaflet-tile{filter:inherit;visibility:hidden}.leaflet-tile-loaded{visibility:inherit}.leaflet-zoom-box{width:0;height:0;-moz-box-sizing:border-box;box-sizing:border-box;z-index:800}.leaflet-overlay-pane svg{-moz-user-select:none}.leaflet-pane{z-index:400}.leaflet-tile-pane{z-index:200}.leaflet-overlay-pane{z-index:400}.leaflet-shadow-pane{z-index:500}.leaflet-marker-pane{z-index:600}.leaflet-tooltip-pane{z-index:650}.leaflet-popup-pane{z-index:700}.leaflet-map-pane canvas{z-index:100}.leaflet-map-pane svg{z-index:200}.leaflet-vml-shape{width:1px;height:1px}.lvml{behavior:url(#default#VML);display:inline-block;position:absolute}.leaflet-control{position:relative;z-index:800;pointer-events:visiblePainted;pointer-events:auto}.leaflet-bottom,.leaflet-top{position:absolute;z-index:1000;pointer-events:none}.leaflet-top{top:0}.leaflet-right{right:0}.leaflet-bottom{bottom:0}.leaflet-left{left:0}.leaflet-control{float:left;clear:both}.leaflet-right .leaflet-control{float:right}.leaflet-top .leaflet-control{margin-top:10px}.leaflet-bottom .leaflet-control{margin-bottom:10px}.leaflet-left .leaflet-control{margin-left:10px}.leaflet-right .leaflet-control{margin-right:10px}.leaflet-fade-anim .leaflet-popup{opacity:0;-webkit-transition:opacity .2s linear;-moz-transition:opacity .2s linear;transition:opacity .2s linear}.leaflet-fade-anim .leaflet-map-pane .leaflet-popup{opacity:1}.leaflet-zoom-animated{-webkit-transform-origin:0 0;-ms-transform-origin:0 0;transform-origin:0 0}svg.leaflet-zoom-animated{will-change:transform}.leaflet-zoom-anim .leaflet-zoom-animated{-webkit-transition:-webkit-transform .25s cubic-bezier(0,0,.25,1);-moz-transition:-moz-transform .25s cubic-bezier(0,0,.25,1);transition:transform .25s cubic-bezier(0,0,.25,1)}.leaflet-pan-anim .leaflet-tile,.leaflet-zoom-anim .leaflet-tile{-webkit-transition:none;-moz-transition:none;transition:none}.leaflet-zoom-anim .leaflet-zoom-hide{visibility:hidden}.leaflet-interactive{cursor:pointer}.leaflet-grab{cursor:-webkit-grab;cursor:-moz-grab;cursor:grab}.leaflet-crosshair,.leaflet-crosshair .leaflet-interactive{cursor:crosshair}.leaflet-control,.leaflet-popup-pane{cursor:auto}.leaflet-dragging .leaflet-grab,.leaflet-dragging .leaflet-grab .leaflet-interactive,.leaflet-dragging .leaflet-marker-draggable{cursor:move;cursor:-webkit-grabbing;cursor:-moz-grabbing;cursor:grabbing}.leaflet-image-layer,.leaflet-marker-icon,.leaflet-marker-shadow,.leaflet-pane>svg path,.leaflet-tile-container{pointer-events:none}.leaflet-image-layer.leaflet-interactive,.leaflet-marker-icon.leaflet-interactive,.leaflet-pane>svg path.leaflet-interactive,svg.leaflet-image-layer.leaflet-interactive path{pointer-events:visiblePainted;pointer-events:auto}.leaflet-container{background:#ddd;outline-offset:1px}.leaflet-container a{color:#0078a8}.leaflet-zoom-box{border:2px dotted #38f;background:rgba(255,255,255,.5)}.leaflet-container{font-family:"Helvetica Neue",Arial,Helvetica,sans-serif;font-size:12px;font-size:.75rem;line-height:1.5}.leaflet-bar{box-shadow:0 1px 5px rgba(0,0,0,.65);border-radius:4px}.leaflet-bar a{background-color:#fff;border-bottom:1px solid #ccc;width:26px;height:26px;line-height:26px;display:block;text-align:center;text-decoration:none;color:#000}.leaflet-bar a,.leaflet-control-layers-toggle{background-position:50% 50%;background-repeat:no-repeat;display:block}.leaflet-bar a:focus,.leaflet-bar a:hover{background-color:#f4f4f4}.leaflet-bar a:first-child{border-top-left-radius:4px;border-top-right-radius:4px}.leaflet-bar a:last-child{border-bottom-left-radius:4px;border-bottom-right-radius:4px;border-bottom:none}.leaflet-bar a.leaflet-disabled{cursor:default;background-color:#f4f4f4;color:#bbb}.leaflet-touch .leaflet-bar a{width:30px;height:30px;line-height:30px}.leaflet-touch .leaflet-bar a:first-child{border-top-left-radius:2px;border-top-right-radius:2px}.leaflet-touch .leaflet-bar a:last-child{border-bottom-left-radius:2px;border-bottom-right-radius:2px}.leaflet-control-zoom-in,.leaflet-control-zoom-out{font:bold 18px 'Lucida Console',Monaco,monospace;text-indent:1px}.leaflet-touch .leaflet-control-zoom-in,.leaflet-touch .leaflet-control-zoom-out{font-size:22px}.leaflet-control-layers{box-shadow:0 1px 5px rgba(0,0,0,.4);background:#fff;border-radius:5px}.leaflet-control-layers-toggle{background-image:url(images/layers.png);width:36px;height:36px}.leaflet-retina .leaflet-control-layers-toggle{background-image:url(images/layers-2x.png);background-size:26px 26px}.leaflet-touch .leaflet-control-layers-toggle{width:44px;height:44px}.leaflet-control-layers .leaflet-control-layers-list,.leaflet-control-layers-expanded .leaflet-control-layers-toggle{display:none}.leaflet-control-layers-expanded .leaflet-control-layers-list{display:block;position:relative}.leaflet-control-layers-expanded{padding:6px 10px 6px 6px;color:#333;background:#fff}.leaflet-control-layers-scrollbar{overflow-y:scroll;overflow-x:hidden;padding-right:5px}.leaflet-control-layers-selector{margin-top:2px;position:relative;top:1px}.leaflet-control-layers label{display:block;font-size:13px;font-size:1.08333em}.leaflet-control-layers-separator{height:0;border-top:1px solid #ddd;margin:5px -10px 5px -6px}.leaflet-default-icon-path{background-image:url(images/marker-icon.png)}.leaflet-container .leaflet-control-attribution{background:#fff;background:rgba(255,255,255,.8);margin:0}.leaflet-control-attribution,.leaflet-control-scale-line{padding:0 5px;color:#333;line-height:1.4}.leaflet-control-attribution a{text-decoration:none}.leaflet-control-attribution a:focus,.leaflet-control-attribution a:hover{text-decoration:underline}.leaflet-attribution-flag{display:inline!important;vertical-align:baseline!important;width:1em;height:.6669em}.leaflet-left .leaflet-control-scale{margin-left:5px}.leaflet-bottom .leaflet-control-scale{margin-bottom:5px}.leaflet-control-scale-line{border:2px solid #777;border-top:none;line-height:1.1;padding:2px 5px 1px;white-space:nowrap;-moz-box-sizing:border-box;box-sizing:border-box;background:rgba(255,255,255,.8);text-shadow:1px 1px #fff}.leaflet-control-scale-line:not(:first-child){border-top:2px solid #777;border-bottom:none;margin-top:-2px}.leaflet-control-scale-line:not(:first-child):not(:last-child){border-bottom:2px solid #777}.leaflet-touch .leaflet-bar,.leaflet-touch .leaflet-control-attribution,.leaflet-touch .leaflet-control-layers{box-shadow:none}.leaflet-touch .leaflet-bar,.leaflet-touch .leaflet-control-layers{border:2px solid rgba(0,0,0,.2);background-clip:padding-box}.leaflet-popup{position:absolute;text-align:center;margin-bottom:20px}.leaflet-popup-content-wrapper{padding:1px;text-align:left;border-radius:12px}.leaflet-popup-content{margin:13px 24px 13px 20px;line-height:1.3;font-size:13px;font-size:1.08333em;min-height:1px}.leaflet-popup-content p{margin:17px 0;margin:1.3em 0}.leaflet-popup-tip-container{width:40px;height:20px;position:absolute;left:50%;margin-top:-1px;margin-left:-20px;overflow:hidden;pointer-events:none}.leaflet-popup-tip{width:17px;height:17px;padding:1px;margin:-10px auto 0;pointer-events:auto;-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg)}.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#fff;color:#333;box-shadow:0 3px 14px rgba(0,0,0,.4)}.leaflet-container a.leaflet-popup-close-button{position:absolute;top:0;right:0;border:none;text-align:center;width:24px;height:24px;font:16px/24px Tahoma,Verdana,sans-serif;color:#757575;text-decoration:none;background:0 0}.leaflet-container a.leaflet-popup-close-button:focus,.leaflet-container a.leaflet-popup-close-button:hover{color:#585858}.leaflet-popup-scrolled{overflow:auto}.leaflet-oldie .leaflet-popup-content-wrapper{-ms-zoom:1}.leaflet-oldie .leaflet-popup-tip{width:24px;margin:0 auto}.leaflet-oldie .leaflet-control-layers,.leaflet-oldie .leaflet-control-zoom,.leaflet-oldie .leaflet-popup-content-wrapper,.leaflet-oldie .leaflet-popup-tip{border:1px solid #999}.leaflet-div-icon{background:#fff;border:1px solid #666}.leaflet-tooltip{position:absolute;padding:6px;background-color:#fff;border:1px solid #fff;border-radius:3px;color:#222;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;pointer-events:none;box-shadow:0 1px 3px rgba(0,0,0,.4)}.leaflet-tooltip.leaflet-interactive{cursor:pointer;pointer-events:auto}.leaflet-tooltip-bottom:before,.leaflet-tooltip-left:before,.leaflet-tooltip-right:before,.leaflet-tooltip-top:before{position:absolute;pointer-events:none;border:6px solid transparent;background:0 0;content:""}.leaflet-tooltip-bottom{margin-top:6px}.leaflet-tooltip-top{margin-top:-6px}.leaflet-tooltip-bottom:before,.leaflet-tooltip-top:before{left:50%;margin-left:-6px}.leaflet-tooltip-top:before{bottom:0;margin-bottom:-12px;border-top-color:#fff}.leaflet-tooltip-bottom:before{top:0;margin-top:-12px;margin-left:-6px;border-bottom-color:#fff}.leaflet-tooltip-left{margin-left:-6px}.leaflet-tooltip-right{margin-left:6px}.leaflet-tooltip-left:before,.leaflet-tooltip-right:before{top:50%;margin-top:-6px}.leaflet-tooltip-left:before{right:0;margin-right:-12px;border-left-color:#fff}.leaflet-tooltip-right:before{left:0;margin-left:-12px;border-right-color:#fff}@media print{.leaflet-control{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+:root {
+  --ground: #eef1ee; --paper: #f8faf8; --ink: #16252b; --ink-2: #46575d; --ink-3: #6f7f84;
+  --rule: #cbd4d2; --water: #c9d6d6; --accent: #1f5c8c;
+  --sat: #2a78d6; --survey: #c8541f; --erode: #eb6834; --accrete: #2a78d6; --mid: #b3b9b7;
+  --ghost: #c4402b; --marsh: #96b046; --forest: #226034; --sand: #d9c28a; --other: #a0988c;
+  --serif: "Spectral", Georgia, "Times New Roman", serif;
+  --sans: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground: #0e171a; --paper: #152125; --ink: #e6ecea; --ink-2: #a9b6b6; --ink-3: #7f8e8f;
+    --rule: #2a3a3f; --water: #1b2a2e; --accent: #7fb0d8;
+    --sat: #3987e5; --survey: #e0763f; --erode: #d95926; --accrete: #3987e5; --mid: #56605f;
+    --ghost: #e0664f; --marsh: #a6c054; --forest: #4f9a63; --sand: #d9c28a; --other: #8f877b;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground: #0e171a; --paper: #152125; --ink: #e6ecea; --ink-2: #a9b6b6; --ink-3: #7f8e8f;
+  --rule: #2a3a3f; --water: #1b2a2e; --accent: #7fb0d8;
+  --sat: #3987e5; --survey: #e0763f; --erode: #d95926; --accrete: #3987e5; --mid: #56605f;
+  --ghost: #e0664f; --marsh: #a6c054; --forest: #4f9a63; --sand: #d9c28a; --other: #8f877b;
+}
+* { box-sizing: border-box; }
+body { background: var(--ground); color: var(--ink); font: 16px/1.55 var(--sans); padding-inline: 16px; padding-block: 0 48px; }
+.wrap { max-width: 1180px; margin: 0 auto; }
+a { color: var(--accent); }
+.mast { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; align-items: baseline;
+  padding-block: 14px 10px; border-bottom: 1px solid var(--rule); font: 500 12px/1.4 var(--mono);
+  letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.mast b { color: var(--ink); font-weight: 500; }
+.draft { color: var(--survey); }
+.hero { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 16px 48px; padding-block: 32px 28px; align-items: end; }
+.hero h1 { font: 600 clamp(28px, 4.2vw, 46px)/1.12 var(--serif); margin: 0; text-wrap: balance; letter-spacing: -.01em; }
+.hero h1 em { font-style: normal; color: var(--survey); white-space: nowrap; }
+.hero p { margin: 14px 0 0; color: var(--ink-2); max-width: 60ch; }
+.facts { display: grid; gap: 14px; margin: 0; }
+.facts div { display: grid; grid-template-columns: 7.5em 1fr; gap: 12px; align-items: baseline; border-top: 1px solid var(--rule); padding-top: 10px; }
+.facts dt { font: 500 22px/1 var(--mono); font-variant-numeric: tabular-nums; color: var(--ink); }
+.facts dd { margin: 0; color: var(--ink-2); font-size: 14px; line-height: 1.4; }
+
+.mapbox { position: relative; border: 1px solid var(--rule); background: var(--water); }
+#map { height: clamp(420px, 64vh, 720px); background: var(--water); }
+.leaflet-container { font: 13px/1.4 var(--sans); }
+.leaflet-popup-content-wrapper, .leaflet-popup-tip { background: var(--paper); color: var(--ink); }
+.leaflet-popup-content { margin: 12px 14px; }
+.pop h4 { margin: 0 0 6px; font: 600 14px var(--sans); }
+.pop table { border-collapse: collapse; font: 12px var(--mono); }
+.pop td { padding: 1px 10px 1px 0; } .pop td:last-child { text-align: right; }
+.swipe { position: absolute; top: 0; bottom: 0; width: 0; z-index: 650; pointer-events: none; }
+.swipe::before { content: ""; position: absolute; top: 0; bottom: 0; left: -1px; width: 2px; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.35); }
+.swipe button { pointer-events: auto; position: absolute; top: 50%; left: 0; transform: translate(-50%, -50%);
+  width: 34px; height: 34px; border-radius: 50%; border: 2px solid #fff; background: #16252b; color: #fff; cursor: ew-resize;
+  font: 600 14px var(--mono); touch-action: none; }
+.swipe button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.tag { position: absolute; top: 10px; z-index: 640; background: rgba(22,37,43,.82); color: #fff; font: 500 11px/1 var(--mono);
+  letter-spacing: .06em; text-transform: uppercase; padding: 6px 8px; pointer-events: none; }
+.tag { max-width: calc(50% - 56px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tag.l { left: 52px; } .tag.r { right: 10px; }
+.readout { position: absolute; left: 10px; bottom: 10px; z-index: 640; background: var(--paper); color: var(--ink);
+  border: 1px solid var(--rule); padding: 8px 10px; max-width: min(360px, 70%); font-size: 13px; line-height: 1.35; }
+.readout b { font: 600 20px/1 var(--mono); display: block; margin-bottom: 3px; }
+
+.controls { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 16px 32px; padding: 16px 0 8px; }
+.ctl-label { font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; display: block; }
+.yearrow { display: flex; gap: 10px; align-items: center; }
+.yearrow input { flex: 1; accent-color: var(--accent); }
+.btn { font: 600 13px var(--sans); border: 1px solid var(--rule); background: var(--paper); color: var(--ink); padding: 6px 12px; cursor: pointer; }
+.btn:hover { border-color: var(--ink-3); }
+.btn:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.ticks { position: relative; height: 18px; margin: 2px 0 0 0; font: 10px var(--mono); color: var(--ink-3); }
+.ticks span { position: absolute; transform: translateX(-50%); }
+.ticks span::before { content: ""; display: block; width: 1px; height: 5px; background: var(--survey); margin: 0 auto 1px; }
+.toggles { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.toggles label { display: inline-flex; gap: 6px; align-items: center; font-size: 14px; cursor: pointer; }
+.sw { display: inline-block; width: 18px; height: 3px; }
+.imgsel { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; font-size: 14px; }
+select { font: 14px var(--sans); background: var(--paper); color: var(--ink); border: 1px solid var(--rule); padding: 4px 6px; max-width: 100%; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--ink-2); margin-top: 10px; }
+.legend i { display: inline-block; width: 11px; height: 11px; margin-right: 5px; vertical-align: -1px; }
+.ramp { display: inline-flex; align-items: center; gap: 6px; }
+.ramp i { width: 90px; height: 8px; margin: 0; background: linear-gradient(90deg, var(--erode), var(--mid), var(--accrete)); }
+
+h2 { font: 600 26px/1.2 var(--serif); margin: 48px 0 12px; text-wrap: balance; }
+h3 { font: 600 17px/1.3 var(--sans); margin: 0 0 4px; }
+.prose { max-width: 68ch; }
+.prose p { margin: 0 0 14px; }
+.cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 40px; }
+.tablewrap { overflow-x: auto; border-top: 2px solid var(--ink); margin-top: 8px; }
+table.seg { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 720px; }
+table.seg th { font: 500 11px/1.3 var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3); text-align: right; padding: 10px 8px; vertical-align: bottom; border-bottom: 1px solid var(--rule); }
+table.seg th:first-child, table.seg td:first-child { text-align: left; }
+table.seg td { padding: 9px 8px; border-bottom: 1px solid var(--rule); text-align: right; font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: 13px; }
+table.seg td:first-child { font-family: var(--sans); font-size: 14px; }
+table.seg tr.focus td { background: color-mix(in srgb, var(--survey) 9%, transparent); }
+.note { font-size: 13px; color: var(--ink-3); margin-top: 8px; }
+
+.chart { background: var(--paper); border: 1px solid var(--rule); padding: 16px 16px 10px; position: relative; }
+.chart.wide { grid-column: 1 / -1; }
+.chart p.sub { margin: 0 0 10px; font-size: 13px; color: var(--ink-2); }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart svg text { fill: var(--ink-3); font: 11px var(--mono); }
+.chart svg .grid { stroke: var(--rule); stroke-width: 1; }
+.chart svg .zero { stroke: var(--ink-3); stroke-width: 1; stroke-dasharray: 3 3; }
+.chart .keys { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 12px; color: var(--ink-2); margin-top: 6px; }
+.chart .keys i { display: inline-block; width: 14px; height: 3px; margin-right: 6px; vertical-align: 3px; }
+.seg-tabs { display: inline-flex; gap: 0; margin-bottom: 8px; }
+.seg-tabs button { font: 600 12px var(--sans); border: 1px solid var(--rule); background: transparent; color: var(--ink-2); padding: 4px 10px; cursor: pointer; }
+.seg-tabs button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.multi { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.multi h4 { margin: 0; font: 600 13px var(--sans); }
+.multi .v { font: 500 12px var(--mono); color: var(--ink-2); }
+.tip { position: fixed; z-index: 2000; pointer-events: none; background: var(--ink); color: var(--paper); font: 12px/1.35 var(--mono);
+  padding: 6px 8px; white-space: nowrap; transform: translate(-50%, calc(-100% - 12px)); }
+.method { font-size: 14px; color: var(--ink-2); }
+.method h3 { color: var(--ink); margin-top: 18px; }
+.method ul { padding-left: 18px; margin: 6px 0; }
+.foot { margin-top: 48px; border-top: 1px solid var(--rule); padding-top: 14px; font: 12px/1.5 var(--mono); color: var(--ink-3); display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+@media (max-width: 820px) {
+  .hero, .controls, .cols { grid-template-columns: minmax(0, 1fr); }
+  .multi { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <div class="mast">
+    <span><a href="/research/field-notes/" style="color:inherit;text-decoration:none"><b>Palmetto Field Notes</b></a></span>
+    <span>Atlases, No. 1 · Coastal Time Machine</span>
+    <span>Carolina Redesign Research</span>
+  </div>
+
+  <section class="hero">
+    <div>
+      <h1 id="headline">Loading the shoreline record…</h1>
+      <p id="dek"></p>
+    </div>
+    <dl class="facts" id="facts"></dl>
+  </section>
+
+  <div class="mapbox">
+    <div id="map" role="region" aria-label="Map of Botany Bay and Edisto Beach shorelines"></div>
+    <div class="tag l" id="tagL"></div><div class="tag r" id="tagR"></div>
+    <div class="swipe" id="swipe"><button id="swipeBtn" aria-label="Drag to compare before and after imagery">⇆</button></div>
+    <div class="readout" id="readout" aria-live="polite"></div>
+  </div>
+
+  <div class="controls">
+    <div>
+      <label class="ctl-label" for="year">Year · orange ticks mark hand-surveyed shorelines</label>
+      <div class="yearrow">
+        <button class="btn" id="play" type="button" aria-label="Play through the years">Play</button>
+        <input type="range" id="year" min="0" max="1" value="0" step="1">
+      </div>
+      <div class="ticks" id="ticks"></div>
+      <div class="imgsel">
+        <label for="before">Before</label><select id="before"></select>
+        <label for="after">After</label><select id="after"></select>
+      </div>
+    </div>
+    <div>
+      <span class="ctl-label">Layers</span>
+      <div class="toggles">
+        <label><input type="checkbox" id="lyrShore" checked> <span class="sw" style="background:var(--survey)"></span>Shorelines</label>
+        <label><input type="checkbox" id="lyrTr"> <span class="sw" style="background:linear-gradient(90deg,var(--erode),var(--accrete))"></span>Change rate</label>
+        <label><input type="checkbox" id="lyrLc"> <span class="sw" style="background:var(--marsh)"></span>Land cover</label>
+        <label><input type="checkbox" id="lyrGhost" checked> <span class="sw" style="background:var(--ghost)"></span>Ghost-forest candidates</label>
+      </div>
+      <div class="legend" id="legend"></div>
+    </div>
+  </div>
+
+  <h2>What the record shows</h2>
+  <div class="cols">
+    <div class="prose" id="brief"></div>
+    <div class="prose" id="brief2"></div>
+  </div>
+
+  <h3 style="margin-top:28px">Change by stretch of beach</h3>
+  <div class="tablewrap"><table class="seg" id="segtable"></table></div>
+  <p class="note" id="segnote"></p>
+  <p class="note">Feet; negative = landward (erosion), positive = seaward. Medians across USGS transects spaced about 50 m apart. "Since the 1850s" uses only transects that cross an 1850s survey; it adds the 1850s → 2018 lidar change to the satellite-measured change since 2018.</p>
+
+  <h2>Charts</h2>
+  <div class="cols">
+    <div class="chart wide" id="chPos">
+      <h3>Botany Bay shoreline position, 1850s to today</h3>
+      <p class="sub">Median position across <span id="posN"></span> preserve transects, feet relative to the 2018 lidar shoreline (0). Positions after 2018 continue below zero, which is why the headline figure is larger than the 1850s point. Hover for values.</p>
+      <svg id="svgPos" viewBox="0 0 1100 360" role="img" aria-label="Shoreline position through time"></svg>
+      <div class="keys"><span><i style="background:var(--survey);height:9px;width:9px;border-radius:50%"></i>Hand and lidar surveys (bar = stated uncertainty)</span><span><i style="background:var(--sat)"></i>Satellite, annual median (band = middle half of transects)</span></div>
+    </div>
+    <div class="chart wide" id="chAlong">
+      <h3>Rate of change along the coast</h3>
+      <div class="seg-tabs" role="group" aria-label="Rate period">
+        <button type="button" data-k="lrr_hist" aria-pressed="true">1850s–2018 surveys</button>
+        <button type="button" data-k="lrr_sat" aria-pressed="false">1984–2026 satellite</button>
+      </div>
+      <p class="sub">Linear-regression rate at each transect, feet per year, southwest (Edisto Beach) to northeast (Botany Bay Island).</p>
+      <svg id="svgAlong" viewBox="0 0 1100 300" role="img" aria-label="Shoreline change rate by position along the coast"></svg>
+    </div>
+    <div class="chart">
+      <h3>Inside the preserve boundary</h3>
+      <p class="sub">Acres by summer composite epoch, Landsat 30 m.</p>
+      <div class="multi" id="multi"></div>
+    </div>
+    <div class="chart">
+      <h3>Sea level at Charleston</h3>
+      <p class="sub" id="slSub"></p>
+      <svg id="svgSl" viewBox="0 0 520 250" role="img" aria-label="Annual mean sea level at Charleston"></svg>
+    </div>
+  </div>
+
+  <h2>How this was measured</h2>
+  <div class="cols method" id="method"></div>
+
+  <div class="foot">
+    <span>Coastal Time Machine is No. 1 in Atlases, part of Palmetto Field Notes from Carolina Redesign Research. By Jimmy Ardis. Published October 2026.</span>
+    <span id="gen"></span>
+  </div>
+</div>
+<div class="tip" id="tip" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script>
+/* Shared helpers for Coastal Time Machine pages (inlined at build time). */
+const $ = (id) => document.getElementById(id);
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const fmt = (v, d = 0) => v == null || Number.isNaN(v) ? "–" : Number(v).toLocaleString("en-US", { maximumFractionDigits: d, minimumFractionDigits: d });
+const sgn = (v, d = 1) => v == null ? "–" : (v > 0 ? "+" : "") + fmt(v, d);
+const round10 = (v) => Math.round(v / 10) * 10;
+const tip = $("tip");
+function showTip(e, html) { tip.innerHTML = html; tip.hidden = false; tip.style.left = e.clientX + "px"; tip.style.top = e.clientY + "px"; }
+function hideTip() { tip.hidden = true; }
+
+function rateColor(v) {
+  if (v == null) return css("--mid");
+  const t = Math.max(-1, Math.min(1, v / 15));
+  const mix = (a, b, k) => `color-mix(in srgb, ${a} ${Math.round(k * 100)}%, ${b})`;
+  return t < 0 ? mix(css("--erode"), css("--mid"), -t) : mix(css("--accrete"), css("--mid"), t);
+}
+function scale(d0, d1, r0, r1) { const f = (v) => r0 + (v - d0) / (d1 - d0) * (r1 - r0); f.inv = (p) => d0 + (p - r0) / (r1 - r0) * (d1 - d0); return f; }
+function niceTicks(lo, hi, n = 5) { const step0 = (hi - lo) / n, mag = 10 ** Math.floor(Math.log10(step0)), step = [1, 2, 2.5, 5, 10].map(s => s * mag).find(s => s >= step0); const out = []; const end = Math.ceil(hi / step - 1e-9) * step; for (let v = Math.floor(lo / step + 1e-9) * step; v <= end + 1e-9; v += step) out.push(+v.toFixed(6)); return out; }
+const NS = "http://www.w3.org/2000/svg";
+function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+
+
+Promise.all(["meta", "shorelines_historic", "shorelines_annual", "transects", "ghost_forest", "boundaries"]
+  .map(n => fetch(`data/${n}.${n === "meta" ? "json" : "geojson"}`).then(r => r.ok ? r.json() : null)))
+  .then(([meta, hist, annual, transects, ghost, bounds]) => {
+    renderText(meta);
+    renderMap(meta, hist, annual, transects, ghost, bounds);
+    renderCharts(meta);
+  });
+
+/* ------------------------------------------------------------------ text */
+function renderText(m) {
+  const S = m.summary, seg = S.segments, F = seg[m.focus];
+  const net = F.net_since_1850s_ft, mi = Math.abs(net.median) / 5280;
+  $("headline").innerHTML = `Since the 1850s surveys, the beach at ${m.focus.replace(" Heritage Preserve", "")} has moved about <em>${fmt(Math.abs(round10(net.median)))} feet</em> inland.`;
+  $("dek").textContent = `That is roughly ${mi.toFixed(2).replace(/0$/, "")} of a mile, measured at ${net.n} survey transects along the preserve's beach (middle half of transects: ${fmt(Math.abs(net.p75))}–${fmt(Math.abs(net.p25))} ft). The record joins hand-drawn NOAA survey sheets from 1852–54 with lidar and ${fmt(S.satellite_scenes_used)} Landsat and Sentinel-2 scenes.`;
+  const ft = (x) => x ? x.median : null;
+  $("facts").innerHTML = [
+    [`${sgn(ft(F.lrr_hist_ft_yr))}`, `ft/yr, long-term average at Botany Bay, 1850s–2018 surveys`],
+    [`${sgn(ft(F.lrr_sat_ft_yr))}`, `ft/yr, satellite record 1984–${m.satellite_years.at(-1)}`],
+    [`${sgn(ft(seg["Town of Edisto Beach"]?.lrr_hist_ft_yr))}`, `ft/yr at the Town of Edisto Beach, an engineered beach, over the same surveys`],
+  ].map(([a, b]) => `<div><dt>${a}</dt><dd>${b}</dd></div>`).join("");
+
+  const LC = m.landcover, ep = LC ? LC.epochs : [];
+  const marsh = ep.map(e => LC.areas_acres[e].focus.marsh);
+  const ghostLast = LC ? LC.ghost_forest_acres[ep.at(-1)].focus : 0;
+  const ghostAoi = LC ? LC.ghost_forest_acres[ep.at(-1)].aoi : 0;
+  const park = seg["Edisto Beach State Park"], ed = seg["Edingsville Beach"], town = seg["Town of Edisto Beach"];
+  $("brief").innerHTML = `
+    <p>The oldest shoreline in this record was drawn by U.S. Coast Survey crews in 1852 and 1854. Measured against it, the ocean edge of Botany Bay Heritage Preserve now sits a median <strong>${fmt(Math.abs(round10(net.median)))} feet</strong> farther inland, and as much as ${fmt(Math.abs(net.most_loss))} feet at the transect with the most change.</p>
+    <p>The change has not been uniform in time. Across the surveys from the 1850s to 2018, Botany Bay's beach moved landward at a median ${fmt(Math.abs(ft(F.lrr_hist_ft_yr)), 1)} ft per year. The satellite record since 1984 puts the recent median at ${fmt(Math.abs(ft(F.lrr_sat_ft_yr)), 1)} ft per year${F.lrr_since_2016_ft_yr ? `, and ${fmt(Math.abs(ft(F.lrr_since_2016_ft_yr)), 1)} ft per year since 2016` : ""}.</p>
+    <p>Neighboring stretches differ. Edingsville Beach, just southwest, moved a median ${fmt(Math.abs(round10(ed.net_since_1850s_ft.median)))} ft landward since the 1850s. Edisto Beach State Park moved ${fmt(Math.abs(round10(park.net_since_1850s_ft.median)))} ft. The Town of Edisto Beach, where the beach is held in place by groins and periodic renourishment, sits ${fmt(Math.abs(round10(town.net_since_1850s_ft.median)))} ft ${town.net_since_1850s_ft.median >= 0 ? "seaward of" : "landward of"} its 1852 line and has changed little since 1984 (${sgn(ft(town.lrr_sat_ft_yr))} ft/yr).</p>`;
+  $("brief2").innerHTML = `
+    <p><strong>Behind the beach.</strong> Inside the preserve boundary, 30 m Landsat maps show marsh between ${fmt(Math.min(...marsh))} and ${fmt(Math.max(...marsh))} acres across ${ep.length} summer epochs (${ep[0]}–${ep.at(-1)}). That spread is about the size of the epoch-to-epoch noise from tides and image timing, so this record does not show a clear marsh trend at this resolution.</p>
+    <p><strong>Ghost-forest candidates.</strong> ${fmt(ghostLast)} acres inside the preserve (${fmt(ghostAoi)} across the map area) were forest in one epoch and stayed non-forest for at least the next two, next to marsh or water. These are candidates for aerial or field confirmation, not confirmed die-off. The dead trees on the preserve's beach, the "boneyard," are the most visible example of the same process.</p>
+    <p><strong>Sea level.</strong> At the Charleston tide gauge, 45 km up the coast, relative sea level has risen ${m.sea_level.rate_mm_yr} mm per year on average since 1901, about ${fmt(m.sea_level.rate_mm_yr * 100 / 304.8, 1)} ft per century.</p>`;
+
+  const order = [m.focus, "Botany Bay Island, NE end", "Edingsville Beach", "Edisto Beach State Park", "Town of Edisto Beach"].filter(k => seg[k]);
+  const q = (x, d = 1) => x ? sgn(x.median, d) : "–";
+  $("segtable").innerHTML = `<thead><tr><th>Stretch</th><th>Transects</th><th>Since 1850s<br>(median ft)</th><th>Middle half<br>(ft)</th><th>Rate 1850s–2018<br>(ft/yr)</th><th>USGS published<br>(ft/yr)</th><th>Rate 1984–now<br>(ft/yr)</th><th>Rate 2016–now<br>(ft/yr)</th></tr></thead><tbody>` +
+    order.map(k => { const s = seg[k], n = s.net_since_1850s_ft;
+      return `<tr class="${k === m.focus ? "focus" : ""}"><td>${k}</td><td>${s.transects}</td><td>${n ? sgn(round10(n.median), 0) : "–"}${n && n.n < 10 ? "*" : ""}</td><td>${n ? `${fmt(n.p25)} to ${fmt(n.p75)}` : "–"}</td><td>${q(s.lrr_hist_ft_yr)}</td><td>${q(s.usgs_lrr_ft_yr)}</td><td>${q(s.lrr_sat_ft_yr)}</td><td>${q(s.lrr_since_2016_ft_yr)}</td></tr>`; }).join("") +
+    `</tbody>`;
+  if (order.some(k => seg[k].net_since_1850s_ft && seg[k].net_since_1850s_ft.n < 10)) $("segnote").textContent = "* Fewer than 10 transects reach an 1850s survey on this stretch; treat as indicative.";
+
+  const V = S.validation, T = S.tide_correction, LV = m.landcover_validation;
+  $("method").innerHTML = `
+    <div>
+      <h3>Shorelines</h3>
+      <ul>
+        <li><strong>1852–2000:</strong> USGS National Assessment of Shoreline Change compilation of NOAA T-sheets, CERC maps and lidar (high-water line / MHW). Stated positional uncertainty is largest for the oldest sheets (${Object.entries(S.historic_uncertainty_m_by_year).slice(0, 2).map(([y, u]) => `${y}: ±${u} m`).join(", ")}), which were drawn on old datums and reprojected by USGS.</li>
+        <li><strong>2010, 2018:</strong> USGS lidar-derived mean high water shorelines.</li>
+        <li><strong>1984–${m.satellite_years.at(-1)}:</strong> water lines traced in ${fmt(S.satellite_scenes_used)} clear Landsat 5/7/8/9 and Sentinel-2 scenes (MNDWI threshold, sub-pixel contour), each tagged with its predicted tide at NOAA station ${S.tide_station}, then moved to MHW (${S.mhw_m_above_mllw} m above MLLW) with a beach slope of ${T.applied_slope}.</li>
+        <li><strong>Rates:</strong> ${summaryTransects(S)} USGS DSAS transects, lengthened 800 m so the 1850s lines are reachable. Linear-regression rates; outliers beyond 3 MAD dropped.</li>
+      </ul>
+      <h3>Checks</h3>
+      <ul>
+        <li>Our survey-based rates vs USGS published rates: r = ${V.historic_lrr_vs_usgs.r}, RMSE ${V.historic_lrr_vs_usgs.rmse_m_per_yr} m/yr across ${V.historic_lrr_vs_usgs.n_transects} transects.</li>
+        <li>Tide-corrected satellite shorelines vs lidar MHW: 2010 bias ${sgn(V.lidar_2010.bias_m)} m (RMSE ${V.lidar_2010.rmse_m} m); 2018 bias ${sgn(V.lidar_2018.bias_m)} m (RMSE ${V.lidar_2018.rmse_m} m). Uncorrected water lines sat ${V.lidar_2010.uncorrected_bias_m}–${V.lidar_2018.uncorrected_bias_m} m seaward.</li>
+        <li>A slope fitted to one lidar year alone misses the other by ${Math.abs(T.calibration.leave_one_out.fit_2018_test_2010.test_bias_m)}–${Math.abs(T.calibration.leave_one_out.fit_2010_test_2018.test_bias_m)} m, so single satellite positions carry roughly ±15 m uncertainty. Rates barely move: halving or doubling the slope changes Botany Bay's satellite rate by ${fmt(Math.abs(S.satellite_rate_sensitivity_to_slope_ft_yr.half[m.focus] - S.satellite_rate_sensitivity_to_slope_ft_yr.double[m.focus]), 1)} ft/yr.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Land cover</h3>
+      <ul>
+        <li>Summer (May–Sep) median composites of Landsat surface reflectance for ${ep.length} epochs; random forest trained on NOAA C-CAP 2016 pixels that did not change class since 2010.</li>
+        <li>Accuracy: ${Math.round(LV.spatial_holdout_east_half.overall_accuracy * 100)}% on a held-out half of the map; ${Object.values(LV.temporal_transfer).map(t => Math.round(t.overall_accuracy * 100) + "%").join(", ")} against the C-CAP maps of ${Object.values(LV.temporal_transfer).map(t => t.ccap_year).join(", ")}, which the model never saw.</li>
+        <li>Ghost-forest candidates: forest → non-forest for two or more epochs in a row, within 60 m of marsh or water, patches of 0.75 acre or more. Fire, logging and storm damage can pass this test; these are leads, not findings.</li>
+      </ul>
+      <h3>Limits</h3>
+      <ul>
+        <li>Landsat pixels are 30 m; parcel-scale claims need NAIP or Sentinel-2. The 2012 satellite gap is real (no usable sensor).</li>
+        <li>Boundaries for the preserve and park come from OpenStreetMap, not SCDNR survey records.</li>
+        <li>This record describes what changed, where and how fast. It does not assess causes or recommend actions.</li>
+      </ul>
+      <h3>Sources</h3>
+      <ul>
+        <li>USGS NASC, doi:10.5066/F74X55X7 and 10.5066/P9LLAZYE · NOAA C-CAP · NOAA CO-OPS tides and sea-level trends · Landsat Collection 2, Sentinel-2 L2A and USDA NAIP via Microsoft Planetary Computer · OpenStreetMap contributors (ODbL).</li>
+      </ul>
+    </div>`;
+  $("gen").textContent = `Generated ${S.generated.replace("T", " ")}`;
+}
+function summaryTransects(S) { return Object.values(S.segments).reduce((a, s) => a + (s ? s.transects : 0), 0); }
+
+/* ------------------------------------------------------------------ map */
+function renderMap(m, hist, annual, transects, ghost, bounds) {
+  const map = L.map("map", { zoomSnap: 0.25, attributionControl: true, preferCanvas: false });
+  map.attributionControl.setPrefix("").addAttribution("USGS · NOAA · USDA NAIP · Landsat/Sentinel-2 via Planetary Computer · © OpenStreetMap");
+  ["before", "after", "lc"].forEach((p, i) => { map.createPane(p); map.getPane(p).style.zIndex = 250 + i * 10; });
+  const bb = m.bbox;
+  map.fitBounds([[bb[1], bb[0]], [bb[3], bb[2]]]);
+  map.setMaxBounds(L.latLngBounds([[bb[1] - .05, bb[0] - .08], [bb[3] + .05, bb[2] + .08]]));
+  map.setMinZoom(map.getZoom() - 1);
+  const focusB = bounds && bounds.features.find(f => f.properties.name === m.focus);
+  if (focusB) map.fitBounds(L.geoJSON(focusB).getBounds().pad(0.15));
+
+  // imagery
+  const ov = m.overlays, keys = Object.keys(ov).sort((a, b) => a.split("_")[1] - b.split("_")[1]);
+  const fill = (sel, def) => { sel.innerHTML = keys.map(k => `<option value="${k}">${ov[k].label}</option>`).join(""); sel.value = def; };
+  const firstNaip = keys.find(k => k.startsWith("naip")), lastNaip = [...keys].reverse().find(k => k.startsWith("naip"));
+  fill($("before"), keys.includes("landsat_1986") ? "landsat_1986" : firstNaip);
+  fill($("after"), lastNaip || keys.at(-1));
+  let layerB, layerA;
+  function setImages() {
+    if (layerB) map.removeLayer(layerB); if (layerA) map.removeLayer(layerA);
+    const b = ov[$("before").value], a = ov[$("after").value];
+    layerB = L.imageOverlay(b.file, b.bounds, { pane: "before" }).addTo(map);
+    layerA = L.imageOverlay(a.file, a.bounds, { pane: "after" }).addTo(map);
+    $("tagL").textContent = b.label; $("tagR").textContent = a.label;
+  }
+  $("before").onchange = $("after").onchange = setImages;
+  setImages();
+
+  // swipe
+  let frac = 0.5;
+  function clip() {
+    const size = map.getSize(), nw = map.containerPointToLayerPoint([0, 0]), se = map.containerPointToLayerPoint(size);
+    const x = nw.x + size.x * frac;
+    map.getPane("after").style.clip = `rect(${nw.y}px, ${se.x}px, ${se.y}px, ${x}px)`;
+    $("swipe").style.left = size.x * frac + "px";
+  }
+  map.on("move zoom resize", clip); clip();
+  const btn = $("swipeBtn");
+  btn.addEventListener("pointerdown", (e) => {
+    btn.setPointerCapture(e.pointerId); map.dragging.disable();
+    const move = (ev) => { const r = $("map").getBoundingClientRect(); frac = Math.min(.98, Math.max(.02, (ev.clientX - r.left) / r.width)); clip(); };
+    const up = () => { btn.removeEventListener("pointermove", move); btn.removeEventListener("pointerup", up); map.dragging.enable(); };
+    btn.addEventListener("pointermove", move); btn.addEventListener("pointerup", up);
+  });
+  btn.addEventListener("keydown", (e) => { if (e.key === "ArrowLeft" || e.key === "ArrowRight") { frac = Math.min(.98, Math.max(.02, frac + (e.key === "ArrowLeft" ? -.04 : .04))); clip(); e.preventDefault(); } });
+
+  // vectors
+  if (bounds) L.geoJSON(bounds, { style: { color: "#fff", weight: 1.2, dashArray: "4 4", fill: false, opacity: .8 }, interactive: false }).addTo(map);
+  const trLayer = L.geoJSON(transects, {
+    style: (f) => ({ color: rateColor(f.properties.lrr_hist_ft), weight: 2.5, opacity: .95 }),
+    onEachFeature: (f, l) => { const p = f.properties; l.bindPopup(`<div class="pop"><h4>${p.segment}</h4><table>
+      <tr><td>Since ${p.first_year || "first survey"}</td><td>${sgn(p.net_since_first_ft, 0)} ft</td></tr>
+      <tr><td>Rate, surveys</td><td>${sgn(p.lrr_hist_ft)} ft/yr</td></tr>
+      <tr><td>Rate, USGS</td><td>${sgn(p.usgs_lrr_ft)} ft/yr</td></tr>
+      <tr><td>Rate, satellite</td><td>${sgn(p.lrr_sat_ft)} ft/yr</td></tr>
+      <tr><td>Since 2018</td><td>${sgn(p.sat_change_since_2018_ft, 0)} ft</td></tr></table></div>`); }
+  });
+  const ghostLayer = ghost ? L.geoJSON(ghost, {
+    style: { color: css("--ghost"), weight: 1, fillColor: css("--ghost"), fillOpacity: .45 },
+    onEachFeature: (f, l) => l.bindPopup(`<div class="pop"><h4>Ghost-forest candidate</h4>Forest until the ${f.properties.first_epoch} epoch, not forest since.<br>${fmt(f.properties.acres, 1)} acres · needs confirmation</div>`)
+  }).addTo(map) : null;
+  const shoreGroup = L.layerGroup().addTo(map);
+  let lcLayer = null;
+
+  // time
+  const hy = m.historic_years, sy = m.satellite_years;
+  const years = [...new Set([...hy, ...sy])].sort((a, b) => a - b);
+  const yr = $("year"); yr.max = years.length - 1; yr.value = years.indexOf(hy[0]);
+  $("ticks").innerHTML = hy.filter((y, i) => i === 0 || y - hy[i - 1] > 3).map(y => `<span style="left:${(years.indexOf(y) / (years.length - 1)) * 100}%">${y}</span>`).join("");
+  const byYear = (fc) => { const o = {}; (fc?.features || []).forEach(f => (o[f.properties.year] ||= []).push(f)); return o; };
+  const H = byYear(hist), A = byYear(annual);
+  const latestSat = sy.at(-1);
+  const unc = m.summary.historic_uncertainty_m_by_year;
+
+  function draw() {
+    const Y = years[+yr.value];
+    shoreGroup.clearLayers();
+    if ($("lyrShore").checked) {
+      const done = hy.filter(y => y <= Y);
+      done.forEach((y) => {
+        const cur = y === done.at(-1);
+        L.geoJSON({ type: "FeatureCollection", features: H[y] }, { style: { color: css("--survey"), weight: cur ? 3 : 1.4, opacity: cur ? 1 : .55 },
+          onEachFeature: (f, l) => l.bindTooltip(`${y} · ${f.properties.source}`, { sticky: true }) }).addTo(shoreGroup);
+      });
+      if (A[Y]) L.geoJSON({ type: "FeatureCollection", features: A[Y] }, { style: { color: css("--sat"), weight: 3.2 } }).bindTooltip(`${Y} satellite MHW (annual median)`, { sticky: true }).addTo(shoreGroup);
+      if (A[latestSat] && Y !== latestSat) L.geoJSON({ type: "FeatureCollection", features: A[latestSat] }, { style: { color: "#fff", weight: 2, dashArray: "6 5", opacity: .9 } }).bindTooltip(`${latestSat} shoreline`, { sticky: true }).addTo(shoreGroup);
+    }
+    if (lcLayer) { map.removeLayer(lcLayer); lcLayer = null; }
+    if ($("lyrLc").checked) {
+      const eps = Object.keys(m.landcover_overlays).map(Number).sort((a, b) => a - b);
+      const e = [...eps].reverse().find(v => v <= Y) ?? eps[0];
+      const o = m.landcover_overlays[e];
+      lcLayer = L.imageOverlay(o.file, o.bounds, { pane: "lc", opacity: .8 }).addTo(map);
+    }
+    const isSurvey = hy.includes(Y);
+    const src = isSurvey && H[Y] ? H[Y][0].properties.source : null;
+    $("readout").innerHTML = `<b>${Y}</b>${isSurvey ? `Survey shoreline: ${src}${unc[Y] != null ? ` (±${unc[Y]} m)` : ""}` : ""}${A[Y] ? `${isSurvey ? "<br>" : ""}Satellite shoreline at MHW, annual median` : ""}${!isSurvey && !A[Y] ? "No shoreline this year" : ""}${$("lyrLc").checked && Y >= 1984 ? "<br>Land cover: nearest earlier epoch" : ""}`;
+  }
+  yr.oninput = draw;
+  $("lyrShore").onchange = draw; $("lyrLc").onchange = () => { draw(); legend(); };
+  $("lyrTr").onchange = (e) => { e.target.checked ? trLayer.addTo(map) : map.removeLayer(trLayer); legend(); };
+  $("lyrGhost").onchange = (e) => { if (ghostLayer) e.target.checked ? ghostLayer.addTo(map) : map.removeLayer(ghostLayer); };
+  let timer = null;
+  $("play").onclick = () => {
+    if (timer) { clearInterval(timer); timer = null; $("play").textContent = "Play"; return; }
+    if (+yr.value >= +yr.max) yr.value = 0;
+    $("play").textContent = "Pause";
+    timer = setInterval(() => { if (+yr.value >= +yr.max) { clearInterval(timer); timer = null; $("play").textContent = "Play"; return; } yr.value = +yr.value + 1; draw(); }, 450);
+  };
+  function legend() {
+    const parts = [`<span><i style="background:var(--survey);height:3px"></i>Survey shoreline</span>`, `<span><i style="background:var(--sat);height:3px"></i>Satellite shoreline</span>`, `<span><i style="background:#fff;border:1px dashed var(--ink-3);height:3px"></i>${latestSat} line</span>`];
+    if ($("lyrTr").checked) parts.push(`<span class="ramp">erosion <i></i> accretion (±15 ft/yr)</span>`);
+    if ($("lyrLc").checked) parts.push(...[["--marsh", "marsh"], ["--forest", "forest"], ["--sand", "sand/bare"], ["--other", "other"], ["--ghost", "dead forest (candidate)"]].map(([c, n]) => `<span><i style="background:var(${c})"></i>${n}</span>`));
+    $("legend").innerHTML = parts.join("");
+  }
+  legend(); draw();
+}
+
+/* ------------------------------------------------------------------ charts */
+
+function renderCharts(m) {
+  chartPosition(m); chartAlong(m, "lrr_hist"); chartMulti(m); chartSea(m);
+  document.querySelectorAll(".seg-tabs button").forEach(b => b.onclick = () => {
+    document.querySelectorAll(".seg-tabs button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    chartAlong(m, b.dataset.k);
+  });
+}
+
+function chartPosition(m) {
+  const P = m.position_series, svg = $("svgPos"); svg.innerHTML = ""; $("posN").textContent = P.transects;
+  const W = 1100, Hh = 360, ml = 62, mr = 16, mt = 14, mb = 30;
+  const all = [...P.historic.map(d => d.median + (d.unc_ft || 0)), ...P.satellite.map(d => d.p75), ...P.satellite.map(d => d.p25), 0];
+  const yTicks = niceTicks(Math.min(...all), Math.max(...all), 6);
+  const x = scale(1850, 2027, ml, W - mr), y = scale(yTicks[0], yTicks.at(-1), Hh - mb, mt);
+  yTicks.forEach(v => { el("line", { x1: ml, x2: W - mr, y1: y(v), y2: y(v), class: v === 0 ? "zero" : "grid" }, svg); el("text", { x: ml - 8, y: y(v) + 4, "text-anchor": "end" }, svg).textContent = fmt(v); });
+  [1850, 1875, 1900, 1925, 1950, 1975, 2000, 2025].forEach(v => el("text", { x: x(v), y: Hh - 8, "text-anchor": "middle" }, svg).textContent = v);
+  el("text", { x: x(2027) - 2, y: y(0) - 6, "text-anchor": "end" }, svg).textContent = "2018 lidar shoreline";
+  const S = P.satellite;
+  const band = S.map((d, i) => `${i ? "L" : "M"}${x(d.year + .5)},${y(d.p75)}`).join("") + [...S].reverse().map(d => `L${x(d.year + .5)},${y(d.p25)}`).join("") + "Z";
+  el("path", { d: band, fill: css("--sat"), "fill-opacity": .18, stroke: "none" }, svg);
+  el("path", { d: S.map((d, i) => `${i ? "L" : "M"}${x(d.year + .5)},${y(d.median)}`).join(""), fill: "none", stroke: css("--sat"), "stroke-width": 2 }, svg);
+  P.historic.forEach(d => {
+    if (d.unc_ft) el("line", { x1: x(d.year + .5), x2: x(d.year + .5), y1: y(d.median - d.unc_ft), y2: y(d.median + d.unc_ft), stroke: css("--survey"), "stroke-width": 2 }, svg);
+    el("circle", { cx: x(d.year + .5), cy: y(d.median), r: 5, fill: css("--survey"), stroke: css("--paper"), "stroke-width": 2 }, svg);
+  });
+  const first = P.historic[0];
+  el("text", { x: x(first.year + .5) + 10, y: y(first.median) + 4, fill: css("--ink-2") }, svg).textContent = `${first.year}: ${sgn(round10(first.median), 0)} ft`;
+  const hit = el("rect", { x: ml, y: mt, width: W - ml - mr, height: Hh - mt - mb, fill: "transparent" }, svg);
+  const guide = el("line", { y1: mt, y2: Hh - mb, stroke: css("--ink-3"), "stroke-width": 1, visibility: "hidden" }, svg);
+  const pts = [...P.historic.map(d => ({ ...d, kind: "Survey" })), ...S.map(d => ({ ...d, kind: "Satellite" }))];
+  hit.addEventListener("pointermove", (e) => {
+    const r = svg.getBoundingClientRect(), px = (e.clientX - r.left) / r.width * W, yrv = x.inv(px);
+    const d = pts.reduce((a, b) => Math.abs(b.year + .5 - yrv) < Math.abs(a.year + .5 - yrv) ? b : a);
+    guide.setAttribute("x1", x(d.year + .5)); guide.setAttribute("x2", x(d.year + .5)); guide.setAttribute("visibility", "visible");
+    showTip(e, `${d.year} · ${d.kind}<br>${sgn(d.median, 0)} ft vs 2018${d.unc_ft ? ` (±${fmt(d.unc_ft)} ft)` : ""}${d.p25 != null ? `<br>middle half ${fmt(d.p25)} to ${fmt(d.p75)} ft` : ""}`);
+  });
+  hit.addEventListener("pointerleave", () => { guide.setAttribute("visibility", "hidden"); hideTip(); });
+}
+
+function chartAlong(m, key) {
+  let D = m.alongshore; const svg = $("svgAlong"); svg.innerHTML = "";
+  if (D[0].segment !== "Town of Edisto Beach" && D.at(-1).segment === "Town of Edisto Beach") {
+    const L = D.at(-1).km; D = [...D].reverse().map(d => ({ ...d, km: +(L - d.km).toFixed(3) }));
+  }
+  const W = 1100, Hh = 300, ml = 48, mr = 12, mt = 34, mb = 30;
+  const vals = D.map(d => d[key]).filter(v => v != null);
+  const yT = niceTicks(Math.min(0, ...vals), Math.max(0, ...vals), 5);
+  const kmMax = D.at(-1).km, x = scale(0, kmMax, ml, W - mr), y = scale(yT[0], yT.at(-1), Hh - mb, mt);
+  yT.forEach(v => { el("line", { x1: ml, x2: W - mr, y1: y(v), y2: y(v), class: v === 0 ? "zero" : "grid" }, svg); el("text", { x: ml - 8, y: y(v) + 4, "text-anchor": "end" }, svg).textContent = fmt(v); });
+  niceTicks(0, kmMax, 8).forEach(v => el("text", { x: x(v), y: Hh - 8, "text-anchor": "middle" }, svg).textContent = v + " km");
+  // segment spans
+  let start = 0;
+  D.forEach((d, i) => { const next = D[i + 1]; if (!next || next.segment !== d.segment) {
+    const a = x(D[start].km), b = x(d.km);
+    el("line", { x1: a + 2, x2: b - 2, y1: 20, y2: 20, stroke: css("--ink-3"), "stroke-width": 1 }, svg);
+    const short = { "Town of Edisto Beach": "Edisto Beach (town)", "Edisto Beach State Park": "State Park", "Edingsville Beach": "Edingsville", "Botany Bay Heritage Preserve": "Botany Bay Heritage Preserve", "Botany Bay Island, NE end": "BB Island NE" }[d.segment] || d.segment;
+    if (b - a > short.length * 6.6) { const t = el("text", { x: (a + b) / 2, y: 13, "text-anchor": "middle", fill: css("--ink-2") }, svg); t.textContent = short; }
+    start = i + 1; } });
+  const bw = Math.max(1, (W - ml - mr) / D.length - 0.6);
+  D.forEach(d => { const v = d[key]; if (v == null) return;
+    const r = el("rect", { x: x(d.km) - bw / 2, width: bw, y: Math.min(y(v), y(0)), height: Math.abs(y(v) - y(0)) || 1, fill: rateColor(v) }, svg);
+    r.addEventListener("pointermove", (e) => showTip(e, `${d.segment}<br>${fmt(d.km, 2)} km · ${sgn(v)} ft/yr`)); r.addEventListener("pointerleave", hideTip); });
+}
+
+function chartMulti(m) {
+  const LC = m.landcover; if (!LC) return;
+  const ep = LC.epochs, box = $("multi");
+  const series = [["Marsh", "--marsh", ep.map(e => LC.areas_acres[e].focus.marsh)], ["Forest", "--forest", ep.map(e => LC.areas_acres[e].focus.forest)],
+                  ["Ghost-forest candidates", "--ghost", ep.map(e => LC.ghost_forest_acres[e].focus)]];
+  box.innerHTML = "";
+  series.forEach(([name, col, v]) => {
+    const div = document.createElement("div");
+    div.innerHTML = `<h4>${name}</h4><div class="v">${fmt(v[0])} → ${fmt(v.at(-1))} acres</div>`;
+    const svg = el("svg", { viewBox: "0 0 200 110", role: "img", "aria-label": `${name} acres by epoch` }); div.appendChild(svg); box.appendChild(div);
+    const lo = Math.min(0, ...v), hi = Math.max(...v) * 1.1 || 1, x = scale(0, ep.length - 1, 8, 192), y = scale(lo, hi, 92, 8);
+    el("line", { x1: 8, x2: 192, y1: y(lo), y2: y(lo), class: "grid" }, svg);
+    el("path", { d: v.map((a, i) => `${i ? "L" : "M"}${x(i)},${y(a)}`).join(""), fill: "none", stroke: css(col), "stroke-width": 2 }, svg);
+    v.forEach((a, i) => { const c = el("circle", { cx: x(i), cy: y(a), r: 3.2, fill: css(col) }, svg);
+      const hit = el("circle", { cx: x(i), cy: y(a), r: 10, fill: "transparent" }, svg);
+      hit.addEventListener("pointermove", (e) => showTip(e, `${name}<br>${ep[i]}: ${fmt(a)} acres`)); hit.addEventListener("pointerleave", hideTip); });
+    el("text", { x: 8, y: 108 }, svg).textContent = ep[0]; el("text", { x: 192, y: 108, "text-anchor": "end" }, svg).textContent = ep.at(-1);
+  });
+}
+
+function chartSea(m) {
+  const SL = m.sea_level, svg = $("svgSl"); svg.innerHTML = "";
+  $("slSub").textContent = `NOAA station ${SL.station}, annual mean, feet relative to the current datum. Trend ${SL.rate_mm_yr} mm/yr.`;
+  const W = 520, Hh = 250, ml = 44, mr = 10, mt = 10, mb = 26, A = SL.annual;
+  const yT = niceTicks(Math.min(...A.map(d => d.msl_ft)), Math.max(...A.map(d => d.msl_ft)), 5);
+  const x = scale(1900, 2027, ml, W - mr), y = scale(yT[0], yT.at(-1), Hh - mb, mt);
+  yT.forEach(v => { el("line", { x1: ml, x2: W - mr, y1: y(v), y2: y(v), class: "grid" }, svg); el("text", { x: ml - 6, y: y(v) + 4, "text-anchor": "end" }, svg).textContent = fmt(v, 1); });
+  [1900, 1925, 1950, 1975, 2000, 2025].forEach(v => el("text", { x: x(v), y: Hh - 6, "text-anchor": "middle" }, svg).textContent = v);
+  el("path", { d: A.map((d, i) => `${i ? "L" : "M"}${x(d.year + .5)},${y(d.msl_ft)}`).join(""), fill: "none", stroke: css("--sat"), "stroke-width": 1.6 }, svg);
+  el("path", { d: `M${x(A[0].year + .5)},${y(A[0].trend_ft)}L${x(A.at(-1).year + .5)},${y(A.at(-1).trend_ft)}`, stroke: css("--ink-2"), "stroke-width": 1.5, "stroke-dasharray": "5 4", fill: "none" }, svg);
+  el("text", { x: x(A.at(-1).year) - 4, y: y(A.at(-1).trend_ft) + 16, "text-anchor": "end", fill: css("--ink-2") }, svg).textContent = "linear trend";
+  const hit = el("rect", { x: ml, y: mt, width: W - ml - mr, height: Hh - mt - mb, fill: "transparent" }, svg);
+  hit.addEventListener("pointermove", (e) => { const r = svg.getBoundingClientRect(), yr = Math.round(x.inv((e.clientX - r.left) / r.width * W) - .5);
+    const d = A.reduce((a, b) => Math.abs(b.year - yr) < Math.abs(a.year - yr) ? b : a); showTip(e, `${d.year}: ${sgn(d.msl_ft, 2)} ft`); });
+  hit.addEventListener("pointerleave", hideTip);
+}
+</script>
+
+</body>
+</html>

@@ -44,12 +44,12 @@
     "collection": ["field-notes"],
     "format": "atlas",
     "number": 1,
-    "path": null,
-    "summary": "How South Carolina's shoreline and marshes have moved since the 1850s.",
+    "path": "/research/field-notes/atlases/coastal-time-machine/",
+    "summary": "How South Carolina's shoreline has moved since the 1850s, starting at Botany Bay.",
     "place": "coast",
     "themes": ["tides-coast"],
-    "status": "in-progress",
-    "published": null
+    "status": "live",
+    "published": "2026-10"
   },
   {
     "slug": "conservation-ledger",
