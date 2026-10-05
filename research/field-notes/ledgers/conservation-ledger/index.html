@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Conservation Ledger | Ledgers No. 1 | Palmetto Field Notes</title>
+<meta name="description" content="What South Carolina has paid to conserve land, where it is, and what it covers. A descriptive ledger built from public data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Fonts are the one remote dependency; every family has a local fallback. -->
+<!-- Vendored, not CDN-loaded: a CDN retiring a version silently broke this
+     page once already (echarts 5.5.1 began 404ing on cdnjs). These are served
+     from the same origin, so the page cannot be broken from outside. -->
+<link rel="stylesheet" href="vendor/leaflet.min.css">
+<script src="vendor/leaflet.min.js"></script>
+<script defer src="vendor/echarts.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dark:#071018; --navy:#0D1F2D; --sc-blue:#003B5C; --sc-green:#1B4F37;
+  --gold:#C9A227; --gold-lt:#E8C84A; --terra:#C94F2A;
+  --cream:#F5EFE0; --cream-lt:#FAF7F2; --ink:#1A1614; --body:#2A2420;
+  --muted:#6B5E50; --line:#E5DFD3; --panel:#fff;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --cream-lt:#0B1218; --cream:#F5EFE0; --ink:#F2ECE0; --body:#D9D1C4;
+    --muted:#9C9081; --line:#24313B; --panel:#101A22;
+  }
+}
+:root[data-theme="dark"]{
+  --cream-lt:#0B1218; --ink:#F2ECE0; --body:#D9D1C4;
+  --muted:#9C9081; --line:#24313B; --panel:#101A22;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Source Serif 4',Georgia,serif;color:var(--body);
+  background:var(--cream-lt);font-size:18px;line-height:1.75;
+  -webkit-text-size-adjust:100%}
+.wrap{max-width:1280px;margin:0 auto;padding:0 2rem}
+.wrap-narrow{max-width:760px;margin:0 auto;padding:0 2rem}
+@media(max-width:640px){.wrap,.wrap-narrow{padding:0 1rem}}
+
+.proto-banner{font-family:Inter,sans-serif;font-size:.82rem;line-height:1.6;
+  background:#2A2010;color:#E8C84A;padding:.85rem 2rem;text-align:center;
+  border-bottom:1px solid rgba(201,162,39,.35)}
+.proto-banner b{color:#F5EFE0}
+.site-nav{position:sticky;top:0;z-index:600;background:rgba(7,16,24,.97);
+  backdrop-filter:blur(8px);border-bottom:1px solid rgba(201,162,39,.2);
+  padding:.75rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.nav-brand{font-family:Inter,sans-serif;font-size:.78rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-decoration:none}
+.nav-pill{font-family:Inter,sans-serif;font-size:.72rem;color:rgba(245,239,224,.5);
+  border:1px solid rgba(201,162,39,.25);border-radius:20px;padding:.22rem .7rem}
+
+.hero{background:var(--dark);padding:5.5rem 2rem 4rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 75% 55% at 65% 45%,rgba(27,79,55,.55) 0%,transparent 70%),
+             radial-gradient(ellipse 45% 40% at 10% 75%,rgba(0,59,92,.35) 0%,transparent 60%)}
+.hero-inner{max-width:920px;margin:0 auto;position:relative}
+.hero-kicker{font-family:Inter,sans-serif;font-size:.72rem;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1.4rem}
+.hero h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.6rem,8vw,5.6rem);
+  font-weight:900;line-height:1.04;color:var(--cream);margin-bottom:1rem;letter-spacing:-.02em}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{font-family:'Playfair Display',serif;font-size:clamp(1.05rem,2.5vw,1.3rem);
+  font-style:italic;color:rgba(245,239,224,.65);max-width:620px;margin-bottom:1.8rem}
+.hero-lede{font-size:1.02rem;line-height:1.72;color:rgba(245,239,224,.8);max-width:660px;
+  border-top:1px solid rgba(201,162,39,.25);padding-top:1.4rem}
+.hero-byline{margin-top:1.8rem;font-family:Inter,sans-serif;font-size:.75rem;
+  color:rgba(245,239,224,.35);letter-spacing:.04em}
+.hero-stats{margin-top:2.6rem;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  border-top:1px solid rgba(201,162,39,.18)}
+.hstat{padding:1.3rem .9rem;border-right:1px solid rgba(201,162,39,.12);min-width:0}
+.hstat:last-child{border-right:none}
+.hstat-n{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.2vw,2rem);
+  font-weight:700;color:var(--gold);line-height:1.05;display:block;
+  margin-bottom:.3rem;overflow-wrap:anywhere}
+.hstat-l{font-family:Inter,sans-serif;font-size:.67rem;text-transform:uppercase;
+  letter-spacing:.1em;color:rgba(245,239,224,.45)}
+
+.section-light{background:var(--cream-lt);padding:4.5rem 0}
+.section-dark{background:var(--navy);padding:4.5rem 0;color:var(--cream)}
+.section-mid{background:#0F1F12;padding:4.5rem 0;color:var(--cream)}
+.section-label{font-family:Inter,sans-serif;font-size:.7rem;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--gold);
+  margin-bottom:.7rem;display:block}
+.section-light .section-label{color:var(--sc-green)}
+h2.sh{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);
+  font-weight:700;line-height:1.18;margin-bottom:1.1rem;color:var(--ink)}
+.section-dark h2.sh,.section-mid h2.sh{color:var(--cream)}
+p{margin-bottom:1.15rem}
+.body-lede{font-size:1.1rem;font-weight:300;color:var(--muted);margin-bottom:1.7rem}
+.section-dark .body-lede,.section-mid .body-lede{color:rgba(245,239,224,.65)}
+
+.sub{font-family:'Playfair Display',serif;font-size:1.22rem;font-weight:700;
+  margin:1.8rem 0 .6rem;color:var(--ink)}
+.section-dark .sub,.section-mid .sub{color:var(--cream)}
+.quote{border-left:3px solid var(--gold);padding:.7rem 1.1rem;margin:1.1rem 0;
+  font-style:italic;font-size:.98rem;line-height:1.65}
+.quote cite{display:block;margin-top:.6rem;font-style:normal;font-size:.78rem;
+  font-family:Inter,sans-serif;opacity:.75}
+.quote cite a{color:var(--gold)}
+.flag{display:inline-block;font-family:Inter,sans-serif;font-size:.68rem;
+  text-transform:uppercase;letter-spacing:.08em;padding:2px 8px;border-radius:20px;
+  border:1px solid var(--gold);color:var(--gold);margin-left:.4rem;vertical-align:2px}
+.pull-quote{border-left:4px solid var(--gold);margin:2.2rem 0;padding:.8rem 1.4rem}
+.pull-quote p{font-family:'Playfair Display',serif;font-size:1.32rem;font-style:italic;
+  line-height:1.5;color:var(--ink);margin:0}
+.section-dark .pull-quote p,.section-mid .pull-quote p{color:var(--cream)}
+
+.caveat{font-family:Inter,sans-serif;font-size:.82rem;line-height:1.6;
+  color:var(--muted);background:color-mix(in srgb,var(--gold) 9%,transparent);
+  border-left:3px solid var(--gold);padding:.85rem 1.1rem;margin:1.4rem 0;border-radius:0 4px 4px 0}
+.section-dark .caveat,.section-mid .caveat{color:rgba(245,239,224,.72)}
+
+#map{height:min(70vh,620px);border:1px solid var(--line);border-radius:6px;
+  background:var(--panel);z-index:1}
+.map-controls{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;
+  margin:0 0 1rem;font-family:Inter,sans-serif;font-size:.82rem}
+.map-controls label{color:var(--muted);margin-right:.2rem}
+select,button.chip{font-family:Inter,sans-serif;font-size:.82rem;padding:.4rem .7rem;
+  border:1px solid var(--line);border-radius:4px;background:var(--panel);
+  color:var(--body);cursor:pointer}
+button.chip[aria-pressed="true"]{background:var(--sc-green);color:#fff;
+  border-color:var(--sc-green)}
+.legend{font-family:Inter,sans-serif;font-size:.75rem;color:var(--muted);
+  display:flex;gap:1rem;flex-wrap:wrap;margin-top:.7rem}
+.legend i{width:14px;height:14px;display:inline-block;margin-right:.35rem;
+  vertical-align:-2px;border-radius:2px}
+
+.chart{height:420px;width:100%}
+.chart-tall{height:520px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:2rem}
+
+table.data{width:100%;border-collapse:collapse;font-family:Inter,sans-serif;
+  font-size:.84rem;margin:1.2rem 0}
+table.data th,table.data td{padding:.5rem .6rem;border-bottom:1px solid var(--line);
+  text-align:right}
+table.data th:first-child,table.data td:first-child{text-align:left}
+table.data th{font-weight:600;color:var(--muted);text-transform:uppercase;
+  font-size:.68rem;letter-spacing:.08em}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+.dl-list{list-style:none;font-family:Inter,sans-serif;font-size:.85rem;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.4rem 1.5rem}
+.dl-list a{color:var(--gold);text-decoration:none;border-bottom:1px solid transparent}
+.dl-list a:hover{border-bottom-color:var(--gold)}
+.dl-list span{color:var(--muted);font-size:.78rem}
+.src-list{list-style:none;font-family:Inter,sans-serif;font-size:.85rem;
+  line-height:1.65}
+.src-list li{padding:.5rem 0;border-bottom:1px solid var(--line)}
+.src-list a{color:var(--sc-green);text-decoration:none;font-weight:500}
+.src-list a:hover{text-decoration:underline}
+.src-list span{color:var(--muted);font-size:.78rem}
+
+footer{background:var(--dark);color:rgba(245,239,224,.55);padding:3rem 0;
+  font-family:Inter,sans-serif;font-size:.82rem;line-height:1.7}
+footer a{color:var(--gold);text-decoration:none}
+.loading{padding:3rem;text-align:center;color:var(--muted);font-family:Inter,sans-serif}
+.leaflet-popup-content{font-family:Inter,sans-serif;font-size:.82rem;line-height:1.55}
+.leaflet-popup-content b{font-family:'Playfair Display',serif;font-size:1rem}
+</style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a class="nav-brand" href="/research/field-notes/">Palmetto Field Notes</a>
+  <span class="nav-pill">Ledgers, No. 1 · Prototype</span>
+</nav>
+
+<div class="proto-banner">
+  <b>Prototype.</b> The money and the land are complete and reconciled. Two
+  datasets are still outstanding: the National Conservation Easement Database,
+  which will replace the easement boundaries currently inherited from PAD-US
+  and the Nature Conservancy's compilation, and the State Wildlife Action Plan
+  priority-habitat layers, which will let coverage be reported by priority
+  habitat rather than by NLCD land-cover class. Both are being requested.
+</div>
+
+<header class="hero" id="top">
+  <div class="hero-inner">
+    <div class="hero-kicker">South Carolina · Public data · Descriptive</div>
+    <h1>The Conservation<br><em>Ledger</em></h1>
+    <p class="hero-sub">What the state has paid to conserve land, where that land is,
+      and what it covers.</p>
+    <p class="hero-lede">Since 2004 the South Carolina Conservation Bank has awarded
+      money to private landowners, land trusts and state agencies to keep land
+      out of development. This page follows those dollars onto the ground: every
+      funded property, mapped, with the habitats it protects and the ones it
+      doesn't. It argues for nothing. Every figure is computed from public data
+      and every caveat is printed next to the number it qualifies.</p>
+    <div class="hero-stats" id="heroStats"></div>
+    <p class="hero-byline" id="byline">Built from public records.</p>
+  </div>
+</header>
+
+<section class="section-light">
+  <div class="wrap-narrow">
+    <span class="section-label">The money</span>
+    <h2 class="sh">Four hundred and fifty-three million dollars, and a four-year hole</h2>
+    <p class="body-lede" id="moneyLede"></p>
+    <div id="yearChartWrap"><div class="chart" id="yearChart"></div></div>
+    <p class="caveat">Fiscal years run 1 July – 30 June and are labelled by the
+      year they start, matching the Bank's own convention. Years with no bar
+      had no grants at all — they are shown rather than skipped.</p>
+  </div>
+</section>
+
+<section class="section-dark">
+  <div class="wrap-narrow">
+    <span class="section-label">The gaps in the bars</span>
+    <h2 class="sh">Four years with no grants, and then a fifth</h2>
+    <p class="body-lede">The Bank made no grants at all in FY2008-09 through
+      FY2011-12, and none in FY2017-18. Those are real gaps in the record,
+      not missing data. Two different things were going on.</p>
+
+    <h3 class="sub">FY2017-18 — documented</h3>
+    <p>The Bank is funded by 25&cent; of the state's $1.30 deed recording fee
+      under <a href="https://www.scstatehouse.gov/code/t12c024.php">S.C. Code
+      &sect;12-24-95</a>. For FY2018 that transfer was switched off. The State
+      Inspector General's review of the Bank records it plainly:</p>
+    <blockquote class="quote">&ldquo;In FY 2018, the Bank's funding from the
+      state deed recording fee was suspended in accordance with Proviso
+      53.1.&rdquo;
+      <cite>SC Office of the State Inspector General, <i>Review of the South
+      Carolina Conservation Bank's Accounting Practices and Grant Funding
+      Procedures</i>, Case #2017-2554-I, January 2018.</cite></blockquote>
+
+    <h3 class="sub">FY2008-09 to FY2011-12 — mechanism documented, the years are not</h3>
+    <p>The Conservation Bank Act carried a self-suspending clause from the
+      start. Section 5 of Act 200 of 2002 provided that:</p>
+    <blockquote class="quote">&ldquo;In a fiscal year when the General Assembly
+      in the annual general appropriations act provides less appropriations
+      than what was provided for the previous year to at least one-half of the
+      state agencies or departments contained therein the act or in any year
+      when the Budget and Control Board orders across the board cuts to state
+      agencies and departments in the manner provided by law, no further
+      transfer of deed recording fees or other appropriated funds, state or
+      local, may be credited to the trust fund for the fiscal year or balance
+      of the fiscal year&rdquo;
+      <cite>Act 200 of 2002, &sect;5, as quoted in
+      <a href="https://www.scstatehouse.gov/sess119_2011-2012/bills/139.htm">S.
+      139 of 2011-2012</a>, the bill that proposed deleting it.</cite></blockquote>
+    <p>So a mechanism existed that would have zeroed the Bank's funding in a
+      year of across-the-board cuts, and the legislature moved to repeal it in
+      2011. <b>What we could not establish is that the clause was applied in
+      each of those four years.</b> No source reviewed states that, and the
+      Bank's own published annual reports only go back to 2019 and do not
+      discuss the period. The gap in the chart is a fact; its cause is not
+      documented in the sources reviewed here.</p>
+  </div>
+</section>
+
+<section class="section-light">
+  <div class="wrap-narrow">
+    <span class="section-label">Awards vs. cash</span>
+    <h2 class="sh">What was awarded, and what actually moved</h2>
+    <p class="body-lede" id="cashLede"></p>
+    <div class="table-scroll"><table class="data" id="cashTable"></table></div>
+    <p class="caveat">Three different things, kept apart throughout:
+      an <b>appropriation</b> is what the General Assembly authorised; an
+      <b>award</b> is what the Bank committed to a property; a <b>recorded
+      payment</b> is money that actually moved, from the Comptroller General's
+      FY2025 transaction files. The payment data covers one fiscal year only,
+      so it is a cross-check, not a trend. The vendor named on a land payment
+      is normally the closing attorney or title company, not the land trust —
+      amounts reconcile, names do not.</p>
+  </div>
+</section>
+
+<section class="section-dark">
+  <div class="wrap">
+    <span class="section-label">Where it went</span>
+    <h2 class="sh">Every funded property</h2>
+    <p class="body-lede">Each shape is one grant. Colour by what the money bought,
+      how much it cost, or when it happened.</p>
+    <div class="map-controls">
+      <label for="colorBy">Colour by</label>
+      <select id="colorBy">
+        <option value="deed_type">Deed type</option>
+        <option value="cost_per_acre">Cost per acre</option>
+        <option value="fiscal_year">Era</option>
+        <option value="public_access">Public access</option>
+      </select>
+      <label for="fyFilter">Fiscal year</label>
+      <select id="fyFilter"><option value="">All years</option></select>
+      <button class="chip" id="resetView" type="button">Reset view</button>
+    </div>
+    <div id="map"></div>
+    <div class="legend" id="mapLegend"></div>
+    <p class="caveat">Boundaries are as published by the Conservation Bank.
+      Some easement boundaries elsewhere in the record are generalised for
+      landowner privacy; where that is the case it is noted in the source data
+      rather than smoothed over here.</p>
+  </div>
+</section>
+
+<section class="section-light">
+  <div class="wrap">
+    <span class="section-label">By county</span>
+    <h2 class="sh">Where the dollars and the acres diverge</h2>
+    <p class="body-lede">The counties that received the most money are not the
+      counties that conserved the most land. Coastal acreage is dear; upstate
+      and midlands acreage is not.</p>
+    <div class="grid2">
+      <div class="chart chart-tall" id="countyAwardChart"></div>
+      <div class="chart chart-tall" id="countyAcreChart"></div>
+    </div>
+    <p class="caveat"><b>Cost per acre is not a performance measure.</b> Land
+      value, habitat type, deal structure and how much the landowner donated
+      vary enormously between deals. A cheap acre and an expensive acre are
+      usually buying different things. Grants spanning two counties are split
+      evenly between them, because no per-county breakdown is published.</p>
+  </div>
+</section>
+
+<section class="section-mid">
+  <div class="wrap">
+    <span class="section-label">The land</span>
+    <h2 class="sh">What is protected, and what isn't</h2>
+    <p class="body-lede" id="habLede"></p>
+    <div class="chart chart-tall" id="habChart"></div>
+    <div class="pull-quote"><p id="habQuote"></p></div>
+    <p class="caveat">Coverage is protected acres over total remaining acres of
+      that land-cover class, computed by overlaying the deduplicated conserved
+      estate on the 2021 National Land Cover Database at 30&nbsp;m. <b>NLCD
+      reports land cover, not habitat type</b>, so it cannot tell longleaf
+      sandhill from any other evergreen forest. Priority-habitat coverage needs
+      the State Wildlife Action Plan layers, which are not yet in hand.</p>
+  </div>
+</section>
+
+<section class="section-light">
+  <div class="wrap-narrow">
+    <span class="section-label">The conserved estate</span>
+    <h2 class="sh">Who actually holds the protected land</h2>
+    <p class="body-lede" id="estateLede"></p>
+    <div class="table-scroll"><table class="data" id="ownerTable"></table></div>
+    <p class="caveat"><b>The total on its own means very little.</b> These
+      categories are a partition, not a list of overlapping claims: each acre
+      is counted once, under whoever holds it, so the rows add to the estate.
+      Nearly half of it is federal, and most of that is two national forests.
+      Land a land trust holds an easement over is still privately owned and
+      usually still farmed or logged — it is shown separately from land a
+      trust owns outright.</p>
+    <div class="table-scroll"><table class="data" id="gapTable"></table></div>
+    <p class="caveat">GAP status is the protection-strength code PAD-US
+      assigns. GAP&nbsp;1 is a strict ecological reserve; GAP&nbsp;4 is
+      multiple-use land with no mandate to protect biodiversity. Only the
+      GAP-coded sources carry it, so these tiers cover less than the full
+      estate.</p>
+  </div>
+</section>
+
+<section class="section-dark">
+  <div class="wrap-narrow">
+    <span class="section-label">Double counting</span>
+    <h2 class="sh">Why you cannot add these numbers up</h2>
+    <p class="body-lede">One tract can be a Conservation Bank grant, a state
+      Heritage Preserve, a PAD-US easement and a row in the Nature Conservancy's
+      compilation, all at once. Adding the sources together inflates the answer.</p>
+    <div class="table-scroll"><table class="data" id="estateTable"></table></div>
+    <p class="caveat">The deduplicated figure is a spatial union of every
+      source, so each acre is counted once no matter how many registries list
+      it. Summing the sources instead would inflate the answer by
+      <span id="dupFactor">—</span>.</p>
+  </div>
+</section>
+
+<section class="section-dark">
+  <div class="wrap-narrow">
+    <span class="section-label">What didn't reconcile</span>
+    <h2 class="sh">The unresolved column</h2>
+    <p class="body-lede" id="gapLede"></p>
+    <p class="caveat"><b>These grants stay in every total on this page.</b>
+      They are in the Bank's own register, so they are real awards of real
+      money; what is missing is an independent registry listing the land.
+      On the map they carry the flag
+      <span class="flag">Bank-reported only</span>, meaning: reported by the
+      Conservation Bank, not found in an independent registry. Nothing in the
+      review queue has been resolved by the pipeline — a wrong match is worse
+      than an admitted gap, so matches below the confidence threshold are
+      published as open questions rather than quietly decided.</p>
+  </div>
+</section>
+
+<section class="section-light">
+  <div class="wrap-narrow">
+    <span class="section-label">Take the data</span>
+    <h2 class="sh">Everything behind this page</h2>
+    <p class="body-lede">Every figure above is computed from these files. They
+      are the pipeline's actual outputs, not a curated extract.</p>
+    <ul class="dl-list" id="downloads"></ul>
+  </div>
+</section>
+
+<section class="section-light">
+  <div class="wrap-narrow">
+    <span class="section-label">Sources</span>
+    <h2 class="sh">Everything this page cites</h2>
+    <p class="body-lede">Every figure above comes from one of these, or is a
+      derived output computed from them in the pipeline. All public.</p>
+    <ul class="src-list" id="sourceList"></ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap-narrow">
+    <p><b>Posture.</b> Descriptive. No policy recommendations. No individual
+      landowners are named; recipients shown are organisations, as the Bank
+      publishes them.</p>
+    <p>The Conservation Ledger is No. 1 in Ledgers, part of
+      <a href="/research/field-notes/">Palmetto Field Notes</a> from
+      <a href="/research/">Carolina Redesign Research</a>. Cross-listed in the
+      <a href="/palmetto-ledger/">Palmetto Ledger</a>.</p>
+    <p id="builtAt"></p>
+  </div>
+</footer>
+
+<script>
+const J = (n) => fetch(`data/${n}.json`).then(r => r.ok ? r.json() : null).catch(() => null);
+const usd = (v, d = 0) => '$' + Number(v || 0).toLocaleString('en-US', {maximumFractionDigits: d});
+const num = (v, d = 0) => Number(v || 0).toLocaleString('en-US', {maximumFractionDigits: d});
+// Hero cells are narrow; a nine-figure sum has to be abbreviated or it
+// collides with its neighbour.
+const compact = (v) => {
+  v = Number(v || 0);
+  if (v >= 1e9) return (v / 1e9).toFixed(2).replace(/\.?0+$/, '') + 'B';
+  if (v >= 1e6) return (v / 1e6).toFixed(1).replace(/\.0$/, '') + 'M';
+  if (v >= 1e3) return Math.round(v / 1e3) + 'k';
+  return String(Math.round(v));
+};
+const esc = (t) => String(t == null ? '' : t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const dark = () => matchMedia('(prefers-color-scheme: dark)').matches;
+// Narrow screens cannot fit a tick every 100k acres; `hideOverlap` plus a
+// smaller splitNumber keeps the axis readable at 390px instead of printing
+// five labels on top of each other.
+const narrow = () => innerWidth < 700;
+const AX = () => ({axisLine: {lineStyle: {color: dark() ? '#3A4A55' : '#C9BFAE'}},
+                   axisLabel: {color: dark() ? '#9C9081' : '#6B5E50',
+                               fontFamily: 'Inter', hideOverlap: true,
+                               fontSize: narrow() ? 10 : 12},
+                   splitNumber: narrow() ? 3 : 5,
+                   splitLine: {lineStyle: {color: dark() ? '#1C2730' : '#EDE7DA'}}});
+const charts = [];
+// A chart library that failed to load must not take the map, the tables and
+// the downloads down with it, so every chart is attempted independently and
+// a missing echarts degrades to a note rather than an exception.
+function mkChart(id, opt) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (typeof echarts === 'undefined') {
+    el.innerHTML = '<p class="loading">Chart unavailable — the charting ' +
+      'library did not load. The figures are all in the CSVs below.</p>';
+    return;
+  }
+  try {
+    const c = echarts.init(el);
+    c.setOption(opt);
+    charts.push(c);
+  } catch (e) {
+    console.error('chart ' + id + ' failed', e);
+    el.innerHTML = '<p class="loading">Chart failed to render.</p>';
+  }
+}
+function step(name, fn) {
+  try { fn(); } catch (e) { console.error(name + ' failed', e); }
+}
+addEventListener('resize', () => charts.forEach(c => c.resize()));
+
+// NLCD's own class names are too long for a phone's y-axis gutter; these are
+// the same classes, abbreviated only where the full name will not fit.
+const SHORT = {
+  'emergent herbaceous wetlands': 'emergent wetland',
+  'developed, open space': 'developed, open',
+  'developed, medium': 'developed, med',
+  'cultivated crops': 'cropland',
+  'deciduous forest': 'deciduous',
+  'evergreen forest': 'evergreen',
+  'mixed forest': 'mixed forest',
+  'woody wetlands': 'woody wetland',
+};
+
+const PALETTE = ['#1B4F37', '#C9A227', '#003B5C', '#C94F2A', '#6B8F71', '#8A6D3B'];
+
+// echarts is deferred so it does not block first paint, which means it is not
+// guaranteed to exist while this inline script is parsed. Wait for the parser
+// to finish before touching it.
+const ready = document.readyState === "loading"
+  ? new Promise((r) => addEventListener("DOMContentLoaded", r, {once: true}))
+  : Promise.resolve();
+
+(async function () {
+  const [head, years, counties, grants, habitat, downloads, sources] =
+    await Promise.all(['headline', 'by_year', 'by_county', 'grants', 'habitat',
+                       'downloads', 'sources'].map(J));
+  await ready;
+
+  /* ---- hero ---- */
+  step('hero', () => { if (head) {
+    document.getElementById('heroStats').innerHTML = [
+      ['$' + compact(head.award_total), 'Awarded since ' + head.first_fy.slice(2)],
+      [compact(head.acres_total), 'Acres conserved'],
+      [num(head.grants), 'Grant properties'],
+      [num(head.easements), 'Of them easements'],
+      [num(head.counties_touched) + '/46', 'Counties reached'],
+    ].map(([n, l]) => `<div class="hstat"><span class="hstat-n">${n}</span>
+        <span class="hstat-l">${l}</span></div>`).join('');
+
+    document.getElementById('moneyLede').textContent =
+      `${num(head.grants)} properties, ${usd(head.award_total)} in Conservation Bank ` +
+      `awards, and ${usd(head.match_total)} of matching money alongside it — ` +
+      `owner donations, private and local contributions, and federal grants. ` +
+      `${num(head.easements)} of the deals are easements, where the land stays ` +
+      `privately owned and only the right to develop it is extinguished; ` +
+      `${num(head.fee_simple)} are outright purchases.`;
+
+    const m = head.match;
+    if (m) {
+      document.getElementById('gapLede').textContent =
+        `Of ${num(m.grants)} grant properties, ${num(m.unmatched)} could not be ` +
+        `found in any independent protected-lands registry — not in PAD-US, not ` +
+        `in the state's managed-lands layer, not in the Nature Conservancy's ` +
+        `compilation. ${num(m.unmatched_recent)} of those were awarded in the ` +
+        `last two fiscal years, which registry lag explains. That leaves ` +
+        `${num(m.unmatched_older)} older grants — ${usd(m.unmatched_older_award)} ` +
+        `across ${num(m.unmatched_older_acres)} acres — that the wider public ` +
+        `record simply does not show. They are listed in review_queue.csv below, ` +
+        `unresolved.`;
+    }
+  }});
+
+  /* ---- money over time ---- */
+  step('year chart', () => { if (years) {
+    mkChart('yearChart', {
+      grid: {left: narrow() ? 52 : 64, right: narrow() ? 44 : 56,
+             top: 40, bottom: 56},
+      tooltip: {trigger: 'axis', valueFormatter: null},
+      legend: {top: 0, textStyle: {fontFamily: 'Inter', fontSize: 11,
+               color: dark() ? '#9C9081' : '#6B5E50'}},
+      xAxis: {type: 'category', data: years.map(r => r.fiscal_year.replace('FY', '')),
+              axisLabel: {rotate: 55, fontSize: 10, ...AX().axisLabel}, ...AX()},
+      yAxis: [
+        {type: 'value', name: 'Award', ...AX(),
+         axisLabel: {formatter: v => '$' + (v / 1e6) + 'M', ...AX().axisLabel}},
+        {type: 'value', name: 'Acres', ...AX(), splitLine: {show: false},
+         axisLabel: {formatter: v => (v / 1000) + 'k', ...AX().axisLabel}},
+      ],
+      series: [
+        {name: 'Award', type: 'bar', data: years.map(r => r.award),
+         itemStyle: {color: '#1B4F37'}},
+        {name: 'Acres', type: 'line', yAxisIndex: 1, smooth: true,
+         data: years.map(r => r.acres), itemStyle: {color: '#C9A227'},
+         lineStyle: {width: 2.5}},
+      ],
+    });
+  }});
+
+  /* ---- counties ---- */
+  step('county charts', () => { if (counties) {
+    const topA = counties.slice(0, 15).reverse();
+    const topAc = [...counties].sort((a, b) => b.acres - a.acres).slice(0, 15).reverse();
+    const barOpt = (title, rows, key, color, fmt) => ({
+      title: {text: title, left: 0, textStyle: {fontFamily: 'Inter', fontSize: 12,
+              fontWeight: 600, color: dark() ? '#9C9081' : '#6B5E50'}},
+      grid: {left: narrow() ? 84 : 96, right: narrow() ? 46 : 64,
+             top: 44, bottom: 30},
+      tooltip: {trigger: 'axis'},
+      xAxis: {type: 'value', ...AX(), axisLabel: {formatter: fmt, ...AX().axisLabel}},
+      yAxis: {type: 'category', data: rows.map(r => r.county), ...AX()},
+      series: [{type: 'bar', data: rows.map(r => Math.round(r[key])),
+                itemStyle: {color}}],
+    });
+    mkChart('countyAwardChart',
+      barOpt('Top 15 counties by award', topA, 'award', '#003B5C',
+             v => '$' + (v / 1e6).toFixed(0) + 'M'));
+    mkChart('countyAcreChart',
+      barOpt('Top 15 counties by acres conserved', topAc, 'acres', '#1B4F37',
+             v => (v / 1000).toFixed(0) + 'k'));
+  }});
+
+  /* ---- habitat ---- */
+  step('habitat', () => { if (habitat && habitat.length) {
+    const rows = [...habitat].sort((a, b) => b.total_acres - a.total_acres);
+    document.getElementById('habLede').textContent =
+      `Overlaying every protected acre in South Carolina — whoever paid for it — ` +
+      `on the national land-cover map shows what the conserved estate is actually ` +
+      `made of, and how much of each kind of land is left outside it.`;
+    const best = [...rows].sort((a, b) => b.coverage_pct - a.coverage_pct)[0];
+    // Developed, barren and open water are land cover but not habitat, and
+    // "only 3% of low-density housing is protected" is not a finding.
+    const NOT_HABITAT = /^(developed|barren|open water)/;
+    const worst = [...rows]
+      .filter(r => r.total_acres > 200000 && !NOT_HABITAT.test(r.habitat))
+      .sort((a, b) => a.coverage_pct - b.coverage_pct)[0];
+    if (best && worst) {
+      document.getElementById('habQuote').textContent =
+        `${best.coverage_pct}% of South Carolina's ${best.habitat} sits inside the ` +
+        `conserved estate. For ${worst.habitat}, it is ${worst.coverage_pct}%.`;
+    }
+    mkChart('habChart', {
+      grid: {left: narrow() ? 132 : 190, right: narrow() ? 48 : 80,
+             top: 40, bottom: 34},
+      tooltip: {trigger: 'axis', axisPointer: {type: 'shadow'}},
+      legend: {top: 0, textStyle: {fontFamily: 'Inter', fontSize: 11, color: '#9C9081'}},
+      xAxis: {type: 'value', ...AX(),
+              axisLabel: {formatter: v => (v / 1000) + 'k ac', ...AX().axisLabel}},
+      yAxis: {type: 'category', data: rows.map(r => r.habitat).reverse(), ...AX(),
+              axisLabel: {...AX().axisLabel,
+                          formatter: (v) => narrow() ? (SHORT[v] || v) : v}},
+      series: [
+        {name: 'Protected', type: 'bar', stack: 'a',
+         data: rows.map(r => Math.round(r.protected_acres)).reverse(),
+         itemStyle: {color: '#1B4F37'}},
+        {name: 'Unprotected', type: 'bar', stack: 'a',
+         data: rows.map(r => Math.round(r.unprotected_acres)).reverse(),
+         itemStyle: {color: dark() ? '#24313B' : '#DCD4C4'},
+         label: {show: true, position: 'right', fontFamily: 'Inter', fontSize: 10,
+                 color: '#9C9081',
+                 formatter: p => rows.slice().reverse()[p.dataIndex].coverage_pct + '%'}},
+      ],
+    });
+  }});
+
+  /* ---- estate + gap tables ---- */
+  const tbl = (id, rows, cols) => {
+    const el = document.getElementById(id);
+    if (!el || !rows || !rows.length) return;
+    el.innerHTML = '<thead><tr>' + cols.map(c => `<th>${c[0]}</th>`).join('') +
+      '</tr></thead><tbody>' + rows.map(r => '<tr>' +
+        cols.map(c => `<td>${c[1](r)}</td>`).join('') + '</tr>').join('') + '</tbody>';
+  };
+
+  /* ---- ownership partition ---- */
+  step('owners', () => {
+    if (!head || !head.owners) return;
+    const tot = head.owners.reduce((a, r) => a + r.acres, 0);
+    document.getElementById('estateLede').textContent =
+      `Pooling every registry and counting each acre once, ${num(tot)} acres of ` +
+      `South Carolina — ${(head.estate_pct_of_sc || 0).toFixed(1)}% of the state — ` +
+      `sit inside some form of conservation protection. That single number hides ` +
+      `most of what matters, because the acres are held by very different people ` +
+      `for very different reasons.`;
+    tbl('ownerTable', head.owners, [
+      ['Who holds it', r => r.owner],
+      ['Acres', r => num(r.acres)],
+      ['Share of estate', r => (r.share_of_estate * 100).toFixed(1) + '%'],
+      ['% of SC', r => num(r.pct_of_sc, 2) + '%'],
+    ]);
+  });
+
+  /* ---- awards vs cash ---- */
+  step('cash', () => {
+    if (!head || !head.cash) return;
+    const c = head.cash;
+    document.getElementById('cashLede').textContent =
+      `For FY2024-25 the two sides match exactly. The Bank awarded ` +
+      `${usd(c.award_total)} across ${num(c.awards)} properties; the ` +
+      `Comptroller General's FY2025 files record ${usd(c.recorded_payments_total)} ` +
+      `of land payments against them — a difference of ${usd(Math.abs(c.difference))}. ` +
+      `That also settles which of the Bank's two published dollar figures is the ` +
+      `real one: of the ${c.net_award_differs} grants where Award and Net_Award ` +
+      `disagree, every one was paid at Award.`;
+    tbl('cashTable', [
+      {k: 'Appropriated to the Bank (FY2024-25)', v: c.appropriated},
+      {k: 'Awarded to properties', v: c.award_total},
+      {k: 'Recorded payments (Comptroller General)', v: c.recorded_payments_total},
+      {k: 'Sum of Net_Award, for comparison only', v: c.net_award_total},
+    ], [['', r => r.k], ['Amount', r => usd(r.v)]]);
+  });
+
+  step('tables', () => {
+  if (head && head.estate) {
+    tbl('estateTable', head.estate, [
+      ['Source', r => r.source],
+      ['Features', r => num(r.features)],
+      ['Acres claimed', r => num(r.acres_claimed)],
+    ]);
+    if (head.duplication_factor) {
+      document.getElementById('dupFactor').textContent =
+        head.duplication_factor.toFixed(2) + '\u00d7';
+    }
+  }
+  if (head && head.gap) {
+    tbl('gapTable', head.gap, [
+      ['Protection tier', r => r.tier],
+      ['Acres', r => num(r.acres)],
+      ['% of SC', r => num(r.pct_of_sc, 1) + '%'],
+    ]);
+  }});
+
+  /* ---- downloads ---- */
+  step('downloads', () => {
+    if (downloads) {
+      document.getElementById('downloads').innerHTML = downloads.map(d =>
+        `<li><a href="downloads/${d.file}" download>${d.file}</a>
+         <span>${d.kb} KB</span></li>`).join('');
+    }
+  });
+  step('sources', () => {
+    if (!sources || !sources.sources) return;
+    const el = document.getElementById('sourceList');
+    if (!el) return;
+    el.innerHTML = sources.sources.map(x =>
+      `<li><a href="${x.url}">${esc(x.title)}</a> — ${esc(x.publisher)}` +
+      (x.published ? `, ${esc(x.published)}` : '') +
+      ` <span>(accessed ${esc(x.accessed)})</span></li>`).join('');
+  });
+
+  document.getElementById('builtAt').textContent =
+    'Built ' + new Date().toISOString().slice(0, 10) + ' from cached public sources.';
+
+  /* ---- map ---- */
+  step('map', () => { if (grants && typeof L !== 'undefined') initMap(grants);
+    else document.getElementById('map').innerHTML =
+      '<p class="loading">Map unavailable — the map library did not load.</p>'; });
+})();
+
+function initMap(fc) {
+  const map = L.map('map', {scrollWheelZoom: false}).setView([33.7, -80.9], 7);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap &copy; CARTO', maxZoom: 18,
+  }).addTo(map);
+
+  const fys = [...new Set(fc.features.map(f => f.properties.fiscal_year))].sort();
+  const sel = document.getElementById('fyFilter');
+  fys.forEach(fy => sel.insertAdjacentHTML('beforeend',
+    `<option value="${fy}">${fy}</option>`));
+
+  const SCHEMES = {
+    deed_type: {
+      label: 'Deed type',
+      of: p => p.deed_type,
+      colors: {'easement': '#1B4F37', 'fee simple': '#C9A227', 'unknown': '#8A8078'},
+    },
+    public_access: {
+      label: 'Public access',
+      of: p => p.public_access,
+      colors: {'full': '#1B4F37', 'limited': '#C9A227', 'none': '#C94F2A',
+               'unknown': '#8A8078'},
+    },
+    cost_per_acre: {
+      label: 'Cost per acre',
+      of: p => p.cost_per_acre < 500 ? 'under $500'
+            : p.cost_per_acre < 1500 ? '$500–1,500'
+            : p.cost_per_acre < 5000 ? '$1,500–5,000' : 'over $5,000',
+      colors: {'under $500': '#E8DCA8', '$500–1,500': '#C9A227',
+               '$1,500–5,000': '#C97F2A', 'over $5,000': '#C94F2A'},
+    },
+    fiscal_year: {
+      label: 'Era',
+      of: p => {const y = +p.fiscal_year.slice(2, 6);
+                return y < 2008 ? '2004–07' : y < 2013 ? '2008–12'
+                     : y < 2018 ? '2013–17' : y < 2023 ? '2018–22' : '2023–present';},
+      colors: {'2004–07': '#003B5C', '2008–12': '#8A8078', '2013–17': '#1B4F37',
+               '2018–22': '#C9A227', '2023–present': '#C94F2A'},
+    },
+  };
+
+  let scheme = 'deed_type';
+  const style = f => {
+    const s = SCHEMES[scheme];
+    return {color: '#fff', weight: 0.7, fillOpacity: 0.8,
+            fillColor: s.colors[s.of(f.properties)] || '#8A8078'};
+  };
+
+  const layer = L.geoJSON(fc, {
+    style,
+    filter: f => !sel.value || f.properties.fiscal_year === sel.value,
+    onEachFeature: (f, l) => {
+      const p = f.properties;
+      l.bindPopup(
+        `<b>${p.property_name || '(unnamed)'}</b><br>` +
+        `${p.fiscal_year} &middot; ${p.counties || ''}<br>` +
+        `<b>${usd(p.award)}</b> for ${num(p.deed_acres)} acres ` +
+        `(${usd(p.cost_per_acre)}/acre)<br>` +
+        `${p.deed_type} &middot; public access: ${p.public_access}<br>` +
+        `Recipient: ${p.recipient || 'n/a'}` +
+        (p.match_total > 0 ? `<br>Match alongside: ${usd(p.match_total)}` : '') +
+        (p.bank_reported_only
+          ? '<br><span class="flag">Bank-reported only</span>' : ''));
+    },
+  }).addTo(map);
+
+  const home = layer.getBounds();
+  if (home.isValid()) map.fitBounds(home, {padding: [12, 12]});
+
+  const drawLegend = () => {
+    const s = SCHEMES[scheme];
+    document.getElementById('mapLegend').innerHTML = Object.entries(s.colors)
+      .map(([k, c]) => `<span><i style="background:${c}"></i>${k}</span>`).join('');
+  };
+  drawLegend();
+
+  document.getElementById('colorBy').addEventListener('change', e => {
+    scheme = e.target.value;
+    layer.setStyle(style);
+    drawLegend();
+  });
+  sel.addEventListener('change', () => {
+    layer.clearLayers();
+    layer.addData({type: 'FeatureCollection',
+      features: fc.features.filter(f => !sel.value ||
+        f.properties.fiscal_year === sel.value)});
+    const b = layer.getBounds();
+    if (b.isValid()) map.fitBounds(b, {padding: [12, 12]});
+  });
+  document.getElementById('resetView').addEventListener('click', () => {
+    if (home.isValid()) map.fitBounds(home, {padding: [12, 12]});
+  });
+  map.on('click', () => map.scrollWheelZoom.enable());
+  map.on('mouseout', () => map.scrollWheelZoom.disable());
+}
+</script>
+</body>
+</html>

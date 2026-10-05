@@ -1,0 +1,10 @@
+owner,features,acres,easement_share_of_features,median_gap_status,share_of_estate,pct_of_sc
+Federal — military,33,369010.5686177759,0.03,4.0,0.0818,1.8
+"Federal — forests, refuges & parks",2257,1983450.751771587,0.145,3.0,0.4397,9.68
+State,1935,833151.7098639366,0.023,2.0,0.1847,4.06
+Local government,4283,159606.94860134038,0.022,4.0,0.0354,0.78
+Tribal,2,9.639756018586802,0.0,4.0,0.0,0.0
+"Land trust / NGO, owned",694,96590.0299547672,0.0,2.0,0.0214,0.47
+"Private land, NGO-held easement",2839,997638.4246327914,1.0,3.0,0.2212,4.87
+"Private land, easement holder unrecorded",372,42073.75699290193,0.476,3.0,0.0093,0.21
+Other or unknown,60,29266.13484437779,0.0,4.0,0.0065,0.14
