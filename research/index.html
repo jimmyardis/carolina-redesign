@@ -82,15 +82,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helve
 .collection-card:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 .collection-card.ledger { background: linear-gradient(135deg, #071018, #0D1F2D); }
 .collection-card.field { background: linear-gradient(135deg, #14261f, #1f3a2e); }
+.collection-card.plat { background: linear-gradient(135deg, #1b1f2a, #2b3346); }
 .collection-tag { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
 .collection-card h3 { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3.5vw, 2.2rem); font-weight: 900; color: #FAF7F2; line-height: 1.1; margin-top: 0.4rem; }
 .collection-line { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.1rem; color: rgba(250,247,242,0.85); }
 .collection-desc { font-size: 0.9rem; line-height: 1.6; color: rgba(250,247,242,0.6); flex: 1; margin-top: 0.5rem; }
 .collection-card .series-arrow { color: var(--gold); margin-top: 1rem; }
-.also-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1rem; background: var(--bg2); border-radius: 14px; padding: 1.1rem 1.5rem; text-decoration: none; color: inherit; margin-bottom: 1.25rem; border: 1px solid rgba(0,0,0,0.05); }
-.also-row:hover { background: #fff; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
-.also-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
-.also-title { font-weight: 600; flex: 1; }
 @media (max-width: 600px) { .collection-card .series-arrow { display: inline; } .collection-card { padding: 1.75rem 1.5rem; min-height: 0; } }
 
 /* FOOTER */
@@ -127,7 +124,7 @@ footer a:hover { color: var(--ink); }
 <section class="series">
   <div class="series-inner">
     <p class="series-label">Collections</p>
-    <h2>Two collections</h2>
+    <h2>Three collections</h2>
     <p class="series-intro">Each collection holds several formats, from issue-length budget analysis to playable models. Everything starts from public records and shows its sources.</p>
 
     <div class="collections">
@@ -145,13 +142,15 @@ footer a:hover { color: var(--ink); }
         <p class="collection-desc">Living models, atlases and ledgers about South Carolina's coast, rivers and forests, built from published data you can check.</p>
         <span class="series-arrow">Open the field notes →</span>
       </a>
+      <a class="collection-card plat" href="/research/palmetto-plat/">
+        <p class="collection-tag">Towns, streets and land use</p>
+        <h3>Palmetto Plat</h3>
+        <p class="collection-line">The map underneath every town.</p>
+        <p class="collection-desc">A plat is the surveyed map of how land is divided into streets, lots, and blocks. Palmetto Plat studies how South Carolina's towns are built and how people move through them.</p>
+        <span class="series-arrow">Open Palmetto Plat →</span>
+      </a>
     </div>
 
-    <a class="also-row" href="/urban-productivity/">
-      <span class="also-label">Also from our research</span>
-      <span class="also-title">Urban Productivity: who pays, per acre</span>
-      <span class="series-arrow">Explore →</span>
-    </a>
 
     <div class="coming-soon">
       Interested in sponsoring a study or requesting an analysis?

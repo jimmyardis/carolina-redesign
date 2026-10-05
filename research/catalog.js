@@ -1,5 +1,7 @@
 // Research catalog: renders cards from /research/catalog.json, the single source of truth for
-// Palmetto Field Notes and the Palmetto Ledger cross-list. Adding a project = adding one entry.
+// Palmetto Field Notes, Palmetto Plat, and the Palmetto Ledger cross-list.
+// Adding a project = adding one entry. Format numbers run globally, not per collection,
+// so "Ledgers, No. 2" means the same thing on every landing page.
 (function () {
   const FORMATS = {
     model: { group: "Living Models", one: "Living Models" },
@@ -10,7 +12,14 @@
   const FORMAT_ORDER = ["model", "atlas", "observatory", "ledger"];
   const PLACES = { coast: "Coast", midlands: "Midlands", upstate: "Upstate", statewide: "Statewide", elsewhere: "Case study from elsewhere" };
   const STATUS = { live: "Live", prototype: "Prototype", "in-progress": "In progress", planned: "Planned" };
-  const COLLECTIONS = { "field-notes": "Field Notes", "palmetto-ledger": "Palmetto Ledger" };
+  const COLLECTIONS = { "field-notes": "Field Notes", "palmetto-ledger": "Palmetto Ledger", "palmetto-plat": "Palmetto Plat" };
+  // Themes are per-collection vocabularies; listed here so a card can label one.
+  const THEMES = {
+    fisheries: "Fisheries", "tides-coast": "Tides & coast", forests: "Forests",
+    water: "Water", wildlife: "Wildlife",
+    connectivity: "Connectivity", transportation: "Transportation",
+    "land-use": "Land use", "fiscal-productivity": "Fiscal productivity",
+  };
   const LINKABLE = (e) => (e.status === "live" || e.status === "prototype") && e.path;
 
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -51,5 +60,5 @@
     return r.json();
   }
 
-  window.ResearchCatalog = { load, card, groups, newestLive, LINKABLE };
+  window.ResearchCatalog = { load, card, groups, newestLive, LINKABLE, COLLECTIONS, THEMES };
 })();
