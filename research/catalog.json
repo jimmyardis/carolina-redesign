@@ -141,24 +141,6 @@
     "published": "2026-06"
   },
   {
-    "slug": "brighton-question",
-    "title": "The Brighton Question",
-    "collection": [
-      "palmetto-plat"
-    ],
-    "format": "ledger",
-    "number": 4,
-    "path": "/research/palmetto-plat/ledgers/brighton-question/",
-    "summary": "What $16 million of public investment built in Chapin, and what it returns.",
-    "place": "midlands",
-    "themes": [
-      "fiscal-productivity",
-      "land-use"
-    ],
-    "status": "live",
-    "published": "2026-07"
-  },
-  {
     "slug": "chapin-connected",
     "title": "Chapin, Connected",
     "collection": [

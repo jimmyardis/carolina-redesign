@@ -17,6 +17,6 @@ Search engines follow the canonical; browsers land in the right place.
 | `/urban-productivity/columbia/index.html` | `/research/palmetto-plat/ledgers/capitals-ledger/` |
 | `/urban-productivity/columbia/dashboard.html` | `/research/palmetto-plat/ledgers/capitals-ledger/dashboard.html` |
 | `/urban-productivity/columbia/equity.html` | `/research/palmetto-plat/ledgers/capitals-ledger/equity.html` |
-| `/urban-productivity/chapin-brighton/index.html` | `/research/palmetto-plat/ledgers/brighton-question/` |
+| `/urban-productivity/chapin-brighton/index.html` | `/research/palmetto-plat/` (Brighton study unpublished 2026-10-06; repoint when it returns) |
 | `/urban-productivity/chapin-connected/index.html` | `/research/palmetto-plat/atlases/chapin-connected/` |
 | `/urban-productivity/chapin-connected/explorer.html` | `/research/palmetto-plat/atlases/chapin-connected/explorer.html` |
