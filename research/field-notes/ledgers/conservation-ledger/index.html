@@ -728,8 +728,14 @@ const ready = document.readyState === "loading"
 
 function initMap(fc) {
   const map = L.map('map', {scrollWheelZoom: false}).setView([33.7, -80.9], 7);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; OpenStreetMap &copy; CARTO', maxZoom: 18,
+  // CARTO's basemaps went behind an API key, and rather than erroring they
+  // serve a tile stamped "API KEY REQUIRED", so the map degrades silently into
+  // a watermarked mess. Esri's light grey canvas needs no key and is a closer
+  // match to this page anyway. If this one ever gates too, the fix is to drop
+  // the raster basemap and draw SC's counties from our own sc_counties layer.
+  L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles &copy; Esri — Esri, HERE, Garmin, &copy; OpenStreetMap contributors',
+    maxZoom: 16,
   }).addTo(map);
 
   const fys = [...new Set(fc.features.map(f => f.properties.fiscal_year))].sort();

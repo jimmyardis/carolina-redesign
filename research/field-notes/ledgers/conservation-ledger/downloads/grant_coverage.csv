@@ -655,3 +655,7 @@ grant_id,property_name,fiscal_year,award,deed_acres,deed_type,recipient,registri
 653,Union of Brothers,FY2026-27,115200.0,302.0,easement,Upstate Forever,0,False
 654,Milky Way Farms,FY2026-27,795000.0,177.0,easement,SC Farm Bureau Land Trust,0,False
 655,Redding-Stone Farmstead Tracts,FY2026-27,100000.0,78.0,easement,Upper Savannah Land Trust,0,False
+656,Buckwalter Conservation Project,FY2026-27,146660.0,239.0,fee simple,Town of Bluffton,0,False
+657,Ryan - Wateree,FY2026-27,748600.0,471.0,fee simple,Open Space Institute Land Trust,0,False
+658,Des Francs - Wateree,FY2026-27,12377318.0,4854.0,fee simple,Open Space Institute Land Trust,1,True
+659,Beech Creek - Wateree,FY2026-27,9822000.0,3592.0,fee simple,Open Space Institute Land Trust,2,True

@@ -262,6 +262,8 @@ Goodwill,FY2026-27,12600000.0,737.0,open water,26.33733707450012,water,449235.99
 Vaught Tract II,FY2026-27,205000.0,303.0,open water,0.2223869532987398,water,151.73945225758698
 Wentzky Farm,FY2026-27,146000.0,52.0,open water,1.2541589083095293,water,3604.938271604938
 Redding-Stone Farmstead Tracts,FY2026-27,100000.0,78.0,open water,0.9406191812321468,water,1136.3636363636365
+Des Francs - Wateree,FY2026-27,12377318.0,4854.0,open water,97.85025945144552,water,232170.3508547555
+Beech Creek - Wateree,FY2026-27,9822000.0,3592.0,open water,78.05782060785768,water,209537.59192852367
 Alewine Tract,FY2004-05,477103.0,95.9,"developed, open space",1.7791564125355006,developed,8190.609442060087
 Alexander Tract,FY2005-06,88825.0,41.394,"developed, open space",3.113523721937126,developed,6908.611111111111
 "Alston, Rowland P. Tract",FY2007-08,220000.0,220.8,"developed, open space",13.566067645583193,developed,13906.73575129534
@@ -860,6 +862,7 @@ Peach Shed Grains,FY2026-27,178500.0,43.0,"developed, open space",6.584334268625
 Union of Brothers,FY2026-27,115200.0,302.0,"developed, open space",2.8911304072787294,developed,1122.6386806596702
 Milky Way Farms,FY2026-27,795000.0,177.0,"developed, open space",3.558191252779837,developed,15900.0
 Redding-Stone Farmstead Tracts,FY2026-27,100000.0,78.0,"developed, open space",2.821857543696441,developed,3409.090909090909
+Buckwalter Conservation Project,FY2026-27,146660.0,239.0,"developed, open space",1.556762526996239,developed,956.7753960857408
 "Alston, Rowland P. Tract",FY2007-08,220000.0,220.8,"developed, low",2.6687346188032506,developed,2735.7512953367877
 Anderson Property,FY2018-19,350000.0,314.28,"developed, low",0.2223945515669375,developed,262.17228464419475
 Asbury Hills,FY2006-07,3750000.0,1892.0,"developed, low",3.558312825071001,developed,7242.877836793819
@@ -1404,6 +1407,7 @@ Chick-A-Moo Farm 1,FY2026-27,257500.0,97.0,"developed, medium",0.222386953298739
 McCoy Farm,FY2026-27,435000.0,1089.0,"developed, medium",0.2223946467137484,developed,87.89654475651646
 Bishop Branch Farm,FY2026-27,280000.0,117.0,"developed, medium",0.2223946467137484,developed,504.5045045045045
 Milky Way Farms,FY2026-27,795000.0,177.0,"developed, medium",0.8895478131949592,developed,3975.0
+Buckwalter Conservation Project,FY2026-27,146660.0,239.0,"developed, medium",0.2223946467137484,developed,136.6821994408201
 Belfast Plantation - Phase 1,FY2007-08,2000000.0,2220.0,"developed, high",0.4447891031338751,developed,190.47619047619048
 Crescent- Heritage Tract,FY2004-05,2000000.0,1539.19,"developed, high",0.2223945515669375,developed,294.37739181630855
 Kingstree Waterfront Park,FY2019-20,25000.0,2.9,"developed, high",1.3343673094016253,developed,8823.529411764706
@@ -1873,6 +1877,8 @@ Peach Shed Grains,FY2026-27,178500.0,43.0,deciduous forest,0.6270794541547646,fo
 Union of Brothers,FY2026-27,115200.0,302.0,deciduous forest,54.70908309158212,forest,21243.77811094453
 Milky Way Farms,FY2026-27,795000.0,177.0,deciduous forest,28.91030392883617,forest,129187.5
 Redding-Stone Farmstead Tracts,FY2026-27,100000.0,78.0,deciduous forest,57.69130978223834,forest,69696.9696969697
+Buckwalter Conservation Project,FY2026-27,146660.0,239.0,deciduous forest,1.556762526996239,forest,956.7753960857408
+Des Francs - Wateree,FY2026-27,12377318.0,4854.0,deciduous forest,0.8895478131949592,forest,2110.6395532250503
 Alewine Tract,FY2004-05,477103.0,95.9,evergreen forest,0.8895782062677503,forest,4095.304721030044
 "Alston, Rowland P. Tract",FY2007-08,220000.0,220.8,evergreen forest,175.9140902894476,forest,180331.60621761656
 Anderson Property,FY2018-19,350000.0,314.28,evergreen forest,74.05738567179021,forest,87303.37078651685
@@ -2429,6 +2435,7 @@ Peach Shed Grains,FY2026-27,178500.0,43.0,evergreen forest,1.8812383624642937,fo
 Union of Brothers,FY2026-27,115200.0,302.0,evergreen forest,116.09000558457667,forest,45078.260869565216
 Milky Way Farms,FY2026-27,795000.0,177.0,evergreen forest,0.4447739065974796,forest,1987.5
 Redding-Stone Farmstead Tracts,FY2026-27,100000.0,78.0,evergreen forest,4.389556179083352,forest,5303.030303030303
+Buckwalter Conservation Project,FY2026-27,146660.0,239.0,evergreen forest,64.2720529002733,forest,39501.15563839702
 Alewine Tract,FY2004-05,477103.0,95.9,mixed forest,22.01706060512682,forest,101358.79184549356
 Alexander Tract,FY2005-06,88825.0,41.394,mixed forest,0.2223945515669375,forest,493.47222222222223
 Anderson Property,FY2018-19,350000.0,314.28,mixed forest,91.40416069401134,forest,107752.80898876404
@@ -2815,6 +2822,7 @@ Peach Shed Grains,FY2026-27,178500.0,43.0,mixed forest,1.8812383624642937,forest
 Union of Brothers,FY2026-27,115200.0,302.0,mixed forest,98.07603920076306,forest,38083.35832083958
 Milky Way Farms,FY2026-27,795000.0,177.0,mixed forest,3.7805782060785766,forest,16893.75
 Redding-Stone Farmstead Tracts,FY2026-27,100000.0,78.0,mixed forest,4.703095906160735,forest,5681.818181818182
+Buckwalter Conservation Project,FY2026-27,146660.0,239.0,mixed forest,4.003103640847471,forest,2460.279589934762
 Ashley River Historic Project,FY2004-05,6285000.0,12280.0,shrub/scrub,219.94821149970124,shrub & grass,174691.27648811197
 Avins Tract,FY2012-13,431130.0,431.13,shrub/scrub,6.671836547008128,shrub & grass,6782.328264289461
 Bailey Mill,FY2015-16,493500.0,1645.52,shrub/scrub,139.44138383246988,shrub & grass,43373.21278385199
@@ -3186,6 +3194,7 @@ Vaught Tract II,FY2026-27,205000.0,303.0,shrub/scrub,30.244625648628613,shrub & 
 McCoy Farm,FY2026-27,435000.0,1089.0,shrub/scrub,40.69822034861596,shrub & grass,16085.067690442513
 Union of Brothers,FY2026-27,115200.0,302.0,shrub/scrub,2.001551820423736,shrub & grass,777.2113943028485
 Redding-Stone Farmstead Tracts,FY2026-27,100000.0,78.0,shrub/scrub,0.3135397270773823,shrub & grass,378.7878787878788
+Buckwalter Conservation Project,FY2026-27,146660.0,239.0,shrub/scrub,3.5583143474199748,shrub & grass,2186.915191053122
 "Alston, Rowland P. Tract",FY2007-08,220000.0,220.8,herbaceous,1.556761860968563,shrub & grass,1595.8549222797926
 Anderson Property,FY2018-19,350000.0,314.28,herbaceous,0.2223945515669375,shrub & grass,262.17228464419475
 Asbury Hills,FY2006-07,3750000.0,1892.0,herbaceous,3.113523721937126,shrub & grass,6337.518107194592
@@ -3559,6 +3568,8 @@ Vaught Tract II,FY2026-27,205000.0,303.0,herbaceous,0.2223869532987398,shrub & g
 McCoy Farm,FY2026-27,435000.0,1089.0,herbaceous,0.4447892934274968,shrub & grass,175.79308951303292
 Milky Way Farms,FY2026-27,795000.0,177.0,herbaceous,17.790956263899183,shrub & grass,79500.0
 Redding-Stone Farmstead Tracts,FY2026-27,100000.0,78.0,herbaceous,0.3135397270773823,shrub & grass,378.7878787878788
+Des Francs - Wateree,FY2026-27,12377318.0,4854.0,herbaceous,0.6671608598962194,shrub & grass,1582.9796649187874
+Beech Creek - Wateree,FY2026-27,9822000.0,3592.0,herbaceous,0.4447739065974796,shrub & grass,1193.9463927551203
 Anderson Property,FY2018-19,350000.0,314.28,hay/pasture,47.81482858689157,agriculture,56367.041198501865
 Asbury Hills,FY2006-07,3750000.0,1892.0,hay/pasture,2.223945515669376,agriculture,4526.798647996137
 Ashley River Historic Project,FY2004-05,6285000.0,12280.0,hay/pasture,143.2220912091078,agriculture,113752.45910853802
@@ -4621,6 +4632,10 @@ Vaught Tract II,FY2026-27,205000.0,303.0,woody wetlands,134.5441067457376,wetlan
 Humbert Woods Nature Preserve,FY2026-27,700000.0,97.0,woody wetlands,46.71741933452997,wetland,326959.2476489028
 McCoy Farm,FY2026-27,435000.0,1089.0,woody wetlands,510.84050350148016,wetland,201898.36330571832
 Bishop Branch Farm,FY2026-27,280000.0,117.0,woody wetlands,2.001551820423736,wetland,4540.540540540541
+Buckwalter Conservation Project,FY2026-27,146660.0,239.0,woody wetlands,163.4600653346051,wetland,100461.4165890028
+Ryan - Wateree,FY2026-27,748600.0,471.0,woody wetlands,425.7869493710852,wetland,676379.7737857618
+Des Francs - Wateree,FY2026-27,12377318.0,4854.0,woody wetlands,4780.207561156412,wetland,11342049.299143111
+Beech Creek - Wateree,FY2026-27,9822000.0,3592.0,woody wetlands,3360.2668643439583,wetland,9020264.997264937
 Ashley River Historic Project,FY2004-05,6285000.0,12280.0,emergent herbaceous wetlands,350.4938132694936,wetland,278375.5831600247
 Avins Tract,FY2012-13,431130.0,431.13,emergent herbaceous wetlands,12.231700336181566,wetland,12434.268484530678
 Bailey Mill,FY2015-16,493500.0,1645.52,emergent herbaceous wetlands,24.685795223930068,wetland,7678.511354079057
@@ -4865,3 +4880,6 @@ Goodwill,FY2026-27,12600000.0,737.0,emergent herbaceous wetlands,0.3135397270773
 Hiott Farms,FY2026-27,285000.0,548.0,emergent herbaceous wetlands,1.5567086730911786,wetland,815.9509202453988
 McCoy Farm,FY2026-27,435000.0,1089.0,emergent herbaceous wetlands,1.3343678802824903,wetland,527.3792685390988
 Bishop Branch Farm,FY2026-27,280000.0,117.0,emergent herbaceous wetlands,2.001551820423736,wetland,4540.540540540541
+Ryan - Wateree,FY2026-27,748600.0,471.0,emergent herbaceous wetlands,45.46326042622044,wetland,72220.2262142382
+Des Francs - Wateree,FY2026-27,12377318.0,4854.0,emergent herbaceous wetlands,336.9162342475908,wetland,799404.7307839876
+Beech Creek - Wateree,FY2026-27,9822000.0,3592.0,emergent herbaceous wetlands,220.1630837657524,wetland,591003.4644137848
