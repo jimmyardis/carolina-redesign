@@ -171,12 +171,14 @@ footer a{color:var(--gold);text-decoration:none}
 </nav>
 
 <div class="proto-banner">
-  <b>Prototype.</b> The money and the land are complete and reconciled. Two
-  datasets are still outstanding: the National Conservation Easement Database,
-  which will replace the easement boundaries currently inherited from PAD-US
-  and the Nature Conservancy's compilation, and the State Wildlife Action Plan
-  priority-habitat layers, which will let coverage be reported by priority
-  habitat rather than by NLCD land-cover class. Both are being requested.
+  <b>Prototype.</b> The money and the land are complete and reconciled. One
+  dataset is still outstanding: the State Wildlife Action Plan priority-habitat
+  layers, which will let coverage be reported by priority habitat rather than
+  by NLCD land-cover class. Easement boundaries come from the USGS Protected
+  Areas Database, which took over when the National Conservation Easement
+  Database stopped being updated in January 2025 — so they are a frozen 2023
+  snapshot, and which of them are generalised for landowner privacy is no
+  longer recorded anywhere.
 </div>
 
 <header class="hero" id="top">
@@ -292,8 +294,11 @@ footer a{color:var(--gold);text-decoration:none}
     <div class="legend" id="mapLegend"></div>
     <p class="caveat">Boundaries are as published by the Conservation Bank.
       Some easement boundaries elsewhere in the record are generalised for
-      landowner privacy; where that is the case it is noted in the source data
-      rather than smoothed over here.</p>
+      landowner privacy, and <b>which ones is no longer recorded anywhere we
+      can read</b>: the National Conservation Easement Database carried that
+      flag, and it stopped being updated in January 2025. The Protected Areas
+      Database that replaced it does not carry it. Easement outlines here
+      should be read as approximate.</p>
   </div>
 </section>
 
@@ -342,9 +347,12 @@ footer a{color:var(--gold);text-decoration:none}
       categories are a partition, not a list of overlapping claims: each acre
       is counted once, under whoever holds it, so the rows add to the estate.
       Nearly half of it is federal, and most of that is two national forests.
-      Land a land trust holds an easement over is still privately owned and
-      usually still farmed or logged — it is shown separately from land a
-      trust owns outright.</p>
+      Land under a conservation easement is still privately owned and usually
+      still farmed or logged, whether the easement is held by a land trust or
+      by a government agency — both are shown separately from land a trust or
+      an agency owns outright. Easements held by a federal body, mostly
+      wetland-reserve easements on working farms, are the largest share of
+      that public-held group.</p>
     <div class="table-scroll"><table class="data" id="gapTable"></table></div>
     <p class="caveat">GAP status is the protection-strength code PAD-US
       assigns. GAP&nbsp;1 is a strict ecological reserve; GAP&nbsp;4 is

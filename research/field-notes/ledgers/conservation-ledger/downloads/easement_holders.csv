@@ -1,0 +1,46 @@
+easement_holder,holder_type,features,acres
+Ducks Unlimited (Wetlands America Trust),NGO,165,134168.38243402255
+(no holder recorded),FED,332,86554.94014392381
+Lord Berkeley Conservation Trust,NGO,42,32000.07325182213
+North American Land Trust,NGO,58,17980.99104741845
+The Nature Conservancy,NGO,18,17695.774044768856
+Southern Conservation Trust,NGO,11,14074.923878389309
+Upstate Forever,NGO,73,12383.706671308992
+Unknown Non-Governmental Organization,NGO,10,12241.149931888132
+Unknown Joint Holder,JNT,31,11260.87215264116
+South Carolina Department of Natural Resources,STAT,3,7361.603854992999
+The Conservation Fund,NGO,1,5755.462102157764
+Lowcountry Land Trust,NGO,6,5586.892703196952
+Southeast Regional Land Conservancy,NGO,13,5112.748205742422
+Beaufort County Open Land Trust,NGO,5,3421.68774624444
+Black Creek Land Trust,NGO,5,2780.592575298851
+Edisto Island Open Land Trust,NGO,40,2757.457247806909
+Atlantic Coast Conservancy/Pelican Coast Conservancy,NGO,8,1891.7285405347693
+"Ducks Unlimited (Wetlands America Trust), NONE",JNT,20,1524.154769958942
+South Carolina State Government,STAT,1,1364.7196115472882
+Pee Dee Land Trust,NGO,1,878.1505908351779
+Central Savannah River Land Trust,NGO,3,875.5241730430035
+Sumter County Soil and Water Conservation District,DIST,2,752.6098168933836
+Georgia-Alabama Land Trust,NGO,1,716.2680840862201
+Spartanburg Area Conservancy,NGO,21,662.1903228125434
+Georgetown County Soil and Water Conservation District,DIST,2,483.6585021577917
+E,FED,4,399.9807004937412
+"Beaufort County, SC",LOC,6,340.2228882065616
+"Hilton Head Island, SC",LOC,2,330.8645222255299
+Horry County Soil and Water Conservation District,DIST,6,271.32821393310667
+"Hilton Head Island Land Trust, Beaufort County, SC, <Null>",JNT,1,226.20462153758876
+Oconee County Soil and Water Conservation District,DIST,2,219.1539420819428
+Congaree Land Trust,NGO,1,214.33446187408265
+Pacolet Area Conservancy,NGO,11,208.60904324962215
+Kiawah Island Natural Habitat Conservancy,NGO,6,170.74449652892793
+"Beaufort County, SC, U.S. Marine Corps - Air Station Beaufort, <Null>",JNT,1,140.82712464597498
+"Ducks Unlimited (Wetlands America Trust), Kiawah Island Natural Habitat Conservancy",JNT,1,94.205670770982
+"Ducks Unlimited (Wetlands America Trust), U.S. Army Corps of Engineers",JNT,1,89.15571044792149
+"Kiawah Island Natural Habitat Conservancy, Ducks Unlimited (Wetlands America Trust), <Null>",JNT,1,82.8063251000512
+Carolina Mountain Land Conservancy,NGO,1,81.5821838838393
+Hilton Head Island Land Trust,NGO,3,75.56721325336481
+UNK,FED,4,69.24760099646375
+U.S. Navy,FED,1,68.30628416744612
+Unknown Federal Government,FED,7,65.74383793401182
+City of West Columbia,LOC,2,12.056972322600105
+Catawba Lands Conservancy,NGO,1,0.7297341457618111
