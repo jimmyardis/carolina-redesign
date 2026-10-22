@@ -10,7 +10,7 @@
 | **Project** | Carolina Redesign |
 | **One-liner** | Columbia SC editorial site + AI Opportunity Assessment service (Vapi intake → webhook → Airtable queue → Claude Code report) |
 | **Status** | building |
-| **Last Active** | 2026-10-06 |
+| **Last Active** | 2026-10-22 |
 | **Stall Threshold** | 7 days |
 | **Repo** | https://github.com/jimmyardis/carolina-redesign |
 | **Stack** | Static HTML/CSS, GitHub Pages |
@@ -43,6 +43,17 @@ Run one real test purchase through the live flow (checkout → redirect → star
 - Target publication cadence for The Federalism Papers series?
 
 ## Session Log
+
+### 2026-10-22
+- Published the SCPC Operations Sprint proposal at `/briefings/scpc/`, password-protected with the same AES-256-GCM client-side encryption as the Ligonier brief (page source holds only ciphertext; `noindex, nofollow` on both the gate and the decrypted page; not linked from anywhere on the site).
+- Access key handed to the user in-session, not stored in the repo. To change it, re-run the encryption against the source HTML (encryption script lived in the session scratchpad: swap SALT/IV/CIPHER in the gate template).
+
+### 2026-10-13
+- Revised the held Brighton article (`/home/wner/carolina-redesign-held/brighton-question/index.html`, still unpublished; pre-edit backup `index.pre-wessinger.html`) using a timeline from Lexington County Councilwoman Charli Wessinger, corroborated against P&C, WIS, News19, SW Lex Ledger, and SCDOT coverage.
+- Main corrections: the "15 years vacant" framing is replaced with purchase 2012–13 / ribbon cutting Jan 2018 / I-26 access Dec 2024. The nuclear-supply-chain bet died with V.C. Summer in 2017. Brentwood Ct truck access was lost ~2022. A July 2025 industrial bid existed. Chapter Four's annexation pitch is reframed as "Undo 2014" (Chapin de-annexed ~24 ac in Jan 2014 and promised not to annex while the land stays a tech park). Added the 2013 sewer assurance, the 2015 667-tap agreement, the Aug 11 final vote, and the Aug 25 lawsuit.
+- Decision: the claim of a council insider leaking bids is kept OUT of the article; it is interview question #15 only.
+- Inline `<!-- VERIFY -->` comments mark unconfirmed items. Interview prep is in `INTERVIEW-wessinger.md` next to the article.
+- Left mid-stream: interview, document copies, permission to name her. The article is not republished.
 
 ### 2026-10-06
 - Took "The Brighton Question" down off the research site (Palmetto Plat → Ledgers No. 4), on the user's request to save it for later.
