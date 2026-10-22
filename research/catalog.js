@@ -1,5 +1,5 @@
 // Research catalog: renders cards from /research/catalog.json, the single source of truth for
-// Palmetto Field Notes, Palmetto Plat, and the Palmetto Ledger cross-list.
+// Palmetto Field Notes, Palmetto Plat, Special Reports, and the Palmetto Ledger cross-list.
 // Adding a project = adding one entry. Format numbers run globally, not per collection,
 // so "Ledgers, No. 2" means the same thing on every landing page.
 (function () {
@@ -8,17 +8,19 @@
     atlas: { group: "Atlases", one: "Atlases" },
     observatory: { group: "Observatories", one: "Observatories" },
     ledger: { group: "Ledgers", one: "Ledgers" },
+    report: { group: "Special Reports", one: "Special Reports" },
   };
-  const FORMAT_ORDER = ["model", "atlas", "observatory", "ledger"];
+  const FORMAT_ORDER = ["model", "atlas", "observatory", "ledger", "report"];
   const PLACES = { coast: "Coast", midlands: "Midlands", upstate: "Upstate", statewide: "Statewide", elsewhere: "Case study from elsewhere" };
   const STATUS = { live: "Live", prototype: "Prototype", "in-progress": "In progress", planned: "Planned" };
-  const COLLECTIONS = { "field-notes": "Field Notes", "palmetto-ledger": "Palmetto Ledger", "palmetto-plat": "Palmetto Plat" };
+  const COLLECTIONS = { "field-notes": "Field Notes", "palmetto-ledger": "Palmetto Ledger", "palmetto-plat": "Palmetto Plat", "special-reports": "Special Reports" };
   // Themes are per-collection vocabularies; listed here so a card can label one.
   const THEMES = {
     fisheries: "Fisheries", "tides-coast": "Tides & coast", forests: "Forests",
     water: "Water", wildlife: "Wildlife",
     connectivity: "Connectivity", transportation: "Transportation",
     "land-use": "Land use", "fiscal-productivity": "Fiscal productivity",
+    governance: "Governance", security: "Security",
   };
   const LINKABLE = (e) => (e.status === "live" || e.status === "prototype") && e.path;
 

@@ -1,7 +1,8 @@
 # Carolina Redesign Research
 
-Two collections live here: **Palmetto Ledger** (public money; its issues stay at `/palmetto-ledger/`,
-and `/research/palmetto-ledger/` redirects there) and **Palmetto Field Notes** (environment and natural resources).
+Collections: **Palmetto Ledger** (public money; its issues stay at `/palmetto-ledger/`,
+and `/research/palmetto-ledger/` redirects there), **Palmetto Field Notes** (environment and natural resources),
+**Palmetto Plat** (towns and land use) and **Special Reports** (multi-model explainers beyond South Carolina).
 
 ## Adding a project
 Add one entry to `catalog.json`. The Field Notes landing (`field-notes/index.html`) and the Ledger's
@@ -36,3 +37,9 @@ Its NOAA predictions run through 2027-12-31. Before then, set a new `END` in
 ## Portability (possible move to Trellis)
 Everything is under `/research/`. Model pages link to nothing on the site except `/research/field-notes/`.
 A move is a folder copy, a `/research/*` redirect, and a byline edit.
+
+## Special Reports
+`special-reports/<slug>/index.html` are self-contained, hand-built pages (no generator repo). Catalog format `report`,
+collection `special-reports`, `place: "elsewhere"` unless the report is about South Carolina. Each page carries a
+"Current as of" date in its header and a "How this was made" note above its sources; update both when refreshing.
+Note: `/special/` (site root) is an old redirect to `/operations/`; do not reuse it.
