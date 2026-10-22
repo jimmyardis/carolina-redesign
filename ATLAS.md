@@ -44,6 +44,11 @@ Run one real test purchase through the live flow (checkout → redirect → star
 
 ## Session Log
 
+### 2026-10-22 (Haiti report mobile maps)
+- Made both maps in the Haiti special report (`research/special-reports/haiti-trap/`), the department atlas and the "balloon" gang-expansion map, fit phone width. They used to sit in side-scrolling boxes with a 540/560px minimum width.
+- Approach: the SVG stays one 800×582 viewBox. A `mapK()` helper scales label and marker sizes up as the rendered width shrinks, and each map redraws on resize. On phones the balloon map's event callout boxes turn into numbered pins with a list under the map. Desktop rendering is unchanged.
+- Committed locally (34555a4) and waiting on the user's OK to push. Desktop still has an old issue: the event boxes cover the Port-au-Prince label.
+
 ### 2026-10-22
 - Published the SCPC Operations Sprint proposal at `/briefings/scpc/`, password-protected with the same AES-256-GCM client-side encryption as the Ligonier brief (page source holds only ciphertext; `noindex, nofollow` on both the gate and the decrypted page; not linked from anywhere on the site).
 - Access key handed to the user in-session, not stored in the repo. To change it, re-run the encryption against the source HTML (encryption script lived in the session scratchpad: swap SALT/IV/CIPHER in the gate template).
