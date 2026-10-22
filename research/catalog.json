@@ -157,5 +157,23 @@
     ],
     "status": "live",
     "published": "2026-08"
+  },
+  {
+    "slug": "haiti-trap",
+    "title": "The Haiti Trap",
+    "collection": [
+      "special-reports"
+    ],
+    "format": "report",
+    "number": 1,
+    "path": "/research/special-reports/haiti-trap/",
+    "summary": "How a state loses its monopoly on force: Haiti's 2026 crisis through eight models, a department-level atlas and a feedback-loop simulator.",
+    "place": "elsewhere",
+    "themes": [
+      "governance",
+      "security"
+    ],
+    "status": "live",
+    "published": "2026-10"
   }
 ]

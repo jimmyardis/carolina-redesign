@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="The Haiti Trap: an interactive special report explaining Haiti's 2026 crisis through eight models from history, public choice, economics and game theory, with a department-level atlas and a feedback-loop simulator.">
+<title>The Haiti Trap | Special Reports No. 1 | Carolina Redesign Research</title>
+<link rel="icon" type="image/png" href="/cr-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column (~680px) with figures that break wider; each chapter = one model lens, numbered because the lenses build on each other */
+:root{
+  --paper:#F1F3F2; --panel:#FFFFFF; --ink:#151A22; --muted:#5A6370; --rule:#D5DAD9;
+  --cobalt:#1E3BAE;      /* state, institutions, the flag's blue */
+  --red:#B8202F;         /* gang power, violence */
+  --ochre:#A86E12;       /* economy, money */
+  --teal:#1C766C;        /* legitimacy, voice */
+  --zone:rgba(184,32,47,.28); --land:#E3E6E1; --land2:#D3D7D0; --sea:#E8EEF2;
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --body:"Newsreader",Georgia,"Times New Roman",serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0F1319; --panel:#171C24; --ink:#E7EAEE; --muted:#9AA3AE; --rule:#2A313B;
+  --cobalt:#7C95F2; --red:#F06A72; --ochre:#E2A64A; --teal:#5DC2B3;
+  --zone:rgba(240,106,114,.30); --land:#222933; --land2:#2C343F; --sea:#121923; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0F1319; --panel:#171C24; --ink:#E7EAEE; --muted:#9AA3AE; --rule:#2A313B;
+  --cobalt:#7C95F2; --red:#F06A72; --ochre:#E2A64A; --teal:#5DC2B3;
+  --zone:rgba(240,106,114,.30); --land:#222933; --land2:#2C343F; --sea:#121923; color-scheme:dark}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+[hidden]{display:none!important}
+img{max-width:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+.wrap{max-width:720px;margin:0 auto}
+.wide{max-width:1000px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.05;margin:0}
+h1{font-size:clamp(46px,11vw,104px);font-weight:800;font-stretch:72%;letter-spacing:-.01em;text-transform:uppercase}
+h2{font-size:clamp(30px,6vw,46px);font-weight:750;font-stretch:78%}
+h3{font-size:20px;font-weight:700;font-stretch:90%}
+p{margin:0}
+.flow{display:flex;flex-direction:column;gap:18px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.lede{font-size:22px;line-height:1.45}
+em{font-style:italic}
+a{color:var(--cobalt)}
+hr{border:0;border-top:1px solid var(--rule);margin:0}
+.serieslink{text-decoration:none}
+.serieslink:hover{color:var(--ink)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+/* hero */
+header.hero{padding-block:56px 28px}
+.hero .flow{gap:22px}
+.hero .kicker{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline}
+.flagbar{display:flex;height:8px;width:96px}
+.flagbar span:first-child{flex:1;background:var(--cobalt)}.flagbar span:last-child{flex:1;background:var(--red)}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:8px}
+.stat{background:var(--panel);padding:14px 14px 16px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.stat b{font-family:var(--display);font-size:clamp(26px,5vw,38px);font-weight:750;font-stretch:80%;line-height:1}
+.stat span{font-size:13.5px;line-height:1.35;color:var(--muted);font-family:var(--body)}
+@media (max-width:560px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+nav.lenses{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+nav.lenses a{font-family:var(--mono);font-size:12.5px;text-decoration:none;color:var(--ink);border:1px solid var(--rule);background:var(--panel);padding:6px 10px;border-radius:3px}
+nav.lenses a:hover,nav.lenses a:focus-visible{border-color:var(--ink)}
+
+/* chapters */
+section.ch{padding-block:56px 8px;border-top:1px solid var(--rule);margin-top:40px}
+.chhead{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;align-items:start;margin-bottom:22px}
+.chnum{font-family:var(--display);font-weight:800;font-stretch:62%;font-size:64px;line-height:.85;color:var(--red)}
+.chhead .eyebrow{grid-column:2}
+.lensbox{border-left:3px solid var(--cobalt);padding:4px 0 4px 16px;font-size:16.5px;color:var(--muted)}
+.lensbox b{color:var(--ink);font-family:var(--display);font-stretch:90%;font-weight:700;letter-spacing:.01em}
+.takeaway{background:var(--panel);border:1px solid var(--rule);padding:16px 18px;font-size:17px}
+.takeaway b{font-family:var(--display);font-stretch:85%;text-transform:uppercase;letter-spacing:.06em;font-size:13px;color:var(--red);display:block;margin-bottom:4px}
+
+/* figures */
+figure{margin:0;background:var(--panel);border:1px solid var(--rule);padding:18px}
+figcaption{font-size:14px;color:var(--muted);line-height:1.45;margin-top:10px}
+.figtitle{font-family:var(--display);font-weight:700;font-stretch:88%;font-size:18px;margin-bottom:4px}
+.scroll{overflow-x:auto}
+svg text{font-family:var(--mono)}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px 22px;margin:14px 0 6px}
+.ctl{display:flex;flex-direction:column;gap:4px;min-width:0}
+.ctl label{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+.ctl label output{color:var(--ink);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--cobalt)}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+button{font-family:var(--mono);font-size:12.5px;background:var(--paper);color:var(--ink);border:1px solid var(--rule);padding:7px 11px;border-radius:3px;cursor:pointer}
+button:hover{border-color:var(--ink)}
+button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
+.readout{font-family:var(--mono);font-size:13px;line-height:1.5;background:var(--paper);border:1px solid var(--rule);padding:10px 12px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:760px){.grid2,.grid3{grid-template-columns:minmax(0,1fr)}}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.legend i{display:inline-block;width:14px;height:3px;vertical-align:middle;margin-right:6px}
+
+/* timeline */
+.tl{display:flex;flex-direction:column;gap:0;border-left:2px solid var(--rule);margin-left:6px}
+.ev{position:relative;padding:0 0 18px 20px}
+.ev::before{content:"";position:absolute;left:-7px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--panel);border:2px solid var(--muted)}
+.ev[data-loop=extract]::before{border-color:var(--ochre)}
+.ev[data-loop=force]::before{border-color:var(--red)}
+.ev[data-loop=hollow]::before{border-color:var(--cobalt)}
+.ev[data-loop=outside]::before{border-color:var(--teal)}
+.ev .yr{font-family:var(--mono);font-size:13px;font-weight:600}
+.ev p{font-size:16.5px}
+.ev.dim{opacity:.28}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-left:8px}
+
+/* game */
+.payoff{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.pbar{display:flex;flex-direction:column;gap:6px;font-family:var(--mono);font-size:12.5px}
+.track{height:18px;background:var(--paper);border:1px solid var(--rule);position:relative}
+.fillbar{position:absolute;top:0;bottom:0}
+.verdict{font-family:var(--display);font-stretch:85%;font-size:22px;font-weight:700}
+
+.sources{font-size:14.5px;line-height:1.5}
+.sources li{margin-bottom:6px}
+.note{font-size:14px;color:var(--muted)}
+footer{margin-top:48px}
+
+section.ch.first{margin-top:12px}
+h3.sub{font-size:26px;font-stretch:82%}
+.gauges{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+@media (max-width:900px){.gauges{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.gauges{grid-template-columns:minmax(0,1fr)}}
+.gauge{background:var(--panel);padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.gauge p{font-size:15px;line-height:1.45}
+.gnum{font-family:var(--display);font-weight:800;font-stretch:72%;font-size:44px;line-height:1}
+.gnum small{font-family:var(--mono);font-size:12px;font-weight:400;color:var(--muted);letter-spacing:0;margin-left:4px}
+.spark{display:block;margin-top:auto}
+.dots{display:grid;grid-template-columns:repeat(20,1fr);gap:3px;margin-top:auto}
+.dots i{display:block;aspect-ratio:1;border-radius:50%}
+.dots span{grid-column:1/-1;font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:4px}
+.minirow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:14px}
+@media (max-width:900px){.minirow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.minirow div{display:flex;flex-direction:column;gap:2px;border-top:2px solid var(--ink);padding-top:8px;min-width:0}
+.minirow b{font-family:var(--display);font-size:24px;font-weight:750;font-stretch:80%}
+.minirow span{font-size:13.5px;line-height:1.35;color:var(--muted)}
+dl.facts{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin:8px 0 0}
+dl.facts div{display:grid;grid-template-columns:76px minmax(0,1fr);gap:12px;align-items:baseline;border-bottom:1px solid var(--rule);padding-bottom:8px}
+dl.facts dt{font-weight:600;font-size:17px;color:var(--red)}
+dl.facts dd{margin:0;font-size:15px;line-height:1.4}
+.atlas{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:18px;margin-top:14px;align-items:start}
+@media (max-width:860px){.atlas{grid-template-columns:minmax(0,1fr)}}
+.legendbox{display:flex;flex-direction:column;gap:8px}
+.lg{display:flex;flex-direction:column;gap:5px;font-family:var(--mono);font-size:12px}
+.lg i{display:inline-block;width:22px;height:12px;vertical-align:middle;margin-right:8px}
+.card{background:var(--paper);border:1px solid var(--rule);padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.card h3{font-size:24px;font-stretch:82%}
+.card p{font-size:15.5px;line-height:1.5}
+.kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;font-size:14px}
+.kv span{color:var(--muted);font-family:var(--mono);font-size:12px;align-self:center}
+#atlasMap [tabindex]:focus-visible{outline:none;stroke:var(--ink);stroke-width:3}
+#atlasMap path[tabindex]:hover{filter:brightness(1.08)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.zone{transition:r .5s ease,opacity .5s ease}
+</style>
+</head>
+<body>
+
+<header class="hero wrap">
+  <div class="flow">
+    <div class="kicker"><div class="flagbar"><span></span><span></span></div><a class="eyebrow serieslink" href="/research/special-reports/">Carolina Redesign Research · Special Reports, No. 1</a><span class="eyebrow">Current as of October 22, 2026</span></div>
+    <h1>The Haiti Trap</h1>
+    <p class="lede">How a state loses its monopoly on force, and why the problem keeps feeding itself. Eight lenses from history, public choice, economics and game theory, each with a model you can run.</p>
+    <div class="stats" aria-label="Haiti in October 2026">
+      <div class="stat"><b class="mono">5,915</b><span>people killed in 2025, the highest annual toll on UN record</span></div>
+      <div class="stat"><b class="mono">~1.5M</b><span>internally displaced, now ~80% outside the capital</span></div>
+      <div class="stat"><b class="mono">0</b><span>elected national officials. Last general election: 2016</span></div>
+      <div class="stat"><b class="mono">~70%</b><span>of Port-au-Prince under gang control (down from ~90% early 2026)</span></div>
+      <div class="stat"><b class="mono">1,563</b><span>of 5,550 authorized Gang Suppression Force members on the ground</span></div>
+      <div class="stat"><b class="mono">12%</b><span>of the estimated electorate registered to vote (759k of 6.5M)</span></div>
+    </div>
+    <nav class="lenses" aria-label="Chapters">
+      <a href="#now">0 · Haiti right now</a><a href="#atlas">◇ The atlas</a><a href="#fuse">1 · The long fuse</a><a href="#bandit">2 · Roving vs stationary bandit</a><a href="#agents">3 · When the agents became principals</a><a href="#fiscal">4 · The fiscal trap</a><a href="#pipeline">5 · The iron pipeline</a><a href="#balloon">6 · The balloon</a><a href="#commit">7 · The commitment problem</a><a href="#machine">8 · The loop machine</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- 0 : Haiti right now -->
+<section class="ch first" id="now">
+ <div class="wrap flow">
+  <div class="chhead"><div class="chnum">0</div><h2>Haiti right now</h2><div class="eyebrow">The situation in October 2026</div></div>
+  <p>Haiti has nearly 12 million people and no elected national leader. President Jovenel Moïse was assassinated in 2021, the last senators' terms ran out in 2023, and the transitional council created in 2024 expired in February without a successor. An appointed prime minister now governs by decree. Elections set for December were postponed indefinitely on October 5.</p>
+  <p>In the vacuum, armed gangs became the strongest organized force in the country. Most belong to a coalition called <em>Viv Ansanm</em> ("living together"), formed in 2023 when rival groups in the capital stopped fighting each other and turned on the state. The United States designated it a terrorist organization in 2025. Gangs hold roughly 70% of Port-au-Prince, tax the highways at checkpoints, kidnap for ransom, and have pushed out into the farm country of the Artibonite valley and the Central Plateau. Anyone resisting can be killed: the UN counted 241 people killed between July and early October for allegedly resisting gangs.</p>
+  <p>Against them are an under-strength national police force, a small rebuilt army, a UN-backed Gang Suppression Force at 28% of its authorized size, vigilante groups, and a private military company.</p>
+ </div>
+
+ <div class="wide" style="margin-top:26px">
+  <div class="gauges" aria-label="How bad things are">
+   <div class="gauge">
+    <div class="eyebrow">Violent death</div>
+    <div class="gnum mono">≈50<small> per 100,000</small></div>
+    <p>people killed in 2025, counting gangs, police operations and vigilantes. That is about ten times the U.S. homicide rate.</p>
+    <svg class="spark" id="gRate" viewBox="0 0 300 70" width="100%" role="img" aria-label="Haiti about 50 per 100,000, world about 6, United States about 5"></svg>
+   </div>
+   <div class="gauge">
+    <div class="eyebrow">Hunger</div>
+    <div class="gnum mono">5.8M<small> people · 52%</small></div>
+    <p>in crisis-level hunger or worse (IPC Phase 3+), the most since Haiti's assessments began in 2013. About 254,000 young children are expected to suffer acute malnutrition over the coming year.</p>
+    <div class="dots" id="gHunger" aria-hidden="true"></div>
+   </div>
+   <div class="gauge">
+    <div class="eyebrow">Displacement</div>
+    <div class="gnum mono">1 in 8<small> Haitians</small></div>
+    <p>has been driven from home, about 1.5 million people. More than half are children. Over 110,000 more were deported back into the country in the first half of 2026.</p>
+    <div class="dots" id="gDisp" aria-hidden="true"></div>
+   </div>
+   <div class="gauge">
+    <div class="eyebrow">Poverty</div>
+    <div class="gnum mono">≈38%<small> extreme poor</small></div>
+    <p>live on less than $2.15 a day. The economy has shrunk every year since 2019. Food prices rose 35% in the year to October 2025. The poorest country in the Americas is getting poorer.</p>
+    <svg class="spark" id="gGDP" viewBox="0 0 300 70" width="100%" role="img" aria-label="Cumulative GDP contraction since 2018"></svg>
+   </div>
+  </div>
+  <div class="minirow">
+   <div><b class="mono">1,753</b><span>cases of gang sexual violence documented in 2025, mostly gang rape</span></div>
+   <div><b class="mono">647</b><span>kidnappings recorded in 2025</span></div>
+   <div><b class="mono">30–50%</b><span>of gang members are minors, per UNICEF; forced recruitment of children tripled in a year</span></div>
+   <div><b class="mono">&lt;25%</b><span>of health facilities around the capital were working in mid-2025</span></div>
+   <div><b class="mono">0</b><span>international flights into the capital: gunfire risk has stopped them</span></div>
+  </div>
+  <p class="note" style="margin-top:8px">Rates use a population of about 11.9 million. U.S. comparison uses an FBI rate of roughly 5 per 100,000; world rate from UNODC.</p>
+ </div>
+
+ <div class="wrap flow" style="margin-top:34px">
+  <h3 class="sub">The Blackwater founder's drone war</h3>
+  <p>On October 17, CNN published an inside look at the most controversial player in this fight: the Vectus Global Task Force, a private military company run by Erik Prince, who founded Blackwater. Blackwater contractors killed 17 Iraqi civilians at Nisour Square in Baghdad in 2007. Haiti's interim government hired Vectus in 2025, and since March of that year its contractors have flown explosive-laden drones in support of elite police units.</p>
+ </div>
+ <div class="wide" style="margin-top:18px">
+  <div class="grid2">
+   <figure>
+    <div class="figtitle">The Task Force by the numbers</div>
+    <dl class="facts">
+     <div><dt class="mono">2,000+</dt><dd>drone strikes reported since March 2025</dd></div>
+     <div><dt class="mono">1,243</dt><dd>killed by drone strikes, March 2025 to January 2026 (Human Rights Watch)</dd></div>
+     <div><dt class="mono">60</dt><dd>of those were not believed to be gang members; 17 were children (HRW)</dd></div>
+     <div><dt class="mono">85</dt><dd>civilians killed by drone strikes attributed to a "private military contractor" in the UN's count</dd></div>
+     <div><dt class="mono">8+</dt><dd>children killed in September 2025 when a strike on a gang leader's birthday party missed its target</dd></div>
+     <div><dt class="mono">10 yrs</dt><dd>length of a separate border-security deal that pays Prince 10% of any new customs revenue</dd></div>
+    </dl>
+    <figcaption>CNN (Oct 17, 2026); Human Rights Watch (Mar 2026); Reuters/Haitian Times (Aug 2025).</figcaption>
+   </figure>
+   <figure>
+    <div class="figtitle">Who did the killing</div>
+    <p style="font-size:15px;color:var(--muted);margin-bottom:10px">5,519 people killed in Haiti from March 2025 to mid-January 2026, by who killed them</p>
+    <svg id="whoKilled" viewBox="0 0 440 210" width="100%" role="img" aria-label="Security forces 3,497, gangs 1,424, self-defense groups 598"></svg>
+    <figcaption>UN Human Rights Office report, March 2026. "Security forces" includes police operations, the army and contractor-supported drone strikes. Most of their victims were reported to be suspected gang members.</figcaption>
+   </figure>
+  </div>
+ </div>
+ <div class="wrap flow" style="margin-top:20px">
+  <p>Supporters say the drones have done what nothing else could. A September UN assessment credited security operations with halting gang expansion and clearing parts of the capital, including downtown. Prince says police were losing armored trucks constantly before his team arrived and rarely lose them now. Critics answer that extrajudicial strikes in dense neighborhoods break international law, that no major gang leader has been killed in years, and that the main highway north is still blocked 18 months after Prince said key roads would reopen within a year. In early October the UN human rights chief said more than half of the roughly 5,700 people killed or injured in Haiti so far in 2026 were hurt in security operations.</p>
+  <p>Paying a private force with a share of customs revenue is a very old arrangement called tax farming, and it continues a thread you'll see in chapter 1: Haitian governments handing organized force to someone other than an accountable public institution.</p>
+ </div>
+</section>
+
+<!-- Atlas -->
+<section class="ch" id="atlas">
+ <div class="wrap flow">
+  <div class="chhead"><div class="chnum">◇</div><h2>The atlas</h2><div class="eyebrow">Ten departments, four ways to divide them</div></div>
+  <p>Haiti is about the size of Maryland and shares the island of Hispaniola with the Dominican Republic. It is split into ten departments. Choose a view to see how the country divides: where people live, where the gangs are, where the displaced have gone, and which roads still connect the capital to everything else. Tap a department or a marked site for details.</p>
+ </div>
+ <div class="wide" style="margin-top:20px">
+  <figure>
+   <div class="btns" role="group" aria-label="Map view" id="atlasModes"></div>
+   <div class="btns" role="group" aria-label="Overlays" style="margin-top:8px">
+     <button id="ovRoads" aria-pressed="true">National highways</button><button id="ovSites" aria-pressed="true">Key sites</button>
+   </div>
+   <div class="atlas">
+    <div class="scroll"><svg id="atlasMap" viewBox="0 0 800 582" width="100%" style="min-width:540px;display:block" role="img" aria-label="Interactive map of Haiti's departments"></svg></div>
+    <div class="flow" style="gap:12px;min-width:0">
+     <div class="legendbox" id="atlasLegend"></div>
+     <div class="card" id="atlasCard" aria-live="polite"></div>
+    </div>
+   </div>
+   <figcaption>Populations are national statistics institute (IHSI) estimates for 2015, the most recent official breakdown by department; the national total has since grown to about 11.9 million. Security levels and highway status summarize UN, IOM, FAO and press reporting through October 2026 and are approximate. Displacement figures are from IOM with the dates shown.</figcaption>
+  </figure>
+ </div>
+</section>
+
+<div class="wrap flow" style="margin-top:48px">
+  <h3 class="sub">Why it keeps getting worse</h3>
+  <p>Haiti is usually described as a list of disasters: earthquake, assassination, gangs, hunger. A list hides the mechanism. The more useful question is why each shock made the next one more likely, and why the fixes tried so far have tended to stall. Each chapter below takes one established model, applies it to Haiti, and lets you push on its assumptions. None of the models is the whole truth. Read together, they describe a system with several reinforcing loops and only a few weak brakes.</p>
+  <p class="note">The interactive models are teaching tools. Their parameters are set to be plausible and are labeled as illustrative; the charted figures come from the UN, IOM, World Bank and IMF sources listed at the end.</p>
+</div>
+
+<!-- 1 -->
+<section class="ch" id="fuse">
+ <div class="wrap flow">
+  <div class="chhead"><div class="chnum">1</div><h2>The long fuse</h2><div class="eyebrow">Path dependence · extractive institutions</div></div>
+  <div class="lensbox"><b>The lens.</b> Institutional economists (North; Acemoglu and Robinson) argue that early rules about who extracts from whom tend to persist, because the people who benefit from them gain the power to keep them. Critical junctures are the rare moments when the path can change.</div>
+  <p>Haiti's starting conditions were unusually hard. It won independence in 1804 through the only successful slave revolution in history, and was then made to pay for it: in 1825 France demanded an indemnity of 150 million francs as the price of recognition, later reduced to 90 million. Servicing it, and the loans taken to pay it, drained public revenue for generations. A state born owing money learned to live off customs at a few ports, controlled by a narrow circle in the capital.</p>
+  <p>Read the timeline for one pattern in particular: again and again, organized force was handed to someone other than a professional, accountable state. The Tontons Macoutes served a ruler rather than the law. The army was disbanded in 1995. Gangs became rented muscle for politicians and businesses. Filter the events by the loop they fed.</p>
+ </div>
+ <div class="wrap" style="margin-top:22px">
+  <figure>
+   <div class="figtitle">Two centuries in four threads</div>
+   <div class="btns" role="group" aria-label="Filter timeline">
+     <button data-f="all" aria-pressed="true">All</button>
+     <button data-f="extract" aria-pressed="false">Extraction</button>
+     <button data-f="force" aria-pressed="false">Outsourced force</button>
+     <button data-f="hollow" aria-pressed="false">Hollowed institutions</button>
+     <button data-f="outside" aria-pressed="false">Outside intervention</button>
+   </div>
+   <div class="tl" id="timeline" style="margin-top:18px"></div>
+   <figcaption>Dot color marks the thread: ochre for extraction, red for outsourced force, blue for hollowed institutions, teal for outside intervention. Dates from standard histories and UN/AP reporting.</figcaption>
+  </figure>
+ </div>
+ <div class="wrap flow" style="margin-top:20px">
+  <div class="takeaway"><b>What the lens explains</b>Why Haiti's elites have long had more to gain from controlling a weak state than from building a strong one, and why violence repeatedly became a private service rather than a public monopoly.</div>
+ </div>
+</section>
+
+<!-- 2 -->
+<section class="ch" id="bandit">
+ <div class="wrap flow">
+  <div class="chhead"><div class="chnum">2</div><h2>Roving and stationary bandits</h2><div class="eyebrow">Public choice · Mancur Olson</div></div>
+  <div class="lensbox"><b>The lens.</b> Olson asked why a bandit would ever behave like a government. His answer: a roving bandit who expects to move on takes everything. A bandit who expects to stay has a stake in the territory's output, so he taxes at a lower rate and may even provide order. The key variable is the time horizon.</div>
+  <p>Haitian gangs show both modes. Some act like stationary bandits, running toll checkpoints on national roads and taxing markets on a predictable schedule. Others act like roving bandits: mass kidnappings, burning neighborhoods, massacres such as Pont-Sondé in 2024. The model below shows why the horizon matters, and it has an uncomfortable implication for the current crackdown.</p>
+ </div>
+ <div class="wide" style="margin-top:22px">
+  <figure>
+   <div class="figtitle">The bandit's tax decision</div>
+   <div class="controls">
+    <div class="ctl"><label for="hz">Expected tenure in this territory <output id="hzo">12 seasons</output></label><input id="hz" type="range" min="1" max="40" value="12"></div>
+    <div class="ctl"><label for="gr">How much output responds to the tax <output id="gro">0.40</output></label><input id="gr" type="range" min="10" max="60" value="40"></div>
+   </div>
+   <div class="grid2">
+    <div><div class="eyebrow" style="margin-bottom:6px">Total take vs tax rate, for this tenure</div><svg id="olsonA" viewBox="0 0 440 260" width="100%" role="img" aria-label="Revenue curve"></svg></div>
+    <div><div class="eyebrow" style="margin-bottom:6px">Best tax rate vs tenure</div><svg id="olsonB" viewBox="0 0 440 260" width="100%" role="img" aria-label="Optimal tax by horizon"></svg></div>
+   </div>
+   <div class="readout" id="olsonR" style="margin-top:12px"></div>
+   <figcaption>Each season the community's output grows 10% before the bandit's take; the take slows growth in proportion to the rate. The bandit discounts the future at 3% per season and picks the constant rate that maximizes his total haul. Illustrative parameters.</figcaption>
+  </figure>
+ </div>
+ <div class="wrap flow" style="margin-top:20px">
+  <p>Slide the tenure to one season and the bandit takes everything. Stretch it out and the best rate falls, because killing the goose costs him future eggs. Now apply it to 2026. A gang suppression force that raises the odds a leader loses his turf <em>shortens his horizon</em>. Until pressure is strong enough to actually end his control, the model predicts more predatory behavior in the meantime, not less. UN officials told the Security Council this month that gangs are adapting their tactics as operations intensify, and that hundreds of people were killed in the West and Artibonite departments for allegedly resisting them.</p>
+  <div class="takeaway"><b>What the lens explains</b>Why half-strength enforcement can raise short-run violence, and why a credible exit (chapter 7) matters as much as firepower: it changes what a leader expects his future to be.</div>
+ </div>
+</section>
+
+<!-- 3 -->
+<section class="ch" id="agents">
+ <div class="wrap flow">
+  <div class="chhead"><div class="chnum">3</div><h2>When the agents became principals</h2><div class="eyebrow">Principal–agent theory · selectorate theory</div></div>
+  <div class="lensbox"><b>The lens.</b> In a principal–agent relationship, someone hires someone else to act for them. The risk is that the agent gains information or power the principal can't control. Selectorate theory (Bueno de Mesquita and colleagues) adds that leaders who rely on a tiny winning coalition spend on private rewards for that coalition rather than on public goods.</div>
+  <p>For years Haitian gangs were agents. Politicians paid them to turn out votes or suppress protests; some business interests paid them to guard warehouses, block rivals or control access to ports and roads. Canada sanctioned several prominent business figures in 2022 and the United States sanctioned former president Michel Martelly in 2024, each over alleged links to armed groups. Then the agents acquired their own revenue, their own guns, and in 2023 their own federation, Viv Ansanm. In early 2024 they forced a prime minister out. Toggle the diagram to see the relationship flip.</p>
+ </div>
+ <div class="wrap" style="margin-top:22px">
+  <figure>
+   <div class="btns" role="group" aria-label="Era"><button id="pa1" aria-pressed="true">Before ~2020: gangs as hired agents</button><button id="pa2" aria-pressed="false">2024–26: gangs as principals</button></div>
+   <svg id="pa" viewBox="0 0 560 420" width="100%" role="img" aria-label="Who pays whom" style="margin-top:12px"></svg>
+   <p id="paText" style="font-size:16px;margin-top:6px"></p>
+   <figcaption>Schematic of reported relationships, drawn from UN Panel of Experts reporting and sanctions designations. Arrow thickness marks relative importance, not measured flows.</figcaption>
+  </figure>
+ </div>
+ <div class="wrap flow" style="margin-top:20px">
+  <div class="takeaway"><b>What the lens explains</b>Why sanctions on elite financiers matter even after gangs became self-funding: they cut the protection from prosecution that let the arrangement grow. It also explains why gang leaders now behave like political actors, demanding a seat at negotiations.</div>
+ </div>
+</section>
+
+<!-- 4 -->
+<section class="ch" id="fiscal">
+ <div class="wrap flow">
+  <div class="chhead"><div class="chnum">4</div><h2>The fiscal trap and the exit valve</h2><div class="eyebrow">Fragile-state economics · Hirschman's exit, voice and loyalty</div></div>
+  <div class="lensbox"><b>The lens.</b> A state needs revenue to provide security, and needs security to collect revenue. Below some threshold the two pull each other down. Albert Hirschman added a second dynamic: when an institution declines, members can complain and push for change (voice) or leave (exit). When exit is easy, the people most able to exercise voice are the first to go.</div>
+  <p>Haiti collects tax equal to about 5% of GDP, one of the lowest ratios in the world. Families abroad send home roughly three times that. Remittances keep households alive and the currency stable; they also make emigration the most rational household strategy, drain the professionals who staff courts and hospitals, and give gangs something to extort.</p>
+ </div>
+ <div class="wide" style="margin-top:22px">
+  <div class="grid2">
+   <figure><div class="figtitle">People killed per year</div><svg id="cK" viewBox="0 0 440 240" width="100%" role="img" aria-label="Killings per year 2022 to 2025"></svg><figcaption>UN BINUH / OHCHR. 2023 counts homicides; later years count killings from all armed violence, including security operations.</figcaption></figure>
+   <figure><div class="figtitle">Internally displaced people</div><svg id="cD" viewBox="0 0 440 240" width="100%" role="img" aria-label="Displacement Dec 2023 to Sep 2026"></svg><figcaption>IOM Displacement Tracking Matrix rounds, Dec 2023 – Sep 2026.</figcaption></figure>
+   <figure><div class="figtitle">Real GDP growth, fiscal years</div><svg id="cG" viewBox="0 0 440 240" width="100%" role="img" aria-label="GDP growth 2019 to 2025"></svg><figcaption>World Bank and IMF estimates. Seven straight years of contraction through FY2025; the UN expects another in 2026.</figcaption></figure>
+   <figure><div class="figtitle">Who funds daily life, % of GDP</div><svg id="cM" viewBox="0 0 440 240" width="100%" role="img" aria-label="Remittances versus tax revenue"></svg><figcaption>Remittances ≈16% of GDP (World Bank, FY2025); tax revenue 5.2% (World Bank, 2024).</figcaption></figure>
+  </div>
+ </div>
+ <div class="wrap flow" style="margin-top:20px">
+  <p>The exit valve is now narrowing from both sides. Tens of thousands of Haitians have been forcibly returned this year, mostly from the Dominican Republic; more than 110,000 by July, according to IOM. U.S. immigration policy shifts put remittance growth at risk, and the IMF has flagged that a sharp drop in remittances is one of the main downside scenarios. Close the exit without restoring voice and the pressure has to go somewhere.</p>
+  <div class="takeaway"><b>What the lens explains</b>Why the economy can keep shrinking for seven years without a final collapse (the diaspora is a shock absorber), and why that absorber also quietly weakens the institutions that would end the crisis.</div>
+ </div>
+</section>
+
+<!-- 5 -->
+<section class="ch" id="pipeline">
+ <div class="wrap flow">
+  <div class="chhead"><div class="chnum">5</div><h2>The iron pipeline</h2><div class="eyebrow">Black-market price theory · supply-side enforcement</div></div>
+  <div class="lensbox"><b>The lens.</b> When a good is banned in one place and legal next door, its price gap measures enforcement risk and funds the smugglers. Interdiction works on supply by raising costs; it rarely ends the trade while demand and margins stay high.</div>
+  <p>Haiti makes no guns and no ammunition. UNODC found that most trafficked firearms come from the United States, often shipped from Florida concealed among ordinary goods, and that a handgun bought for $400–500 at a licensed U.S. dealer can sell for as much as $10,000 in Haiti. Haiti has about 1,771 km of coastline and a 392 km land border, patrolled by a police force that is itself a gang target.</p>
+ </div>
+ <div class="wrap" style="margin-top:22px">
+  <figure>
+   <div class="figtitle">The arbitrage on one handgun</div>
+   <svg id="arb" viewBox="0 0 600 150" width="100%" role="img" aria-label="Price of a handgun in US versus Haiti"></svg>
+   <div class="controls"><div class="ctl"><label for="seize">Share of shipments seized <output id="seizeo">10%</output></label><input id="seize" type="range" min="0" max="90" value="10"></div></div>
+   <div class="readout" id="arbR"></div>
+   <figcaption>Price points from UNODC (2023). Seizure math is illustrative: it shows the break-even point at which the trade stops paying, ignoring the smuggler's own costs.</figcaption>
+  </figure>
+ </div>
+ <div class="wrap flow" style="margin-top:20px">
+  <p>A twenty-fold markup means a smuggler still profits even if most loads are seized, so seizures alone raise prices more than they cut volume. The UN Security Council renewed its arms embargo and sanctions regime this month, and Haiti's deputy UN ambassador told the Council the guns will keep finding a way in. The model suggests the strongest lever sits at the source and in the money trail, not at Haiti's shoreline.</p>
+  <div class="takeaway"><b>What the lens explains</b>Why the gangs' firepower kept growing during years when the state was weakest, and why gun supply is the one input largely set outside Haiti.</div>
+ </div>
+</section>
+
+<!-- 6 -->
+<section class="ch" id="balloon">
+ <div class="wrap flow">
+  <div class="chhead"><div class="chnum">6</div><h2>The balloon</h2><div class="eyebrow">Displacement of crime · spatial diffusion</div></div>
+  <div class="lensbox"><b>The lens.</b> Squeeze one end of a balloon and the air moves to the other. Drug-policy and policing research calls this the balloon effect: pressure in one area pushes armed groups and their violence along roads into places that were safer. Displaced civilians follow, and their arrival strains the new place.</div>
+  <p>Step through the years. The pattern runs outward from the capital's core along the main roads: north to the Artibonite rice valley, east toward the Dominican border through Croix-des-Bouquets and Mirebalais, and up into the hills at Kenscoff. By September 2026, IOM found nearly 80% of displaced people living outside Port-au-Prince, with the sharpest recent rise in Artibonite, once a refuge.</p>
+ </div>
+ <div class="wide" style="margin-top:22px">
+  <figure>
+   <div class="btns" role="group" aria-label="Year" id="yearBtns"></div>
+   <div class="btns" role="group" aria-label="Layers" style="margin-top:8px">
+     <button id="lyZ" aria-pressed="true">Gang areas</button><button id="lyR" aria-pressed="false">Reported arms routes</button><button id="lyE" aria-pressed="true">Events</button>
+   </div>
+   <div class="scroll" style="margin-top:12px"><svg id="map" viewBox="0 0 800 582" width="100%" style="min-width:560px;display:block" role="img" aria-label="Map of Haiti showing gang expansion"></svg></div>
+   <p id="mapText" style="font-size:16px;margin-top:10px"></p>
+   <figcaption>Schematic. Circles mark areas reported under gang control or heavy contest in UN, IOM and press reporting; they are not surveyed boundaries. Arrows show entry routes described by UNODC (sea shipments and land crossings from the Dominican Republic), not specific shipments.</figcaption>
+  </figure>
+ </div>
+ <div class="wrap flow" style="margin-top:20px">
+  <div class="takeaway"><b>What the lens explains</b>Why concentrating force on the capital can look like success there while the toll climbs elsewhere, and why holding cleared ground with police, courts and services matters as much as clearing it.</div>
+ </div>
+</section>
+
+<!-- 7 -->
+<section class="ch" id="commit">
+ <div class="wrap flow">
+  <div class="chhead"><div class="chnum">7</div><h2>The commitment problem</h2><div class="eyebrow">Game theory · Fearon on why conflicts persist</div></div>
+  <div class="lensbox"><b>The lens.</b> James Fearon showed that wars often continue not because sides can't imagine a deal, but because neither can trust the other to keep one once the balance of power shifts. A deal needs a guarantor whose promises will outlast the moment.</div>
+  <p>Suppose a gang leader is offered a path out: lay down arms in exchange for reduced sentences or reintegration. Should he take it? It depends on whether the promise will be kept by a government that doesn't exist yet. Haiti's interim prime minister governs by decree; the transitional council's mandate expired in February with no successor; elections planned for December were postponed indefinitely this month. Nobody now in office can bind the people who will hold office next.</p>
+ </div>
+ <div class="wrap" style="margin-top:22px">
+  <figure>
+   <div class="figtitle">A gang leader's choice</div>
+   <div class="controls">
+    <div class="ctl"><label for="cred">Chance the deal is honored <output id="credo">30%</output></label><input id="cred" type="range" min="0" max="100" value="30"></div>
+    <div class="ctl"><label for="supp">Chance of being defeated if he fights on <output id="suppo">25%</output></label><input id="supp" type="range" min="0" max="100" value="25"></div>
+   </div>
+   <div class="payoff">
+     <div class="pbar"><span>Take the deal</span><div class="track"><div class="fillbar" id="bDeal"></div></div><span id="vDeal" class="mono"></span></div>
+     <div class="pbar"><span>Keep fighting</span><div class="track"><div class="fillbar" id="bFight"></div></div><span id="vFight" class="mono"></span></div>
+   </div>
+   <p class="verdict" id="verdict" style="margin-top:12px"></p>
+   <figcaption>Payoffs on a −10 to +10 scale. Honored deal: +5 (freedom, some assets kept). Broken deal: −8 (arrest or death after disarming). Fighting on: +4 in rents and status if he survives, −10 if defeated. The starting suppression value roughly mirrors a force at 28% of its authorized size. Illustrative.</figcaption>
+  </figure>
+ </div>
+ <div class="wrap flow" style="margin-top:20px">
+  <p>Raise only the suppression odds and the deal eventually wins, but slowly and at high cost. Raise credibility and it wins much sooner. That is the case for pairing force with legal off-ramps that a successor government can't easily revoke, which is what the UN's representative urged this month with his call for disarmament and reintegration programs, especially for recruited children. The same logic runs for voters and candidates: with 759,257 people registered out of roughly 6.5 million eligible, nobody can promise an election that will be seen as legitimate, so nobody invests in one.</p>
+  <div class="takeaway"><b>What the lens explains</b>Why elections keep slipping (each actor waits for security, security waits for a legitimate government) and why external guarantors keep being asked to fill the gap.</div>
+ </div>
+</section>
+
+<!-- 8 -->
+<section class="ch" id="machine">
+ <div class="wrap flow">
+  <div class="chhead"><div class="chnum">8</div><h2>The loop machine</h2><div class="eyebrow">System dynamics · feedback loops and leverage points</div></div>
+  <div class="lensbox"><b>The lens.</b> System dynamics, from Jay Forrester and Donella Meadows, maps how stocks (things that accumulate) change through flows governed by feedback. Reinforcing loops amplify a change; balancing loops resist it. Leverage points are places where a small push changes the system's behavior.</div>
+  <p>Here the earlier chapters join into one diagram. Every loop but one is reinforcing. The single balancing loop, outside force pushing gang power down, works with a long delay, which is exactly the kind of loop that produces oscillation and false dawns. Tap a loop to trace it.</p>
+ </div>
+ <div class="wide" style="margin-top:22px">
+  <figure>
+   <div class="btns" role="group" aria-label="Loops" id="loopBtns"></div>
+   <div class="grid2" style="margin-top:12px;align-items:start">
+    <svg id="cld" viewBox="0 0 600 560" width="100%" role="img" aria-label="Causal loop diagram"></svg>
+    <div class="flow" style="gap:10px"><h3 id="loopTitle"></h3><p id="loopText" style="font-size:16.5px"></p><p class="note">A plus sign means the two move together; a minus sign means they move in opposite directions. Two bars on an arrow mark a delay.</p></div>
+   </div>
+  </figure>
+ </div>
+ <div class="wrap flow" style="margin-top:26px">
+  <p>Now run it. The simulator below couples five stocks over four years, starting from conditions in October 2026. Its equations are deliberately simple and its numbers are illustrative; the point is to see which combinations of levers break the reinforcing loops and which only reshuffle the damage. Try the presets first, then design your own policy.</p>
+ </div>
+ <div class="wide" style="margin-top:18px">
+  <figure>
+   <div class="figtitle">Haiti, 48 months from now</div>
+   <div class="btns" role="group" aria-label="Presets" id="presets"></div>
+   <div class="controls">
+    <div class="ctl"><label for="sF">International force <output id="sFo"></output></label><input id="sF" type="range" min="0" max="5550" step="50" value="1563"></div>
+    <div class="ctl"><label for="sA">Arms interdiction at source <output id="sAo"></output></label><input id="sA" type="range" min="0" max="80" value="10"></div>
+    <div class="ctl"><label for="sX">Exit ramps: DDR, jobs, youth programs <output id="sXo"></output></label><input id="sX" type="range" min="0" max="100" value="10"></div>
+    <div class="ctl"><label for="sS">Sanctions and prosecution of elite backers <output id="sSo"></output></label><input id="sS" type="range" min="0" max="100" value="20"></div>
+    <div class="ctl"><label for="sE">Hold elections in month <output id="sEo"></output></label><input id="sE" type="range" min="0" max="48" value="0"></div>
+    <div class="ctl"><label for="sR">Remittance shock <output id="sRo"></output></label><input id="sR" type="range" min="-50" max="20" value="0"></div>
+   </div>
+   <div class="grid3">
+    <div><div class="eyebrow">System stocks (0–100)</div><svg id="simA" viewBox="0 0 440 260" width="100%" role="img" aria-label="Simulated stocks"></svg>
+      <div class="legend"><span><i style="background:var(--red)"></i>Gang power</span><span><i style="background:var(--cobalt)"></i>State capacity</span><span><i style="background:var(--ochre)"></i>Economy</span><span><i style="background:var(--teal)"></i>Legitimacy</span></div></div>
+    <div><div class="eyebrow">Killings per month</div><svg id="simB" viewBox="0 0 440 260" width="100%" role="img" aria-label="Simulated killings"></svg></div>
+    <div><div class="eyebrow">Displaced (millions)</div><svg id="simC" viewBox="0 0 440 260" width="100%" role="img" aria-label="Simulated displacement"></svg></div>
+   </div>
+   <div class="readout" id="simR" style="margin-top:12px"></div>
+   <figcaption>Calibrated loosely so the status-quo run starts near today's reported pace: roughly 350 killings and ~10,000 newly displaced per month, gang power near 75 and state capacity near 20. An election succeeds only if gang power is below 55 when it is held; otherwise it lowers legitimacy. This is a thinking aid, not a forecast.</figcaption>
+  </figure>
+ </div>
+ <div class="wrap flow" style="margin-top:20px">
+  <h3>What the runs tend to show</h3>
+  <p>Force alone cuts gang power the most, but killings nearly double first and the four-year toll ends up higher than the status quo. Cutting the arms supply or opening exit ramps lowers gang power more slowly while costing fewer lives, and either one compounds with pressure. Elections held while gangs are strong fail and cost legitimacy. A remittance collapse shrinks the economy, which feeds recruitment over time. The combined preset is the only run where an election succeeds. These are the model's assumptions talking, but they line up with what the UN's representative told the Security Council this week: security operations alone are insufficient, and lasting stabilization needs the state's permanent presence.</p>
+  <div class="takeaway"><b>Signals to watch</b>Force fill rate against the 5,550 ceiling. Whether cleared neighborhoods get police stations and courts, not just patrols. Voter registration against 6.5 million. Remittance volumes as U.S. policy shifts. Killings outside the West department, the clearest test of the balloon.</div>
+ </div>
+</section>
+
+<footer class="wrap flow">
+  <hr>
+  <h3>How this was made</h3>
+  <p class="sources">Every figure in the charts, stats and atlas comes from public reporting by the UN, IOM, World Bank, IMF, FAO, UNICEF, Human Rights Watch and major news organizations, listed below with dates. The interactive models (the bandit, the payoff game, the arms arithmetic and the 48-month simulator) are teaching tools: their structure follows the published theory, but their parameters are illustrative and they are not forecasts. Map zones and highway status are approximate summaries of reporting, not surveyed boundaries. The situation changes quickly; this report reflects sources available on October 22, 2026.</p>
+  <h3>Sources</h3>
+  <ol class="sources">
+   <li><a href="https://news.un.org/en/story/2026/10/1168626" target="_blank" rel="noopener">UN News, Security Council briefing on Haiti, 19 Oct 2026</a> (killings Jul–Oct, force strength, voter rolls, economy)</li>
+   <li><a href="https://www.jurist.org/news/2026/10/un-warns-that-haiti-gangs-fighting-tactics-are-hindering-election-preparations/" target="_blank" rel="noopener">JURIST, UN warns gangs' tactics hinder election preparations, 20 Oct 2026</a></li>
+   <li><a href="https://www.wsls.com/news/world/2026/10/19/gangs-in-haiti-target-foreign-troops-in-biggest-attack-since-new-force-began-operations/" target="_blank" rel="noopener">AP, Gangs target foreign troops in Croix-des-Bouquets, 19 Oct 2026</a></li>
+   <li><a href="https://www.aa.com.tr/en/americas/haiti-postpones-elections-as-political-instability-continues/4080437" target="_blank" rel="noopener">Anadolu, Haiti postpones elections, 7 Oct 2026</a></li>
+   <li><a href="https://www.thecitizen.co.tz/tanzania/news/international/haiti-enters-political-limbo-as-transition-government-s-mandate-ends-5351892" target="_blank" rel="noopener">Reuters via The Citizen, Transition council mandate ends, Feb 2026</a></li>
+   <li><a href="https://dominicantoday.com/?p=252776" target="_blank" rel="noopener">BINUH 2025 figures: 5,915 killed (Dominican Today, Feb 2026)</a></li>
+   <li><a href="https://media.un.org/unifeed/en/asset/d354/d3547752" target="_blank" rel="noopener">OHCHR report, Mar 2025 – Jan 2026, breakdown by perpetrator</a></li>
+   <li><a href="https://lenouvelliste.com/en/article/246499/un-sounds-alarm-over-doubled-fatality-rate-in-haiti-for-2023" target="_blank" rel="noopener">Le Nouvelliste, 2023 homicides (4,789) vs 2022 (2,183)</a></li>
+   <li><a href="https://www.euronews.com/2025/01/14/haiti-gang-violence-has-displaced-more-than-1-million-people-un-migration-agency-says" target="_blank" rel="noopener">IOM via Euronews, 1.04M displaced Dec 2024; 5,600+ killed in 2024</a></li>
+   <li><a href="https://www.globalsecurity.org/military/library/news/2024/06/mil-240618-voa10.htm" target="_blank" rel="noopener">VOA, IOM displacement Mar and Jun 2024</a></li>
+   <li><a href="https://theprint.in/world/nearly-1-5-million-displaced-in-haiti-as-violence-spreads-un-says/3053711/" target="_blank" rel="noopener">Reuters via ThePrint, ~1.5M displaced, 80% outside the capital, Sep 2026</a></li>
+   <li><a href="https://theowp.org/humanitarian-leaders-travel-to-haiti-as-displacement-reaches-a-record-1-47-million/" target="_blank" rel="noopener">OWP, 1.47M displaced and 110,000+ forced returns, Jul 2026</a></li>
+   <li><a href="https://thedocs.worldbank.org/en/doc/e408a7e21ba62d843bdd90dc37e61b57-0500032021/related/mpo-hti.pdf" target="_blank" rel="noopener">World Bank Macro Poverty Outlook, Haiti, Apr 2026</a></li>
+   <li><a href="https://www.worldbank.org/ext/en/country/haiti/fragments/strategy" target="_blank" rel="noopener">World Bank Haiti overview (tax revenue 5.2% of GDP)</a></li>
+   <li><a href="https://www.imf.org/-/media/files/publications/cr/2026/english/1htiea2026001.pdf.md" target="_blank" rel="noopener">IMF Country Report on Haiti, 2026</a></li>
+   <li><a href="https://guardian.ng/news/surge-in-arms-smuggling-fuels-violence-in-haiti-un-warns/" target="_blank" rel="noopener">AFP on UNODC, Haiti's Criminal Markets (2023)</a> and <a href="https://www.nbcconnecticut.com/news/national-international/un-report-how-florida-is-fueling-haitis-arms-trafficking-crisis/2987676/" target="_blank" rel="noopener">AP coverage</a></li>
+   <li><a href="https://www.africanews.com/amp/2026/03/21/chad-to-deploy-800-troops-to-haitis-gang-suppression-force-as-kenya-steps-back/" target="_blank" rel="noopener">Africanews, GSF deployment and ~90% capital control, Mar 2026</a></li>
+   <li><a href="https://mezha.net/eng/news/mezha-af731098b6a325ecd4c15301_inside_erik_prince-s/" target="_blank" rel="noopener">Summary of CNN, "Inside Erik Prince's secretive operation taking on Haiti's gangs," Oct 17, 2026</a> (original: <a href="https://www.cnn.com/2026/10/17/americas/haiti-erik-prince-drones" target="_blank" rel="noopener">CNN</a>)</li>
+   <li><a href="https://www.aljazeera.com/news/2026/3/10/hundreds-killed-in-haiti-drone-strikes-including-60-civilians-report" target="_blank" rel="noopener">Al Jazeera on Human Rights Watch, drone strike deaths, Mar 2026</a></li>
+   <li><a href="https://haitiantimes.com/2025/08/15/erik-prince-10-year-contract-with-haiti/" target="_blank" rel="noopener">Haitian Times, Prince's 10-year contract, Aug 2025</a></li>
+   <li><a href="https://www.fao.org/giews/countrybrief/country.jsp?code=HTI" target="_blank" rel="noopener">FAO GIEWS Haiti brief (IPC 5.83M, food inflation)</a></li>
+   <li><a href="https://www.unicef.org/press-releases/over-quarter-million-children-facing-acute-malnutrition-haiti-amid-ongoing-violence" target="_blank" rel="noopener">UNICEF, child acute malnutrition projection, Sep 2026</a></li>
+   <li><a href="https://reliefweb.int/report/haiti/haiti-sees-record-displacement-13-million-flee-violence" target="_blank" rel="noopener">IOM via ReliefWeb, Centre and Artibonite displacement, Jun 2025</a></li>
+   <li><a href="https://www.haitidocs.org/doc/iom-dtm-displacement-2025" target="_blank" rel="noopener">IOM DTM Round 12, Dec 2025</a></li>
+   <li><a href="https://www.thestar.com.my/news/world/2026/08/25/gang-attack-near-haiti039s-capital-leaves-30-dead" target="_blank" rel="noopener">AP via The Star, Kenscoff attack, Aug 2026</a></li>
+  </ol>
+  <p class="note">Model sources: Mancur Olson, "Dictatorship, Democracy, and Development" (1993); Albert Hirschman, <em>Exit, Voice, and Loyalty</em> (1970); James Fearon, "Rationalist Explanations for War" (1995); Bueno de Mesquita et al., <em>The Logic of Political Survival</em> (2003); Acemoglu and Robinson, <em>Why Nations Fail</em> (2012); Donella Meadows, "Leverage Points" (1999).</p>
+  <p class="note">The Haiti Trap is No. 1 in Special Reports from <a href="/research/special-reports/">Carolina Redesign Research</a>. By Jimmy Ardis. Published October 2026.</p>
+</footer>
+</main>
+
+<script>
+(function(){
+const NS="http://www.w3.org/2000/svg";
+const $=id=>document.getElementById(id);
+function el(tag,attrs,parent,text){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;if(parent)parent.appendChild(e);return e;}
+function clear(s){while(s.firstChild)s.removeChild(s.firstChild);}
+const C={ink:"var(--ink)",muted:"var(--muted)",rule:"var(--rule)",red:"var(--red)",cobalt:"var(--cobalt)",ochre:"var(--ochre)",teal:"var(--teal)",panel:"var(--panel)",paper:"var(--paper)"};
+const fmt=n=>n.toLocaleString("en-US");
+
+/* generic chart frame */
+function frame(svg,{x0,x1,y0,y1,W=440,H=260,pl=48,pr=14,pt=14,pb=30,yt=[],xt=[],yf=v=>v,xf=v=>v}){
+  clear(svg);
+  const sx=v=>pl+(v-x0)/(x1-x0)*(W-pl-pr), sy=v=>H-pb-(v-y0)/(y1-y0)*(H-pt-pb);
+  yt.forEach(v=>{el("line",{x1:pl,x2:W-pr,y1:sy(v),y2:sy(v),style:`stroke:${C.rule}`},svg);el("text",{x:pl-6,y:sy(v)+4,"text-anchor":"end","font-size":11,style:`fill:${C.muted}`},svg,yf(v));});
+  xt.forEach(v=>el("text",{x:sx(v),y:H-pb+18,"text-anchor":"middle","font-size":11,style:`fill:${C.muted}`},svg,xf(v)));
+  return {sx,sy};
+}
+function line(svg,pts,color,w=2.5){el("polyline",{points:pts.map(p=>p.join(",")).join(" "),style:`fill:none;stroke:${color};stroke-width:${w};stroke-linejoin:round`},svg);}
+
+/* ---------- 1 timeline ---------- */
+const EV=[
+ ["1804","extract","Independence after the only successful slave revolution in history. Western powers refuse recognition."],
+ ["1825","extract","France demands a 150-million-franc indemnity for recognition, later reduced to 90 million. Payments and the loans behind them burden revenue into the 20th century."],
+ ["1915–34","outside","U.S. occupation. Customs revenue placed under foreign control; a new national guard centralizes power in Port-au-Prince."],
+ ["1957–86","force","François and Jean-Claude Duvalier rule with the Tontons Macoutes, a paramilitary loyal to the ruler rather than the law."],
+ ["1991","hollow","Jean-Bertrand Aristide, freely elected, is ousted in a military coup months after taking office."],
+ ["1995","force","The army is disbanded. The police become the only public force; private armed groups fill gaps."],
+ ["2004–17","outside","Aristide ousted again; UN stabilization mission MINUSTAH deployed for 13 years."],
+ ["2010","outside","Earthquake devastates the capital. A cholera epidemic follows, later linked to UN peacekeepers."],
+ ["2016","hollow","Last general elections held."],
+ ["2018","hollow","Protests over the Petrocaribe fund and a fuel price hike. The La Saline massacre shows gangs operating with political cover."],
+ ["2020","force","Jimmy \"Barbecue\" Chérizier forms the G9 gang alliance in the capital."],
+ ["2021","hollow","President Jovenel Moïse is assassinated in his home in July."],
+ ["2022","force","G9 blockades the Varreux fuel terminal for weeks. 2,183 homicides recorded."],
+ ["2023","hollow","January: the last elected senators' terms expire. Bwa Kale vigilante movement spreads. Rival gangs unite as Viv Ansanm."],
+ ["2024","force","Coordinated gang attacks and prison breaks; Prime Minister Ariel Henry resigns in March. A transitional council takes over; a Kenya-led mission arrives in June."],
+ ["2025","outside","Gangs expand into Artibonite and Centre. U.S. designates Viv Ansanm and Gran Grif as terrorist organizations. UN authorizes a 5,550-member Gang Suppression Force in September."],
+ ["2026","hollow","February: council mandate ends with no successor; the prime minister governs by decree. April: first force contingents arrive. October: elections postponed; a Salvadoran convoy is ambushed."]
+];
+const TAG={extract:["Extraction","var(--ochre)"],force:["Outsourced force","var(--red)"],hollow:["Hollowed institutions","var(--cobalt)"],outside:["Outside intervention","var(--teal)"]};
+const tl=$("timeline");
+EV.forEach(([y,l,t])=>{const d=document.createElement("div");d.className="ev";d.dataset.loop=l;
+ d.innerHTML=`<div><span class="yr">${y}</span><span class="tag" style="color:${TAG[l][1]}">${TAG[l][0]}</span></div><p>${t}</p>`;tl.appendChild(d);});
+document.querySelectorAll("[data-f]").forEach(b=>b.addEventListener("click",()=>{
+ document.querySelectorAll("[data-f]").forEach(x=>x.setAttribute("aria-pressed",x===b));
+ const f=b.dataset.f;tl.querySelectorAll(".ev").forEach(e=>e.classList.toggle("dim",f!=="all"&&e.dataset.loop!==f));}));
+
+/* ---------- 2 Olson ---------- */
+function haul(t,H,k){let Y=1,s=0,d=1;for(let n=0;n<H;n++){s+=d*t*Y;Y*=1+0.10-k*t;d*=0.97;}return s;}
+function best(H,k){let bt=0,bv=-1;for(let i=0;i<=100;i++){const t=i/100,v=haul(t,H,k);if(v>bv){bv=v;bt=t;}}return [bt,bv];}
+function olson(){
+ const H=+$("hz").value,k=$("gr").value/100;$("hzo").textContent=H+(H===1?" season":" seasons");$("gro").textContent=k.toFixed(2);
+ const curve=[];let mx=0;for(let i=0;i<=100;i++){const v=haul(i/100,H,k);curve.push(v);mx=Math.max(mx,v);}
+ const [bt,bv]=best(H,k);
+ let A=frame($("olsonA"),{x0:0,x1:1,y0:0,y1:1,yt:[0,.5,1],xt:[0,.25,.5,.75,1],yf:v=>v===0?"0":v===1?"max":"½",xf:v=>Math.round(v*100)+"%"});
+ line($("olsonA"),curve.map((v,i)=>[A.sx(i/100),A.sy(v/mx)]),C.red);
+ el("line",{x1:A.sx(bt),x2:A.sx(bt),y1:A.sy(0),y2:A.sy(1),style:`stroke:${C.ink};stroke-dasharray:3 3`},$("olsonA"));
+ el("circle",{cx:A.sx(bt),cy:A.sy(bv/mx),r:5,style:`fill:${C.red};stroke:${C.panel};stroke-width:2`},$("olsonA"));
+ el("text",{x:Math.min(A.sx(bt)+8,360),y:24,"font-size":12,style:`fill:${C.ink}`},$("olsonA"),"best: "+Math.round(bt*100)+"%");
+ const B=frame($("olsonB"),{x0:1,x1:40,y0:0,y1:1,yt:[0,.5,1],xt:[1,10,20,30,40],yf:v=>Math.round(v*100)+"%"});
+ const pts=[];for(let h=1;h<=40;h++)pts.push([B.sx(h),B.sy(best(h,k)[0])]);line($("olsonB"),pts,C.cobalt);
+ el("circle",{cx:B.sx(H),cy:B.sy(bt),r:5,style:`fill:${C.cobalt};stroke:${C.panel};stroke-width:2`},$("olsonB"));
+ el("text",{x:B.sx(40),y:B.sy(0)+18+0,"text-anchor":"end","font-size":11,style:`fill:${C.muted}`},$("olsonB"),"");
+ let Y=1;for(let n=0;n<H;n++)Y*=1+0.10-k*bt;
+ const mode=bt>=.9?"Roving bandit: take everything and move on.":bt>=.45?"Predatory: heavy extraction, the territory shrinks.":"Stationary bandit: a limited, predictable tax lets the territory grow.";
+ $("olsonR").textContent=`Best rate ${Math.round(bt*100)}% · community output after ${H} season${H>1?"s":""}: ${Math.round(Y*100)}% of today · ${mode}`;
+}
+["hz","gr"].forEach(i=>$(i).addEventListener("input",olson));olson();
+
+/* ---------- 3 principal-agent ---------- */
+const N={elite:[110,60,"Political &\nbusiness elites"],gang:[450,60,"Armed\ngroups"],res:[110,350,"Residents"],state:[450,350,"Police &\ncourts"],dia:[280,215,"Diaspora"]};
+const PA={
+ 1:{edges:[["elite","gang",6,"cash, guns, impunity",-30],["gang","elite",4,"votes, muscle, turf",-30],["elite","state",4,"influence, appointments",30],["state","gang",2,"looks away",0],["dia","res",3,"remittances",0]],
+    text:"Elites are the principals. They pay armed groups for votes, protest suppression and control of turf, and use influence over police and courts to keep their agents out of prison. Gangs depend on their patrons for weapons and protection."},
+ 2:{edges:[["gang","res",7,"tolls, ransom, extortion",-25],["gang","state",6,"attacks, blockades",-25],["gang","elite",4,"protection fees, threats",30],["dia","res",5,"remittances",0],["res","gang",3,"skimmed cash, recruits",-25],["state","gang",3,"force + GSF",-25]],
+    text:"Gangs are now principals with their own revenue. They tax residents and roads, block ports, and attack the state directly; in 2024 they forced a prime minister to resign. Former patrons now pay them for protection. Remittances meant for families partly flow on to the gangs that tax them."}
+};
+function nodeText(svg,x,y,t){const lines=t.split("\n");lines.forEach((s,i)=>el("text",{x,y:y+(i-(lines.length-1)/2)*16+5,"text-anchor":"middle","font-size":14,"font-weight":600,style:`fill:${C.ink}`},svg,s));}
+function drawPA(m){
+ const svg=$("pa");clear(svg);
+ const defs=el("defs",{},svg);const mk=el("marker",{id:"pah",viewBox:"0 0 10 10",refX:9,refY:5,markerWidth:5,markerHeight:5,orient:"auto-start-reverse"},defs);el("path",{d:"M0,0L10,5L0,10z",style:`fill:${C.red}`},mk);
+ PA[m].edges.forEach(([a,b,w,lab,bend])=>{
+  const [x1,y1]=N[a],[x2,y2]=N[b];const dx=x2-x1,dy=y2-y1,L=Math.hypot(dx,dy),ux=dx/L,uy=dy/L;
+  const sx=x1+ux*62,sy=y1+uy*40,ex=x2-ux*62,ey=y2-uy*40;const mx=(sx+ex)/2-uy*bend,my=(sy+ey)/2+ux*bend;
+  el("path",{d:`M${sx},${sy}Q${mx},${my} ${ex},${ey}`,style:`fill:none;stroke:${a==="dia"?C.ochre:C.red};stroke-width:${w*.9};opacity:.85`,"marker-end":"url(#pah)"},svg);
+  const tx=(sx+2*mx+ex)/4,ty=(sy+2*my+ey)/4;
+  const t=el("text",{x:tx,y:ty-6,"text-anchor":"middle","font-size":12.5,style:`fill:${C.ink};paint-order:stroke;stroke:${C.panel};stroke-width:5px`},svg,lab);
+ });
+ for(const k in N){const [x,y,t]=N[k];el("rect",{x:x-62,y:y-30,width:124,height:60,rx:3,style:`fill:${C.paper};stroke:${k==="gang"?C.red:C.rule};stroke-width:${k==="gang"?2:1}`},svg);nodeText(svg,x,y,t);}
+ $("paText").textContent=PA[m].text;$("pa1").setAttribute("aria-pressed",m===1);$("pa2").setAttribute("aria-pressed",m===2);
+}
+$("pa1").onclick=()=>drawPA(1);$("pa2").onclick=()=>drawPA(2);drawPA(1);
+
+/* ---------- 4 data charts ---------- */
+(function(){
+ const K=[[2022,2183],[2023,4789],[2024,5600],[2025,5915]];
+ let s=$("cK"),f=frame(s,{x0:2021.5,x1:2025.5,y0:0,y1:7000,yt:[0,2000,4000,6000],xt:[2022,2023,2024,2025],yf:v=>v?fmt(v):"0"});
+ K.forEach(([y,v])=>{const w=56;el("rect",{x:f.sx(y)-w/2,y:f.sy(v),width:w,height:f.sy(0)-f.sy(v),style:`fill:${C.red}`},s);el("text",{x:f.sx(y),y:f.sy(v)-6,"text-anchor":"middle","font-size":12,"font-weight":600,style:`fill:${C.ink}`},s,y===2024?"5,600+":fmt(v));});
+ const D=[[2023.95,0.315],[2024.18,0.362],[2024.46,0.578],[2024.95,1.041],[2025.45,1.3],[2025.95,1.4],[2026.38,1.47],[2026.7,1.5]];
+ s=$("cD");f=frame(s,{x0:2023.8,x1:2026.9,y0:0,y1:1.75,yt:[0,.5,1,1.5],xt:[2024,2025,2026],yf:v=>v?v+"M":"0"});
+ el("polygon",{points:[[f.sx(D[0][0]),f.sy(0)],...D.map(([x,y])=>[f.sx(x),f.sy(y)]),[f.sx(D[D.length-1][0]),f.sy(0)]].map(p=>p.join(",")).join(" "),style:`fill:${C.cobalt};opacity:.14`},s);
+ line(s,D.map(([x,y])=>[f.sx(x),f.sy(y)]),C.cobalt);D.forEach(([x,y],i)=>el("circle",{cx:f.sx(x),cy:f.sy(y),r:i===D.length-1?5:3,style:`fill:${C.cobalt}`},s));
+ el("text",{x:f.sx(2026.7)-6,y:f.sy(1.5)-10,"text-anchor":"end","font-size":12,"font-weight":600,style:`fill:${C.ink}`},s,"~1.5M Sep 2026");
+ el("text",{x:f.sx(2023.95)+6,y:f.sy(.315)-8,"font-size":12,style:`fill:${C.ink}`},s,"315k");
+ const G=[[2019,-1.7],[2020,-3.3],[2021,-1.8],[2022,-1.7],[2023,-1.9],[2024,-4.2],[2025,-2.7]];
+ s=$("cG");f=frame(s,{x0:2018.4,x1:2025.6,y0:-5,y1:1,yt:[-4,-2,0],xt:[2019,2021,2023,2025],yf:v=>v+"%",pt:20});
+ G.forEach(([y,v])=>{el("rect",{x:f.sx(y)-17,y:f.sy(0),width:34,height:f.sy(v)-f.sy(0),style:`fill:${C.ochre}`},s);el("text",{x:f.sx(y),y:f.sy(v)+15,"text-anchor":"middle","font-size":11,style:`fill:${C.ink}`},s,v.toFixed(1));});
+ el("line",{x1:48,x2:426,y1:f.sy(0),y2:f.sy(0),style:`stroke:${C.ink}`},s);
+ s=$("cM");clear(s);const bars=[["Remittances from abroad",16,C.ochre],["Government tax revenue",5.2,C.cobalt]];
+ bars.forEach(([l,v,c],i)=>{const y=40+i*90,w=v/18*400;el("text",{x:10,y:y,"font-size":13,style:`fill:${C.ink}`},s,l);el("rect",{x:10,y:y+10,width:w,height:34,style:`fill:${c}`},s);el("text",{x:18+w,y:y+33,"font-size":15,"font-weight":600,style:`fill:${C.ink}`},s,"≈"+v+"%");});
+ el("text",{x:10,y:228,"font-size":12,style:`fill:${C.muted}`},s,"The diaspora sends about 3× what the state collects.");
+})();
+
+/* ---------- 5 arbitrage ---------- */
+function arb(){
+ const s=$("arb");clear(s);const q=+$("seize").value/100;$("seizeo").textContent=Math.round(q*100)+"%";
+ const sc=v=>v/10000*440;
+ [["U.S. retail",500,C.cobalt],["Street price in Haiti",10000,C.red]].forEach(([l,v,c],i)=>{const y=20+i*62;el("text",{x:0,y:y,"font-size":12.5,style:`fill:${C.ink}`},s,l);el("rect",{x:0,y:y+8,width:Math.max(3,sc(v)),height:28,style:`fill:${c}`},s);el("text",{x:sc(v)+8>520?sc(v)-8:sc(v)+8,y:y+28,"text-anchor":sc(v)+8>520?"end":"start","font-size":14,"font-weight":600,style:`fill:${sc(v)+8>520?C.panel:C.ink}`},s,"$"+fmt(v));});
+ const exp=(1-q)*10000-500;
+ $("arbR").textContent=`Expected revenue per gun shipped after seizures: $${fmt(Math.round((1-q)*10000))} against $500 cost. ${exp>0?`Still profitable: about $${fmt(Math.round(exp))} margin. The trade only stops paying at 95% seizure.`:"Break-even reached."}`;
+}
+$("seize").addEventListener("input",arb);arb();
+
+/* ---------- 6 map ---------- */
+const HAITI="M698.1,116.4L700.8,123.6L701.7,128.0L700.8,132.5L700.8,139.2L701.7,145.5L708.9,162.0L711.6,182.5L711.6,194.6L708.9,200.4L707.1,202.2L704.4,210.2L701.7,212.0L695.4,216.0L693.6,217.3L694.5,222.7L699.0,228.9L699.9,230.3L708.0,238.8L724.2,246.4L727.8,248.1L726.9,263.8L725.1,268.2L722.4,273.1L713.4,279.0L709.8,282.5L702.6,292.8L691.8,304.8L688.2,307.1L675.6,310.6L671.1,313.3L672.0,318.2L676.5,317.3L682.8,315.1L688.2,315.6L690.9,317.3L694.5,324.9L696.3,327.6L702.6,332.5L704.4,335.2L705.3,340.1L706.2,350.8L708.0,361.1L707.1,366.0L706.2,370.9L704.4,375.4L701.7,380.3L698.1,383.4L690.9,387.4L690.0,388.3L689.1,388.8L685.5,392.8L680.1,401.7L677.4,404.9L667.5,408.4L648.6,404.9L639.6,407.1L635.1,410.2L636.9,414.7L660.3,437.9L661.2,440.1L662.1,444.1L661.2,445.9L658.5,446.8L657.6,449.5L659.4,454.4L663.0,456.6L672.9,459.3L674.7,461.1L679.2,466.5L681.0,469.1L690.0,475.4L703.5,480.3L707.1,483.0L709.8,484.8L709.8,485.7L707.1,490.6L707.1,491.0L696.3,510.2L693.6,515.1L693.6,520.5L693.6,522.7L696.3,530.3L697.2,533.4L697.2,537.9L697.2,545.5L696.3,550.0L693.6,558.0L689.1,555.3L672.0,532.5L663.9,525.4L655.8,520.0L636.0,512.9L627.9,508.9L619.8,505.8L609.9,505.8L590.1,508.9L564.0,508.9L527.1,509.3L508.2,512.9L502.8,510.2L500.1,508.9L498.3,510.2L500.1,520.0L497.4,522.7L494.7,522.7L488.4,520.0L483.9,519.6L455.1,522.3L448.8,521.8L449.7,523.2L449.7,526.3L450.6,527.2L447.0,527.2L445.2,526.7L443.4,525.4L436.2,529.9L422.7,528.5L416.4,531.2L409.2,527.2L401.1,523.6L391.2,521.4L365.1,518.3L357.9,518.7L356.1,518.3L348.9,513.8L347.1,512.9L313.8,507.5L298.5,508.9L296.7,508.4L297.6,504.9L301.2,503.5L310.2,503.5L310.2,502.2L293.1,500.4L273.3,500.4L267.0,502.2L258.9,506.6L256.2,507.5L254.4,506.2L251.7,501.7L249.9,500.0L246.3,502.2L244.5,507.1L242.7,511.1L240.0,509.3L238.2,509.3L235.5,511.1L232.8,509.8L231.9,506.2L232.8,502.2L229.2,503.1L226.5,510.2L222.9,512.9L222.9,509.3L223.8,506.2L225.6,500.0L223.8,501.7L221.1,505.3L219.3,507.5L219.3,506.6L217.5,506.2L214.8,505.8L213.9,506.2L213.9,507.1L213.9,508.4L213.9,509.3L203.1,518.3L185.1,526.3L180.6,530.8L176.1,538.3L186.9,549.5L188.7,553.5L189.6,558.9L188.7,560.7L186.0,561.6L168.9,561.6L167.1,561.1L164.4,559.8L162.6,558.0L161.7,554.4L145.5,531.2L144.6,530.3L142.8,529.4L141.9,529.0L141.0,528.1L141.0,527.2L141.0,526.3L140.1,525.4L135.6,520.9L111.3,503.1L106.8,500.8L99.6,499.5L96.0,498.2L93.3,496.4L92.4,493.7L91.5,491.0L90.6,490.1L87.9,490.1L85.2,489.2L78.9,486.6L77.1,485.7L75.3,487.5L70.8,485.7L65.4,487.9L60.0,491.0L54.6,492.8L50.1,491.9L44.7,489.7L39.3,487.0L37.5,484.8L35.7,481.6L25.8,476.7L24.0,471.8L23.1,466.9L21.3,463.3L15.0,454.9L24.0,442.4L23.1,441.0L22.2,438.3L26.7,435.2L29.4,423.2L33.0,420.5L33.9,419.1L33.9,416.0L33.0,412.4L31.2,410.7L31.2,407.5L33.0,405.3L41.1,400.4L52.8,395.9L57.3,395.0L62.7,396.4L65.4,396.4L66.3,394.1L68.1,392.4L70.8,391.5L73.5,391.0L87.9,391.9L97.8,394.1L130.2,408.9L144.6,409.3L145.5,409.8L146.4,411.6L147.3,412.4L147.3,414.2L149.1,414.2L150.9,413.3L152.7,412.9L159.9,416.9L162.6,418.2L174.3,418.7L177.0,419.1L179.7,420.5L185.1,424.9L186.9,425.8L189.6,426.3L190.5,425.4L191.4,424.5L192.3,424.1L195.0,424.5L198.6,425.8L200.4,425.8L202.2,425.4L204.9,422.7L206.7,422.3L206.7,421.8L209.4,417.8L211.2,416.9L213.0,416.9L215.7,416.9L217.5,416.9L229.2,413.3L231.9,412.9L240.9,415.1L240.9,420.0L236.4,423.2L229.2,422.3L229.2,424.1L223.8,422.3L219.3,421.4L213.9,421.8L208.5,424.1L210.3,424.9L214.8,427.2L218.4,428.1L219.3,429.9L219.3,431.6L220.2,433.9L224.7,436.1L232.8,434.8L236.4,436.6L245.4,431.2L256.2,429.9L295.8,433.0L300.3,434.3L310.2,439.2L315.6,440.6L336.3,439.7L346.2,440.6L354.3,444.1L358.8,446.8L363.3,448.2L366.9,448.6L373.2,447.3L391.2,444.1L412.8,449.5L411.9,453.5L416.4,452.6L422.7,450.4L427.2,450.4L430.8,451.7L448.8,454.9L458.7,452.6L465.0,446.8L470.4,438.8L474.0,429.4L480.3,421.8L488.4,420.0L529.8,424.1L531.6,423.2L532.5,422.3L532.5,420.9L533.4,420.5L535.2,420.5L536.1,421.4L536.1,421.8L537.0,422.3L542.4,428.1L545.1,429.4L548.7,428.5L551.4,424.1L551.4,417.8L551.4,401.7L551.4,398.6L553.2,395.0L555.0,392.8L555.9,391.0L555.0,387.9L552.3,386.1L541.5,380.7L537.9,379.9L532.5,379.9L528.9,379.0L524.4,374.5L519.9,369.1L514.5,365.1L509.1,366.0L500.1,360.7L498.3,358.4L495.6,353.5L483.0,333.4L479.4,329.8L474.9,325.4L469.5,322.3L465.0,320.9L460.5,318.7L434.4,290.1L432.6,283.4L443.4,279.0L453.3,278.5L458.7,276.7L460.5,272.7L459.6,267.8L456.0,265.1L451.5,263.3L447.0,261.1L444.3,257.5L438.0,246.8L437.1,242.8L438.0,241.4L438.9,241.0L438.0,240.6L438.9,239.2L440.7,237.0L443.4,230.7L445.2,228.5L447.9,227.2L452.4,226.3L456.0,225.8L458.7,226.3L455.1,219.6L453.3,217.8L447.9,217.3L445.2,215.1L444.3,210.2L444.3,204.4L445.2,201.3L447.0,203.1L448.8,204.4L451.5,204.8L454.2,204.8L456.9,202.6L456.9,200.8L456.0,198.6L455.1,192.3L455.1,191.4L458.7,192.3L460.5,192.8L462.3,194.6L464.1,195.9L467.7,195.9L463.2,186.1L460.5,184.7L447.0,183.9L444.3,181.6L441.6,178.0L438.9,174.0L433.5,170.5L418.2,163.3L404.7,155.3L400.2,153.9L395.7,152.2L386.7,144.6L384.9,144.1L383.1,145.0L366.9,139.7L365.1,139.2L359.7,137.9L357.0,137.9L356.1,138.3L354.3,139.7L352.5,141.0L350.7,141.4L346.2,140.5L340.8,138.3L335.4,135.2L332.7,132.5L327.3,137.4L316.5,138.8L292.2,137.4L287.7,136.1L285.0,136.1L283.2,134.7L278.7,129.8L276.9,128.5L273.3,126.3L271.5,120.9L271.5,115.5L270.6,112.4L279.6,98.1L280.5,95.0L283.2,95.0L296.7,88.8L296.7,87.0L282.3,87.0L286.8,83.8L291.3,83.4L296.7,83.8L301.2,83.4L331.8,69.6L340.8,62.9L346.2,56.2L348.9,59.7L351.6,60.6L358.8,59.7L362.4,60.6L368.7,62.9L372.3,63.3L375.0,63.3L376.8,62.9L382.2,61.5L385.8,61.1L389.4,61.5L393.0,62.9L395.7,65.5L397.5,61.1L402.0,58.8L408.3,57.9L412.8,59.7L419.1,57.1L427.2,55.3L436.2,53.9L443.4,54.4L468.6,60.6L474.9,64.2L480.3,66.9L495.6,71.3L496.5,72.7L501.0,78.9L508.2,83.4L515.4,86.1L519.0,83.4L523.5,86.1L530.7,88.8L537.9,90.5L541.5,89.6L542.4,94.1L555.0,105.3L555.0,107.1L554.1,106.2L549.6,105.3L553.2,112.9L554.1,114.2L558.6,115.1L559.5,114.6L558.6,112.4L562.2,108.8L561.3,108.4L559.5,108.8L558.6,108.8L558.6,108.4L559.5,107.1L559.5,106.2L560.4,107.1L560.4,105.3L559.5,104.4L558.6,101.7L560.4,101.7L564.0,103.5L568.5,103.9L573.0,102.6L575.7,98.6L577.5,96.3L582.9,95.9L586.5,99.0L583.8,105.3L588.3,108.0L592.8,108.0L602.7,106.6L603.6,106.6L604.5,107.1L606.3,108.0L609.9,111.5L612.6,112.4L620.7,112.4L623.4,112.9L624.3,114.2L625.2,115.5L627.0,116.4L630.6,119.1L633.3,119.6L635.1,118.7L636.0,116.9L637.8,114.6L640.5,114.2L645.0,110.6L652.2,110.6L664.8,114.2L671.1,115.1L672.9,116.4L672.0,119.6L669.3,120.9L666.6,121.3L659.4,121.3L662.1,126.3L666.6,126.7L671.1,125.4L674.7,124.9L679.2,128.5L681.9,130.3L683.7,129.4L684.6,125.8L684.6,124.0L678.3,122.7L676.5,120.9L675.6,118.7L676.5,116.0L678.3,114.2L681.0,114.6L687.3,116.0L698.1,116.4ZM230.1,543.7L234.6,543.7L239.1,545.0L242.7,546.8L242.7,550.8L240.0,552.6L234.6,553.1L224.7,552.6L221.1,551.7L216.6,549.5L210.3,543.7L211.2,541.0L212.1,539.7L213.9,540.1L215.7,541.9L218.4,539.7L220.2,540.6L221.1,542.4L222.9,543.7L230.1,543.7ZM188.7,402.2L194.1,399.5L202.2,399.9L208.5,403.5L208.5,409.3L203.1,412.9L195.0,412.9L188.7,409.3L188.7,402.2ZM424.5,16.4L431.7,16.0L437.1,16.4L441.6,18.7L447.0,21.8L470.4,31.2L480.3,37.4L477.6,43.7L474.0,41.9L452.4,39.2L442.5,35.2L430.8,32.5L426.3,30.7L423.6,31.2L420.9,32.1L418.2,32.5L412.8,31.6L406.5,29.4L401.1,26.7L397.5,23.6L398.4,23.6L399.3,23.1L401.1,21.8L411.9,17.8L424.5,16.4ZM322.8,336.1L318.3,333.0L316.5,331.6L314.7,329.4L313.8,326.7L312.9,323.6L313.8,320.9L316.5,317.3L321.0,314.2L326.4,312.4L331.8,311.5L337.2,312.4L372.3,327.2L389.4,332.5L408.3,342.3L426.3,349.9L433.5,358.9L435.3,364.7L436.2,371.4L435.3,378.1L432.6,383.4L429.9,384.3L428.1,382.5L425.4,378.1L423.6,376.3L421.8,375.4L416.4,375.4L393.9,370.0L385.8,369.6L378.6,367.8L356.1,353.5L333.6,347.3L328.2,343.2L322.8,336.1Z",DR="M698.1,116.4L702.6,117.3L707.1,119.6L706.2,114.6L701.7,104.4L702.6,101.7L702.6,99.5L695.4,99.5L694.5,96.3L697.2,92.3L701.7,87.9L702.6,87.0L703.5,87.0L706.2,87.0L708.0,86.1L710.7,83.0L712.5,81.6L715.2,80.3L717.9,79.8L719.7,78.9L722.4,76.3L721.5,72.7L720.6,70.0L722.4,67.8L725.1,66.9L726.9,67.3L730.5,68.7L732.3,69.1L733.2,68.2L735.0,66.0L735.9,65.5L761.1,63.3L768.3,64.2L774.6,66.4L798.0,78.9L805.2,80.3L811.5,77.6L816.9,81.6L820.5,83.0L831.3,83.4L834.9,83.0L834.9,80.7L834.9,78.0L836.7,75.4L839.4,74.0L842.1,76.7L844.8,83.4L846.6,82.5L847.5,81.2L849.3,79.4L849.3,77.6L847.5,77.1L846.6,76.7L846.6,76.3L846.6,74.5L850.2,75.8L853.8,75.8L856.5,74.9L861.0,74.5L863.7,72.2L868.2,63.8L870.9,61.5L874.5,60.6L882.6,56.6L887.1,56.2L891.6,57.1L895.2,59.3L897.0,62.9L896.1,66.9L900.6,69.1L902.4,69.1L901.5,64.6L900.6,63.3L913.2,65.5L916.8,65.1L924.0,63.3L926.7,63.3L929.4,65.5L941.1,78.5L942.0,81.2L940.2,83.4L950.1,83.4L953.7,85.2L962.7,93.2L971.7,98.1L981.6,101.3L992.4,103.0L1007.7,103.0L1009.5,102.6L1010.4,100.8L1013.1,98.6L1016.7,96.8L1019.4,95.9L1029.3,99.0L1044.6,115.1L1053.6,124.9L1057.2,128.0L1062.6,130.3L1067.1,131.6L1078.8,133.0L1087.8,136.1L1104.9,139.7L1108.5,139.7L1111.2,138.8L1113.0,136.5L1122.0,126.7L1127.4,124.5L1140.9,124.9L1147.2,124.0L1150.8,124.5L1154.4,126.7L1163.4,136.1L1166.1,141.9L1165.2,148.6L1161.6,163.3L1166.1,165.5L1168.8,170.0L1167.9,182.1L1168.8,187.4L1170.6,191.4L1186.8,216.4L1194.9,224.0L1195.8,224.9L1203.9,228.5L1209.3,227.6L1219.2,223.6L1223.7,222.7L1235.4,222.2L1239.9,221.4L1245.3,219.1L1252.5,214.2L1255.2,213.8L1257.9,214.2L1263.3,216.9L1266.9,217.3L1272.3,216.0L1275.0,215.6L1276.8,215.6L1278.6,216.0L1279.5,216.9L1279.5,218.2L1280.4,219.6L1282.2,219.1L1284.9,217.3L1299.3,223.6L1303.8,226.3L1306.5,220.9L1311.0,216.4L1322.7,210.2L1329.9,208.0L1331.7,211.1L1329.9,217.3L1325.4,224.9L1330.8,226.7L1336.2,226.7L1341.6,225.4L1346.1,222.7L1347.9,228.5L1344.3,233.4L1339.8,237.4L1338.0,241.9L1337.1,246.8L1333.5,250.8L1329.9,254.4L1324.5,255.7L1304.7,251.7L1283.1,253.5L1277.7,252.2L1268.7,247.7L1237.2,243.7L1233.6,244.6L1231.8,248.1L1230.9,260.6L1229.1,271.4L1230.0,275.4L1232.7,277.2L1235.4,279.4L1248.9,277.2L1254.3,279.0L1259.7,277.2L1271.4,281.6L1277.7,281.2L1275.9,279.8L1274.1,278.5L1272.3,277.6L1269.6,277.2L1269.6,275.4L1282.2,274.5L1286.7,275.4L1291.2,278.5L1293.9,287.0L1298.4,290.1L1302.9,291.0L1311.0,292.3L1334.4,298.6L1344.3,301.3L1347.9,300.8L1353.3,298.1L1351.5,296.4L1347.9,294.6L1347.9,291.9L1352.4,290.6L1356.9,294.1L1361.4,302.6L1365.0,304.8L1368.6,305.7L1372.2,307.1L1374.0,310.2L1376.7,307.5L1383.0,304.8L1385.7,302.6L1383.9,300.4L1384.8,299.9L1387.5,299.9L1389.3,299.0L1392.0,296.4L1392.9,295.5L1393.8,295.5L1402.8,295.9L1408.2,296.8L1412.7,298.6L1416.3,300.8L1417.2,301.7L1417.2,302.6L1417.2,303.5L1418.1,304.4L1423.5,306.2L1424.4,306.2L1433.4,308.0L1438.8,308.4L1440.6,308.9L1441.5,309.3L1443.3,310.6L1446.0,312.0L1449.6,312.4L1452.3,313.3L1482.0,340.6L1491.9,353.5L1507.2,365.1L1518.0,372.7L1521.6,374.0L1522.5,375.4L1534.2,386.1L1548.6,395.0L1555.8,405.3L1554.0,416.0L1530.6,451.7L1528.8,453.1L1527.0,454.9L1526.1,457.5L1527.0,466.9L1526.1,469.1L1523.4,474.1L1519.8,475.8L1514.4,476.7L1508.1,476.7L1503.6,475.0L1493.7,468.7L1490.1,467.4L1486.5,470.0L1486.5,474.5L1488.3,479.4L1485.6,484.8L1482.9,488.8L1481.1,493.7L1477.5,508.9L1475.7,511.6L1473.0,512.9L1451.4,514.2L1447.8,512.9L1446.9,503.1L1440.6,490.6L1432.5,478.1L1425.3,469.1L1417.2,463.8L1407.3,459.3L1396.5,458.0L1384.8,462.9L1365.9,463.8L1361.4,462.9L1350.6,459.3L1345.2,458.4L1341.6,457.1L1334.4,450.8L1328.1,449.5L1323.6,450.4L1319.1,452.2L1313.7,452.2L1308.3,449.5L1303.8,454.4L1271.4,456.6L1261.5,460.2L1256.1,460.7L1242.6,450.8L1237.2,448.2L1233.6,447.7L1231.8,449.9L1231.8,453.1L1232.7,455.8L1231.8,458.4L1229.1,459.3L1225.5,459.3L1222.8,458.4L1221.0,457.5L1217.4,450.4L1214.7,448.6L1212.9,447.7L1175.1,443.7L1167.9,443.7L1167.0,444.1L1162.5,445.0L1154.4,449.1L1148.1,453.5L1145.4,454.4L1139.1,456.6L1136.4,458.0L1133.7,459.8L1127.4,464.7L1123.8,471.4L1122.0,479.4L1120.2,481.6L1114.8,484.3L1113.9,486.6L1112.1,489.2L1104.0,497.3L1097.7,504.4L1095.0,507.1L1093.2,506.6L1086.9,506.6L1082.4,507.5L1078.8,509.3L1075.2,506.6L1069.8,505.3L1038.3,505.8L1032.9,507.5L1022.1,513.3L1016.7,514.7L999.6,514.7L995.1,512.9L995.1,510.7L996.9,508.9L998.7,507.1L1000.5,505.8L999.6,502.6L997.8,501.3L996.0,500.4L994.2,497.7L989.7,494.6L987.9,491.9L988.8,489.2L990.6,488.3L992.4,487.5L993.3,485.7L994.2,480.3L995.1,474.5L994.2,469.6L992.4,466.5L987.0,459.8L984.3,457.1L978.0,454.9L973.5,454.0L967.2,453.1L961.8,454.9L959.1,459.3L960.0,464.7L959.1,466.9L951.9,474.5L950.1,475.8L947.4,476.7L944.7,476.3L939.3,475.0L936.6,474.5L934.8,475.4L931.2,478.1L929.4,478.5L925.8,478.1L924.9,478.5L922.2,481.2L922.2,482.1L920.4,485.2L919.5,486.6L919.5,487.5L915.9,488.8L915.0,489.2L907.8,497.3L904.2,499.5L898.8,500.0L896.1,499.1L894.3,496.8L893.4,494.1L891.6,491.9L888.9,490.1L886.2,488.8L875.4,486.6L870.0,486.6L866.4,487.9L864.6,491.9L864.6,494.1L861.9,498.2L861.9,500.8L861.9,504.4L863.7,506.2L864.6,508.0L866.4,511.1L870.9,525.4L871.8,527.6L872.7,530.8L867.3,538.3L862.8,549.1L839.4,583.9L837.6,589.7L836.7,591.9L834.0,593.7L829.5,596.4L825.9,599.1L824.1,601.3L822.3,604.4L820.5,608.9L818.7,608.4L817.8,608.0L816.9,607.1L816.9,608.9L816.0,609.8L815.1,610.7L816.9,610.7L816.0,612.9L815.1,614.2L813.3,615.6L811.5,616.0L810.6,616.9L808.8,622.3L807.9,624.1L804.3,628.5L796.2,653.5L793.5,658.4L783.6,673.2L780.9,671.8L778.2,669.6L778.2,668.7L776.4,666.5L758.4,637.9L754.8,633.4L745.8,629.9L726.0,632.6L717.9,630.3L719.7,628.5L727.8,620.5L729.6,616.9L729.6,611.1L728.7,607.1L724.2,599.5L721.5,595.5L721.5,594.2L721.5,591.0L722.4,580.8L720.6,576.3L717.0,570.9L707.1,563.4L693.6,558.0L696.3,550.0L697.2,545.5L697.2,537.9L697.2,533.4L696.3,530.3L693.6,522.7L693.6,520.5L693.6,515.1L696.3,510.2L707.1,491.0L707.1,490.6L709.8,485.7L709.8,484.8L707.1,483.0L703.5,480.3L690.0,475.4L681.0,469.1L679.2,466.5L674.7,461.1L672.9,459.3L663.0,456.6L659.4,454.4L657.6,449.5L658.5,446.8L661.2,445.9L662.1,444.1L661.2,440.1L660.3,437.9L636.9,414.7L635.1,410.2L639.6,407.1L648.6,404.9L667.5,408.4L677.4,404.9L680.1,401.7L685.5,392.8L689.1,388.8L690.0,388.3L690.9,387.4L698.1,383.4L701.7,380.3L704.4,375.4L706.2,370.9L707.1,366.0L708.0,361.1L706.2,350.8L705.3,340.1L704.4,335.2L702.6,332.5L696.3,327.6L694.5,324.9L690.9,317.3L688.2,315.6L682.8,315.1L676.5,317.3L672.0,318.2L671.1,313.3L675.6,310.6L688.2,307.1L691.8,304.8L702.6,292.8L709.8,282.5L713.4,279.0L722.4,273.1L725.1,268.2L726.9,263.8L727.8,248.1L724.2,246.4L708.0,238.8L699.9,230.3L699.0,228.9L694.5,222.7L693.6,217.3L695.4,216.0L701.7,212.0L704.4,210.2L707.1,202.2L708.9,200.4L711.6,194.6L711.6,182.5L708.9,162.0L701.7,145.5L700.8,139.2L700.8,132.5L701.7,128.0L700.8,123.6L698.1,116.4ZM756.6,688.8L752.1,686.1L752.1,680.3L754.8,674.1L757.5,668.7L761.1,670.5L764.7,673.2L771.0,679.4L766.5,680.8L761.1,687.0L756.6,688.8ZM1471.2,523.6L1484.7,523.2L1487.4,524.5L1490.1,528.1L1492.8,533.0L1494.6,537.9L1494.6,540.1L1491.0,539.2L1482.9,535.2L1478.4,534.3L1473.9,535.2L1466.7,537.5L1462.2,538.3L1453.2,535.7L1446.9,529.9L1443.3,523.2L1440.6,516.5L1444.2,515.6L1448.7,516.0L1453.2,518.3L1456.8,520.9L1459.5,522.3L1471.2,523.6Z";
+const P=(lon,lat)=>[(lon+74.55)*250,(20.15-lat)*264.4];
+const PL={pap:["Port-au-Prince",-72.34,18.54],cap:["Cap-Haïtien",-72.2,19.76],gon:["Gonaïves",-72.69,19.45],smc:["Saint-Marc",-72.69,19.11],mir:["Mirebalais",-72.1,18.83],jac:["Jacmel",-72.53,18.23],cay:["Les Cayes",-73.75,18.19],jer:["Jérémie",-74.12,18.65],pdp:["Port-de-Paix",-72.83,19.94],oua:["Ouanaminthe",-71.73,19.55]};
+const Z={ // [lon,lat,radius px,label]
+ cite:[-72.33,18.58,16],mart:[-72.37,18.52,12],cdb:[-72.22,18.58,16],
+ pap:[-72.32,18.55,34],arti:[-72.55,19.18,26],arc:[-72.52,18.78,18],gres:[-72.53,18.5,16],
+ mir:[-72.1,18.83,22],lasc:[-71.93,18.84,16],ken:[-72.28,18.45,14],pr:[-72.47,19.13,18],nord:[-72.3,19.0,16]};
+const YEARS={
+ 2021:{z:{cite:1,mart:1,cdb:1},ev:[["pap","July: president assassinated"]],t:"Gang turf is concentrated in a few districts of the capital: Cité Soleil, Martissant on the southern road, and Croix-des-Bouquets to the east, home of the 400 Mawozo gang."},
+ 2023:{z:{pap:1,cdb:1,arti:.8},ev:[["pap","Viv Ansanm alliance forms"]],t:"Rival gangs in the capital unite as Viv Ansanm. In the Artibonite valley, Gran Grif carries out repeated mass kidnappings. IOM counts 315,000 displaced by December."},
+ 2024:{z:{pap:1.15,cdb:1,arti:1,arc:.8,gres:.9},ev:[["pap","March: PM resigns after prison breaks"],["smc","Oct: Pont-Sondé massacre, 70 killed"]],t:"Coordinated attacks overrun prisons and the main port area; the prime minister resigns. The gang belt widens along the coast roads north and south. Displacement passes one million."},
+ 2025:{z:{pap:1.25,cdb:1.1,arti:1.15,arc:1,gres:1,mir:1,lasc:.9,pr:1,nord:.8},ev:[["mir","March: Mirebalais overrun"],["pap","~90% of capital under gang control"]],t:"The balloon effect in full: as pressure builds in the capital, gangs push east along the road to the Dominican border, overrunning Mirebalais, and deeper into Artibonite and Centre. 5,915 people are killed in the year."},
+ 2026:{z:{pap:1.05,cdb:1.1,arti:1.25,arc:1,gres:.9,mir:1,lasc:.9,pr:1.1,nord:.9,ken:1},ev:[["pap","Gang share of capital ~70%"],["pap","Oct 18: Salvadoran convoy ambushed"],["gon","Artibonite displacement up 16% May–Aug"]],t:"Security operations push the gang share of Port-au-Prince down to roughly 70%, but violence and displacement keep moving outward. Nearly 80% of the 1.5 million displaced now live outside the capital, with Artibonite rising fastest."}
+};
+const ROUTES=[[[-75.3,21.2],"pdp","sea, from Florida"],[[-75.2,19.6],"smc","sea"],[[-71.2,19.7],"oua","land border"],[[-71.2,18.65],"lasc2","land border"],[[-71.2,18.4],"pap2","land border"]];
+const DEST={pdp:P(-72.83,19.92),smc:P(-72.72,19.1),oua:P(-71.75,19.55),lasc2:P(-71.9,18.82),pap2:P(-72.05,18.5)};
+let year=2026,layers={z:true,r:false,e:true};
+const yb=$("yearBtns");Object.keys(YEARS).forEach(y=>{const b=document.createElement("button");b.textContent=y;b.onclick=()=>{year=+y;drawMap();};yb.appendChild(b);});
+function drawMap(){
+ const s=$("map");clear(s);
+ el("rect",{x:0,y:0,width:800,height:582,style:`fill:var(--sea)`},s);
+ el("path",{d:DR,style:`fill:var(--land2);stroke:${C.rule}`},s);
+ el("path",{d:HAITI,style:`fill:var(--land);stroke:${C.muted};stroke-width:1`},s);
+ el("text",{x:720,y:330,"font-size":13,"text-anchor":"middle",style:`fill:${C.muted};letter-spacing:.1em`},s,"DOMINICAN");el("text",{x:720,y:347,"font-size":13,"text-anchor":"middle",style:`fill:${C.muted};letter-spacing:.1em`},s,"REPUBLIC");
+ el("text",{x:200,y:80,"font-size":13,style:`fill:${C.muted};letter-spacing:.12em`},s,"ATLANTIC");
+ el("text",{x:330,y:560,"font-size":13,style:`fill:${C.muted};letter-spacing:.12em`},s,"CARIBBEAN SEA");
+ const Y=YEARS[year];
+ if(layers.z)for(const k in Z){const sc=Y.z[k]||0;if(!sc)continue;const [lo,la,r]=Z[k];const [x,y]=P(lo,la);el("circle",{class:"zone",cx:x,cy:y,r:r*sc*1.25,style:`fill:var(--zone);stroke:${C.red};stroke-width:1;stroke-opacity:.6`},s);}
+ if(layers.r){const d=el("defs",{},s);const m=el("marker",{id:"rah",viewBox:"0 0 10 10",refX:8,refY:5,markerWidth:6,markerHeight:6,orient:"auto"},d);el("path",{d:"M0,0L10,5L0,10z",style:`fill:${C.ink}`},m);
+  ROUTES.forEach(([[lo,la],k,lab])=>{const [x1,y1]=P(lo,la);const [x2,y2]=DEST[k];el("path",{d:`M${x1},${y1}L${x2},${y2}`,style:`fill:none;stroke:${C.ink};stroke-width:2;stroke-dasharray:6 4`,"marker-end":"url(#rah)"},s);});
+  el("text",{x:14,y:24,"font-size":12.5,style:`fill:${C.ink}`},s,"↖ to Florida ~1,000 km");}
+ for(const k in PL){const [n,lo,la]=PL[k];const [x,y]=P(lo,la);el("circle",{cx:x,cy:y,r:k==="pap"?5:3.5,style:`fill:${C.ink}`},s);el("text",{x:x+(k==="oua"?-8:8),y:y-7,"text-anchor":k==="oua"?"end":"start","font-size":k==="pap"?14:12.5,"font-weight":k==="pap"?700:400,style:`fill:${C.ink};paint-order:stroke;stroke:var(--land);stroke-width:4px`},s,n);}
+ if(layers.e){Y.ev.forEach(([k,t],i)=>{const [_,lo,la]=PL[k]||PL.pap;let [x,y]=P(lo,la);const lx=470,ly=430+i*34;
+   el("line",{x1:x,y1:y,x2:lx,y2:ly-5,style:`stroke:${C.red};stroke-width:1`},s);
+   el("rect",{x:lx,y:ly-20,width:320,height:26,rx:2,style:`fill:${C.panel};stroke:${C.red}`},s);
+   el("text",{x:lx+10,y:ly-2,"font-size":12.5,style:`fill:${C.ink}`},s,t);});}
+ el("text",{x:786,y:28,"text-anchor":"end","font-size":30,"font-weight":800,style:`fill:${C.ink};font-family:var(--display)`},s,year);
+ $("mapText").textContent=Y.t;
+ [...yb.children].forEach(b=>b.setAttribute("aria-pressed",+b.textContent===year));
+ $("lyZ").setAttribute("aria-pressed",layers.z);$("lyR").setAttribute("aria-pressed",layers.r);$("lyE").setAttribute("aria-pressed",layers.e);
+}
+$("lyZ").onclick=()=>{layers.z=!layers.z;drawMap();};$("lyR").onclick=()=>{layers.r=!layers.r;drawMap();};$("lyE").onclick=()=>{layers.e=!layers.e;drawMap();};
+drawMap();
+
+/* ---------- 7 commitment ---------- */
+function game(){
+ const p=$("cred").value/100,s=$("supp").value/100;$("credo").textContent=Math.round(p*100)+"%";$("suppo").textContent=Math.round(s*100)+"%";
+ const deal=p*5+(1-p)*-8, fight=(1-s)*4+s*-10;
+ const put=(bar,val,v,c)=>{const pct=(v+10)/20*100;$(bar).style.left="0";$(bar).style.width=pct+"%";$(bar).style.background=c;$(val).textContent=(v>=0?"+":"")+v.toFixed(1);};
+ put("bDeal","vDeal",deal,"var(--teal)");put("bFight","vFight",fight,"var(--red)");
+ $("verdict").textContent=deal>fight?"He takes the deal.":"He keeps fighting.";
+ $("verdict").style.color=deal>fight?"var(--teal)":"var(--red)";
+}
+["cred","supp"].forEach(i=>$(i).addEventListener("input",game));game();
+
+/* ---------- 8 causal loop diagram ---------- */
+const CN={violence:[300,55,"Insecurity"],tax:[495,125,"Tax base &\neconomy"],state:[495,300,"Police &\ncourts"],vig:[495,470,"Vigilante\njustice"],gang:[300,270,"Gang power"],force:[330,470,"Foreign\nforce"],guns:[195,505,"Guns in"],ext:[75,470,"Extortion\nrevenue"],remit:[80,330,"Remittances"],voice:[100,195,"Voice &\nlegitimacy"],exit:[100,55,"Emigration"]};
+const CE={ // id: [from,to,sign,bend,delay]
+ gv:["gang","violence","+",0],vt:["violence","tax","−",-20],ts:["tax","state","+",-20],sg:["state","gang","−",20],
+ ge:["gang","ext","+",20],eg2:["ext","guns","+",15],gg:["guns","gang","+",-10],
+ ve:["violence","exit","+",20],ev:["exit","voice","−",-20],vs:["voice","state","+",-60],
+ sv:["state","vig","−",-20],vv:["vig","violence","+",110],
+ gf:["gang","force","+",-28,1],fg:["force","gang","−",-28],
+ er:["exit","remit","+",70],re:["remit","ext","+",-15]
+};
+const LOOPS=[
+ ["R1","Fiscal trap",["gv","vt","ts","sg"],"More gang power means more insecurity, which shrinks trade and the tax base, which starves police and courts, which lets gang power grow. Reinforcing: it runs downhill on its own, and would run uphill just as hard if reversed."],
+ ["R2","War chest",["ge","eg2","gg"],"Territory brings extortion revenue, revenue buys guns at a twenty-fold markup, guns win more territory. This loop is why gangs no longer need their old patrons."],
+ ["R3","Exit and voice",["gv","ve","ev","vs","sg"],"Insecurity pushes out the people with the most options. Their departure weakens the constituency for reform and the staff of courts and hospitals, which weakens the state and feeds gang power."],
+ ["R4","Vigilante spiral",["sv","vv","vt","ts"],"Where the state is absent, neighborhoods arm themselves. Self-defense groups and mob justice killed hundreds in 2025 and add their own reprisals, deepening the insecurity that weakens the state."],
+ ["R5","Remittance paradox",["ve","er","re","eg2","gg","gv"],"Emigrants send money home, which keeps families alive, and also enlarges the pool of cash gangs can tax. A lifeline for households, a revenue stream for the groups driving people out."],
+ ["B1","Suppression (delayed)",["gf","fg"],"Rising gang power eventually draws an outside force that pushes it down. It is the only balancing loop, and it is slow: the force was authorized in September 2025 and is at 28% strength a year later."]
+];
+let loopSel=0;
+const lb=$("loopBtns");LOOPS.forEach((L,i)=>{const b=document.createElement("button");b.textContent=L[0]+" · "+L[1];b.onclick=()=>{loopSel=i;drawCLD();};lb.appendChild(b);});
+function drawCLD(){
+ const s=$("cld");clear(s);const L=LOOPS[loopSel],on=new Set(L[2]);const hot=L[0]==="B1"?C.teal:C.red;
+ const d=el("defs",{},s);[["cn",C.muted],["ch",hot]].forEach(([id,c])=>{const m=el("marker",{id,viewBox:"0 0 10 10",refX:9,refY:5,markerWidth:5,markerHeight:5,orient:"auto"},d);el("path",{d:"M0,0L10,5L0,10z",style:`fill:${c}`},m);});
+ const box=k=>({w:k==="gang"?118:100,h:44});
+ for(const id in CE){const [a,b,sg,bend,delay]=CE[id];const h=on.has(id);
+  const [x1,y1]=CN[a],[x2,y2]=CN[b];const dx=x2-x1,dy=y2-y1,Ld=Math.hypot(dx,dy),ux=dx/Ld,uy=dy/Ld;
+  const off=(k,ux,uy)=>{const {w,h}=box(k);const t=Math.min(Math.abs((w/2+4)/(ux||1e-9)),Math.abs((h/2+4)/(uy||1e-9)));return t;};
+  const sx=x1+ux*off(a,ux,uy),sy=y1+uy*off(a,ux,uy),ex=x2-ux*off(b,ux,uy),ey=y2-uy*off(b,ux,uy);
+  const mx=(sx+ex)/2-uy*bend,my=(sy+ey)/2+ux*bend;
+  el("path",{d:`M${sx},${sy}Q${mx},${my} ${ex},${ey}`,style:`fill:none;stroke:${h?hot:C.rule};stroke-width:${h?3:1.5}`,"marker-end":`url(#${h?"ch":"cn"})`},s);
+  const tx=(sx+2*mx+ex)/4,ty=(sy+2*my+ey)/4;
+  el("circle",{cx:tx,cy:ty,r:10,style:`fill:${C.panel};stroke:${h?hot:C.rule}`},s);
+  el("text",{x:tx,y:ty+4.5,"text-anchor":"middle","font-size":14,"font-weight":700,style:`fill:${h?hot:C.muted}`},s,sg);
+  if(delay){const qx=(sx+mx)/2,qy=(sy+my)/2;el("text",{x:qx+12,y:qy+4,"font-size":14,"font-weight":700,style:`fill:${h?hot:C.muted}`},s,"‖");}
+ }
+ for(const k in CN){const [x,y,t]=CN[k];const {w,h}=box(k);const inLoop=L[2].some(id=>CE[id][0]===k||CE[id][1]===k);
+  el("rect",{x:x-w/2,y:y-h/2,width:w,height:h,rx:3,style:`fill:${C.paper};stroke:${inLoop?hot:C.rule};stroke-width:${inLoop?2:1}`},s);
+  const lines=t.split("\n");lines.forEach((ln,i)=>el("text",{x,y:y+(i-(lines.length-1)/2)*15+5,"text-anchor":"middle","font-size":13,"font-weight":k==="gang"?700:600,style:`fill:${inLoop?C.ink:C.muted}`},s,ln));}
+ $("loopTitle").textContent=L[0]+" · "+L[1];$("loopText").textContent=L[3];
+ [...lb.children].forEach((b,i)=>b.setAttribute("aria-pressed",i===loopSel));
+}
+drawCLD();
+
+/* ---------- 8b simulator ---------- */
+const clamp=(v,a=0,b=100)=>Math.max(a,Math.min(b,v));
+function simulate(o){
+ let G=75,S=20,E=40,L=15,D=1.5,elec=0,elecResult=null;const out=[];let totalK=0;
+ for(let t=0;t<=48;t++){
+  const g=G/100,force=o.F/5550,A=1-o.A/100,ddr=o.X/100,sanc=o.S/100;
+  const pressure=0.9*force+0.6*S/100;
+  if(o.E>0&&t===o.E){if(G<55){elec=0.3;elecResult="success";}else{elec=-0.06;elecResult="failed";}}
+  const K=480*g*(0.4+pressure)*(1+0.4*(1-S/100)*(1-L/100));
+  out.push({t,G,S,E,L,D,K});if(t>0)totalK+=K;
+  const R=g*(0.5+0.5*E/100)*(1-0.6*sanc);
+  const rec=(1-E/100)*(1-0.7*ddr);
+  const grow=4*g*(1-g)*A*(0.4+R)*(0.5+rec);
+  const loss=3.5*pressure*g*(1.3-0.6*A)+1.6*ddr*g*pressure;
+  G=clamp(G+grow-loss);
+  const taxBase=(E/100)*(1-G/100);
+  const St=100*(0.12+0.5*taxBase+0.25*L/100+0.1*force);S+=0.05*(St-S);
+  const Et=100*(0.55*(1-G/100)+0.25*(1+o.R/100)+0.1*L/100+0.1*S/100);E+=0.04*(Et-E);
+  const Lt=100*clamp(0.08+0.6*(1-G/100)*S/100+0.12*sanc+elec,0,1);L+=0.06*(Lt-L);
+  const dD=(12*Math.pow(G/100,1.5)*(1+pressure)+3-D*1000*0.03*(1-G/100)*(S/100+0.2))/1000;
+  D=Math.max(0,D+dD);
+ }
+ return {out,totalK,elecResult};
+}
+const PRESETS=[["Status quo, Oct 2026",{F:1563,A:10,X:10,S:20,E:0,R:0}],["Full force, nothing else",{F:5550,A:10,X:10,S:20,E:0,R:0}],["Elections first",{F:1563,A:10,X:10,S:20,E:4,R:0}],["Remittance shock",{F:1563,A:10,X:10,S:20,E:0,R:-40}],["Force + pipeline + exit ramps",{F:5550,A:60,X:70,S:60,E:30,R:0}]];
+const pr=$("presets");PRESETS.forEach(([n,v])=>{const b=document.createElement("button");b.textContent=n;b.onclick=()=>{for(const k in v)$("s"+k).value=v[k];sim();};pr.appendChild(b);});
+function sim(){
+ const o={F:+$("sF").value,A:+$("sA").value,X:+$("sX").value,S:+$("sS").value,E:+$("sE").value,R:+$("sR").value};
+ $("sFo").textContent=fmt(o.F)+" ("+Math.round(o.F/55.5)+"%)";$("sAo").textContent=o.A+"% fewer guns";$("sXo").textContent=o.X;$("sSo").textContent=o.S;$("sEo").textContent=o.E?("month "+o.E):"not held";$("sRo").textContent=(o.R>0?"+":"")+o.R+"%";
+ PRESETS.forEach(([n,v],i)=>pr.children[i].setAttribute("aria-pressed",Object.keys(v).every(k=>v[k]===o[k])));
+ const {out,totalK,elecResult}=simulate(o);
+ let s=$("simA"),f=frame(s,{x0:0,x1:48,y0:0,y1:100,yt:[0,25,50,75,100],xt:[0,12,24,36,48],xf:v=>v?v+"mo":"now"});
+ [["G",C.red],["S",C.cobalt],["E",C.ochre],["L",C.teal]].forEach(([k,c])=>line(s,out.map(r=>[f.sx(r.t),f.sy(r[k])]),c));
+ if(o.E){el("line",{x1:f.sx(o.E),x2:f.sx(o.E),y1:f.sy(0),y2:f.sy(100),style:`stroke:${C.ink};stroke-dasharray:3 3`},s);el("text",{x:f.sx(o.E)+4,y:24,"font-size":11,style:`fill:${C.ink}`},s,"vote");}
+ const kmax=Math.max(500,...out.map(r=>r.K));const ky=Math.ceil(kmax/250)*250;
+ s=$("simB");f=frame(s,{x0:0,x1:48,y0:0,y1:ky,yt:[0,ky/2,ky],xt:[0,12,24,36,48],xf:v=>v?v+"mo":"now",yf:v=>fmt(Math.round(v))});
+ el("polygon",{points:[[f.sx(0),f.sy(0)],...out.map(r=>[f.sx(r.t),f.sy(r.K)]),[f.sx(48),f.sy(0)]].map(p=>p.join(",")).join(" "),style:`fill:${C.red};opacity:.15`},s);
+ line(s,out.map(r=>[f.sx(r.t),f.sy(r.K)]),C.red);
+ const dmax=Math.max(2,...out.map(r=>r.D));const dy=Math.ceil(dmax*2)/2;
+ s=$("simC");f=frame(s,{x0:0,x1:48,y0:0,y1:dy,yt:[0,dy/2,dy],xt:[0,12,24,36,48],xf:v=>v?v+"mo":"now",yf:v=>v.toFixed(1)});
+ line(s,out.map(r=>[f.sx(r.t),f.sy(r.D)]),C.cobalt);
+ const end=out[48];
+ const peak=out.reduce((a,r)=>r.K>a.K?r:a,out[0]);
+ $("simR").innerHTML=`After 48 months: gang power <b>${Math.round(end.G)}</b> (from 75) · state capacity <b>${Math.round(end.S)}</b> · economy <b>${Math.round(end.E)}</b> · legitimacy <b>${Math.round(end.L)}</b><br>Cumulative killings ≈ <b>${fmt(Math.round(totalK/100)*100)}</b> · peak month ${peak.t} (${fmt(Math.round(peak.K))}) · displaced ≈ <b>${end.D.toFixed(2)}M</b>${elecResult?` · election ${elecResult==="success"?"<b>held credibly</b>":"<b>failed</b>: held while gangs were too strong"}`:""}`;
+}
+["sF","sA","sX","sS","sE","sR"].forEach(i=>$(i).addEventListener("input",sim));sim();
+
+/* ---------- 0 Haiti now ---------- */
+(function(){
+ // rate comparison
+ const s=$("gRate");const rows=[["Haiti",50,C.red],["World",6,C.muted],["U.S.",5,C.muted]];
+ rows.forEach(([l,v,c],i)=>{const y=6+i*22;el("text",{x:0,y:y+12,"font-size":11,style:`fill:${C.ink}`},s,l);el("rect",{x:44,y:y+2,width:Math.max(2,v/50*220),height:13,style:`fill:${c}`},s);el("text",{x:50+v/50*220,y:y+13,"font-size":11,"font-weight":600,style:`fill:${C.ink}`},s,v===50?"≈50":"≈"+v);});
+ // dot grids: 100 dots
+ function dots(id,n,color,label){const d=$(id);let h="";for(let i=0;i<100;i++)h+=`<i style="background:${i<n?color:"var(--rule)"}"></i>`;d.innerHTML=h+`<span>${label}</span>`;}
+ dots("gHunger",52,"var(--ochre)","each dot = 1% of Haitians");
+ dots("gDisp",12,"var(--cobalt)","each dot = 1% of Haitians");
+ // GDP index
+ const g=$("gGDP");const G=[-1.7,-3.3,-1.8,-1.7,-1.9,-4.2,-2.7];let v=100;const pts=[[0,100]];G.forEach((r,i)=>{v*=1+r/100;pts.push([i+1,v]);});
+ const sx=i=>30+i*(260/7),sy=v=>6+(100-v)/20*40;
+ el("line",{x1:30,x2:290,y1:sy(100),y2:sy(100),style:`stroke:${C.rule}`},g);
+ line(g,pts.map(([i,v])=>[sx(i),sy(v)]),C.ochre,2.5);
+ el("circle",{cx:sx(7),cy:sy(v),r:4,style:`fill:${C.ochre}`},g);
+ el("text",{x:0,y:sy(100)+4,"font-size":10,style:`fill:${C.muted}`},g,"2018");
+ el("text",{x:sx(7),y:sy(v)+18,"text-anchor":"end","font-size":11,"font-weight":600,style:`fill:${C.ink}`},g,"2025: "+Math.round(v-100)+"%");
+ // who killed
+ const w=$("whoKilled");const K=[["Security forces",3497,C.cobalt],["Gangs",1424,C.red],["Self-defense groups",598,C.ochre]];
+ K.forEach(([l,n,c],i)=>{const y=12+i*64,len=n/3500*300;el("text",{x:0,y:y+12,"font-size":13,style:`fill:${C.ink}`},w,l);
+  el("rect",{x:0,y:y+20,width:len,height:28,style:`fill:${c}`},w);
+  el("text",{x:len+8,y:y+40,"font-size":14,"font-weight":600,style:`fill:${C.ink}`},w,fmt(n)+"  ("+Math.round(n/5519*100)+"%)");});
+})();
+
+/* ---------- Atlas ---------- */
+(function(){
+ const DP={"HT-NI":"M202.6,424.7L206.5,421.6L209.7,417.7L211.4,416.8L217.4,416.9L228.7,413.6L232.0,413.1L240.9,415.3L241.0,419.9L236.0,423.3L229.4,422.3L229.4,423.9L223.9,422.1L219.1,421.4L214.3,422.0L208.8,423.9L214.6,427.3L218.8,428.3L218.9,431.9L220.1,433.9L224.5,435.9L232.4,434.7L236.3,436.7L245.1,431.4L255.8,430.1L295.4,433.1L300.4,434.3L310.4,439.4L316.0,440.5L336.0,439.8L345.7,440.6L354.6,443.9L359.2,446.6L363.0,448.1L367.2,448.4L373.5,447.2L374.9,450.2L375.1,453.4L371.2,460.0L371.7,467.1L378.0,467.4L382.3,471.8L384.1,478.2L388.1,483.1L387.1,491.0L383.9,498.5L384.4,510.1L378.0,501.3L376.0,489.8L368.0,482.3L358.5,474.6L352.5,472.9L346.8,474.6L333.9,473.1L320.7,473.3L307.7,471.5L299.8,474.7L290.9,477.1L283.0,476.8L275.1,477.6L259.1,480.2L246.5,476.9L251.2,466.6L245.6,463.8L242.0,459.3L237.6,455.6L230.8,455.0L222.8,456.1L217.2,460.9L212.9,459.5L207.9,456.9L199.6,457.3L191.5,456.2L196.0,446.0L201.6,439.7L197.4,437.7L196.2,434.0L200.6,429.1L202.6,424.7Z","HT-AR":"M461.0,318.8L460.3,318.5L434.1,290.1L432.9,283.3L443.5,279.0L453.1,278.4L458.4,276.6L460.7,272.7L459.2,267.7L455.6,265.1L451.0,263.4L446.9,260.9L444.3,257.6L438.3,247.0L436.7,242.8L438.5,239.1L441.0,236.8L445.3,228.3L448.1,226.9L456.1,226.0L459.0,226.5L455.4,219.4L452.8,217.9L447.8,217.4L444.8,215.2L443.9,210.0L444.3,204.5L445.3,201.2L449.0,204.3L453.9,204.7L456.6,202.7L455.4,191.5L459.0,192.2L464.4,195.7L467.5,195.8L462.7,186.2L460.2,184.8L447.3,183.9L444.0,181.5L438.5,174.0L433.8,170.6L417.9,163.3L404.6,155.1L399.9,153.9L395.8,152.0L386.9,144.5L382.8,145.2L367.3,139.5L357.3,137.7L357.1,137.0L359.0,122.6L370.8,110.2L380.4,109.3L390.5,111.7L400.8,112.6L411.0,114.5L429.9,111.2L445.5,97.9L450.7,96.5L454.9,94.1L461.0,89.7L468.6,90.7L471.6,97.1L476.7,101.2L477.4,107.1L482.8,106.3L488.0,110.2L485.7,119.1L488.8,123.7L494.8,126.3L498.3,136.8L502.4,147.6L509.3,154.4L516.9,160.5L525.8,164.2L533.3,161.8L533.4,154.9L538.3,155.1L542.9,150.7L547.2,150.3L555.7,154.6L556.9,171.4L566.5,180.4L576.6,185.3L580.8,194.8L579.5,202.1L580.7,209.6L584.9,217.1L587.5,224.2L576.0,240.4L574.6,259.5L581.3,266.2L579.0,271.9L579.5,278.3L581.2,286.1L577.8,299.5L580.0,319.8L576.6,328.4L575.6,336.6L569.7,339.9L557.9,338.5L546.2,339.2L540.4,333.2L533.6,328.2L520.8,322.8L515.6,314.9L509.4,315.2L484.6,311.8L468.7,311.3L464.5,314.3L461.0,318.8Z","HT-ND":"M496.2,72.5L501.4,79.0L508.1,83.5L515.1,86.0L518.9,83.5L523.5,86.0L531.0,88.9L538.1,90.7L541.2,89.8L542.8,93.9L554.9,105.2L554.9,106.9L549.8,105.2L552.9,112.9L554.0,114.1L558.5,115.1L558.5,112.4L561.7,108.6L558.5,108.6L560.0,105.2L560.0,101.6L563.7,103.6L568.8,104.1L573.4,102.6L575.4,98.7L577.9,96.1L582.8,96.0L586.2,98.8L584.1,105.2L588.3,107.7L592.4,108.2L602.3,106.4L606.3,108.0L609.9,111.7L612.3,112.4L620.9,112.4L622.9,113.0L625.5,115.8L623.4,120.3L622.2,130.5L616.9,138.3L612.9,139.2L609.9,141.2L610.0,144.8L609.1,148.1L609.8,154.4L613.2,160.6L615.7,168.4L620.0,175.3L619.2,182.3L616.7,186.2L626.0,188.8L638.6,201.7L642.8,215.3L624.8,224.5L607.5,235.3L602.6,235.8L600.3,232.3L594.9,226.8L587.5,224.2L584.9,217.1L580.7,209.6L579.5,202.1L580.8,194.8L576.6,185.3L566.5,180.4L556.9,171.4L555.7,154.6L547.2,150.3L542.9,150.7L538.3,155.1L533.4,154.9L533.3,161.8L525.8,164.2L516.9,160.5L509.3,154.4L502.4,147.6L498.3,136.8L494.8,126.3L488.8,123.7L485.7,119.1L488.0,110.2L482.8,106.3L477.4,107.1L476.7,101.2L471.6,97.1L468.6,90.7L469.4,86.0L472.8,85.0L482.0,88.0L490.1,80.9L494.2,74.0L496.2,72.5Z","HT-NO":"M357.3,137.7L352.9,140.9L350.2,141.5L346.5,140.6L341.0,138.3L335.6,135.3L332.2,132.3L327.2,137.2L316.4,138.6L292.6,137.4L285.1,135.9L283.3,134.8L278.9,129.8L273.0,126.3L271.7,121.1L270.5,112.4L279.4,98.1L280.7,95.1L283.2,95.1L296.2,89.0L296.2,87.0L282.4,87.0L286.4,83.9L291.2,83.4L296.3,83.9L301.3,83.5L331.8,69.6L340.7,63.1L345.7,56.1L348.7,59.8L351.6,60.7L358.7,59.9L362.3,60.4L368.9,62.8L372.4,63.4L377.1,63.1L385.7,61.2L389.5,61.6L393.0,62.8L395.7,65.3L397.5,61.2L402.2,58.7L407.9,58.1L412.7,59.9L419.4,57.2L427.4,55.1L435.7,54.0L443.5,54.5L469.0,60.4L475.3,64.4L480.5,66.8L495.3,71.4L496.2,72.5L494.2,74.0L490.1,80.9L482.0,88.0L472.8,85.0L469.4,86.0L468.6,90.7L461.0,89.7L454.9,94.1L450.7,96.5L445.5,97.9L429.9,111.2L411.0,114.5L400.8,112.6L390.5,111.7L380.4,109.3L370.8,110.2L359.0,122.6L357.1,137.0L357.3,137.7ZM424.8,16.3L432.1,15.9L436.9,16.6L441.2,18.5L446.9,21.8L470.5,31.1L480.6,37.5L477.8,43.7L473.7,41.9L452.5,39.0L442.7,35.2L430.6,32.4L426.4,30.5L417.9,32.7L412.6,31.6L406.5,29.6L401.0,26.8L397.4,23.5L400.6,21.8L412.2,18.0L424.8,16.3Z","HT-GA":"M24.3,473.0L23.3,466.9L21.7,463.2L15.2,454.9L23.9,442.1L22.1,438.5L26.6,435.3L29.6,423.0L33.3,420.3L33.5,415.8L30.9,407.7L32.9,405.2L41.3,400.2L52.5,395.7L57.2,394.9L63.0,396.3L65.5,396.2L67.8,392.2L73.5,391.2L87.6,392.0L97.5,394.2L130.2,408.8L144.6,409.5L147.7,414.3L152.4,413.1L159.6,416.9L162.9,418.1L174.1,418.5L179.7,420.3L185.1,425.0L189.2,426.1L192.7,423.9L198.2,425.9L202.6,424.7L200.6,429.1L196.2,434.0L197.4,437.7L201.6,439.7L196.0,446.0L191.5,456.2L175.5,460.6L163.9,460.8L160.5,466.0L160.9,472.3L149.0,471.3L137.1,467.9L126.7,464.3L116.2,461.8L90.8,463.8L52.1,471.9L38.2,473.3L31.3,471.9L24.3,473.0ZM188.4,402.3L194.3,399.4L202.5,400.1L208.7,403.6L208.8,409.5L203.1,412.9L195.1,412.9L188.9,409.3L188.4,402.3Z","HT-SD":"M385.5,520.6L364.8,518.3L356.1,518.3L348.8,513.6L346.7,512.8L313.4,507.4L298.5,509.0L296.2,508.3L297.5,504.9L300.9,503.6L309.9,503.7L309.9,502.0L293.2,500.2L272.9,500.4L267.0,502.0L259.0,506.8L255.9,507.4L253.9,506.4L251.8,501.6L250.0,500.1L246.6,502.1L243.0,511.1L239.6,509.3L235.1,511.1L232.6,509.8L231.5,506.4L232.7,502.0L229.2,503.1L226.1,510.0L222.5,512.8L223.9,501.7L221.1,505.4L218.9,506.8L214.7,505.6L214.0,509.3L203.1,518.0L185.2,526.4L180.6,530.9L176.3,538.1L186.8,549.5L189.7,558.8L189.0,560.8L185.7,561.6L169.2,561.5L164.3,560.0L162.5,558.1L161.5,554.2L145.6,531.1L142.0,529.1L140.1,525.3L135.4,520.9L111.2,503.0L106.9,500.9L99.3,499.6L93.3,496.2L91.6,490.9L85.5,489.2L77.0,485.4L75.3,487.4L70.6,485.7L65.5,487.9L60.3,491.1L54.8,492.9L50.1,491.9L44.4,489.5L39.6,486.8L35.4,481.7L26.0,476.9L24.3,473.0L31.3,471.9L38.2,473.3L52.1,471.9L90.8,463.8L116.2,461.8L126.7,464.3L137.1,467.9L149.0,471.3L160.9,472.3L160.5,466.0L163.9,460.8L175.5,460.6L191.5,456.2L199.6,457.3L207.9,456.9L212.9,459.5L217.2,460.9L222.8,456.1L230.8,455.0L237.6,455.6L242.0,459.3L245.6,463.8L251.2,466.6L246.5,476.9L259.1,480.2L275.1,477.6L283.0,476.8L290.9,477.1L299.8,474.7L307.7,471.5L320.7,473.3L333.9,473.1L346.8,474.6L352.5,472.9L358.5,474.6L368.0,482.3L376.0,489.8L378.0,501.3L384.4,510.1L385.8,519.3L385.5,520.6ZM230.3,543.6L239.4,544.9L243.0,547.0L243.0,550.8L239.9,552.8L234.8,553.2L225.1,552.7L220.7,551.8L216.9,549.4L210.6,543.6L211.4,540.9L214.0,540.2L215.5,541.9L218.4,539.9L222.5,543.6L230.3,543.6Z","HT-SE":"M707.2,490.7L696.0,510.2L694.0,515.2L693.3,520.4L693.7,522.9L696.3,530.5L697.3,545.5L696.4,550.1L693.4,558.1L689.4,555.3L671.9,532.4L664.2,525.4L655.5,519.9L635.8,513.1L627.7,508.8L619.6,505.7L609.8,505.6L589.9,509.0L563.9,508.8L527.4,509.3L507.8,512.8L499.8,509.0L498.4,510.1L500.1,520.2L497.7,522.8L494.8,522.9L488.0,520.2L484.2,519.6L454.8,522.3L448.8,521.9L450.5,527.3L445.2,526.6L443.5,525.3L436.6,529.8L422.8,528.5L416.0,531.1L409.4,527.3L400.6,523.8L391.2,521.2L385.5,520.6L385.8,519.3L384.4,510.1L383.9,498.5L387.1,491.0L388.1,483.1L391.7,487.9L394.7,493.8L406.6,491.6L414.2,492.0L417.0,496.2L422.4,498.9L425.2,495.9L429.5,493.3L438.0,496.2L446.2,498.3L448.2,494.6L451.2,492.2L453.3,485.1L457.2,487.2L461.5,487.9L467.2,482.8L476.8,481.9L479.7,479.5L488.8,478.4L494.9,475.7L497.9,475.6L500.5,473.7L506.7,466.2L514.9,462.3L523.9,462.9L535.2,468.6L542.5,468.0L549.0,476.1L569.7,477.4L591.0,476.0L612.7,480.5L634.3,485.4L655.3,485.2L672.2,486.5L685.1,494.6L707.2,490.7Z","HT-OU":"M322.8,336.2L318.2,332.9L315.0,329.4L312.6,323.8L313.4,320.9L316.5,317.4L320.9,314.4L326.0,312.4L331.4,311.7L337.3,312.3L372.0,327.0L389.2,332.6L408.2,342.3L426.0,349.8L433.3,358.8L435.1,364.5L436.0,371.3L435.3,378.0L432.4,383.2L429.7,384.3L427.9,382.7L425.7,378.0L423.6,376.1L416.0,375.2L393.8,370.2L386.2,369.6L378.1,367.6L356.1,353.4L333.8,347.3L327.9,343.3L322.8,336.2ZM689.6,388.5L685.5,392.7L680.4,401.6L677.1,405.1L667.4,408.4L648.6,404.9L639.4,406.9L635.0,410.1L637.3,414.5L659.9,437.8L661.5,440.3L662.1,444.3L658.9,446.8L657.9,449.7L659.4,454.6L663.2,456.7L673.0,459.1L675.1,461.0L680.9,469.0L690.3,475.3L703.7,480.5L710.2,485.6L707.2,490.7L685.1,494.6L672.2,486.5L655.3,485.2L634.3,485.4L612.7,480.5L591.0,476.0L569.7,477.4L549.0,476.1L542.5,468.0L535.2,468.6L523.9,462.9L514.9,462.3L506.7,466.2L500.5,473.7L497.9,475.6L494.9,475.7L488.8,478.4L479.7,479.5L476.8,481.9L467.2,482.8L461.5,487.9L457.2,487.2L453.3,485.1L451.2,492.2L448.2,494.6L446.2,498.3L438.0,496.2L429.5,493.3L425.2,495.9L422.4,498.9L417.0,496.2L414.2,492.0L406.6,491.6L394.7,493.8L391.7,487.9L388.1,483.1L384.1,478.2L382.3,471.8L378.0,467.4L371.7,467.1L371.2,460.0L375.1,453.4L374.9,450.2L373.5,447.2L391.1,444.1L412.7,449.4L411.4,453.7L416.2,452.7L422.9,450.4L427.4,450.3L431.0,451.9L448.8,454.9L458.4,452.7L465.2,446.9L470.2,438.8L474.3,429.5L480.4,422.0L488.4,420.2L530.0,423.9L532.6,420.9L535.0,420.6L542.2,428.2L544.7,429.5L549.0,428.3L551.1,423.9L551.6,417.7L551.2,401.6L551.6,398.6L556.2,390.9L554.9,387.8L552.6,386.2L541.2,380.6L532.1,379.8L529.1,378.9L524.1,374.6L519.5,369.1L514.7,365.3L508.6,366.0L500.1,360.8L498.0,358.4L495.9,353.4L483.0,333.3L479.5,329.7L474.5,325.6L469.2,322.2L461.0,318.8L464.5,314.3L468.7,311.3L484.6,311.8L509.4,315.2L515.6,314.9L520.8,322.8L533.6,328.2L540.4,333.2L546.2,339.2L552.7,348.0L560.9,353.2L569.5,355.4L576.9,360.5L592.0,375.5L611.0,382.0L630.8,375.6L650.9,371.9L667.9,377.9L678.3,380.7L687.8,386.3L689.6,388.5Z","HT-CE":"M700.1,230.1L708.4,238.5L727.7,248.0L726.6,263.7L725.3,268.3L722.1,273.0L713.7,279.1L709.9,282.5L702.4,293.0L691.6,305.0L688.3,307.1L675.5,310.5L671.2,313.5L671.9,318.1L676.4,317.4L682.6,315.2L688.4,315.4L690.7,317.3L694.3,324.8L702.3,332.7L704.1,335.1L705.5,340.0L705.8,350.7L707.8,361.1L707.4,366.1L704.5,375.4L701.5,380.4L698.0,383.3L689.6,388.5L687.8,386.3L678.3,380.7L667.9,377.9L650.9,371.9L630.8,375.6L611.0,382.0L592.0,375.5L576.9,360.5L569.5,355.4L560.9,353.2L552.7,348.0L546.2,339.2L557.9,338.5L569.7,339.9L575.6,336.6L576.6,328.4L580.0,319.8L577.8,299.5L581.2,286.1L579.5,278.3L579.0,271.9L581.3,266.2L574.6,259.5L576.0,240.4L587.5,224.2L594.9,226.8L600.3,232.3L602.6,235.8L607.5,235.3L624.8,224.5L642.8,215.3L651.7,220.6L660.9,224.8L665.6,228.7L678.1,230.8L682.7,230.5L691.5,231.2L700.1,230.1Z","HT-NE":"M700.1,230.1L691.5,231.2L682.7,230.5L678.1,230.8L665.6,228.7L660.9,224.8L651.7,220.6L642.8,215.3L638.6,201.7L626.0,188.8L616.7,186.2L619.2,182.3L620.0,175.3L615.7,168.4L613.2,160.6L609.8,154.4L609.1,148.1L610.0,144.8L609.9,141.2L612.9,139.2L616.9,138.3L622.2,130.5L623.4,120.3L625.5,115.8L630.6,119.1L634.8,118.7L637.7,114.9L640.5,114.1L645.3,110.4L652.4,110.5L664.6,114.1L671.3,115.0L673.1,116.3L671.6,119.6L666.4,121.5L659.5,121.5L662.1,126.3L666.4,126.8L674.8,124.9L682.2,130.4L684.7,126.0L684.2,124.1L678.6,122.6L676.0,118.7L676.4,116.0L678.3,114.4L687.6,116.0L698.1,116.3L700.4,123.6L701.2,128.3L700.6,139.4L701.7,145.4L708.7,161.9L711.7,182.6L711.5,194.4L708.7,200.5L707.3,202.0L704.1,210.1L701.8,211.9L695.0,215.8L693.4,217.5L694.6,222.7L700.1,230.1Z"};
+ const AP=(lon,lat)=>[(lon+74.55)*250,(20.15-lat)*264.4];
+ const D={
+  "HT-OU":{n:"Ouest",cap:"Port-au-Prince",pop:4029705,lab:[-72.62,18.33],sec:4,disp:3,
+    t:"Home to the capital and more than a third of all Haitians. Gangs hold roughly 70% of Port-au-Prince and are pushing into the surrounding hills and plains: Kenscoff, where 47 people were killed in an August raid, Croix-des-Bouquets, Cabaret and Arcahaie. About 300,000 displaced people are sheltering in the capital region, many in schools and public buildings."},
+  "HT-AR":{n:"Artibonite",cap:"Gonaïves",pop:1727524,lab:[-72.45,19.3],sec:3,disp:4,
+    t:"Haiti's rice bowl. Gangs including Gran Grif have overrun towns along the main northern highway; the 2024 Pont-Sondé massacre killed about 70 people. Once a refuge for people fleeing the capital, it now has the fastest-growing displacement in the country: up 16% from May to August 2026."},
+  "HT-CE":{n:"Centre",cap:"Hinche",pop:746236,lab:[-71.98,19.05],sec:3,disp:4,
+    t:"The Central Plateau along the Dominican border. Gangs advancing up the highway from the capital overran Mirebalais and nearby towns in 2025, closing the country's best teaching hospital. Displacement here more than doubled in early 2025, to over 147,000, and rose 140% over the year."},
+  "HT-ND":{n:"Nord",cap:"Cap-Haïtien",pop:1067177,lab:[-72.25,19.62],sec:1,disp:2,
+    t:"Haiti's second city and the main way in and out of the country while the capital's airport is effectively closed. Relatively calm, but absorbing displaced families: the greater north saw displacement rise 98% in 2025. The highway south to the capital is still blocked by gang checkpoints."},
+  "HT-NE":{n:"Nord-Est",cap:"Fort-Liberté",pop:393967,lab:[-71.9,19.42],sec:1,disp:1,
+    t:"Smallest population of the northern departments. Its Ouanaminthe–Dajabón crossing is the busiest formal trade link with the Dominican Republic, and the Caracol industrial park makes garments for export."},
+  "HT-NO":{n:"Nord-Ouest",cap:"Port-de-Paix",pop:728807,lab:[-73.05,19.8],sec:1,disp:1,
+    t:"Remote, dry and among the poorest regions, with weak road links. Port-de-Paix handles much of the informal small-boat trade with Florida."},
+  "HT-SE":{n:"Sud-Est",cap:"Jacmel",pop:632601,lab:[-72.4,18.24],sec:2,disp:1,
+    t:"South-coast department reached from the capital over the mountains. FAO reports armed groups extending control into parts of it, part of the spread out of the capital's southern hills."},
+  "HT-SD":{n:"Sud",cap:"Les Cayes",pop:774976,lab:[-73.75,18.3],sec:1,disp:2,
+    t:"Part of the Grand Sud. Gangs at Martissant and Gressier have cut the main highway from the capital since 2021, so goods and people move by boat, by air, or through gang tolls. Many families from Port-au-Prince sheltered here."},
+  "HT-GA":{n:"Grand'Anse",cap:"Jérémie",pop:468301,lab:[-74.1,18.52],sec:1,disp:2,
+    t:"The western tip of the southern peninsula. Relatively calm and agricultural, and among the hardest places to reach from the capital since the southern highway was cut."},
+  "HT-NI":{n:"Nippes",cap:"Miragoâne",pop:342525,lab:[-73.28,18.4],sec:1,disp:2,
+    t:"Smallest department by population, on the southern highway beyond the Gressier blockade. Its port at Miragoâne is a key entry point for goods to the south."}
+ };
+ const TOT=10911819;
+ const SEC=["","Relatively calm","Under pressure","Gangs expanding","Epicenter"];
+ const DISP=["","Few displaced","Hosting families from the capital","Source and host: ~300k sheltering","Fastest-growing displacement"];
+ const ROADS=[
+  ["RN1 north",[[-72.34,18.54],[-72.42,18.73],[-72.51,18.77],[-72.69,19.11],[-72.61,19.15]],"blocked","Port-au-Prince to Saint-Marc and Pont-Sondé: gang checkpoints at Cabaret, Arcahaie and in lower Artibonite."],
+  ["RN1 north",[[-72.61,19.15],[-72.69,19.45],[-72.48,19.48],[-72.47,19.6],[-72.4,19.7],[-72.2,19.76]],"risky","Gonaïves to Cap-Haïtien: passable, but through areas where gangs are expanding."],
+  ["RN2 south",[[-72.34,18.54],[-72.37,18.52],[-72.53,18.54],[-72.63,18.51]],"blocked","Martissant and Gressier: the road to the whole southern peninsula, controlled by gangs since 2021."],
+  ["RN2 south",[[-72.63,18.51],[-72.77,18.43],[-73.09,18.44],[-73.4,18.28],[-73.75,18.19],[-74.12,18.65]],"open","Léogâne to Les Cayes and Jérémie: open, but cut off from the capital."],
+  ["RN3 centre",[[-72.34,18.54],[-72.23,18.58],[-72.1,18.83]],"blocked","Croix-des-Bouquets to Mirebalais: 400 Mawozo and allied gangs. A Salvadoran convoy was ambushed here on October 18."],
+  ["RN3 centre",[[-72.1,18.83],[-72.0,19.15],[-72.2,19.44],[-72.2,19.76]],"risky","Mirebalais to Hinche and the north: contested since gangs overran Mirebalais in 2025."],
+  ["RN8 border",[[-72.23,18.58],[-72.07,18.53],[-71.95,18.5],[-71.76,18.48]],"blocked","Ganthier and Fonds-Parisien to the Malpasse border crossing: repeated gang attacks."],
+  ["Northeast",[[-72.2,19.76],[-71.84,19.66],[-71.73,19.55]],"open","Cap-Haïtien to Ouanaminthe: the main overland trade route to the Dominican Republic."]
+ ];
+ const RC={blocked:C.red,risky:C.ochre,open:C.teal};
+ const SITES=[
+  ["Toussaint Louverture Airport",-72.29,18.58,"International flights into the capital have stopped because of the risk of gunfire; planes were hit in late 2024.","air"],
+  ["Cap-Haïtien",-72.19,19.73,"With the capital's airport effectively closed, the northern city's airport is the main gateway for travelers and aid.","air"],
+  ["Varreux fuel terminal",-72.36,18.57,"The country's main fuel depot. The G9 gang alliance blockaded it for weeks in 2022, freezing hospitals, water and transport nationwide.","port"],
+  ["Cité Soleil",-72.33,18.58,"Dense seaside district and longtime gang stronghold. In December 2024 a gang leader in the Wharf Jérémie area organized the killing of at least 207 people.","event"],
+  ["Croix-des-Bouquets",-72.23,18.58,"October 18, 2026: gangs attacked an armored vehicle of the Gang Suppression Force, leaving four Salvadoran soldiers unaccounted for. Turf of 400 Mawozo, Kraze Barye and Chèn Méchan.","event"],
+  ["Kenscoff",-72.28,18.45,"Once-safe hillside suburb above the capital. At least 47 people were killed in an August 2026 gang raid.","event"],
+  ["Pont-Sondé",-72.61,19.15,"October 2024: Gran Grif gang members killed about 70 people, including children, in this Artibonite river town.","event"],
+  ["Mirebalais",-72.1,18.83,"Overrun by gangs in 2025. University Hospital of Mirebalais, one of the best-equipped in the country, closed.","event"],
+  ["Artibonite rice valley",-72.53,19.24,"The country's breadbasket. Gang attacks on farmers and irrigation have cut production and helped push hunger to record levels.","farm"],
+  ["Malpasse crossing",-71.76,18.48,"Border post on the road to Santo Domingo; the route from the capital passes through gang-attacked Ganthier and Fonds-Parisien.","border"],
+  ["Ouanaminthe–Dajabón",-71.73,19.55,"The busiest formal crossing for trade with the Dominican Republic, and one of the routes deportees arrive through.","border"]
+ ];
+ const MODES=[["people","Where people live"],["security","Who controls what"],["displaced","Where people fled"],["lifelines","Lifelines"]];
+ let mode="security",sel="HT-OU",ov={roads:true,sites:true};
+ const mb=$("atlasModes");MODES.forEach(([k,l])=>{const b=document.createElement("button");b.textContent=l;b.onclick=()=>{mode=k;if(k==="lifelines")ov.roads=true;draw();};b.dataset.m=k;mb.appendChild(b);});
+ function fillFor(id){const d=D[id];
+  if(mode==="people")return [C.cobalt,0.12+0.78*Math.sqrt(d.pop/4029705)];
+  if(mode==="security")return [C.red,[0,.1,.3,.55,.85][d.sec]];
+  if(mode==="displaced")return [C.ochre,[0,.12,.35,.6,.85][d.disp]];
+  return ["var(--land)",1];}
+ function legend(){const L=$("atlasLegend");let h="";
+  if(mode==="people")h=`<div class="eyebrow">Population, 2015 estimate</div><div class="lg"><span><i style="background:var(--cobalt);opacity:.25"></i>~350k</span><span><i style="background:var(--cobalt);opacity:.55"></i>~1M</span><span><i style="background:var(--cobalt);opacity:.9"></i>4M</span></div><p class="note">Ouest alone holds 37% of Haitians. The capital region is the country's economy, government and main port in one place, which is why holding it gives gangs so much leverage.</p>`;
+  if(mode==="security")h=`<div class="eyebrow">Security situation, Oct 2026</div><div class="lg">${[4,3,2,1].map(l=>`<span><i style="background:var(--red);opacity:${[0,.1,.3,.55,.85][l]}"></i>${SEC[l]}</span>`).join("")}</div><p class="note">The country's main split is no longer north versus south. It runs between the capital region with the two departments gangs are pushing into, and everywhere else.</p>`;
+  if(mode==="displaced")h=`<div class="eyebrow">Displacement pattern</div><div class="lg">${[4,3,2,1].map(l=>`<span><i style="background:var(--ochre);opacity:${[0,.12,.35,.6,.85][l]}"></i>${DISP[l]}</span>`).join("")}</div><p class="note">Nearly 80% of Haiti's 1.5 million displaced now live outside the capital. Arrows show the main directions of flight; they are schematic.</p>`;
+  if(mode==="lifelines")h=`<div class="eyebrow">National highways</div><div class="lg"><span><i style="background:var(--red);height:4px"></i>Gang-controlled or cut</span><span><i style="background:var(--ochre);height:4px"></i>Contested, travel at risk</span><span><i style="background:var(--teal);height:4px"></i>Open</span></div><p class="note">Every highway out of Port-au-Prince starts with a red segment. The capital is a city cut off from its own country.</p>`;
+  L.innerHTML=h;}
+ function card(html){$("atlasCard").innerHTML=html;}
+ function deptCard(id){const d=D[id];card(`<div class="eyebrow">Department</div><h3>${d.n}</h3><div class="kv"><span>Capital</span><b>${d.cap}</b><span>Population (2015 est.)</span><b class="mono">${fmt(d.pop)} · ${Math.round(d.pop/TOT*100)}%</b><span>Security</span><b style="color:${d.sec>=3?"var(--red)":"var(--ink)"}">${SEC[d.sec]}</b></div><p>${d.t}</p>`);}
+ function siteCard(s){card(`<div class="eyebrow">Site</div><h3>${s[0]}</h3><p>${s[3]}</p>`);}
+ function roadCard(r){card(`<div class="eyebrow">Highway · ${r[2]==="blocked"?"gang-controlled":r[2]==="risky"?"contested":"open"}</div><h3>${r[0]}</h3><p>${r[3]}</p>`);}
+ function act(node,fn){node.setAttribute("tabindex","0");node.style.cursor="pointer";node.addEventListener("click",fn);node.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fn();}});}
+ function draw(){
+  const s=$("atlasMap");clear(s);
+  el("rect",{x:0,y:0,width:800,height:582,style:"fill:var(--sea)"},s);
+  el("path",{d:DR,style:`fill:var(--land2);stroke:${C.rule}`},s);
+  el("text",{x:720,y:330,"font-size":13,"text-anchor":"middle",style:`fill:${C.muted};letter-spacing:.1em`},s,"DOMINICAN");el("text",{x:720,y:347,"font-size":13,"text-anchor":"middle",style:`fill:${C.muted};letter-spacing:.1em`},s,"REPUBLIC");
+  for(const id in DP){const [c,o]=fillFor(id);
+   el("path",{d:DP[id],style:"fill:var(--land)"},s);
+   const p=el("path",{d:DP[id],style:`fill:${c};fill-opacity:${o};stroke:var(--panel);stroke-width:${id===sel?0:1.2}`},s);
+   p.setAttribute("aria-label",D[id].n);act(p,()=>{sel=id;draw();deptCard(id);});}
+  el("path",{d:DP[sel],style:`fill:none;stroke:${C.ink};stroke-width:2.5;pointer-events:none`},s);
+  if(mode==="displaced"){const d=el("defs",{},s);const m=el("marker",{id:"dah",viewBox:"0 0 10 10",refX:8,refY:5,markerWidth:5,markerHeight:5,orient:"auto"},d);el("path",{d:"M0,0L10,5L0,10z",style:`fill:${C.ink}`},m);
+   const [ox,oy]=AP(-72.34,18.56);[[-72.45,19.25,6],[-72.0,19.0,6],[-72.2,19.6,4],[-73.7,18.32,4],[-72.5,18.25,2],[-73.1,18.45,3]].forEach(([lo,la,w])=>{const [x,y]=AP(lo,la);const mx=(ox+x)/2+(y-oy)*.15,my=(oy+y)/2-(x-ox)*.15;el("path",{d:`M${ox},${oy}Q${mx},${my} ${x},${y}`,style:`fill:none;stroke:${C.ink};stroke-width:${w*.6};opacity:.75;pointer-events:none`,"marker-end":"url(#dah)"},s);});}
+  if(ov.roads){ROADS.forEach(r=>{const pts=r[1].map(([a,b])=>AP(a,b).join(",")).join(" ");
+    el("polyline",{points:pts,style:`fill:none;stroke:var(--panel);stroke-width:${mode==="lifelines"?8:6};stroke-linejoin:round;pointer-events:none`},s);
+    const pl=el("polyline",{points:pts,style:`fill:none;stroke:${RC[r[2]]};stroke-width:${mode==="lifelines"?5:3.5};stroke-linejoin:round;stroke-linecap:round;${r[2]==="risky"?"stroke-dasharray:8 5":""}`},s);
+    pl.setAttribute("aria-label",r[0]);act(pl,()=>roadCard(r));});}
+  for(const id in D){const [x,y]=AP(...D[id].lab);el("text",{x,y,"text-anchor":"middle","font-size":12.5,"font-weight":700,style:`fill:${C.ink};letter-spacing:.06em;text-transform:uppercase;paint-order:stroke;stroke:var(--panel);stroke-width:4px;pointer-events:none`},s,D[id].n);
+   if(mode==="people"){el("text",{x,y:y+15,"text-anchor":"middle","font-size":11.5,style:`fill:${C.ink};paint-order:stroke;stroke:var(--panel);stroke-width:4px;pointer-events:none`},s,(D[id].pop/1e6).toFixed(D[id].pop>1e6?1:2)+"M");}}
+  if(ov.sites){SITES.forEach(st=>{const [x,y]=AP(st[1],st[2]);const g=el("g",{},s);
+    const col=st[4]==="event"?C.red:st[4]==="border"?C.teal:st[4]==="farm"?C.ochre:C.cobalt;
+    if(st[4]==="event")el("circle",{cx:x,cy:y,r:7,style:`fill:${col};stroke:var(--panel);stroke-width:2`},g);
+    else el("rect",{x:x-6,y:y-6,width:12,height:12,transform:`rotate(45 ${x} ${y})`,style:`fill:${col};stroke:var(--panel);stroke-width:2`},g);
+    el("circle",{cx:x,cy:y,r:14,style:"fill:transparent"},g);
+    g.setAttribute("aria-label",st[0]);act(g,()=>siteCard(st));});}
+  const [px,py]=AP(-72.34,18.54);el("text",{x:px+10,y:py+20,"font-size":13,"font-weight":700,style:`fill:${C.ink};paint-order:stroke;stroke:var(--panel);stroke-width:4px;pointer-events:none`},s,"Port-au-Prince");
+  el("text",{x:200,y:80,"font-size":13,style:`fill:${C.muted};letter-spacing:.12em`},s,"ATLANTIC");
+  el("text",{x:330,y:565,"font-size":13,style:`fill:${C.muted};letter-spacing:.12em`},s,"CARIBBEAN SEA");
+  el("text",{x:12,y:570,"font-size":11,style:`fill:${C.muted}`},s,"● event   ◆ infrastructure / border   ─ highway");
+  [...mb.children].forEach(b=>b.setAttribute("aria-pressed",b.dataset.m===mode));
+  $("ovRoads").setAttribute("aria-pressed",ov.roads);$("ovSites").setAttribute("aria-pressed",ov.sites);
+  legend();
+ }
+ $("ovRoads").onclick=()=>{ov.roads=!ov.roads;draw();};$("ovSites").onclick=()=>{ov.sites=!ov.sites;draw();};
+ draw();deptCard(sel);
+})();
+})();
+</script>
+</body>
+</html>
