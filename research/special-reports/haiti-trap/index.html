@@ -83,6 +83,11 @@ figure{margin:0;background:var(--panel);border:1px solid var(--rule);padding:18p
 figcaption{font-size:14px;color:var(--muted);line-height:1.45;margin-top:10px}
 .figtitle{font-family:var(--display);font-weight:700;font-stretch:88%;font-size:18px;margin-bottom:4px}
 .scroll{overflow-x:auto}
+.mapsvg{display:block;width:100%;height:auto}
+@media (max-width:560px){figure.mapfig{padding:10px;margin-inline:-6px}}
+.evlist{margin:10px 0 0;padding-left:0;list-style:none;font-size:14px;line-height:1.4;display:grid;gap:6px}
+.evlist li{display:flex;gap:8px;align-items:baseline}
+.evlist b{flex:none;display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--red);color:#fff;font-family:var(--mono);font-size:12px}
 svg text{font-family:var(--mono)}
 .controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px 22px;margin:14px 0 6px}
 .ctl{display:flex;flex-direction:column;gap:4px;min-width:0}
@@ -271,13 +276,13 @@ dl.facts dd{margin:0;font-size:15px;line-height:1.4}
   <p>Haiti is about the size of Maryland and shares the island of Hispaniola with the Dominican Republic. It is split into ten departments. Choose a view to see how the country divides: where people live, where the gangs are, where the displaced have gone, and which roads still connect the capital to everything else. Tap a department or a marked site for details.</p>
  </div>
  <div class="wide" style="margin-top:20px">
-  <figure>
+  <figure class="mapfig">
    <div class="btns" role="group" aria-label="Map view" id="atlasModes"></div>
    <div class="btns" role="group" aria-label="Overlays" style="margin-top:8px">
      <button id="ovRoads" aria-pressed="true">National highways</button><button id="ovSites" aria-pressed="true">Key sites</button>
    </div>
    <div class="atlas">
-    <div class="scroll"><svg id="atlasMap" viewBox="0 0 800 582" width="100%" style="min-width:540px;display:block" role="img" aria-label="Interactive map of Haiti's departments"></svg></div>
+    <div><svg id="atlasMap" class="mapsvg" viewBox="0 0 800 582" width="100%" role="img" aria-label="Interactive map of Haiti's departments"></svg></div>
     <div class="flow" style="gap:12px;min-width:0">
      <div class="legendbox" id="atlasLegend"></div>
      <div class="card" id="atlasCard" aria-live="polite"></div>
@@ -420,12 +425,13 @@ dl.facts dd{margin:0;font-size:15px;line-height:1.4}
   <p>Step through the years. The pattern runs outward from the capital's core along the main roads: north to the Artibonite rice valley, east toward the Dominican border through Croix-des-Bouquets and Mirebalais, and up into the hills at Kenscoff. By September 2026, IOM found nearly 80% of displaced people living outside Port-au-Prince, with the sharpest recent rise in Artibonite, once a refuge.</p>
  </div>
  <div class="wide" style="margin-top:22px">
-  <figure>
+  <figure class="mapfig">
    <div class="btns" role="group" aria-label="Year" id="yearBtns"></div>
    <div class="btns" role="group" aria-label="Layers" style="margin-top:8px">
      <button id="lyZ" aria-pressed="true">Gang areas</button><button id="lyR" aria-pressed="false">Reported arms routes</button><button id="lyE" aria-pressed="true">Events</button>
    </div>
-   <div class="scroll" style="margin-top:12px"><svg id="map" viewBox="0 0 800 582" width="100%" style="min-width:560px;display:block" role="img" aria-label="Map of Haiti showing gang expansion"></svg></div>
+   <div style="margin-top:12px"><svg id="map" class="mapsvg" viewBox="0 0 800 582" width="100%" role="img" aria-label="Map of Haiti showing gang expansion"></svg></div>
+   <ol class="evlist" id="mapEv" hidden></ol>
    <p id="mapText" style="font-size:16px;margin-top:10px"></p>
    <figcaption>Schematic. Circles mark areas reported under gang control or heavy contest in UN, IOM and press reporting; they are not surveyed boundaries. Arrows show entry routes described by UNODC (sea shipments and land crossings from the Dominican Republic), not specific shipments.</figcaption>
   </figure>
@@ -557,6 +563,9 @@ const NS="http://www.w3.org/2000/svg";
 const $=id=>document.getElementById(id);
 function el(tag,attrs,parent,text){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;if(parent)parent.appendChild(e);return e;}
 function clear(s){while(s.firstChild)s.removeChild(s.firstChild);}
+/* map label scale: grows text in viewBox units as the map shrinks, so labels stay legible on phones */
+function mapK(s){const w=s.getBoundingClientRect().width||800;return Math.max(1,Math.min(1.9,620/w));}
+function onMapResize(s,redraw){let k=mapK(s),t;addEventListener("resize",()=>{clearTimeout(t);t=setTimeout(()=>{const n=mapK(s);if(Math.abs(n-k)>.05){k=n;redraw();}},150);});}
 const C={ink:"var(--ink)",muted:"var(--muted)",rule:"var(--rule)",red:"var(--red)",cobalt:"var(--cobalt)",ochre:"var(--ochre)",teal:"var(--teal)",panel:"var(--panel)",paper:"var(--paper)"};
 const fmt=n=>n.toLocaleString("en-US");
 
@@ -694,30 +703,36 @@ const DEST={pdp:P(-72.83,19.92),smc:P(-72.72,19.1),oua:P(-71.75,19.55),lasc2:P(-
 let year=2026,layers={z:true,r:false,e:true};
 const yb=$("yearBtns");Object.keys(YEARS).forEach(y=>{const b=document.createElement("button");b.textContent=y;b.onclick=()=>{year=+y;drawMap();};yb.appendChild(b);});
 function drawMap(){
- const s=$("map");clear(s);
+ const s=$("map");clear(s);const ks=mapK(s),N=ks>1.25;
  el("rect",{x:0,y:0,width:800,height:582,style:`fill:var(--sea)`},s);
  el("path",{d:DR,style:`fill:var(--land2);stroke:${C.rule}`},s);
  el("path",{d:HAITI,style:`fill:var(--land);stroke:${C.muted};stroke-width:1`},s);
- el("text",{x:720,y:330,"font-size":13,"text-anchor":"middle",style:`fill:${C.muted};letter-spacing:.1em`},s,"DOMINICAN");el("text",{x:720,y:347,"font-size":13,"text-anchor":"middle",style:`fill:${C.muted};letter-spacing:.1em`},s,"REPUBLIC");
- el("text",{x:200,y:80,"font-size":13,style:`fill:${C.muted};letter-spacing:.12em`},s,"ATLANTIC");
- el("text",{x:330,y:560,"font-size":13,style:`fill:${C.muted};letter-spacing:.12em`},s,"CARIBBEAN SEA");
+ el("text",{x:N?796:720,y:330,"font-size":13*(N?1.2:1),"text-anchor":N?"end":"middle",style:`fill:${C.muted};letter-spacing:.1em`},s,"DOMINICAN");el("text",{x:N?796:720,y:N?350:347,"font-size":13*(N?1.2:1),"text-anchor":N?"end":"middle",style:`fill:${C.muted};letter-spacing:.1em`},s,"REPUBLIC");
+ el("text",{x:200,y:80,"font-size":13*ks,style:`fill:${C.muted};letter-spacing:.12em`},s,"ATLANTIC");
+ el("text",{x:330,y:N?545:560,"font-size":13*ks,style:`fill:${C.muted};letter-spacing:.12em`},s,"CARIBBEAN SEA");
  const Y=YEARS[year];
  if(layers.z)for(const k in Z){const sc=Y.z[k]||0;if(!sc)continue;const [lo,la,r]=Z[k];const [x,y]=P(lo,la);el("circle",{class:"zone",cx:x,cy:y,r:r*sc*1.25,style:`fill:var(--zone);stroke:${C.red};stroke-width:1;stroke-opacity:.6`},s);}
  if(layers.r){const d=el("defs",{},s);const m=el("marker",{id:"rah",viewBox:"0 0 10 10",refX:8,refY:5,markerWidth:6,markerHeight:6,orient:"auto"},d);el("path",{d:"M0,0L10,5L0,10z",style:`fill:${C.ink}`},m);
   ROUTES.forEach(([[lo,la],k,lab])=>{const [x1,y1]=P(lo,la);const [x2,y2]=DEST[k];el("path",{d:`M${x1},${y1}L${x2},${y2}`,style:`fill:none;stroke:${C.ink};stroke-width:2;stroke-dasharray:6 4`,"marker-end":"url(#rah)"},s);});
-  el("text",{x:14,y:24,"font-size":12.5,style:`fill:${C.ink}`},s,"↖ to Florida ~1,000 km");}
- for(const k in PL){const [n,lo,la]=PL[k];const [x,y]=P(lo,la);el("circle",{cx:x,cy:y,r:k==="pap"?5:3.5,style:`fill:${C.ink}`},s);el("text",{x:x+(k==="oua"?-8:8),y:y-7,"text-anchor":k==="oua"?"end":"start","font-size":k==="pap"?14:12.5,"font-weight":k==="pap"?700:400,style:`fill:${C.ink};paint-order:stroke;stroke:var(--land);stroke-width:4px`},s,n);}
- if(layers.e){Y.ev.forEach(([k,t],i)=>{const [_,lo,la]=PL[k]||PL.pap;let [x,y]=P(lo,la);const lx=470,ly=430+i*34;
+  el("text",{x:14,y:24*ks,"font-size":12.5*ks,style:`fill:${C.ink}`},s,"↖ to Florida ~1,000 km");}
+ for(const k in PL){const [n,lo,la]=PL[k];const [x,y]=P(lo,la);el("circle",{cx:x,cy:y,r:(k==="pap"?5:3.5)*(N?1.5:1),style:`fill:${C.ink}`},s);el("text",{x:x+(k==="oua"?-8:8)*ks,y:y-7*ks,"text-anchor":k==="oua"?"end":"start","font-size":(k==="pap"?14:12.5)*ks,"font-weight":k==="pap"?700:400,style:`fill:${C.ink};paint-order:stroke;stroke:var(--land);stroke-width:${4*ks}px`},s,n);}
+ const ev=$("mapEv");ev.hidden=!(N&&layers.e);ev.innerHTML="";
+ // phones: numbered pins on the map, event text in a list under it
+ if(layers.e&&N){const seen={};Y.ev.forEach(([k,t],i)=>{const [_,lo,la]=PL[k]||PL.pap;const [x,y]=P(lo,la);const r=10*ks,n=seen[k]=(seen[k]||0)+1;const bx=x+(n-1)*2.3*r,by=y+1.9*r;
+   el("circle",{cx:bx,cy:by,r,style:`fill:${C.red};stroke:var(--panel);stroke-width:${2*ks}`},s);
+   el("text",{x:bx,y:by+4.2*ks,"text-anchor":"middle","font-size":12*ks,"font-weight":700,style:"fill:#fff"},s,i+1);
+   ev.insertAdjacentHTML("beforeend",`<li><b>${i+1}</b><span>${t}</span></li>`);});}
+ else if(layers.e){Y.ev.forEach(([k,t],i)=>{const [_,lo,la]=PL[k]||PL.pap;let [x,y]=P(lo,la);const lx=470,ly=430+i*34;
    el("line",{x1:x,y1:y,x2:lx,y2:ly-5,style:`stroke:${C.red};stroke-width:1`},s);
    el("rect",{x:lx,y:ly-20,width:320,height:26,rx:2,style:`fill:${C.panel};stroke:${C.red}`},s);
    el("text",{x:lx+10,y:ly-2,"font-size":12.5,style:`fill:${C.ink}`},s,t);});}
- el("text",{x:786,y:28,"text-anchor":"end","font-size":30,"font-weight":800,style:`fill:${C.ink};font-family:var(--display)`},s,year);
+ el("text",{x:786,y:28*Math.min(ks,1.5),"text-anchor":"end","font-size":30*Math.min(ks,1.5),"font-weight":800,style:`fill:${C.ink};font-family:var(--display)`},s,year);
  $("mapText").textContent=Y.t;
  [...yb.children].forEach(b=>b.setAttribute("aria-pressed",+b.textContent===year));
  $("lyZ").setAttribute("aria-pressed",layers.z);$("lyR").setAttribute("aria-pressed",layers.r);$("lyE").setAttribute("aria-pressed",layers.e);
 }
 $("lyZ").onclick=()=>{layers.z=!layers.z;drawMap();};$("lyR").onclick=()=>{layers.r=!layers.r;drawMap();};$("lyE").onclick=()=>{layers.e=!layers.e;drawMap();};
-drawMap();
+drawMap();onMapResize($("map"),drawMap);
 
 /* ---------- 7 commitment ---------- */
 function game(){
@@ -917,10 +932,10 @@ function sim(){
  function roadCard(r){card(`<div class="eyebrow">Highway · ${r[2]==="blocked"?"gang-controlled":r[2]==="risky"?"contested":"open"}</div><h3>${r[0]}</h3><p>${r[3]}</p>`);}
  function act(node,fn){node.setAttribute("tabindex","0");node.style.cursor="pointer";node.addEventListener("click",fn);node.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();fn();}});}
  function draw(){
-  const s=$("atlasMap");clear(s);
+  const s=$("atlasMap");clear(s);const ks=mapK(s),N=ks>1.25;
   el("rect",{x:0,y:0,width:800,height:582,style:"fill:var(--sea)"},s);
   el("path",{d:DR,style:`fill:var(--land2);stroke:${C.rule}`},s);
-  el("text",{x:720,y:330,"font-size":13,"text-anchor":"middle",style:`fill:${C.muted};letter-spacing:.1em`},s,"DOMINICAN");el("text",{x:720,y:347,"font-size":13,"text-anchor":"middle",style:`fill:${C.muted};letter-spacing:.1em`},s,"REPUBLIC");
+  el("text",{x:N?796:720,y:330,"font-size":13*(N?1.2:1),"text-anchor":N?"end":"middle",style:`fill:${C.muted};letter-spacing:.1em`},s,"DOMINICAN");el("text",{x:N?796:720,y:N?350:347,"font-size":13*(N?1.2:1),"text-anchor":N?"end":"middle",style:`fill:${C.muted};letter-spacing:.1em`},s,"REPUBLIC");
   for(const id in DP){const [c,o]=fillFor(id);
    el("path",{d:DP[id],style:"fill:var(--land)"},s);
    const p=el("path",{d:DP[id],style:`fill:${c};fill-opacity:${o};stroke:var(--panel);stroke-width:${id===sel?0:1.2}`},s);
@@ -932,24 +947,25 @@ function sim(){
     el("polyline",{points:pts,style:`fill:none;stroke:var(--panel);stroke-width:${mode==="lifelines"?8:6};stroke-linejoin:round;pointer-events:none`},s);
     const pl=el("polyline",{points:pts,style:`fill:none;stroke:${RC[r[2]]};stroke-width:${mode==="lifelines"?5:3.5};stroke-linejoin:round;stroke-linecap:round;${r[2]==="risky"?"stroke-dasharray:8 5":""}`},s);
     pl.setAttribute("aria-label",r[0]);act(pl,()=>roadCard(r));});}
-  for(const id in D){const [x,y]=AP(...D[id].lab);el("text",{x,y,"text-anchor":"middle","font-size":12.5,"font-weight":700,style:`fill:${C.ink};letter-spacing:.06em;text-transform:uppercase;paint-order:stroke;stroke:var(--panel);stroke-width:4px;pointer-events:none`},s,D[id].n);
-   if(mode==="people"){el("text",{x,y:y+15,"text-anchor":"middle","font-size":11.5,style:`fill:${C.ink};paint-order:stroke;stroke:var(--panel);stroke-width:4px;pointer-events:none`},s,(D[id].pop/1e6).toFixed(D[id].pop>1e6?1:2)+"M");}}
+  for(const id in D){const [x,y]=AP(...D[id].lab);el("text",{x,y,"text-anchor":"middle","font-size":12.5*Math.min(ks,1.6),"font-weight":700,style:`fill:${C.ink};letter-spacing:${N?.02:.06}em;text-transform:uppercase;paint-order:stroke;stroke:var(--panel);stroke-width:${4*ks}px;pointer-events:none`},s,D[id].n);
+   if(mode==="people"){el("text",{x,y:y+15*ks,"text-anchor":"middle","font-size":11.5*ks,style:`fill:${C.ink};paint-order:stroke;stroke:var(--panel);stroke-width:${4*ks}px;pointer-events:none`},s,(D[id].pop/1e6).toFixed(D[id].pop>1e6?1:2)+"M");}}
   if(ov.sites){SITES.forEach(st=>{const [x,y]=AP(st[1],st[2]);const g=el("g",{},s);
     const col=st[4]==="event"?C.red:st[4]==="border"?C.teal:st[4]==="farm"?C.ochre:C.cobalt;
-    if(st[4]==="event")el("circle",{cx:x,cy:y,r:7,style:`fill:${col};stroke:var(--panel);stroke-width:2`},g);
-    else el("rect",{x:x-6,y:y-6,width:12,height:12,transform:`rotate(45 ${x} ${y})`,style:`fill:${col};stroke:var(--panel);stroke-width:2`},g);
-    el("circle",{cx:x,cy:y,r:14,style:"fill:transparent"},g);
+    const m=N?1.4:1;
+    if(st[4]==="event")el("circle",{cx:x,cy:y,r:7*m,style:`fill:${col};stroke:var(--panel);stroke-width:${2*m}`},g);
+    else el("rect",{x:x-6*m,y:y-6*m,width:12*m,height:12*m,transform:`rotate(45 ${x} ${y})`,style:`fill:${col};stroke:var(--panel);stroke-width:${2*m}`},g);
+    el("circle",{cx:x,cy:y,r:14*ks,style:"fill:transparent"},g);
     g.setAttribute("aria-label",st[0]);act(g,()=>siteCard(st));});}
-  const [px,py]=AP(-72.34,18.54);el("text",{x:px+10,y:py+20,"font-size":13,"font-weight":700,style:`fill:${C.ink};paint-order:stroke;stroke:var(--panel);stroke-width:4px;pointer-events:none`},s,"Port-au-Prince");
-  el("text",{x:200,y:80,"font-size":13,style:`fill:${C.muted};letter-spacing:.12em`},s,"ATLANTIC");
-  el("text",{x:330,y:565,"font-size":13,style:`fill:${C.muted};letter-spacing:.12em`},s,"CARIBBEAN SEA");
-  el("text",{x:12,y:570,"font-size":11,style:`fill:${C.muted}`},s,"● event   ◆ infrastructure / border   ─ highway");
+  const [px,py]=AP(-72.34,18.54);el("text",{x:px+10*ks,y:py+20*ks,"font-size":13*ks,"font-weight":700,style:`fill:${C.ink};paint-order:stroke;stroke:var(--panel);stroke-width:${4*ks}px;pointer-events:none`},s,"Port-au-Prince");
+  el("text",{x:200,y:80,"font-size":13*ks,style:`fill:${C.muted};letter-spacing:.12em`},s,"ATLANTIC");
+  el("text",{x:330,y:N?538:565,"font-size":13*ks,style:`fill:${C.muted};letter-spacing:.12em`},s,"CARIBBEAN SEA");
+  el("text",{x:12,y:570,"font-size":11*Math.min(ks,1.5),style:`fill:${C.muted}`},s,"● event   ◆ infrastructure / border   ─ highway");
   [...mb.children].forEach(b=>b.setAttribute("aria-pressed",b.dataset.m===mode));
   $("ovRoads").setAttribute("aria-pressed",ov.roads);$("ovSites").setAttribute("aria-pressed",ov.sites);
   legend();
  }
  $("ovRoads").onclick=()=>{ov.roads=!ov.roads;draw();};$("ovSites").onclick=()=>{ov.sites=!ov.sites;draw();};
- draw();deptCard(sel);
+ draw();deptCard(sel);onMapResize($("atlasMap"),draw);
 })();
 })();
 </script>
