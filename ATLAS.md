@@ -10,12 +10,14 @@
 | **Project** | Carolina Redesign |
 | **One-liner** | Columbia SC editorial site + AI Opportunity Assessment service (Vapi intake → webhook → Airtable queue → Claude Code report) |
 | **Status** | building |
-| **Last Active** | 2026-10-22 |
+| **Last Active** | 2026-11-12 |
 | **Stall Threshold** | 7 days |
 | **Repo** | https://github.com/jimmyardis/carolina-redesign |
 | **Stack** | Static HTML/CSS, GitHub Pages |
 
 ## Current State
+
+**Palmetto Ledger Issue 5 shipped 2026-11-12**: "Social Services" is live at `/palmetto-ledger/social-services.html`, the second single-agency study, delivered as a self-contained page (source pipeline in the user's Downloads `palmetto-ledger-dss/execution/`, not in this repo). It covers DSS's three budgets, what the act authorized vs. what was spent, ten years of appropriations, the FY27 request, the SNAP error rate, scorecards, programs and provisos. The Match Trap was renumbered to Issue 6.
 
 **Brighton unpublished 2026-10-06**: "The Brighton Question" (Palmetto Plat, Ledgers No. 4) is off the research site at the user's request — held for later, not abandoned. Its catalog.json entry and page are removed, the inline mention in *Chapin, Connected* is unlinked, and `/urban-productivity/chapin-brighton/` now redirects to the Palmetto Plat collection. The article lives in git history (removed in b648b60) and in `/home/wner/carolina-redesign-held/brighton-question/`; Ledgers No. 4 is reserved for its return.
 
@@ -43,6 +45,10 @@ Run one real test purchase through the live flow (checkout → redirect → star
 - Target publication cadence for The Federalism Papers series?
 
 ## Session Log
+
+### 2026-11-12
+- Published Palmetto Ledger Issue 5 (Department of Social Services) at /palmetto-ledger/social-services.html: added favicon, meta description and footer links, an Issue 5 card on the Ledger index, and renumbered The Match Trap 5 -> 6 (same pattern as Issue 4).
+- Verified live on www.carolinaredesign.com: no JS errors, no horizontal scroll at 390px.
 
 ### 2026-10-22 (Haiti report mobile maps)
 - Made both maps in the Haiti special report (`research/special-reports/haiti-trap/`), the department atlas and the "balloon" gang-expansion map, fit phone width. They used to sit in side-scrolling boxes with a 540/560px minimum width.
