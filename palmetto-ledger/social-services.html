@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Social Services — The Palmetto Ledger</title>
+<meta name="description" content="What the public record shows about the South Carolina Department of Social Services: $1.15B appropriated for FY2026-27, what was actually spent, what the agency asked for, and how its results are scored. The Palmetto Ledger, Carolina Redesign.">
+<link rel="icon" type="image/png" href="/cr-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light;
+  --paper:#F7F6F1; --ink:#22231E; --muted:#6B6A60; --line:#DDDACE; --grid:#E9E6DB;
+  --pine:#1B4D3E; --pine-deep:#123528; --brass:#8C6D2F; --wheat:#C9A55C; --card:#FFFFFF;
+  /* chart series: validated as a set on the white card (general / federal / other) */
+  --s-gen:#2F8F68; --s-fed:#D09A20; --s-oth:#BF5A3C; --s-quiet:#B9B6A8;
+  --good:#1F7A4D; --miss:#B23A2A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:"Source Sans 3",system-ui,sans-serif;font-size:17px;line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.masthead{background:var(--pine-deep);padding:14px 0}
+.masthead .wrap{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+.mark{font-family:"Spectral",serif;font-weight:600;font-size:18px;color:#F3F1E6;text-decoration:none}
+.mark span{color:var(--wheat)}
+.mhmeta{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:#9FB6A9}
+header{border-bottom:3px double var(--pine);padding:38px 0 28px;background:linear-gradient(180deg,#F2F1E9,var(--paper))}
+.series{font-family:"IBM Plex Mono",monospace;font-size:12.5px;letter-spacing:.13em;color:var(--brass)}
+h1{font-family:"Spectral",serif;font-size:clamp(38px,8vw,60px);font-weight:700;color:var(--pine);line-height:1.05;margin:10px 0 8px;text-wrap:balance}
+.stand{font-family:"Spectral",serif;font-style:italic;font-size:clamp(17px,2.6vw,20px);color:var(--muted);max-width:62ch}
+.banner{background:var(--pine);color:#EFEDE2;font-size:14.5px;padding:10px 14px;border-radius:4px;margin-top:20px;line-height:1.5}
+.banner b{color:var(--wheat)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin:26px 0 4px}
+.stat{background:var(--card);padding:14px 13px}
+.stat .v{font-family:"IBM Plex Mono",monospace;font-size:clamp(20px,3.4vw,27px);font-weight:500;color:var(--pine)}
+.stat .l{font-size:13.5px;color:var(--muted);margin-top:2px;line-height:1.35}
+@media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+nav.toc{position:sticky;top:0;z-index:30;background:rgba(247,246,241,.96);backdrop-filter:blur(4px);border-bottom:1px solid var(--line)}
+nav.toc .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:9px;padding-bottom:9px;scrollbar-width:none}
+nav.toc a{flex:none;font-size:13.5px;color:var(--muted);text-decoration:none;padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:var(--card)}
+nav.toc a:hover{color:var(--pine);border-color:var(--pine)}
+section{padding:44px 0 8px}
+h2{font-family:"Spectral",serif;font-size:clamp(25px,4.4vw,32px);font-weight:700;color:var(--pine);line-height:1.15;text-wrap:balance}
+.dek{color:var(--muted);font-size:16.5px;margin:6px 0 16px;max-width:66ch}
+p{max-width:68ch;margin:0 0 14px}
+p b,li b{font-weight:600}
+h3{font-size:15px;font-weight:700;margin:22px 0 4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:16px 16px 14px;margin:16px 0}
+.ctitle{font-size:15px;font-weight:700;line-height:1.3}
+.csub{font-size:13.5px;color:var(--muted);margin:2px 0 12px;line-height:1.4}
+.legend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;color:var(--muted);margin:0 0 10px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:11px;height:11px;border-radius:2px;flex:none}
+.sw.ring{background:var(--card);border:2px solid var(--ink);border-radius:50%}
+.sw.dot{border-radius:50%}
+.note{font-size:13.5px;color:var(--muted);line-height:1.5;max-width:74ch}
+.take{border-left:3px solid var(--wheat);padding:2px 0 2px 14px;margin:16px 0;font-family:"Spectral",serif;font-size:18.5px;line-height:1.45;max-width:60ch}
+svg{display:block;width:100%;overflow:visible}
+svg text{font-family:"Source Sans 3",sans-serif;font-size:12px;fill:var(--muted)}
+svg text.v{font-family:"IBM Plex Mono",monospace;fill:var(--ink);font-size:11.5px}
+svg .grid{stroke:var(--grid);stroke-width:1}
+/* row charts built from HTML so labels stay readable on a phone */
+.rows{display:grid;gap:9px}
+.row{display:grid;grid-template-columns:minmax(0,1fr);gap:3px}
+.row .lab{display:flex;justify-content:space-between;gap:10px;font-size:14px;line-height:1.3}
+.row .lab .n{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--ink);white-space:nowrap}
+.row .lab small{color:var(--muted);font-size:12.5px}
+.track{position:relative;height:14px}
+.bar{position:absolute;top:2px;height:10px;border-radius:0 4px 4px 0;background:var(--s-gen)}
+.seg{position:absolute;top:2px;height:10px}
+.axisline{position:absolute;top:0;bottom:0;width:1px;background:var(--line)}
+.dumb{position:relative;height:18px}
+.dumb .ln{position:absolute;top:8px;height:2px;background:var(--s-quiet)}
+.dumb .pt{position:absolute;top:3px;width:12px;height:12px;border-radius:50%;margin-left:-6px;border:2px solid var(--card)}
+.dumb .pt.a{background:var(--card);border:2px solid var(--ink)}
+.dumb .pt.b{background:var(--s-gen)}
+.row:focus-visible,.pt:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--brass);outline-offset:3px;border-radius:3px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{font-size:12.5px;font-weight:600;color:var(--muted);text-align:left;padding:6px 8px 6px 0;border-bottom:1px solid var(--line);vertical-align:bottom}
+td{padding:7px 8px 7px 0;border-bottom:1px solid var(--grid);vertical-align:top}
+td.r,th.r{text-align:right;font-family:"IBM Plex Mono",monospace;font-size:12.5px;white-space:nowrap;padding-left:10px;padding-right:6px}
+#tb-meas td:first-child{min-width:150px}
+.scroll{overflow-x:auto}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:600;white-space:nowrap}
+.pill i{font-style:normal;font-size:13px;line-height:1}
+.pill.met{color:var(--good)} .pill.miss{color:var(--miss)} .pill.na{color:var(--muted)}
+details{border-top:1px solid var(--grid);padding:8px 0}
+details summary{cursor:pointer;font-size:14.5px;list-style:none;display:flex;gap:10px;align-items:baseline}
+details summary::-webkit-details-marker{display:none}
+details summary .no{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--brass);flex:none;width:44px}
+details summary .yr{margin-left:auto;font-size:12.5px;color:var(--muted);white-space:nowrap}
+details p{font-size:14px;color:var(--muted);margin:8px 0 4px 54px}
+.calc{display:grid;gap:12px}
+.calc input[type=range]{width:100%;accent-color:var(--pine)}
+.calc .out{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.calc .out div{background:var(--paper);padding:10px 11px}
+.calc .out .v{font-family:"IBM Plex Mono",monospace;font-size:clamp(17px,4.4vw,22px);color:var(--pine);font-weight:500}
+.calc .out .l{font-size:12.5px;color:var(--muted);line-height:1.3}
+.cols{display:grid;gap:14px}
+@media(min-width:700px){.cols{grid-template-columns:1fr 1fr}}
+ul.plain{list-style:none;display:grid;gap:8px;margin:8px 0 6px}
+ul.plain li{padding-left:16px;position:relative;font-size:15.5px;line-height:1.45}
+ul.plain li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--wheat)}
+#tip{position:fixed;z-index:60;pointer-events:none;background:var(--pine-deep);color:#F3F1E6;font-size:13px;line-height:1.4;padding:7px 10px;border-radius:5px;max-width:260px;opacity:0;transition:opacity .12s;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+#tip b{color:var(--wheat);font-weight:600}
+#tip .mono{font-size:12.5px}
+footer{border-top:3px double var(--pine);margin-top:48px;padding:26px 0 44px}
+footer p,footer li{font-size:14px;color:var(--muted)}
+footer a{color:var(--pine)}
+footer ol{margin:6px 0 14px 20px;display:grid;gap:5px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="masthead"><div class="wrap">
+  <a class="mark" href="/palmetto-ledger/">&#8592; The Palmetto <span>Ledger</span></a>
+  <div class="mhmeta">Carolina Redesign &middot; Research &middot; November 2026</div>
+</div></div>
+
+<header><div class="wrap">
+  <div class="series">THE PALMETTO LEDGER &middot; ISSUE 5 &middot; NOVEMBER 2026</div>
+  <h1>Social Services</h1>
+  <p class="stand">What the public record already shows about the Department of Social Services: what the budget authorizes, what was spent, what the agency asked for, and how its results are scored.</p>
+  <div class="banner"><b>Informal analysis.</b> Built from public documents only, with no records request. It describes; it does not recommend. Every figure traces to a source listed at the foot of the page.</div>
+  <div class="stats" id="stats"></div>
+</div></header>
+
+<nav class="toc" aria-label="Sections"><div class="wrap">
+  <a href="#three">Three budgets</a><a href="#spent">Act vs. spent</a><a href="#decade">Ten years</a><a href="#asked">The request</a><a href="#snap">Error rate</a><a href="#scored">Scorecards</a><a href="#programs">Programs</a><a href="#rules">Provisos</a><a href="#checks" id="toc-checks" hidden>Spending</a><a href="#ask">What to ask for</a>
+</div></nav>
+
+<main class="wrap">
+
+<section id="three">
+  <h2>Three very different budgets in three years</h2>
+  <p class="dek">The appropriations act prints two columns for every agency. For this one, only the second column is steady.</p>
+  <div class="card">
+    <div class="ctitle">Department of Social Services appropriation, by act</div>
+    <div class="csub">Millions of dollars. No act was ratified for FY2020-21.</div>
+    <div class="legend"><span><i class="sw" style="background:var(--s-fed)"></i>Total funds</span><span><i class="sw" style="background:var(--s-gen)"></i>General funds</span></div>
+    <div id="c-hist"></div>
+  </div>
+  <p id="t-three"></p>
+  <p id="t-three2"></p>
+  <p class="take">For this agency the total funds column records how much federal spending the act permits, and that permission has been set well below, then well above, what is spent.</p>
+</section>
+
+<section id="spent">
+  <h2>What the act said, and what was spent</h2>
+  <p class="dek">Fiscal year 2024-25 is the latest year with both an act and a full accounting of actual spending.</p>
+  <div class="card">
+    <div class="ctitle">Appropriated and actual spending by program, FY2024-25</div>
+    <div class="csub">Millions of dollars, all fund sources. Programs that carry the same name in both documents.</div>
+    <div class="legend"><span><i class="sw ring"></i>Appropriated in the act</span><span><i class="sw dot" style="background:var(--s-gen)"></i>Actual, accountability report</span></div>
+    <div class="rows" id="c-pairs"></div>
+  </div>
+  <p id="t-spent"></p>
+  <p class="note">Actual spending includes money the act does not print in Section 38: funds carried forward, one-time appropriations, and federal authorization added during the year. The comparison shows how far the printed lines sit from the outcome, not that any line was overspent.</p>
+</section>
+
+<section id="decade">
+  <h2>Ten years of general funds</h2>
+  <p class="dek">General funds are state tax dollars, the part of this budget the General Assembly sets directly.</p>
+  <p id="t-decade"></p>
+  <div class="card">
+    <div class="ctitle" id="ct-growth"></div>
+    <div class="csub">Millions of dollars of general funds added, by area of the act.</div>
+    <div class="rows" id="c-growth"></div>
+  </div>
+  <p id="t-decade2"></p>
+</section>
+
+<section id="asked">
+  <h2>What the agency asked for</h2>
+  <p class="dek">Each fall every agency files a budget plan. It is public, and it is the one place the agency explains its own numbers.</p>
+  <div class="card">
+    <div class="ctitle">The FY2026-27 request, in the agency's priority order</div>
+    <div class="csub">Millions of dollars requested.</div>
+    <div class="legend"><span><i class="sw" style="background:var(--s-gen)"></i>State general funds</span><span><i class="sw" style="background:var(--s-fed)"></i>Federal authorization</span></div>
+    <div class="rows" id="c-req"></div>
+  </div>
+  <p id="t-asked"></p>
+  <div class="card">
+    <div class="ctitle">The agency's own three percent plan</div>
+    <div class="csub" id="cs-forme"></div>
+    <div class="rows" id="c-forme"></div>
+  </div>
+  <p>The same filing includes Form E, which asks every agency how it would absorb a three percent cut in general funds. It is the only point in the budget process where an agency is asked what it would give up. The answer above protects frontline child welfare case managers and eligibility workers and draws on contracts, vacant positions and a furlough.</p>
+  <p id="t-vacant"></p>
+</section>
+
+<section id="snap">
+  <h2>The number that now has a price</h2>
+  <p class="dek">Food assistance benefits have never appeared in the state budget. A 2025 federal law changes that, and the amount depends on one measurement.</p>
+  <p id="t-snap"></p>
+  <div class="card">
+    <div class="ctitle">SNAP payment error rates, federal fiscal year 2025</div>
+    <div class="csub">Each dot is a state or territory. Bands show the share of benefit costs a state pays at that rate.</div>
+    <div id="c-per"></div>
+    <div class="note" id="n-per"></div>
+  </div>
+  <div class="card">
+    <div class="ctitle">What an error rate costs</div>
+    <div class="csub">Move the rate. The benefit base is the agency's own figure of about $1.4 billion a year.</div>
+    <div class="calc">
+      <label class="note" for="perSlider">Payment error rate: <b class="mono" id="perVal" style="color:var(--ink)"></b></label>
+      <input type="range" id="perSlider" min="4" max="13" step="0.1" value="8.8" aria-describedby="perOut">
+      <div class="out" id="perOut" aria-live="polite">
+        <div><div class="v" id="o-share"></div><div class="l">state share of benefits</div></div>
+        <div><div class="v" id="o-cost"></div><div class="l">a year in state funds</div></div>
+        <div><div class="v" id="o-rel"></div><div class="l">of the agency's general funds</div></div>
+      </div>
+    </div>
+  </div>
+  <p id="t-snap2"></p>
+  <p class="note">The error rate is not a fraud rate. It counts benefit dollars issued too high or too low against a re-determination of sampled cases, and South Carolina's figure includes underpayments of 0.97 percent.</p>
+</section>
+
+<section id="scored">
+  <h2>How results are scored, and by whom</h2>
+  <p class="dek">The agency reports its own measures once a year. Three outside bodies score it as well, on their own schedules.</p>
+  <p id="t-scored"></p>
+  <div class="card">
+    <div class="ctitle">The agency's reported measures, FY2024-25</div>
+    <div class="csub" id="cs-meas"></div>
+    <div class="scroll"><table id="tb-meas"><thead><tr><th>Measure</th><th class="r">Target</th><th class="r">Actual</th><th>Result</th></tr></thead><tbody></tbody></table></div>
+  </div>
+  <div class="cols">
+    <div class="card">
+      <div class="ctitle">Court monitors: caseloads within the required limit</div>
+      <div class="csub" id="cs-mh"></div>
+      <div class="rows" id="c-mh"></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">Legislative Audit Council reviews</div>
+      <div class="csub">State law requires an audit of one agency program every three years.</div>
+      <table id="tb-lac"><tbody></tbody></table>
+    </div>
+  </div>
+  <p id="t-scored2"></p>
+</section>
+
+<section id="programs">
+  <h2>The program table</h2>
+  <p class="dek">The accountability report is the one document that ties dollars to purposes.</p>
+  <p id="t-prog"></p>
+  <div class="card">
+    <div class="ctitle">Largest programs by actual spending, FY2024-25</div>
+    <div class="csub">Millions of dollars, split by fund source.</div>
+    <div class="legend"><span><i class="sw" style="background:var(--s-gen)"></i>General</span><span><i class="sw" style="background:var(--s-fed)"></i>Federal</span><span><i class="sw" style="background:var(--s-oth)"></i>Other</span></div>
+    <div class="rows" id="c-prog"></div>
+  </div>
+  <div class="card">
+    <div class="ctitle" id="ct-ear"></div>
+    <div class="csub">Names as abbreviated in the report. Actual spending, FY2024-25.</div>
+    <div class="scroll"><table id="tb-ear"><tbody></tbody></table></div>
+  </div>
+</section>
+
+<section id="rules">
+  <h2>The rulebook</h2>
+  <p class="dek">Provisos are one-year law attached to the budget. They lapse each June 30 and are re-enacted.</p>
+  <p id="t-rules"></p>
+  <div class="card">
+    <div class="ctitle">What the provisos do</div>
+    <div class="csub">Grouped by one analyst's reading of each proviso's opening sentence.</div>
+    <div class="rows" id="c-pgroups"></div>
+  </div>
+  <div class="card">
+    <div class="ctitle">All Section 38 provisos, FY2026-27</div>
+    <div class="csub">Select one to read how it opens.</div>
+    <div id="c-provs"></div>
+  </div>
+</section>
+
+<section id="checks" hidden>
+  <h2>Thirteen years of payments</h2>
+  <p class="dek">The Comptroller General posts every agency's payments by category. The categories are comparable from fiscal year 2012-13.</p>
+  <div class="card">
+    <div class="ctitle">Department of Social Services payments by category</div>
+    <div class="csub">Millions of dollars. Payroll is not included in this source.</div>
+    <div class="legend" id="lg-cg"></div>
+    <div id="c-cg"></div>
+  </div>
+  <p id="t-cg"></p>
+</section>
+
+<section id="ask">
+  <h2>What the public record cannot show</h2>
+  <p class="dek">Everything above came from documents already posted. These are the gaps, and the records that would close them.</p>
+  <div class="cols">
+    <div class="card">
+      <div class="ctitle">Already public, no request needed</div>
+      <ul class="plain">
+        <li>Appropriations by line and position count, every year</li>
+        <li>Actual spending by program and fund source</li>
+        <li>The budget request, with the agency's justifications and its three percent plan</li>
+        <li>Performance measures, statutes and provisos the agency operates under</li>
+        <li>Payments by category, expense line and payee</li>
+        <li>Federal error rates, court monitor reports, legislative audits</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="ctitle">Worth asking for</div>
+      <ul class="plain" id="asklist"></ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">
+  <h3 style="margin-top:0">Sources</h3>
+  <ol>
+    <li>General Appropriations Acts, Part IA and Part IB, Section 38, FY2016-17 through FY2026-27. <a href="https://www.scstatehouse.gov/budget.php">scstatehouse.gov/budget.php</a></li>
+    <li>Department of Social Services, 2025 Annual Accountability Report (agency L040). <a href="https://www.scstatehouse.gov/reports/aar2025/L040.pdf">scstatehouse.gov</a></li>
+    <li>Department of Social Services, FY2026-27 Agency Budget Plan, Forms A, B1, B2 and E. <a href="https://www.admin.sc.gov/services/budget/building-budget/agency-budget-plans">admin.sc.gov</a></li>
+    <li>Department of Social Services, budget presentation to the House Ways and Means Healthcare Subcommittee, January 14, 2026. <a href="https://www.scstatehouse.gov/CommitteeInfo/Ways&MeansMeetingHandouts/Healthcare/2026/DSS%20HW&M%20Budget%20Presentation.pdf">scstatehouse.gov</a></li>
+    <li>USDA, SNAP Payment Error Rates, Fiscal Year 2025, dated June 24, 2026. <a href="https://fna.usda.gov/snap/qc/per">fna.usda.gov</a></li>
+    <li>Michelle H. v. McMaster co-monitors' progress report, April 1 to September 30, 2025, released April 7, 2026. <a href="https://dss.sc.gov/media/2cbbdby2/michelle-h-progress-report-for-the-period-of-april-1-2025-to-september-30-2025.pdf">dss.sc.gov</a></li>
+    <li>Legislative Audit Council, reports on the Department of Social Services, 2014 to 2026. <a href="https://lac.sc.gov/">lac.sc.gov</a></li>
+    <li id="src-cg" hidden>Comptroller General, Spending Transparency, year-to-date spending by agency and category. <a href="https://applications.sc.gov/SpendingTransparency/BudgetTransparencyMain.aspx">applications.sc.gov</a></li>
+  </ol>
+  <h3>How this was built, and what it cannot show</h3>
+  <p>Appropriation figures were read from the ratified acts by script and reconcile to each act's printed department total. Actual spending and performance measures were read from the agency's accountability report. The request figures were transcribed from the agency's budget plan. Program groupings in the ten-year chart follow the act's own headings; the proviso groupings are one analyst's reading.</p>
+  <p>The appropriation and the accountability report use the same program names but are separate documents, and the comparison between them is as printed. Nothing here reaches inside a program: staffing by office, contracts, grant balances and cost allocation are not public at that grain.</p>
+  <p><a href="/palmetto-ledger/">The Palmetto Ledger</a> &middot; Social Services &middot; a <a href="/">Carolina Redesign</a> research note &middot; November 2026.</p>
+</div></footer>
+<div id="tip" role="status"></div>
+
+<script>
+const P = {"hand":{"request":[{"p":1,"kind":"Recurring","title":"Children and families: stability and support","state":48630827,"federal":8766124,"other":114698,"fte":59.0},{"p":2,"kind":"Recurring","title":"Changes in federal funding requirements (SNAP)","state":34059000,"federal":3792517,"other":8929,"fte":31.0},{"p":3,"kind":"Recurring","title":"Pathways to stability and success (child care, E&T)","state":20427436,"federal":1059508,"other":27436,"fte":19.0},{"p":4,"kind":"Recurring","title":"Information technology and communication","state":2903730,"federal":1466550,"other":145978,"fte":0},{"p":5,"kind":"One-time","title":"Eligibility system replacement (ESSAM)","state":25116538,"federal":12574562,"other":0,"fte":0},{"p":6,"kind":"One-time","title":"Healthy eating (Healthy Bucks)","state":11773333,"federal":591111,"other":0,"fte":0},{"p":7,"kind":"Recurring","title":"Federal authorization increase","state":0,"federal":459328047,"other":0,"fte":0}],"form_e":{"total":10158764,"fte":53.61,"items":[{"label":"Reduce contracts (not direct client services)","amount":3585719},{"label":"Eliminate forecasted vacant positions (not frontline)","amount":4312031},{"label":"Ten-day furlough, staff paid $50,000 and over","amount":2261014}]},"fed_auth":{"fy26_original":240700000.0,"fy26_projected":700000000.0,"approved_jul_aug_2025":267000000.0,"requested":459328047},"snap":{"per_fy24":9.25,"per_fy25":8.8,"benefits":1400000000.0,"people":580000,"admin_share_cost":22625580,"dss_low":70000000.0,"dss_high":200000000.0,"employees_on_snap_admin":3000},"employees":4700,"michelle_h":{"required":90,"as_of":"September 30, 2025","rows":[{"label":"Out-of-home abuse and neglect investigators","pct":100},{"label":"Foster care case managers","pct":85},{"label":"Permanency specialist case managers","pct":75}],"positions_filled":88},"lac":[{"year":2014,"topic":"Child welfare services"},{"year":2017,"topic":"Adult protective services"},{"year":2021,"topic":"SNAP and the child and adult care food program"},{"year":2026,"topic":"Child care licensing and oversight"}]},"hist":[{"fy":2017,"total":713455638.0,"general":148831173.0,"fte":3957.11,"fte_general":1181.16},{"fy":2018,"total":734561881.0,"general":169937416.0,"fte":4212.11,"fte_general":1436.16},{"fy":2019,"total":758684122.0,"general":194059657.0,"fte":4935.14,"fte_general":1765.27},{"fy":2020,"total":765635589.0,"general":201011124.0,"fte":4935.14,"fte_general":1765.27},{"fy":2022,"total":812037934.0,"general":232959127.0,"fte":4935.14,"fte_general":1765.27},{"fy":2023,"total":866806674.0,"general":276635528.0,"fte":5221.14,"fte_general":1980.85},{"fy":2024,"total":906196978.0,"general":298986717.0,"fte":5228.14,"fte_general":1985.67},{"fy":2025,"total":934918371.0,"general":316109514.0,"fte":5238.14,"fte_general":1988.07},{"fy":2026,"total":628940201.0,"general":338625452.0,"fte":5243.14,"fte_general":1993.07},{"fy":2027,"total":1148702031.0,"general":381192907.0,"fte":5287.14,"fte_general":2025.85}],"growth":{"from_fy":2017,"to_fy":2027,"rows":[{"area":"Foster care","from":56295747.0,"to":104867808.0},{"area":"Child protective services","from":13920159.0,"to":64660677.0},{"area":"State office and administration","from":15316622.0,"to":55102989.0},{"area":"Employee benefits","from":19689123.0,"to":57206414.0},{"area":"Employment, training and TANF","from":4262383.0,"to":34976529.0},{"area":"Child care","from":7033814.0,"to":16793859.0},{"area":"Adoptions","from":14788190.0,"to":16382529.0},{"area":"Child support enforcement","from":9116008.0,"to":9516662.0},{"area":"SNAP eligibility","from":6028889.0,"to":7448222.0},{"area":"All other programs","from":2380238.0,"to":14237218.0}],"g0":148831173.0,"g1":381192907.0},"act27":{"rows":[{"name":"Child Care","total":315652808.0,"general":16793859.0,"fte":257.99},{"name":"Foster Care","total":165984938.0,"general":104867808.0,"fte":808.2},{"name":"State office (administration, IT, county offices, program management)","total":156980860.0,"general":55102989.0,"fte":1084.46},{"name":"Employee benefits","total":132524885.0,"general":57206414.0,"fte":0},{"name":"Child Protective Services","total":125963307.0,"general":64660677.0,"fte":1478.02},{"name":"Employment And Training Services","total":85470569.0,"general":34976529.0,"fte":698.15},{"name":"Adoptions","total":53578857.0,"general":16382529.0,"fte":139.24},{"name":"Food Service","total":43303921.0,"general":1133931.0,"fte":2.0},{"name":"Child Support Enforcement","total":20058344.0,"general":9516662.0,"fte":253.0},{"name":"Food Stamp Assistance Program","total":17560508.0,"general":7448222.0,"fte":350.0},{"name":"Family Preservation","total":9372955.0,"general":3087821.0,"fte":31.08},{"name":"Adult Protective Services","total":5835485.0,"general":2509064.0,"fte":91.0},{"name":"Battered Spouse","total":5706128.0,"general":1648969.0,"fte":1.0},{"name":"Prevention Services","total":4244156.0,"general":2572240.0,"fte":1.0},{"name":"Older Youth Programs","total":3552054.0,"general":2536428.0,"fte":17.0},{"name":"Homemaker","total":1518274.0,"general":3775.0,"fte":73.0},{"name":"Pregnancy Prevention","total":697149.0,"general":546972.0,"fte":2.0},{"name":"Kinship","total":696833.0,"general":198018.0,"fte":0}],"total":1148702031.0,"general":381192907.0,"fte":5287.14,"fte_general":2025.85},"fy25":{"act_total":934918371.0,"act_general":316109514.0,"actual":{"general":333347653.13,"other":95355594.85,"federal":861517912.13,"total":1290220341.11},"pairs":[{"name":"Child Care","act":94649857.0,"actual":493832142.94},{"name":"Employee benefits","act":84380181.0,"actual":114179239.73},{"name":"CPS Case Management","act":98003529.0,"actual":75471391.92},{"name":"Child Support Enforcement","act":78963178.0,"actual":52834159.98},{"name":"Information Resource Management","act":66191078.0,"actual":17829314.98},{"name":"TANF Case Services","act":62048519.0,"actual":26742104.94},{"name":"Foster Care Case Services","act":61315965.0,"actual":27103916.03},{"name":"EDC Case Services","act":57250306.0,"actual":28042099.13},{"name":"Adoptions Case Services","act":25275121.0,"actual":52862490.05},{"name":"Foster Care Case Management","act":47208242.0,"actual":34527528.35},{"name":"Agency Administration","act":36919888.0,"actual":42847817.23},{"name":"Food Service","act":37303309.0,"actual":41964287.55},{"name":"Children's Services","act":40569834.0,"actual":40130509.99},{"name":"Family Independence","act":12159099.0,"actual":39879334.92},{"name":"Employment & training Case Management","act":22847761.0,"actual":32011733.77},{"name":"County Office Administration","act":16237311.0,"actual":24357036.52},{"name":"Adoptions Case Management","act":7644020.0,"actual":20265076.11},{"name":"Economic Services","act":18718644.0,"actual":18900220.36},{"name":"Legal Representation","act":9361376.0,"actual":12886769.14},{"name":"Family Preservation","act":9351069.0,"actual":9902022.4},{"name":"APS Case Management","act":3254539.0,"actual":7820142.55},{"name":"Battered Spouse","act":5706104.0,"actual":7594348.91},{"name":"Employment & training Case Services","act":7520582.0,"actual":5513679.86},{"name":"Adult Services","act":5360663.0,"actual":3386046.5}]},"aar":{"n":79,"funded":58,"blank":21,"programs":[{"no":"2000.700000.000","title":"Child Care","general":14204239.0,"other":8547818.88,"federal":471080085.06,"total":493832142.94},{"no":"9500.050000.000","title":"State Employer Contributions","general":43629836.71,"other":4483770.47,"federal":66065632.55,"total":114179239.73},{"no":"2000.050501.000","title":"CPS Case Management","general":36697872.92,"other":465875.75,"federal":38307643.25,"total":75471391.92},{"no":"2000.151000.000","title":"Adoptions Case Services","general":22137503.26,"other":0.0,"federal":30724986.79,"total":52862490.05},{"no":"2001.300000.000","title":"Child Support Enforcement","general":7662161.8,"other":12750692.98,"federal":30791957.38,"total":51204812.16},{"no":"0507.010000.000","title":"Agency Administration","general":22771454.37,"other":4951439.15,"federal":15124923.71,"total":42847817.23},{"no":"2000.650000.000","title":"Food Service","general":121997.55,"other":0.0,"federal":41842290.0,"total":41964287.55},{"no":"0500.060100.000","title":"Children's Services","general":14301713.54,"other":9412076.78,"federal":16416719.67,"total":40130509.99},{"no":"0500.061000.000","title":"Family Independence","general":134930.39,"other":35069523.0,"federal":4674881.53,"total":39879334.92},{"no":"2000.101510X000","title":"IMD Group Homes","general":30696710.73,"other":0.0,"federal":5273963.2,"total":35970673.93},{"no":"2000.100500.000","title":"Foster Care Case Management","general":20324029.82,"other":2299001.37,"federal":11904497.16,"total":34527528.35},{"no":"2000.250501.000","title":"Empl & Trng Case Management","general":11729298.66,"other":1224814.48,"federal":19057620.63,"total":32011733.77},{"no":"2001.101500.000","title":"EDC Case Services","general":24188964.55,"other":3041267.26,"federal":811867.32,"total":28042099.13},{"no":"2001.101000.000","title":"Foster Care Case Services","general":5688555.49,"other":0.0,"federal":21415360.54,"total":27103916.03},{"no":"2000.251500.000","title":"TANF Case Services","general":2508970.0,"other":616400.99,"federal":23616733.95,"total":26742104.94},{"no":"0502.040000.000","title":"County Office Administration","general":15143613.54,"other":217660.53,"federal":8995762.45,"total":24357036.52},{"no":"2000.150500.000","title":"Adoptions Case Management","general":15881215.95,"other":59583.47,"federal":4324276.69,"total":20265076.11},{"no":"0500.061500.000","title":"Economic Services","general":3730890.07,"other":3550834.69,"federal":11618495.6,"total":18900220.36},{"no":"0500.020000.000","title":"Information Resource Management","general":8014914.32,"other":293067.32,"federal":9521333.34,"total":17829314.98},{"no":"2000.051000.000","title":"Legal Representation","general":5898289.86,"other":898969.05,"federal":6089510.23,"total":12886769.14},{"no":"2000.450000.000","title":"Family Preservation","general":5568924.51,"other":42086.26,"federal":4291011.63,"total":9902022.4},{"no":"2001.200500.000","title":"APS Case Management","general":4036057.52,"other":2555763.25,"federal":1228321.78,"total":7820142.55},{"no":"2000.550000.000","title":"Battered Spouse","general":1693843.16,"other":1025692.82,"federal":4874812.93,"total":7594348.91},{"no":"2000.251000.000","title":"Empl & Trng Case Services","general":32360.04,"other":0.0,"federal":5481319.82,"total":5513679.86},{"no":"0505.050000.000","title":"County Support Of Local DSS","general":151882.93,"other":3799566.15,"federal":1462474.01,"total":5413923.09},{"no":"0500.060500.000","title":"Adult Services","general":0.0,"other":0.0,"federal":3386046.5,"total":3386046.5},{"no":"2000.350501.000","title":"SNAP Case Management","general":1552635.37,"other":65.96,"federal":1745358.96,"total":3298060.29},{"no":"9808.040000X000","title":"Child Support Enforcement","general":1629347.82,"other":0.0,"federal":0.0,"total":1629347.82},{"no":"2000.201005X000","title":"Criminal Domestic Violence - South Carolina Coalition Against SCCADVASA","general":1500000.0,"other":0.0,"federal":0.0,"total":1500000.0},{"no":"9807.680000X000","title":"Information Security and Technology Infrastructure","general":1224728.11,"other":0.0,"federal":179449.92,"total":1404178.03},{"no":"9810.910000X000","title":"UNITED WAY ASSOC SC","general":1014000.0,"other":0.0,"federal":0.0,"total":1014000.0},{"no":"9808.740000X000","title":"FAMILY RESOURCE CTR","general":1000000.0,"other":0.0,"federal":0.0,"total":1000000.0},{"no":"9810.870000X000","title":"RICHLAND CTY-EMERG","general":1000000.0,"other":0.0,"federal":0.0,"total":1000000.0},{"no":"2000.750000.000","title":"Kinship","general":533847.88,"other":0.0,"federal":407038.54,"total":940886.42},{"no":"2000.180100.000","title":"Older Youth Programs","general":373079.11,"other":49229.74,"federal":349312.32,"total":771621.17},{"no":"2000.600200X000","title":"Campaign To Prevent Teen","general":770424.15,"other":0.0,"federal":0.0,"total":770424.15},{"no":"0500.060105X000","title":"Strengthening Families Program","general":700000.0,"other":0.0,"federal":0.0,"total":700000.0},{"no":"9808.660000X000","title":"Healthy Bucks","general":655345.0,"other":0.0,"federal":0.0,"total":655345.0},{"no":"9809.830000X000","title":"MIDLANDS FATHERHOOD","general":644000.0,"other":0.0,"federal":0.0,"total":644000.0},{"no":"9809.760000X000","title":"BEAUFORT-JASPER YMCA","general":600000.0,"other":0.0,"federal":0.0,"total":600000.0},{"no":"9802.530100X000","title":"HIVE COMMNITY CIRCLE","general":500000.0,"other":0.0,"federal":0.0,"total":500000.0},{"no":"9810.890000X000","title":"SALVATION ARMY GRNVL","general":500000.0,"other":0.0,"federal":0.0,"total":500000.0},{"no":"9804.470000X000","title":"FLORENCE CRITTENTON","general":400000.0,"other":0.0,"federal":0.0,"total":400000.0},{"no":"9809.820000X000","title":"MIDLANDS COMM DEVEL","general":300000.0,"other":0.0,"federal":0.0,"total":300000.0},{"no":"2001.201000.000","title":"APS Case Services","general":0.0,"other":0.0,"federal":262520.94,"total":262520.94},{"no":"9810.900000X000","title":"TRENT HILL CENTER","general":250000.0,"other":0.0,"federal":0.0,"total":250000.0},{"no":"9809.810000X000","title":"JUVENILES UPHOLDING","general":200000.0,"other":0.0,"federal":0.0,"total":200000.0},{"no":"9810.850000X000","title":"PALMETTO HOPE FOUNDA","general":200000.0,"other":0.0,"federal":0.0,"total":200000.0},{"no":"9811.750000X000","title":"ASAFO COMMUNITY DEV","general":200000.0,"other":0.0,"federal":0.0,"total":200000.0},{"no":"2000.351000.000","title":"SNAP Case Services","general":15.0,"other":394.5,"federal":190730.74,"total":190321.24},{"no":"9811.770000X000","title":"BETHANY CHRISTIAN SE","general":150000.0,"other":0.0,"federal":0.0,"total":150000.0},{"no":"9809.780000X000","title":"FEED THE CITY","general":100000.0,"other":0.0,"federal":0.0,"total":100000.0},{"no":"9810.600000X000","title":"ALTERN ABORTN AWARE","general":100000.0,"other":0.0,"federal":0.0,"total":100000.0},{"no":"9810.790000X000","title":"FOSTERING THE FAMILY","general":100000.0,"other":0.0,"federal":0.0,"total":100000.0},{"no":"9810.800000X000","title":"JENKINS YTH & FAMILY","general":100000.0,"other":0.0,"federal":0.0,"total":100000.0},{"no":"9809.860000X000","title":"PEEDEE COALITION AGA","general":50000.0,"other":0.0,"federal":0.0,"total":50000.0},{"no":"9811.880000X000","title":"SMART BOX - FOOD FOR","general":50000.0,"other":0.0,"federal":0.0,"total":50000.0},{"no":"2000.500000.000","title":"Homemaker","general":0.0,"other":0.0,"federal":972.99,"total":972.99}],"earmarks":[{"title":"UNITED WAY ASSOC SC","total":1014000.0},{"title":"FAMILY RESOURCE CTR","total":1000000.0},{"title":"RICHLAND CTY-EMERG","total":1000000.0},{"title":"MIDLANDS FATHERHOOD","total":644000.0},{"title":"BEAUFORT-JASPER YMCA","total":600000.0},{"title":"HIVE COMMNITY CIRCLE","total":500000.0},{"title":"SALVATION ARMY GRNVL","total":500000.0},{"title":"FLORENCE CRITTENTON","total":400000.0},{"title":"MIDLANDS COMM DEVEL","total":300000.0},{"title":"TRENT HILL CENTER","total":250000.0},{"title":"JUVENILES UPHOLDING","total":200000.0},{"title":"PALMETTO HOPE FOUNDA","total":200000.0},{"title":"ASAFO COMMUNITY DEV","total":200000.0},{"title":"BETHANY CHRISTIAN SE","total":150000.0},{"title":"FEED THE CITY","total":100000.0},{"title":"ALTERN ABORTN AWARE","total":100000.0},{"title":"FOSTERING THE FAMILY","total":100000.0},{"title":"JENKINS YTH & FAMILY","total":100000.0},{"title":"PEEDEE COALITION AGA","total":50000.0},{"title":"SMART BOX - FOOD FOR","total":50000.0}],"earmark_total":7458000.0,"benefits":114179239.73},"measures":{"rows":[{"no":"1.1.1","desc":"Increase the number of child protective service (CPS) investigations initiated timely","base":"71%","target":"95%","actual":"79%","direction":"ge","met":false},{"no":"1.1.2","desc":"Decrease the percentage of child protective service (CPS) investigation intake reconsideration requests that are overturned.","base":"53%","target":"50%","actual":"52%","direction":"le","met":false},{"no":"1.1.3","desc":"Increase the number of adult protective service (APS) investigations initiated timely","base":"91%","target":"88%","actual":"91%","direction":"ge","met":true},{"no":"1.1.4","desc":"Maintain the number of adult protective service (APS) investigations completed timely","base":"92%","target":"91%","actual":"80%","direction":"ge","met":false},{"no":"1.2.1","desc":"Maintain the number of child protective service (CPS) monthly case manager contacts with children in foster care.","base":"96%","target":"95%","actual":"96%","direction":"ge","met":true},{"no":"2.1.1","desc":"Temporary Assistance to Needy Families (TANF) benefit applications processed timely.","base":"79%","target":"90%","actual":"87%","direction":"ge","met":false},{"no":"2.1.2","desc":"Supplemental Nutrition Assistance Program (SNAP) benefit applications processed timely.","base":"86.27%","target":"90%","actual":"82%","direction":"ge","met":false},{"no":"2.2.1","desc":"Increase the number of children served with SC child care vouchers","base":"46,839","target":"21,090","actual":"50,908","direction":"ge","met":true},{"no":"2.2.2","desc":"Maintain the number of annual child care licensing visits.","base":"100%","target":"90%","actual":"94%","direction":"ge","met":true},{"no":"2.3.1","desc":"Maintain the annual Unidentified Disbursement Collections (UDC) rate. The UDC is the percentage of total child support collections that cannot be properly distributed due to missing or incorrect child support case information. Examples include an outdated custodial parent/payee address or an incomplete cross-matching of concurrent child welfare and/or economic services case records across multiple technology systems.","base":"0.28%","target":"2%","actual":"0%","direction":"le","met":true},{"no":"2.4.1","desc":"South Carolina's current IV-D State Plan requires revisions to meet compliance obligations pursuant to the Federal \"Final Rule\" issued on December 20, 2016 in Vol. 81, No. 244 of the Federal Register concerning 45 CFR Parts 301 through 309 and Section 63-17-470(D) of the South Carolina Code of Laws. Complete needed updates related to alternate payees.","base":"90%","target":"90%","actual":"100%","direction":"other","met":null},{"no":"2.4.2","desc":"South Carolina's current IV-D State Plan requires revisions to meet compliance obligations pursuant to the Federal \"Final Rule\" issued on December 20, 2016 in Vol. 81, No. 244 of the Federal Register concerning 45 CFR Parts 301 through 309 and Section 63-17-470(D) of the South Carolina Code of Laws. Complete needed updates related to the continuation of services.","base":"90%","target":"90%","actual":"100%","direction":"other","met":null},{"no":"2.4.3","desc":"South Carolina's current IV-D State Plan requires revisions to meet compliance obligations pursuant to the Federal \"Final Rule\" issued on December 20, 2016 in Vol. 81, No. 244 of the Federal Register concerning 45 CFR Parts 301 through 309 and Section 63-17-470(D) of the South Carolina Code of Laws. Complete needed updates related to child support guidelines.","base":"90%","target":"90%","actual":"100%","direction":"other","met":null},{"no":"2.4.4","desc":"South Carolina's current IV-D State Plan requires revisions to meet compliance obligations pursuant to the Federal \"Final Rule\" issued on December 20, 2016 in Vol. 81, No. 244 of the Federal Register concerning 45 CFR Parts 301 through 309 and Section 63-17-470(D) of the South Carolina Code of Laws. Complete needed updates related to incarcerated non- custodial parent review notifications.","base":"50%","target":"50%","actual":"75%","direction":"other","met":null},{"no":"3.1.1","desc":"Establish a state-level cross- functional continuous quality improvement (CQI) project team to support the ongoing regional and county-level implementation of child welfare practice improvements secondary to the Michelle H. class action settlement agreement.","base":"0%","target":"100%","actual":"100%","direction":"ge","met":true},{"no":"3.2.1","desc":"Increase the number of employee course completions taught by internal training staff.","base":"33,193","target":"25,000","actual":"35,002","direction":"ge","met":true},{"no":"3.3.1","desc":"Increase the number of EAP services accessed by staff.","base":"512","target":"792","actual":"653","direction":"ge","met":false},{"no":"4.1.1","desc":"Produce monthly editions of agency external newsletter for a target audience of over 7,000 constituents and stakeholders","base":"12","target":"12","actual":"12","direction":"other","met":null},{"no":"4.1.2","desc":"Conduct quarterly meetings of the DSS Advisory Board, a volunteer, non-governing, multidisciplinary group of constituents and stakeholders.","base":"4","target":"4","actual":"4","direction":"other","met":null}],"met":7,"missed":6,"n":19,"dollars_tied":724315415.84,"dollars_total":1290220341.11},"provisos":{"counts":{"2018":28,"2019":31,"2020":31,"2022":29,"2023":29,"2024":30,"2025":29,"2026":27,"2027":28},"window_start":2018,"rows":[{"no":"38.1","title":"Fee Retention","first_fy":2018,"words":63,"group":"Lets the agency keep or carry money","text":"The Department of Social Services shall recoup all refunds and identified program overpayments and all such overpayments shall be recouped in accordance with established collection policy. All funds shall be retained by the department and may be used to fund Self-Sufficiency and Family Preservation and Support initiatives, to make improvements to the security for FTI and PII data, and for child support operations."},{"no":"38.2","title":"Recovered State Funds","first_fy":2018,"words":203,"group":"Lets the agency keep or carry money","text":"The department shall withhold a portion of the State Funds recovered, under the Title IV-D Program, for credit to the general fund in order to allow full participation in the Federal Tax Refund Offset program offered through the Bureau of the Fiscal Service, the withholding of unemployment insurance benefits through the Department of Employment and Workforce and reimbursement for expenditures related to genetic testi"},{"no":"38.3","title":"Burial Expenses","first_fy":2018,"words":31,"group":"Sets a rate, cap or rule","text":"The expenditure of funds allocated for burials of foster children and adults in the custody of the Department of Social Services shall not exceed one thousand five hundred dollars per burial."},{"no":"38.4","title":"Battered Spouse Funds","first_fy":2018,"words":80,"group":"Directs money to a use or recipient","text":"Appropriations included in Subprogram II.J. entitled Battered Spouse shall be allocated through contractual agreement to providers of this service. These appropriations may also be used for public awareness and contracted services for victims of this social problem including the abused and children accompanying the abused. Such funds may not be expended for any other purpose nor be reduced by any amount greater than "},{"no":"38.5","title":"Court Examiner Service Exemption","first_fy":2018,"words":39,"group":"Grants operating authority","text":"In order to prevent the loss of federal funds to the State, employees of the Department of Social Services whose salaries are paid in full or in part from federal funds will be exempt from serving as court examiners."},{"no":"38.6","title":"TANF Advance Funds","first_fy":2018,"words":90,"group":"Grants operating authority","text":"The Department of Social Services is authorized to advance sufficient funds during each fiscal year from the Temporary Assistance for Needy Families Assistance Payments general fund appropriations to the Temporary Assistance for Needy Families Assistance Payments federal account only for the purpose of allowing a sufficient cash flow in the federal account. The advance must be refunded no later than April of the same"},{"no":"38.7","title":"Fee Schedule","first_fy":2018,"words":237,"group":"Lets the agency keep or carry money","text":"The Department of Social Services shall be allowed to charge fees and accept donations, grants, and bequests for social services provided under their direct responsibility on the basis of a fee schedule. The fees collected shall be utilized by the Department of Social Services to further develop and administer these program efforts. The below fee schedule is established for the current fiscal year. Day Care Family Ch"},{"no":"38.8","title":"Food Stamp Fraud","first_fy":2018,"words":42,"group":"Lets the agency keep or carry money","text":"The state portion of funds recouped from the collection of recipient claims in the TANF and Food Stamp programs shall be retained by the department. A portion of these funds shall be distributed to local county offices for emergency and program operations."},{"no":"38.9","title":"TANF - Immunizations Certificates","first_fy":2018,"words":54,"group":"Sets a rate, cap or rule","text":"The department shall require all TANF applicants and/or recipients to provide proof of age appropriate immunizations for children. If such immunizations have not been administered, the department shall assist in referring applicants to appropriate county health departments to obtain the immunizations. For the purposes of this proviso, COVID-19 vaccinations are not \"age appropriate immunizations\"."},{"no":"38.10","title":"County Directors' Pay","first_fy":2018,"words":98,"group":"Sets a rate, cap or rule","text":"With respect to the amounts allocated to the Department of Social Services for Employee Pay Increase in this act, the Department of Social Services is authorized to allot funds for pay increases to individual county directors and regional directors in classified positions without uniformity. Pay increases for DSS county directors and regional directors shall be administered in accordance with the guidelines establish"},{"no":"38.11","title":"Use of Funds Authorization","first_fy":2018,"words":144,"group":"Lets the agency keep or carry money","text":"Department investigative units shall be authorized to receive and expend funds awarded to these units as a result of a donation, contribution, prize, grant, and/or court order. These funds shall be retained by the department on behalf of the investigative units and deposited in a separate, special account and shall be carried forward from year to year and withdrawn and expended as needed to fulfill the purposes and c"},{"no":"38.12","title":"Use of Funds Authorization","first_fy":2018,"words":40,"group":"Directs money to a use or recipient","text":"Unless specifically directed by the General Assembly, when DSS is directed to provide funds to a not-for-profit or 501(c)(3) organization, that organization must use the funds to serve persons who are eligible for services in one or more DSS programs."},{"no":"38.13","title":"Grant Authority","first_fy":2018,"words":75,"group":"Directs money to a use or recipient","text":"The Department of Social Services is authorized to make grants to community-based not-for-profit organizations for local projects that further the objectives of DSS programs. The department shall develop policies and procedures and may promulgate regulations to assure compliance with state and federal requirements associated with the funds used for the grants and to assure fairness and accountability in the award and"},{"no":"38.14","title":"Family Foster Care Payments","first_fy":2018,"words":183,"group":"Sets a rate, cap or rule","text":"(A) The Department of Social Services shall furnish as Family Foster Care payments for individual foster children under their sponsorship and under kinship care: ages 0 - 5 $733 per month ages 6 - 12 $856 per month ages 13+ $904 per month (B) These specified amounts are for the basic needs of the foster children to include kinship care assistance. Basic needs within this proviso are identified as food (at home and aw"},{"no":"38.15","title":"Penalty Assessment","first_fy":2018,"words":244,"group":"Grants operating authority","text":"The Department of Social Services may impose monetary penalties against a person, facility, or other entity for violation of statutes or regulations pertaining to programs, other than foster home licensing, that the department regulates. Penalties collected must be remitted to the State Treasurer for deposit into the State General Fund. The department shall promulgate regulations for each program in which penalties m"},{"no":"38.16","title":"Child Support Enforcement Automated System Carry Forward","first_fy":2018,"words":24,"group":"Lets the agency keep or carry money","text":"The department shall be authorized to retain and carry forward any unexpended funds appropriated for the Child Support Enforcement automated system and related penalties."},{"no":"38.17","title":"Child Care Voucher","first_fy":2018,"words":45,"group":"Sets a rate, cap or rule","text":"State funds allocated to the Department of Social Services and used for child care vouchers must be used to enroll eligible recipients within provider settings exceeding the state's minimum child care licensing standards. The department may waive this requirement on a case by case basis."},{"no":"38.18","title":"Meals in Emergency Operations","first_fy":2018,"words":38,"group":"Grants operating authority","text":"The cost of meals may be provided to state employees who are not permitted to leave their stations and are required to work during actual emergencies, emergency situation exercises, and when the Governor declares a state of emergency."},{"no":"38.19","title":"Day Care Facilities Supervision Ratios","first_fy":2018,"words":23,"group":"Sets a rate, cap or rule","text":"For the current fiscal year, staff-child ratios contained in Regulations 114-504(B), 114-504(C), 114-524(B), and 114-524(C) shall remain at the June 24, 2008 levels."},{"no":"38.20","title":"Foster Care Goals","first_fy":2018,"words":78,"group":"Sets a rate, cap or rule","text":"To comply with the requirements of 42 U.S.C. Section 671(a)(14) and 45 C.F.R. Section 1356.21(n), it shall be the goal of the state that the maximum number of Title IV-E funded children who will remain in foster care for more than twenty-four months will not exceed a total of 2,617 during the fiscal year. The Department of Social Services shall develop appropriate plans for timely permanency and use appropriate data "},{"no":"38.21","title":"Comprehensive Teen Pregnancy Prevention Funding","first_fy":2018,"words":149,"group":"Directs money to a use or recipient","text":"(A) From the monies appropriated for the Continuation of Teen Pregnancy Prevention, the department must award the dollars allocated to a nonprofit 501(c)(3) entity to provide abstinence first, age appropriate comprehensive approach to health and sexuality education with a goal of preventing adolescent pregnancy throughout South Carolina. (B) Contracts must be awarded utilizing a competitive approach in accordance wit"},{"no":"38.22","title":"SNAP Coupons","first_fy":2018,"words":121,"group":"Directs money to a use or recipient","text":"The Department of Social Services shall continue the \"Healthy Bucks\" program established to provide coupons that allow Supplemental Nutrition Assistance Program (SNAP) recipients to obtain additional fresh fruits and vegetables when purchasing fresh produce at authorized farmers markets and vendors with SNAP benefits through their EBT cards. Healthy Buck coupons shall allow the beneficiary to increase the amount of p"},{"no":"38.23","title":"Internal Child Fatality Review Committees","first_fy":2018,"words":304,"group":"Requires a report or review","text":"In the current fiscal year, the Department of Social Services shall continue the work of the Internal Child Fatality Review Committees (internal committees) pursuant to the authority granted in Sections 43-1-60(3), 43-1-80, and 63-7-910(E) to allow for the rapid and expeditious review of reported child fatalities that are reported to the Department of Social Services on suspicion of abandonment, child abuse, neglect "},{"no":"38.24","title":"Tuition Reimbursement/Student Loan Repayment","first_fy":2018,"words":184,"group":"Grants operating authority","text":"(A) The Department of Social Services is allowed to spend state, federal, and other sources of revenue to provide tuition assistance, tuition reimbursement and/or student loan repayment to aid in retaining caseworkers and critical needs department jobs based on objective guidelines established by the State Director of the Department of Social Services. The department may pay tuition expenses directly to a college or "},{"no":"38.25","title":"SNAP Eligibility","first_fy":2019,"words":37,"group":"Sets a rate, cap or rule","text":"The Department of Social Services shall not seek, apply for, accept, or renew any waiver of the requirements established pursuant to 7 U.S.C. Section 2015(o), relating to the mandatory work requirements of the Supplemental Nutrition Assistance Program."},{"no":"38.26","title":"Pro Bono Program","first_fy":2020,"words":66,"group":"Grants operating authority","text":"From the funds appropriated to the Department of Social Services the director shall be authorized to utilize the funds appropriated to the department to establish a pro bono program for private attorneys to represent the department in hearings. Attorneys that volunteer for the program must meet the same qualifications as the attorney's hired by the department. The department shall provide training for the pro bono at"},{"no":"38.27","title":"Economic Services System Application Modernization","first_fy":2024,"words":165,"group":"Requires a report or review","text":"(A) Of the funds appropriated in this act for the Department of Social Services' Economic Service System Application Modernization (ESSAM), the Department of Social Services is directed to work with the Department of Administration's Office of Technology and Information Services regarding the design, development, security and privacy controls, and implementation of the ESSAM application. Prior to the expenditure of a"},{"no":"38.28","title":"Childcare Provider Fraud","first_fy":2027,"words":118,"group":"Requires a report or review","text":"The department shall assess its efforts to identify, report, and combat childcare provider fraud for all childcare providers who participate in and accept funding from state and federal sources, the South Carolina Child Care Scholarship Program, or receive any grants from the department. The department shall provide the results of these efforts in a report detailing fraud mitigation measures implemented, any incident"}],"groups":[{"group":"Lets the agency keep or carry money","n":6},{"group":"Sets a rate, cap or rule","n":8},{"group":"Directs money to a use or recipient","n":5},{"group":"Grants operating authority","n":6},{"group":"Requires a report or review","n":3}]},"per":{"states":[{"state":"South Dakota","over":2.05,"under":0.42,"per":2.47},{"state":"Idaho","over":3.45,"under":0.4,"per":3.85},{"state":"Wyoming","over":3.55,"under":0.41,"per":3.96},{"state":"Kentucky","over":4.02,"under":0.67,"per":4.7},{"state":"Iowa","over":4.63,"under":0.71,"per":5.34},{"state":"Virgin Islands","over":4.17,"under":1.19,"per":5.36},{"state":"Vermont","over":5.06,"under":0.32,"per":5.38},{"state":"Utah","over":4.64,"under":0.89,"per":5.54},{"state":"Wisconsin","over":5.32,"under":0.4,"per":5.72},{"state":"Nebraska","over":4.82,"under":1.08,"per":5.9},{"state":"Nevada","over":5.69,"under":0.53,"per":6.22},{"state":"West Virginia","over":6.22,"under":0.46,"per":6.69},{"state":"Ohio","over":5.1,"under":1.66,"per":6.76},{"state":"New Jersey","over":4.81,"under":2.05,"per":6.86},{"state":"Washington","over":6.15,"under":0.83,"per":6.98},{"state":"North Carolina","over":5.76,"under":1.6,"per":7.36},{"state":"Louisiana","over":6.84,"under":1.3,"per":8.14},{"state":"Missouri","over":8.24,"under":0.43,"per":8.67},{"state":"South Carolina","over":7.83,"under":0.97,"per":8.8},{"state":"Arkansas","over":7.97,"under":0.84,"per":8.81},{"state":"New Hampshire","over":6.15,"under":2.7,"per":8.85},{"state":"Montana","over":7.51,"under":1.35,"per":8.86},{"state":"Connecticut","over":7.43,"under":1.65,"per":9.08},{"state":"Pennsylvania","over":8.03,"under":1.18,"per":9.21},{"state":"Texas","over":6.99,"under":2.35,"per":9.34},{"state":"Kansas","over":8.46,"under":0.98,"per":9.44},{"state":"Tennessee","over":7.84,"under":1.6,"per":9.44},{"state":"Mississippi","over":7.57,"under":1.94,"per":9.51},{"state":"Alabama","over":8.82,"under":0.7,"per":9.52},{"state":"Indiana","over":7.73,"under":2.04,"per":9.77},{"state":"Michigan","over":8.66,"under":1.23,"per":9.89},{"state":"North Dakota","over":7.48,"under":2.4,"per":9.89},{"state":"Colorado","over":8.52,"under":1.57,"per":10.09},{"state":"Arizona","over":8.63,"under":2.16,"per":10.8},{"state":"Maine","over":9.33,"under":1.48,"per":10.81},{"state":"Hawaii","over":9.94,"under":0.98,"per":10.92},{"state":"California","over":10.06,"under":0.87,"per":10.93},{"state":"Oklahoma","over":9.63,"under":1.41,"per":11.04},{"state":"Guam","over":9.52,"under":2.18,"per":11.7},{"state":"Virginia","over":10.3,"under":2.02,"per":12.32},{"state":"Rhode Island","over":11.63,"under":0.79,"per":12.42},{"state":"Massachusetts","over":11.83,"under":0.66,"per":12.49},{"state":"Minnesota","over":9.86,"under":2.72,"per":12.58},{"state":"Florida","over":11.54,"under":1.43,"per":12.97},{"state":"Maryland","over":10.89,"under":2.19,"per":13.08},{"state":"New York","over":12.06,"under":1.12,"per":13.18},{"state":"Oregon","over":13.88,"under":0.26,"per":14.14},{"state":"Illinois","over":13.33,"under":1.33,"per":14.67},{"state":"Georgia","over":13.62,"under":1.59,"per":15.21},{"state":"Delaware","over":14.55,"under":1.45,"per":16.0},{"state":"New Mexico","over":15.76,"under":1.06,"per":16.81},{"state":"District of Columbia","over":15.33,"under":3.33,"per":18.66},{"state":"Alaska","over":20.58,"under":2.57,"per":23.15}],"sc_rank":19,"n":53,"national":10.62,"below6":10},"cg_hist":[{"fy":2013,"cats":{"FIXED ASSETS (CAPITALIZED)":168070.0,"TRAVEL":4246393.0,"ALLOCATIONS":13385804.0,"CONTINGENCIES":12491.0,"PERSONAL SERVICES":15308.0,"EMPLOYER CONTRIBUTIONS":1589902.0,"PUBLIC ASSISTANCE":257159711.0,"SUPPLIES AND MATERIALS":4427171.0,"CONTRACTUAL SERVICES":108748445.0,"FIXED CHARGES AND CONTRIBUTIONS (OTHER OPERATING)":8412019.0},"total":398165314.0,"objects":0},{"fy":2014,"cats":{"ALLOCATIONS":14952589.0,"PERSONAL SERVICES":1871.0,"FIXED ASSETS (CAPITALIZED)":168372.0,"TRAVEL":5185997.0,"EMPLOYER CONTRIBUTIONS":2217344.0,"PUBLIC ASSISTANCE":258005223.0,"STATE AID":150000.0,"SUPPLIES AND MATERIALS":4629664.0,"CONTRACTUAL SERVICES":126534879.0,"FIXED CHARGES AND CONTRIBUTIONS (OTHER OPERATING)":8703733.0},"total":420549672.0,"objects":0},{"fy":2015,"cats":{"ALLOCATIONS":14300664.0,"PERSONAL SERVICES":144.0,"FIXED ASSETS (CAPITALIZED)":886534.0,"TRAVEL":5980809.0,"EMPLOYER CONTRIBUTIONS":2195198.0,"PUBLIC ASSISTANCE":264427673.0,"STATE AID":425000.0,"SUPPLIES AND MATERIALS":5725167.0,"UTILITIES":3818.0,"CONTRACTUAL SERVICES":141058598.0,"FIXED CHARGES AND CONTRIBUTIONS (OTHER OPERATING)":23329690.0},"total":458333295.0,"objects":0},{"fy":2016,"cats":{"ALLOCATIONS":15112321.0,"PERSONAL SERVICES":44.0,"FIXED ASSETS (CAPITALIZED)":637428.0,"TRAVEL":6665726.0,"EMPLOYER CONTRIBUTIONS":2205798.0,"PUBLIC ASSISTANCE":271123764.0,"STATE AID":775000.0,"SUPPLIES AND MATERIALS":6100620.0,"UTILITIES":6900.0,"CONTRACTUAL SERVICES":137236735.0,"FIXED CHARGES AND CONTRIBUTIONS (OTHER OPERATING)":11758714.0,"TAX EXPENSE":5337.0},"total":451628387.0,"objects":0},{"fy":2017,"cats":{"ALLOCATIONS":18315803.0,"PERSONAL SERVICES":125.0,"FIXED ASSETS (CAPITALIZED)":163405.0,"TRAVEL":6688069.0,"CONTRACTUAL SERVICES":136869190.0,"FIXED CHARGES AND CONTRIBUTIONS (OTHER OPERATING)":7153528.0,"TAX EXPENSE":14493.0,"EMPLOYER CONTRIBUTIONS":1799531.0,"PUBLIC ASSISTANCE":308774385.0,"STATE AID":1000000.0,"SUPPLIES AND MATERIALS":11919082.0,"UTILITIES":7877.0},"total":492705488.0,"objects":0},{"fy":2018,"cats":{"ALLOCATIONS":6468252.0,"PERSONAL SERVICES":19.0,"FIXED ASSETS (CAPITALIZED)":83752.0,"TRAVEL":7107748.0,"CONTRACTUAL SERVICES":143869330.0,"FIXED CHARGES AND CONTRIBUTIONS (OTHER OPERATING)":19775415.0,"TAX EXPENSE":5218.0,"EMPLOYER CONTRIBUTIONS":2772564.0,"PUBLIC ASSISTANCE":308503884.0,"SUPPLIES AND MATERIALS":10607951.0,"UTILITIES":7837.0},"total":499201970.0,"objects":0},{"fy":2019,"cats":{"ALLOCATIONS":15305958.0,"DEBT SERVICE":78352.0,"PERSONAL SERVICES":2688.0,"TRAVEL":6894634.0,"EMPLOYER CONTRIBUTIONS":1939550.0,"PUBLIC ASSISTANCE":291344025.0,"STATE AID":700000.0,"SUPPLIES AND MATERIALS":7676065.0,"UTILITIES":6900.0,"CONTRACTUAL SERVICES":148603386.0,"FIXED ASSETS (CAPITALIZED)":1905044.0,"FIXED CHARGES AND CONTRIBUTIONS (OTHER OPERATING)":20081410.0,"TAX EXPENSE":7620.0},"total":494545632.0,"objects":0},{"fy":2020,"cats":{"TRAVEL":7358604.0,"ALLOCATIONS":27776566.0,"DEBT SERVICE":470109.0,"EMPLOYER CONTRIBUTIONS":2771274.0,"PUBLIC ASSISTANCE":274746823.0,"STATE AID":1050000.0,"SUPPLIES AND MATERIALS":6971198.0,"UTILITIES":8629.0,"CONTRACTUAL SERVICES":155721972.0,"FIXED ASSETS (CAPITALIZED)":27487.0,"FIXED CHARGES AND CONTRIBUTIONS (OTHER OPERATING)":7835015.0,"TAX EXPENSE":19296.0},"total":484756973.0,"objects":0},{"fy":2021,"cats":{"TRAVEL":6032335.0,"ALLOCATIONS":119482978.0,"DEBT SERVICE":1520070.0,"EMPLOYER CONTRIBUTIONS":2033765.0,"PUBLIC ASSISTANCE":270003808.0,"STATE AID":700000.0,"SUPPLIES AND MATERIALS":7706552.0,"UTILITIES":8295.0,"CONTRACTUAL SERVICES":152786741.0,"FIXED ASSETS (CAPITALIZED)":4017440.0,"FIXED CHARGES AND CONTRIBUTIONS (OTHER OPERATING)":9015665.0,"TAX EXPENSE":822.0},"total":573308471.0,"objects":0},{"fy":2022,"cats":{"ALLOCATIONS":347338165.0,"CONTINGENCIES":90.0,"DEBT SERVICE":1520070.0,"TRAVEL":7130775.0,"EMPLOYER CONTRIBUTIONS":2577712.0,"PUBLIC ASSISTANCE":324408030.0,"STATE AID":7625000.0,"SUPPLIES AND MATERIALS":16584108.0,"UTILITIES":7120.0,"CONTRACTUAL SERVICES":126124395.0,"FIXED CHARGES AND CONTRIBUTIONS (OTHER OPERATING)":7648495.0},"total":840963960.0,"objects":0},{"fy":2023,"cats":{"TRAVEL":8326028.0,"ALLOCATIONS":260237735.0,"DEBT SERVICE":2556850.0,"EMPLOYER CONTRIBUTIONS":2903153.0,"PUBLIC ASSISTANCE":391148523.0,"SCHOLARSHIP AND STUDENT LOANS":39000.0,"STATE AID":2425000.0,"SUPPLIES AND MATERIALS":13257489.0,"UTILITIES":8801.0,"CONTRACTUAL SERVICES":125566608.0,"FIXED CHARGES AND CONTRIBUTIONS (OTHER OPERATING)":7604837.0},"total":814074024.0,"objects":0},{"fy":2024,"cats":{"TRAVEL":9460314.0,"ALLOCATIONS":117490623.0,"DEBT SERVICE":195879.0,"PERSONAL SERVICES":56381.0,"EMPLOYER CONTRIBUTIONS":3329757.0,"PUBLIC ASSISTANCE":465231589.0,"SCHOLARSHIP AND STUDENT LOANS":136500.0,"STATE AID":5158731.0,"SUPPLIES AND MATERIALS":18467312.0,"UTILITIES":6939.0,"CONTRACTUAL SERVICES":140821813.0,"FIXED CHARGES AND CONTRIBUTIONS (OTHER OPERATING)":8978209.0,"TAX EXPENSE":7.0},"total":769334054.0,"objects":0},{"fy":2025,"cats":{"FIXED ASSETS (CAPITALIZED)":838972.0,"TRAVEL":11017043.0,"CONTRACTUAL SERVICES":175056728.0,"FIXED CHARGES AND CONTRIBUTIONS (OTHER OPERATING)":7635408.0,"BENEFITS AND CLAIMS":15250.0,"EMPLOYER CONTRIBUTIONS":3690576.0,"PUBLIC ASSISTANCE":592125150.0,"SCHOLARSHIP AND STUDENT LOANS":133000.0,"STATE AID":7658000.0,"SUPPLIES AND MATERIALS":12684575.0,"UTILITIES":1431.0,"ALLOCATIONS":253898547.0,"PERSONAL SERVICES":212895.0},"total":1064967575.0,"objects":69}],"cg25_alloc":[{"ccode":"517","ocode":"5170800000","name":"ALLOC PRIVATE SECTOR","amount":219388429.0},{"ccode":"517","ocode":"5170810000","name":"ALLOC PRIVATE SECTOR-REPORTABLE","amount":20676460.0},{"ccode":"517","ocode":"5170200000","name":"ALLOC COUNTIES-UNRES","amount":5389904.0},{"ccode":"517","ocode":"5170750000","name":"ALLOC ENTITIES","amount":4575174.0},{"ccode":"517","ocode":"5170750003","name":"ALLOC ENTITIES FED SUBRECIPIENT RESTRICT","amount":3801045.0},{"ccode":"517","ocode":"5170210000","name":"ALLOC COUNTIES-RES","amount":71267.0},{"ccode":"517","ocode":"5170500000","name":"ALLOC SCH DIST","amount":-3732.0}]};
+const $ = s => document.querySelector(s);
+const M = (v, d=1) => '$' + (v/1e6).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}) + 'M';
+const B = v => '$' + (v/1e9).toFixed(2) + 'B';
+const N = v => Math.round(v).toLocaleString('en-US');
+const fyl = fy => 'FY' + (fy-1) + '-' + String(fy).slice(2);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pct = (a,b) => Math.round(100*(a-b)/b);
+
+/* ---------- tooltip: one floating box, fed by data-tip on any mark or row */
+const tip = $('#tip');
+function showTip(el, x, y){
+  tip.innerHTML = el.dataset.tip; tip.style.opacity = 1;
+  const r = tip.getBoundingClientRect(), W = innerWidth, H = innerHeight;
+  let l = x + 14, t = y + 14;
+  if (l + r.width > W - 8) l = Math.max(8, x - r.width - 14);
+  if (t + r.height > H - 8) t = Math.max(8, y - r.height - 14);
+  tip.style.left = l + 'px'; tip.style.top = t + 'px';
+}
+document.addEventListener('pointermove', e => { const el = e.target.closest('[data-tip]'); if (el) showTip(el, e.clientX, e.clientY); else tip.style.opacity = 0; });
+document.addEventListener('focusin', e => { const el = e.target.closest('[data-tip]'); if (el){ const r = el.getBoundingClientRect(); showTip(el, r.left + r.width/2, r.bottom); } });
+document.addEventListener('focusout', () => tip.style.opacity = 0);
+document.addEventListener('scroll', () => tip.style.opacity = 0, {passive:true});
+
+/* ---------- headline numbers */
+const H = P.hist, last = H[H.length-1], prev = H[H.length-2], prev2 = H[H.length-3];
+$('#stats').innerHTML = [
+  [B(P.act27.total), 'appropriated for ' + fyl(last.fy) + ', all funds'],
+  [M(P.act27.general,0), 'of it state general funds'],
+  [N(P.act27.fte), 'authorized positions'],
+  [B(P.fy25.actual.total), 'actually spent in FY2024-25'],
+].map(s => `<div class="stat"><div class="v">${s[0]}</div><div class="l">${s[1]}</div></div>`).join('');
+
+/* ---------- line chart: appropriations history (drawn at container width) */
+function lineChart(host, years, series, opts){
+  const el = $(host);
+  function draw(){
+    const W = el.clientWidth || 600, Hh = Math.max(230, Math.min(320, W*0.5)), m = {l:44,r:66,t:14,b:26};
+    const x0 = years[0], x1 = years[years.length-1];
+    const X = fy => m.l + (fy-x0)/(x1-x0)*(W-m.l-m.r);
+    const max = opts.max, Y = v => m.t + (1 - v/max)*(Hh-m.t-m.b);
+    let s = `<svg viewBox="0 0 ${W} ${Hh}" height="${Hh}" role="img" aria-label="${esc(opts.label)}">`;
+    for (let g = 0; g <= max; g += opts.step) s += `<line class="grid" x1="${m.l}" x2="${W-m.r}" y1="${Y(g)}" y2="${Y(g)}"/><text x="${m.l-8}" y="${Y(g)+4}" text-anchor="end">${opts.tick(g)}</text>`;
+    const every = W < 480 ? 2 : 1;
+    years.forEach((fy,i) => { if ((x1-fy) % every === 0 && fy >= x0) s += `<text x="${X(fy)}" y="${Hh-6}" text-anchor="middle">'${String(fy).slice(2)}</text>`; });
+    series.forEach(se => {
+      // break the line where a year is missing
+      let d = '', pen = false;
+      years.forEach(fy => { const v = se.data[fy]; if (v == null){ pen = false; return; } d += (pen ? 'L' : 'M') + X(fy).toFixed(1) + ' ' + Y(v).toFixed(1); pen = true; });
+      s += `<path d="${d}" fill="none" stroke="${se.color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+      const lf = Math.max(...years.filter(fy => se.data[fy] != null));
+      s += `<circle cx="${X(lf)}" cy="${Y(se.data[lf])}" r="4.5" fill="${se.color}" stroke="#fff" stroke-width="2"/><text class="v" x="${X(lf)+9}" y="${Y(se.data[lf])+4}">${opts.fmt(se.data[lf])}</text>`;
+    });
+    (opts.notes||[]).forEach(n => { s += `<text class="v" x="${X(n.fy)}" y="${Y(n.v)+(n.dy||16)}" text-anchor="middle">${n.text}</text>`; });
+    // hover columns: one hit target per year, crosshair + all series values
+    years.forEach(fy => {
+      const vals = series.filter(se => se.data[fy] != null);
+      if (!vals.length) return;
+      const tipHtml = `<b>${opts.xname(fy)}</b><br>` + vals.map(se => `${se.name}: <span class="mono">${opts.fmt(se.data[fy])}</span>`).join('<br>');
+      const w = (W-m.l-m.r)/(x1-x0);
+      s += `<g class="col" tabindex="0" data-tip="${esc(tipHtml)}"><rect x="${X(fy)-w/2}" y="${m.t}" width="${w}" height="${Hh-m.t-m.b}" fill="transparent"/><line class="xh" x1="${X(fy)}" x2="${X(fy)}" y1="${m.t}" y2="${Hh-m.b}" stroke="var(--muted)" stroke-width="1" opacity="0"/></g>`;
+    });
+    el.innerHTML = s + '</svg>';
+  }
+  draw(); addEventListener('resize', draw);
+}
+const style = document.createElement('style');
+style.textContent = 'g.col:hover .xh,g.col:focus .xh{opacity:.5} g.col{outline:none}';
+document.head.appendChild(style);
+
+const yrs = []; for (let y = H[0].fy; y <= last.fy; y++) yrs.push(y);
+const dT = {}, dG = {}; H.forEach(h => { dT[h.fy] = h.total/1e6; dG[h.fy] = h.general/1e6; });
+lineChart('#c-hist', yrs, [{name:'Total funds', color:'var(--s-fed)', data:dT},{name:'General funds', color:'var(--s-gen)', data:dG}],
+  {max:1200, step:300, tick:g => '$'+g, fmt:v => '$'+Math.round(v).toLocaleString()+'M', xname:fyl, label:'Line chart of total and general fund appropriations by fiscal year',
+   notes:[{fy:prev.fy, v:dT[prev.fy], text:'$'+Math.round(dT[prev.fy])+'M', dy:18}]});
+
+const fa = P.hand.fed_auth;
+$('#t-three').innerHTML = `General funds rose every year on the chart, from <b>${M(H[0].general)}</b> in ${fyl(H[0].fy)} to <b>${M(last.general)}</b> in ${fyl(last.fy)}. The total funds column did something else. It fell by <b>${M(prev2.total-prev.total,0)}</b> in ${fyl(prev.fy)}, while general funds went up, then rose by <b>${M(last.total-prev.total,0)}</b> a year later. Nearly all of that swing is federal and other-fund authorization: the non-general part of the act went from ${M(prev2.total-prev2.general,0)} to ${M(prev.total-prev.general,0)} to ${M(last.total-last.general,0)}.`;
+$('#t-three2').innerHTML = `The agency's own budget request explains the gap. It reports that the original federal authorization for ${fyl(prev.fy)} was <b>${M(fa.fy26_original)}</b> against projected federal spending of <b>${M(fa.fy26_projected,0)}</b>, that it had to obtain approval for another ${M(fa.approved_jul_aug_2025,0)} of authorization in the first eight weeks of the fiscal year, and that it was asking for <b>${M(fa.requested)}</b> more on a recurring basis.`;
+
+/* ---------- dumbbell rows: act vs actual */
+(function(){
+  const rows = P.fy25.pairs.slice(0,16), max = Math.max(...rows.map(r => Math.max(r.act,r.actual)));
+  const X = v => (100*v/max).toFixed(2);
+  $('#c-pairs').innerHTML = rows.map(r => {
+    const lo = Math.min(r.act,r.actual), hi = Math.max(r.act,r.actual), d = r.actual-r.act;
+    const t = `<b>${esc(r.name)}</b><br>Appropriated: <span class="mono">${M(r.act)}</span><br>Actual: <span class="mono">${M(r.actual)}</span><br>Difference: <span class="mono">${d>=0?'+':'−'}${M(Math.abs(d))}</span>`;
+    return `<div class="row" tabindex="0" data-tip="${esc(t)}"><div class="lab"><span>${esc(r.name)}</span><span class="n">${M(r.act,0)} → ${M(r.actual,0)}</span></div>
+      <div class="dumb"><div class="axisline" style="left:0"></div><div class="ln" style="left:${X(lo)}%;width:${(X(hi)-X(lo)).toFixed(2)}%"></div><div class="pt a" style="left:${X(r.act)}%"></div><div class="pt b" style="left:${X(r.actual)}%"></div></div></div>`;
+  }).join('');
+  const f = P.fy25, cc = f.pairs.find(r => r.name === 'Child Care'), gap = f.actual.total - f.act_total;
+  const it = f.pairs.find(r => r.name.startsWith('Information')), tanf = f.pairs.find(r => r.name.startsWith('TANF')), cs = f.pairs.find(r => r.name.startsWith('Child Support'));
+  $('#t-spent').innerHTML = `The act for FY2024-25 appropriated <b>${M(f.act_total)}</b>. The accountability report shows <b>${M(f.actual.total)}</b> spent, of which ${M(f.actual.federal,0)} was federal. One line explains more than the whole difference: child care was appropriated at ${M(cc.act)} and spent ${M(cc.actual)}, a gap of ${M(cc.actual-cc.act,0)} against an agency-wide gap of ${M(gap,0)}. Elsewhere the printed lines ran the other way. Information resource management was appropriated at ${M(it.act)} and spent ${M(it.actual)}; TANF case services at ${M(tanf.act)} and ${M(tanf.actual)}; child support enforcement at ${M(cs.act)} and ${M(cs.actual)}.`;
+})();
+
+/* ---------- ten-year growth */
+(function(){
+  const g = P.growth, rows = g.rows.map(r => ({...r, d:r.to-r.from})).sort((a,b) => b.d-a.d), max = Math.max(...rows.map(r => r.d));
+  const h0 = H.find(h => h.fy === g.from_fy), h1 = H.find(h => h.fy === g.to_fy);
+  $('#ct-growth').textContent = `Where the added ${M(g.g1-g.g0,0)} went, ${fyl(g.from_fy)} to ${fyl(g.to_fy)}`;
+  $('#c-growth').innerHTML = rows.map(r => {
+    const t = `<b>${esc(r.area)}</b><br>${fyl(g.from_fy)}: <span class="mono">${M(r.from)}</span><br>${fyl(g.to_fy)}: <span class="mono">${M(r.to)}</span><br>Added: <span class="mono">${M(r.d)}</span>`;
+    return `<div class="row" tabindex="0" data-tip="${esc(t)}"><div class="lab"><span>${esc(r.area)} <small>${M(r.from,0)} → ${M(r.to,0)}</small></span><span class="n">+${M(r.d)}</span></div><div class="track"><div class="bar" style="left:0;width:${(100*r.d/max).toFixed(2)}%"></div></div></div>`;
+  }).join('');
+  const fc = rows.find(r => r.area === 'Foster care'), cps = rows.find(r => r.area.startsWith('Child protective')), et = rows.find(r => r.area.startsWith('Employment'));
+  $('#t-decade').innerHTML = `In ${fyl(g.from_fy)} the act gave the department <b>${M(g.g0)}</b> in general funds and ${N(h0.fte)} authorized positions. In ${fyl(g.to_fy)} it gives <b>${M(g.g1)}</b> and ${N(h1.fte)} positions. General funds grew <b>${pct(g.g1,g.g0)} percent</b>; positions grew ${pct(h1.fte,h0.fte)} percent.`;
+  $('#t-decade2').innerHTML = `Child welfare took the largest share. Foster care and child protective services together added ${M(fc.d+cps.d,0)}, in the decade after a federal court approved the Michelle H. settlement over the state's foster care system in October 2016. The newest line of growth is different in kind: employment, training and TANF rose from ${M(et.from)} to ${M(et.to)}, most of it in the latest act, the year the federal government shifted a larger share of food assistance administration to the states.`;
+})();
+
+/* ---------- request + Form E */
+(function(){
+  const R = P.hand.request, big = R.find(r => r.p === 7), rest = R.filter(r => r.p !== 7), max = Math.max(...rest.map(r => r.state+r.federal));
+  $('#c-req').innerHTML = rest.map(r => {
+    const t = `<b>Priority ${r.p}: ${esc(r.title)}</b><br>${r.kind}<br>State: <span class="mono">${M(r.state)}</span><br>Federal: <span class="mono">${M(r.federal)}</span>${r.fte?`<br>New positions: <span class="mono">${r.fte}</span>`:''}`;
+    const ws = 100*r.state/max, wf = 100*r.federal/max;
+    return `<div class="row" tabindex="0" data-tip="${esc(t)}"><div class="lab"><span>${r.p}. ${esc(r.title)} <small>${r.kind.toLowerCase()}</small></span><span class="n">${M(r.state)}</span></div>
+      <div class="track"><div class="seg" style="left:0;width:${ws.toFixed(2)}%;background:var(--s-gen)"></div><div class="seg" style="left:calc(${ws.toFixed(2)}% + 2px);width:${wf.toFixed(2)}%;background:var(--s-fed);border-radius:0 4px 4px 0"></div></div></div>`;
+  }).join('') + `<div class="row" tabindex="0" data-tip="${esc(`<b>Priority 7: Federal authorization increase</b><br>Federal: <span class="mono">${M(big.federal)}</span><br>No state funds. Drawn off-scale: it is ${(big.federal/max).toFixed(0)} times the largest bar above.`)}"><div class="lab"><span>7. ${esc(big.title)} <small>not to scale</small></span><span class="n">${M(big.federal)} federal</span></div>
+      <div class="track"><div class="seg" style="left:0;width:100%;background:repeating-linear-gradient(135deg,var(--s-fed) 0 6px,#E7C876 6px 10px);border-radius:0 4px 4px 0"></div></div></div>`;
+  const st = R.reduce((a,r) => a+r.state, 0), dg = last.general - prev.general, dn = (last.total-last.general) - (prev.total-prev.general);
+  $('#t-asked').innerHTML = `The request came to <b>${M(st)}</b> in state funds across six priorities, plus the federal authorization increase. The ratified act raised the department's recurring general funds by <b>${M(dg)}</b> over the prior year and its federal and other authorization by <b>${M(dn,0)}</b>. One-time items such as the eligibility system replacement are appropriated outside Section 38 and are not in that comparison.`;
+  const E = P.hand.form_e, emax = Math.max(...E.items.map(i => i.amount));
+  $('#cs-forme').textContent = `Form E, ${M(E.total)} in general funds and ${E.fte} positions.`;
+  $('#c-forme').innerHTML = E.items.map(i => `<div class="row" tabindex="0" data-tip="${esc(`<b>${i.label}</b><br><span class="mono">${M(i.amount,2)}</span>, ${Math.round(100*i.amount/E.total)}% of the plan`)}"><div class="lab"><span>${esc(i.label)}</span><span class="n">${M(i.amount,2)}</span></div><div class="track"><div class="bar" style="left:0;width:${(100*i.amount/emax).toFixed(2)}%"></div></div></div>`).join('');
+  $('#t-vacant').innerHTML = `Two public figures bear on the vacancy line. The ${fyl(prev.fy)} act authorized ${N(prev.fte)} positions. In January 2026 the agency told the House budget subcommittee it employs more than ${N(P.hand.employees)} people. The two counts are not kept on the same basis, but the distance between them is about ${N(Math.round((prev.fte-P.hand.employees)/10)*10)}. Which of those positions are funded, and from which source, is not in any public document.`;
+})();
+
+/* ---------- SNAP error rates: strip plot + calculator */
+const tier = r => r < 6 ? 0 : r < 8 ? 5 : r < 10 ? 10 : 15;
+(function(){
+  const S = P.per.states, sn = P.hand.snap, el = $('#c-per');
+  function draw(){
+    const W = el.clientWidth || 600, Hh = 196, m = {l:10,r:10,t:26,b:56}, lo = 2, hi = 24; let scMark = '';
+    const X = v => m.l + (v-lo)/(hi-lo)*(W-m.l-m.r);
+    const bands = [[lo,6,'0%','#EEF3EC'],[6,8,'5%','#F6EFD9'],[8,10,'10%','#F1E2B8'],[10,hi,'15%','#EBD49A']];
+    let s = `<svg viewBox="0 0 ${W} ${Hh}" height="${Hh}" role="img" aria-label="Strip plot of SNAP payment error rates by state">`;
+    bands.forEach(b => { s += `<rect x="${X(b[0])}" y="${m.t}" width="${X(b[1])-X(b[0])-2}" height="${Hh-m.t-m.b}" fill="${b[3]}" rx="3"/><text x="${(X(b[0])+X(b[1]))/2}" y="${m.t-8}" text-anchor="middle">${W<420&&b[2]==='5%'?'5%':b[2]+(b[2]==='0%'?' share':'')}</text>`; });
+    [2,6,10,15,20].forEach(v => s += `<text x="${X(v)}" y="${Hh-m.b+14}" text-anchor="middle">${v}%</text>`);
+    // dodge dots vertically so near-equal rates do not hide each other
+    const placed = [], cy0 = m.t + (Hh-m.t-m.b)/2;
+    S.forEach(d => {
+      const x = X(Math.min(d.per, hi-0.3)); let k = 0, y = cy0;
+      while (placed.some(p => Math.abs(p.x-x) < 9 && Math.abs(p.y-y) < 9)){ k++; y = cy0 + (k%2?1:-1)*Math.ceil(k/2)*9.5; }
+      placed.push({x,y});
+      const isSC = d.state === 'South Carolina';
+      const t = `<b>${esc(d.state)}</b><br>Error rate: <span class="mono">${d.per.toFixed(2)}%</span><br>Over: <span class="mono">${d.over.toFixed(2)}%</span> · Under: <span class="mono">${d.under.toFixed(2)}%</span><br>Share of benefits at this rate: <span class="mono">${tier(d.per)}%</span>`;
+      const c = `<circle tabindex="0" data-tip="${esc(t)}" cx="${x}" cy="${y}" r="${isSC?7:4.5}" fill="${isSC?'var(--pine)':'#8E9A8C'}" stroke="#fff" stroke-width="2"/>`;
+      if (isSC) scMark = `<line x1="${x}" x2="${x}" y1="${y+8}" y2="${Hh-m.b+16}" stroke="var(--pine)" stroke-width="1.5"/>` + c + `<text class="v" x="${x}" y="${Hh-m.b+29}" text-anchor="middle" style="font-weight:500">South Carolina ${d.per.toFixed(2)}%</text>`;
+      else s += c;
+    });
+    el.innerHTML = s + scMark + '</svg>';
+  }
+  draw(); addEventListener('resize', draw);
+  $('#n-per').innerHTML = `South Carolina ranks ${P.per.sc_rank} of ${P.per.n}, lowest rate first. ${P.per.below6} states and territories were under six percent. The national rate was ${P.per.national}%.`;
+  $('#t-snap').innerHTML = `The department issues about <b>$1.4 billion</b> a year in federal food assistance to roughly ${N(sn.people)} people. Under the 2025 federal budget law, a state whose payment error rate is six percent or higher pays a share of those benefits beginning October 1, 2027: five percent of the cost at a rate of six to eight percent, ten percent from eight to ten, fifteen percent above that. South Carolina's rate was ${sn.per_fy24}% in federal fiscal year 2024 and <b>${sn.per_fy25.toFixed(2)}%</b> in 2025. For the first year a state may use its 2025 or 2026 rate.`;
+  const sl = $('#perSlider');
+  function upd(){
+    const r = +sl.value, sh = tier(r), cost = sn.benefits*sh/100;
+    $('#perVal').textContent = r.toFixed(1) + '%';
+    $('#o-share').textContent = sh + '%';
+    $('#o-cost').textContent = cost ? M(cost,0) : '$0';
+    $('#o-rel').textContent = Math.round(100*cost/P.act27.general) + '%';
+  }
+  sl.addEventListener('input', upd); upd();
+  $('#t-snap2').innerHTML = `The agency's request put the exposure at ${M(sn.dss_low,0)} to ${M(sn.dss_high,0)} a year, set against ${M(P.act27.general,0)} in general funds for everything it does. A separate change is already in effect: since October 1, 2026 states pay 75 percent of the cost of administering the program, up from 50. The agency priced that at <b>${M(sn.admin_share_cost)}</b> a year and reports that more than ${N(sn.employees_on_snap_admin)} of its employees are paid in part from that funding. One thing the record does not show: the phrase "payment error rate" appears nowhere in the agency's 2025 accountability report, and it is not among the measures the agency reports to the General Assembly.`;
+})();
+
+/* ---------- scorecards */
+(function(){
+  const Ms = P.measures, pill = m => m === true ? '<span class="pill met"><i>●</i>Met</span>' : m === false ? '<span class="pill miss"><i>▲</i>Missed</span>' : '<span class="pill na"><i>○</i>Not scored</span>';
+  $('#cs-meas').textContent = `${Ms.n} measures: ${Ms.met} met, ${Ms.missed} missed, ${Ms.n-Ms.met-Ms.missed} reported without a comparable target.`;
+  const short = d => { d = d.replace(/^South Carolina's current IV-D State Plan.*$/,'Child support state plan compliance item'); return d.length > 96 ? d.slice(0,94).replace(/\s+\S*$/,'') + '…' : d; };
+  $('#tb-meas tbody').innerHTML = Ms.rows.map(m => `<tr><td>${esc(short(m.desc))}</td><td class="r">${esc(m.target)}</td><td class="r">${esc(m.actual)}</td><td>${pill(m.met)}</td></tr>`).join('');
+  const sh = Math.round(100*Ms.dollars_tied/Ms.dollars_total);
+  $('#t-scored').innerHTML = `The accountability report lists <b>${Ms.n} performance measures</b> for an agency that spent ${M(Ms.dollars_total,0)}. Each measure names the programs it speaks for. Programs tied to at least one measure account for <b>${sh} percent</b> of spending. The rest, including every foster care and adoption line, carries no measure in the report.`;
+  const mh = P.hand.michelle_h;
+  $('#cs-mh').textContent = `Share of staff, as of ${mh.as_of}. The settlement requires ${mh.required} percent.`;
+  $('#c-mh').innerHTML = mh.rows.map(r => `<div class="row" tabindex="0" data-tip="${esc(`<b>${r.label}</b><br>Within limit: <span class="mono">${r.pct}%</span><br>Required: <span class="mono">${mh.required}%</span>`)}"><div class="lab"><span>${esc(r.label)}</span><span class="n">${r.pct}%</span></div><div class="track"><div class="bar" style="left:0;width:${r.pct}%"></div><div class="axisline" style="left:${mh.required}%;background:var(--ink);width:2px"></div></div></div>`).join('') + `<div class="note" style="margin-top:8px">The dark line marks ${mh.required} percent.</div>`;
+  $('#tb-lac tbody').innerHTML = P.hand.lac.map(l => `<tr><td class="mono" style="width:56px;font-size:13px">${l.year}</td><td>${esc(l.topic)}</td></tr>`).join('');
+  $('#t-scored2').innerHTML = `Those gaps are filled from outside. Court-appointed monitors publish twice a year on foster care; their latest report found ${mh.positions_filled} percent of child welfare positions filled. The Legislative Audit Council's June 2026 review of child care licensing found that the time from application to a provisional license ranged from 6 to 614 days in its sample, with a median of 121, and that the agency was not tracking it. The federal government measures food assistance accuracy every year. None of these appear alongside the dollars in any one place.`;
+})();
+
+/* ---------- programs */
+(function(){
+  const A = P.aar, rows = A.programs.slice(0,14), max = rows[0].total;
+  $('#c-prog').innerHTML = rows.map(r => {
+    const t = `<b>${esc(r.title)}</b><br>General: <span class="mono">${M(r.general)}</span><br>Federal: <span class="mono">${M(r.federal)}</span><br>Other: <span class="mono">${M(r.other)}</span><br>Total: <span class="mono">${M(r.total)}</span>`;
+    let x = 0; const seg = (v,c,lastOne) => { const w = 100*v/max; const h = v > 0 ? `<div class="seg" style="left:calc(${x.toFixed(2)}% + ${x?2:0}px);width:calc(${w.toFixed(2)}% - ${x?2:0}px);background:${c}"></div>` : ''; x += w; return h; };
+    return `<div class="row" tabindex="0" data-tip="${esc(t)}"><div class="lab"><span>${esc(r.title)}</span><span class="n">${M(r.total)}</span></div><div class="track">${seg(r.general,'var(--s-gen)')}${seg(r.federal,'var(--s-fed)')}${seg(r.other,'var(--s-oth)')}</div></div>`;
+  }).join('');
+  const cc = A.programs[0], tot = P.fy25.actual.total;
+  $('#t-prog').innerHTML = `The department lists <b>${A.n} state funded programs</b>. ${A.blank} of them show no spending, most of them one-time items from earlier years that remain on the list. Child care is ${Math.round(100*cc.total/tot)} percent of the total and almost entirely federal. The second largest program is not a service at all: <b>${M(A.benefits)}</b> of employer contributions is reported as its own line, so every staffed program beside it is understated by the cost of its people's benefits. Juvenile Justice reports the same way.`;
+  $('#ct-ear').textContent = `${A.earmarks.length} special line items naming a recipient, ${M(A.earmark_total)} in all`;
+  $('#tb-ear tbody').innerHTML = A.earmarks.map(e => `<tr><td>${esc(e.title)}</td><td class="r">$${N(e.total)}</td></tr>`).join('');
+})();
+
+/* ---------- provisos */
+(function(){
+  const V = P.provisos, n = V.rows.length, old = V.rows.filter(r => r.first_fy <= V.window_start).length, gmax = Math.max(...V.groups.map(g => g.n));
+  $('#t-rules').innerHTML = `Section 38 carries <b>${n} provisos</b> in the current act. <b>${old}</b> of them were already in the ${fyl(V.window_start)} act, the earliest checked here. One holds child care staffing ratios at their June 24, 2008 levels, setting a regulation aside one year at a time. Another sets the monthly foster care board rate in the budget itself.`;
+  $('#c-pgroups').innerHTML = V.groups.slice().sort((a,b) => b.n-a.n).map(g => `<div class="row" tabindex="0" data-tip="${esc(`<b>${g.group}</b><br>${V.rows.filter(r => r.group === g.group).map(r => r.no + ' ' + r.title).join('<br>')}`)}"><div class="lab"><span>${esc(g.group)}</span><span class="n">${g.n}</span></div><div class="track"><div class="bar" style="left:0;width:${100*g.n/gmax}%"></div></div></div>`).join('');
+  $('#c-provs').innerHTML = V.rows.map(r => `<details><summary><span class="no">${r.no}</span><span>${esc(r.title)}</span><span class="yr">${r.first_fy <= V.window_start ? fyl(V.window_start) + ' or earlier' : 'since ' + fyl(r.first_fy)}</span></summary><p>${esc(r.text)}${r.text.length >= 420 ? '…' : ''}</p><p style="font-size:12.5px">${esc(r.group)} · ${r.words} words</p></details>`).join('');
+})();
+
+/* ---------- Comptroller General history (only when the crawl produced it) */
+(function(){
+  if (!P.cg_hist || P.cg_hist.length < 6) return;
+  $('#checks').hidden = false; $('#toc-checks').hidden = false; $('#src-cg').hidden = false;
+  const Hc = P.cg_hist.slice().sort((a,b) => a.fy-b.fy), names = {};
+  Hc.forEach(h => Object.entries(h.cats).forEach(([k,v]) => names[k] = (names[k]||0)+v));
+  const top = Object.entries(names).sort((a,b) => b[1]-a[1]).slice(0,3).map(e => e[0]);
+  const cols = ['var(--s-gen)','var(--s-fed)','var(--s-oth)'], nice = s => s.charAt(0) + s.slice(1).toLowerCase();
+  const years = Hc.map(h => h.fy), series = top.map((k,i) => ({name:nice(k), color:cols[i], data:Object.fromEntries(Hc.map(h => [h.fy, (h.cats[k]||0)/1e6]))}));
+  const mx = Math.max(...series.flatMap(s => Object.values(s.data))), step = mx > 800 ? 300 : mx > 400 ? 200 : 100;
+  $('#lg-cg').innerHTML = series.map(s => `<span><i class="sw" style="background:${s.color}"></i>${esc(s.name)}</span>`).join('');
+  lineChart('#c-cg', years, series, {max:Math.ceil(mx/step)*step, step, tick:g => '$'+g, fmt:v => '$'+Math.round(v).toLocaleString()+'M', xname:fyl, label:'Line chart of payments by category and fiscal year'});
+  const f = Hc[0], l = Hc[Hc.length-1], pk = Hc.reduce((a,b) => b.total > a.total ? b : a);
+  const al = (P.cg25_alloc||[]).filter(o => /PRIVATE SECTOR/.test(o.name)).reduce((a,o) => a+o.amount, 0);
+  $('#t-cg').innerHTML = `Recorded payments were <b>${M(f.total,0)}</b> in ${fyl(f.fy)} and <b>${M(l.total,0)}</b> in ${fyl(l.fy)}. Payments rose ${pct(l.total, Hc[Hc.length-2].total)} percent in the latest year alone.${al ? ` Allocations, which were under $30 million a year before 2021, are payments passed to other organizations; in ${fyl(l.fy)} <b>${M(al,0)}</b> of them went to the private sector.` : ''} Salaries are paid through a separate system and are absent, which is why these totals sit below the agency's full spending. The series is useful for its shape: which kinds of payment grew, and when.`;
+})();
+
+/* ---------- request list */
+$('#asklist').innerHTML = [
+  ['The federally approved cost allocation plan and its latest quarterly results', 'how each position is split across federal and state funds'],
+  ['Federal grant status by award: amount, drawn, obligated, unspent', 'child care, TANF, Title IV-E, child support, SNAP administration'],
+  ['Each federal authorization increase requested since July 2024, with the approval', 'what the act does not print'],
+  ['The SNAP corrective action plan and monthly error findings by cause and county', 'the measurement behind the benefit cost share'],
+  ['Filled and vacant positions by program, county and fund source, with months vacant', 'the list behind the vacancy line in Form E'],
+  ['The contract register: vendor, purpose, amount, term, fund source, procurement method', 'the list behind the contract line in Form E'],
+  ['Spending by internal cost center and program, FY2022-23 to date', 'puts employee benefits back with the programs that earn them'],
+  ['The eligibility system replacement: total budget, spent to date, schedule, independent reviews', 'the largest one-time item in the request'],
+  ['Annual cost attributed to the Michelle H. settlement, including monitoring', 'how much of the decade of growth it accounts for'],
+  ['Year-end balances and carry-forward by fund', 'what other-fund accounts hold'],
+].map(a => `<li><b>${a[0]}.</b> <span style="color:var(--muted)">${a[1].charAt(0).toUpperCase()+a[1].slice(1)}.</span></li>`).join('');
+</script>
+</body>
+</html>
